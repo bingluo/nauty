@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="COMMENTS">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="comment" type="cn.seu.bingluo.entity.CommentPojo" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="CommentResultMap" class="comment">
+		<result property="commentId" column="COMMENTID"/>
+		<result property="userName" column="USERNAME"/>
+		<result property="commentUserId" column="COMMENTUSERID"/>
+		<result property="content" column="CONTENT"/>
+		<result property="blogId" column="BLOG_ID"/>
+		<result property="toType" column="TO_TYPE"/>
+		<result property="toId" column="TOID"/>
+		<result property="postTime" column="POSTTIME"/>
+	</resultMap>
+
+	<select id="selectCommentsByBlogIdAndBaseAndRank" resultMap="CommentResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM(
+			SELECT a.commentId,b.USERNAME,a.commentUserId,a.content,a.BLOG_ID,a.TO_TYPE,a.toId,a.postTime
+			FROM comments a,users b
+			WHERE a.toId = #id# AND a.TO_TYPE = '0' AND a.commentUserId = b.userId
+			ORDER BY postTime ASC) c
+		limit #base#,#range#
+		]]>
+	</select>
+
+	<select id="selectCommentsByCommentedId" resultMap="CommentResultMap" parameterClass="long">
+		<![CDATA[
+		SELECT a.commentId,b.USERNAME,a.commentUserId,a.content,a.BLOG_ID,a.TO_TYPE,a.toId,a.postTime
+		FROM comments a,users b
+		WHERE a.toId = #value# AND a.TO_TYPE = '1' AND a.commentUserId = b.userId
+		ORDER BY postTime ASC
+		]]>
+	</select>
+
+	<insert id="insertComment" parameterClass="comment">
+		<![CDATA[
+		INSERT INTO COMMENTS
+		(commentUserId,content,BLOG_ID,TO_TYPE,toId,postTime)
+		VALUES (#commentUserId#,#content#,#blogId#,#toType#,#toId#,current_timestamp())
+		]]>
+	</insert>
+
+	<delete id="deleteComment" parameterClass="long">
+		<![CDATA[
+		DELETE FROM COMMENTS
+		WHERE commentId = #value#
+		]]>
+	</delete>
+
+	<select id="selectLatestComment" resultMap="CommentResultMap">
+		<![CDATA[
+		SELECT * FROM
+			(SELECT a.commentId,b.USERNAME,a.commentUserId,a.content,a.BLOG_ID,a.TO_TYPE,a.toId,a.postTime
+			FROM COMMENTS a,USERS b
+			WHERE a.commentUserId = b.userId
+			ORDER BY a.postTime DESC) c
+		limit 0,5
+		]]>
+	</select>
+</sqlMap>

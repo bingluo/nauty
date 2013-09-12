@@ -1,0 +1,8 @@
+com.caucho.server.resin.Resin
+
+-conf "G:\文档\EclipseWorkspace\MyBlog\src\resin.conf"
+
+-Dresin.home="D:/resin-pro-3.1.10"
+-Djava.util.logging.manager=com.caucho.log.LogManagerImpl
+
+/resin/lib文件夹下所有lib加入

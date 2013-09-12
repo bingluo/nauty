@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="FOLDERS">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="folder" type="cn.seu.bingluo.entity.FolderPojo" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="FolderResultMap" class="folder">
+		<result property="folderId" column="FOLDERID"/>
+		<result property="folderName" column="FOLDERNAME"/>
+		<result property="addTime" column="ADD_TIME"/>
+		<result property="blogCount" column="BLOG_COUNT"/>
+	</resultMap>
+
+	<insert id="insertFolder" parameterClass="folder">
+		<![CDATA[
+		INSERT INTO FOLDERS
+		folderName,ADD_TIME
+		VALUES (#folderName#,current_timestamp())
+		]]>
+		<selectKey resultClass="long" keyProperty="FOLDERID">
+			select last_insert_id() as ID from FOLDERS limit 1
+		</selectKey>
+	</insert>
+
+	<delete id="deleteFolderById" parameterClass="long">
+		<![CDATA[
+		DELETE FROM FOLDERS
+		WHERE folderId = #value#
+		]]>
+	</delete>
+
+	<select id="selectAllFolders" resultMap="FolderResultMap">
+		<![CDATA[
+		SELECT folderId,folderName,ADD_TIME,BLOG_COUNT
+		FROM FOLDERS
+		]]>
+	</select>
+
+	<select id="selectFolderById" resultMap="FolderResultMap" parameterClass="long">
+		<![CDATA[
+		SELECT folderId,folderName,ADD_TIME,BLOG_COUNT
+		FROM FOLDERS
+		WHERE folderId = #value#
+		]]>
+	</select>
+
+	<select id="selectFolderByName" resultMap="FolderResultMap" parameterClass="java.lang.String">
+		<![CDATA[
+		SELECT folderId,folderName,ADD_TIME,BLOG_COUNT
+		FROM FOLDERS
+		WHERE folderName = #value#
+		]]>
+	</select>
+</sqlMap>

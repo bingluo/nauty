@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.2.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<import resource="classpath:config.xml" />
+
+	<mvc:resources mapping="/static/**" location="/static/"/>
+	<!-- also add the following beans to get rid of some exceptions -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+	<bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="/WEB-INF/velocity/" /><!-- 設置模板放置位置-->
+		<property name="configLocation"
+				  value="/WEB-INF/spring-mvc/velocity.properties"/>
+	</bean>
+
+	<!-- 设置视图解析工具 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="suffix" value=".vm" />
+		<!-- 避免乱码 -->
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="toolboxConfigLocation" value="/WEB-INF/spring-mvc/velocity-tools.xml" />
+		<!-- 配置工具类 -->
+        <property name="viewClass"
+            value="cn.seu.cose.view.velocity.VelocityLayoutView" />
+    </bean>
+</beans>

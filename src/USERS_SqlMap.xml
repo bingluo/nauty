@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="USERS">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="user" type="cn.seu.bingluo.entity.User" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="UserResultMap" class="user">
+		<result property="userId" column="USERID"/>
+		<result property="userName" column="USERNAME"/>
+		<result property="password" column="PASSWORD"/>
+		<result property="avatarUrl" column="AVATARURL"/>
+		<result property="intro" column="INTRO"/>
+		<result property="addTime" column="ADD_TIME"/>
+		<result property="updateTime" column="UPDATE_TIME"/>
+	</resultMap>
+
+	<!-- 根据ID获取供应商 -->
+	<select id="selectUserById" resultMap="UserResultMap" parameterClass="long">
+		<![CDATA[
+		SELECT userId,userName,password,avatarUrl,intro,ADD_TIME,UPDATE_TIME
+		FROM USERS
+		WHERE userId=#value#
+		]]>
+	</select>
+
+	<insert id="insertUser" parameterClass="user">
+		<![CDATA[
+		INSERT INTO USERS
+		(userName,password,avatarUrl,intro,ADD_TIME,UPDATE_TIME)
+		values (#userName#,#password#,#avatarUrl#,#intro#,current_timestamp(),current_timestamp())
+		]]>
+		<selectKey resultClass="long" keyProperty="userId" >
+			select last_insert_id() as id from USERS limit 1
+		</selectKey>
+	</insert>
+
+	<delete id="deleteUserById" parameterClass="long">
+		<![CDATA[
+		DELETE FROM USERS
+		WHERE userId = #value#
+		]]>
+	</delete>
+
+	<update id="updateAvatar" parameterClass="user">
+		<![CDATA[
+		UPDATE USERS
+		SET avatarUrl = #avatarUrl#,UPDATE_TIME = current_timestamp()
+		WHERE userId = #userId#
+		]]>
+	</update>
+
+	<update id="updateIntro" parameterClass="user">
+		<![CDATA[
+		UPDATE USERS
+		SET intro = #intro#,UPDATE_TIME = current_timestamp()
+		WHERE userId = #userId#
+		]]>
+	</update>
+
+	<update id="updatePassword" parameterClass="user">
+		<![CDATA[
+		UPDATE USERS
+		SET password = #password#,UPDATE_TIME = current_timestamp()
+		WHERE userId = #userId#
+		]]>
+	</update>
+
+	<select id="selectUserByNameAndPswd" parameterClass="java.util.Map" resultMap="UserResultMap">
+		<![CDATA[
+		SELECT userId,userName,password,avatarUrl,intro,ADD_TIME,UPDATE_TIME
+		FROM USERS
+		WHERE userName=#userName# AND password = #password#
+		]]>
+	</select>
+</sqlMap>
