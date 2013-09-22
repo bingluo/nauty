@@ -3,32 +3,11 @@
  PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>cn.seu.bingluo.filter.EncodingFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter>
-		<filter-name>initBaseInfoFilter</filter-name>
-		<filter-class>cn.seu.bingluo.filter.InitBaseInfoFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>initBaseInfoFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
-	<listener>
-	      <listener-class>cn.seu.bingluo.listener.InitSystemListener</listener-class>
-	</listener>
-
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
-			<description>å è½½/WEB-INF/spring-mvc/ç®å½ä¸çææXMLä½ä¸ºSpring MVCçéç½®æä»¶</description>
+			<description></description>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring-mvc/application-view.xml</param-value>
 		</init-param>
