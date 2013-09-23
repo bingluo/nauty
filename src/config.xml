@@ -7,11 +7,13 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
+
     <!-- 使Spring支持自动检测组件，如注解的Controller -->
+	<context:component-scan base-package="cn.seu.cose.controller" />
+<!--
 	<context:annotation-config />
 	<context:component-scan base-package="cn.seu.bingluo.dao" />
 	<context:component-scan base-package="cn.seu.bingluo.service" />
-	<context:component-scan base-package="cn.seu.bingluo.controller" />
 	<context:component-scan base-package="cn.seu.bingluo.filter" />
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -28,4 +30,5 @@
 
 	<bean id="tagService" class="cn.seu.bingluo.service.TagService" />
 	<bean id="userService" class="cn.seu.bingluo.service.UserService" />
+-->
 </beans>
