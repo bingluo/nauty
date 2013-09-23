@@ -1,5 +1,5 @@
 package cn.seu.cose.util;
-
+//888
 public class LinkTool {
 	private static String DOMAIN = "http://localhost/";
 
