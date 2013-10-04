@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="CATEGORY">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="category" type="cn.seu.cose.entity.Category" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="CategoryResultMap" class="category">
+		<result property="id" column="ID"/>
+		<result property="catName" column="CAT_NAME"/>
+		<result property="catLevel" column="CAT_LEVEL"/>
+		<result property="parentCatId" column="PARENT_CAT_ID"/>
+		<result property="exclusiveArticle" column="EXCLUSIVE_ARTICLE"/>
+	</resultMap>
+
+	<select id="selectCategoryByParentCatId" resultMap="CategoryResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM CATEGORY WHERE parent_cat_id=#value#
+		]]>
+	</select>
+</sqlMap>

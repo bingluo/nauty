@@ -11,9 +11,9 @@
      maxTransactions="5"
      useStatementNamespaces="true"
     />
-	<sqlMap resource="USERS_SqlMap.xml" />
-	<sqlMap resource="BLOGS_SqlMap.xml" />
-	<sqlMap resource="COMMENTS_SqlMap.xml" />
-	<sqlMap resource="FOLDERS_SqlMap.xml" />
-	<sqlMap resource="TAGS_SqlMap.xml" />
+	<sqlMap resource="ARTICLE_SqlMap.xml" />
+	<sqlMap resource="ADMIN_SqlMap.xml" />
+	<sqlMap resource="SLIDE_SqlMap.xml" />
+	<sqlMap resource="CATEGORY_SqlMap.xml" />
+	<sqlMap resource="UPLOAD_SqlMap.xml" />
 </sqlMapConfig>

@@ -6,3 +6,8 @@
 /cn
 /config.xml
 /sqlMapConfig.xml
+/ARTICLE_SqlMap.xml
+/ADMIN_SqlMap.xml
+/CATEGORY_SqlMap.xml
+/SLIDE_SqlMap.xml
+/UPLOAD_SqlMap.xml

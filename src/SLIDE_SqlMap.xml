@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SLIDE">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="slide" type="cn.seu.cose.entity.Slide" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="SlideResultMap" class="slide">
+		<result property="id" column="ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="articleId" column="ARTICLE_ID"/>
+		<result property="picName" column="PIC_NAME"/>
+		<result property="updateTime" column="UPDATE_TIME"/>
+	</resultMap>
+
+	<select id="selectSlide" resultMap="SlideResultMap">
+		<![CDATA[
+			SELECT * FROM SLIDE ORDER BY update_time DESC
+		]]>
+	</select>
+
+	<insert id="insertSlide" parameterClass="slide">
+		<![CDATA[
+		INSERT INTO SLIDE
+		(title,article_id,pic_name,update_time)
+		VALUES (#title#,#articleId#,#picName#,current_timestamp())
+		]]>
+	</insert>
+
+	<update id="updateSlide" parameterClass="slide">
+		<![CDATA[
+		UPDATE SLIDE
+		SET	title = #title#,
+			article_id = #articleId#,
+			pic_name = #picName#,
+			update_time = #updateTime#
+		WHERE id = #id#
+		]]>
+	</update>
+	
+	<delete id="deleteSlideById" parameterClass="int">
+		<![CDATA[
+		delete from Slide where ID = #value#
+		]]>
+	</delete>
+</sqlMap>

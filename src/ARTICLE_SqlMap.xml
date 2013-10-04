@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ARTICLE">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="article" type="cn.seu.cose.entity.Article" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="ArticleResultMap" class="article">
+		<result property="id" column="ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="subhead" column="SUBHEAD" nullValue=""/>
+		<result property="catId" column="CAT_ID"/>
+		<result property="content" column="CONTENT" nullValue=""/>
+		<result property="from" column="FROM" nullValue="未知"/>
+		<result property="postTime" column="POST_TIME"/>
+	</resultMap>
+
+	<select id="selectArticleById" resultMap="ArticleResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM ARTICLE WHERE id=#value#
+		]]>
+	</select>
+	
+	<select id="selectArticleByCatIdAndBaseAndRange" resultMap="ArticleResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.content,b.from,a.post_time
+			 FROM ARTICLE a
+			 WHERE a.cat_id = #catId#
+			 ORDER BY a.post_time DESC) b
+		limit #base#,#range#
+		]]>
+	</select>
+	
+	<select id="selectCountByCatId" resultClass="int" parameterClass="int">
+		<![CDATA[
+		SELECT count(id) FROM ARTICLE WHERE cat_id=#value#
+		]]>
+	</select>
+
+	<insert id="insertArticle" parameterClass="article">
+		<![CDATA[
+		INSERT INTO ARTICLE
+		(title,subhead,cat_Id,content,from,post_time)
+		VALUES (#title#,#subhead#,#catId#,#content#,#from#,current_timestamp())
+		]]>
+		<selectKey resultClass="int" keyProperty="id">
+			select last_insert_id() as ID from ARTICLE limit 1
+		</selectKey>
+	</insert>
+
+	<update id="updateArticle" parameterClass="article">
+		<![CDATA[
+		UPDATE ARTICLE
+		SET	title = #title#,
+			subhead = #subhead#,
+			content = #content#,
+			cat_id = #catId#,
+			from = #from#
+		WHERE id = #id#
+		]]>
+	</update>
+	
+	<delete id="deleteArticleById" parameterClass="int">
+		<![CDATA[
+		delete from Article where ID = #value#
+		]]>
+	</delete>
+</sqlMap>
