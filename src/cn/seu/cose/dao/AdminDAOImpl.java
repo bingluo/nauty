@@ -20,11 +20,11 @@ public class AdminDAOImpl extends SqlMapClientDaoSupport implements AdminDAO {
 	}
 
 	@Override
-	public AdminDAO getAdmin(String username, String pswd) {
+	public Admin getAdmin(String username, String pswd) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("username", username);
 		map.put("password", pswd);
-		return (AdminDAO) getSqlMapClientTemplate().queryForObject(
+		return (Admin) getSqlMapClientTemplate().queryForObject(
 				"ADMIN.selectAdminByNameAndPswd", map);
 	}
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="UPLOAD">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="upload" type="cn.seu.cose.entity.Upload" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="UploadResultMap" class="upload">
+		<result property="id" column="ID"/>
+		<result property="initialName" column="INITIAL_NAME"/>
+		<result property="uploadName" column="UPLOAD_NAME"/>
+		<result property="uploadTime" column="UPLOAD_TIME"/>
+	</resultMap>
+
+	<select id="selectUpload" resultMap="UploadResultMap">
+		<![CDATA[
+		SELECT * 
+		FROM ARTICLE
+		WHERE id=#value#
+		ORDER BY upload_time desc
+		]]>
+	</select>
+
+	<insert id="insertUpload" parameterClass="upload">
+		<![CDATA[
+		INSERT INTO UPLOAD
+		(initial_name,upload_name,upload_time)
+		VALUES (#initialName#,#uploadName#,current_timestamp())
+		]]>
+	</insert>
+
+	<delete id="deletUploadById" parameterClass="int">
+		<![CDATA[
+		delete from Upload where ID = #value#
+		]]>
+	</delete>
+</sqlMap>

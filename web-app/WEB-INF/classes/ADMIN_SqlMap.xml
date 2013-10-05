@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ADMIN">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="admin" type="cn.seu.cose.entity.Admin" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="AdminResultMap" class="admin">
+		<result property="id" column="ID"/>
+		<result property="username" column="USERNAME"/>
+		<result property="password" column="PASSWORD"/>
+		<result property="isSuper" column="IS_SUPER"/>
+	</resultMap>
+
+	<select id="selectAdminByNameAndPswd" resultMap="AdminResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+    		SELECT * 
+    		FROM ADMIN
+    		WHERE username=#username# AND password=#password#
+		]]>
+	</select>
+
+	<insert id="insertAdmin" parameterClass="admin">
+		<![CDATA[
+    		INSERT INTO ADMIN
+    		(username,password,is_super)
+    		VALUES (#username#,#password#,#isSuper#)
+    	]]>
+	</insert>
+
+	<update id="updateAdmin" parameterClass="admin">
+		<![CDATA[
+		UPDATE ARTICLE
+		SET	password = #password#
+		WHERE id = #id#
+		]]>
+	</update>
+	
+	<delete id="deleteAdminById" parameterClass="int">
+		<![CDATA[
+		DELETE FROM admin WHERE id = #value# AND is_super=0
+		]]>
+	</delete>
+</sqlMap>
