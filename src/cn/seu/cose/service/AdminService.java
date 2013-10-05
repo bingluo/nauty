@@ -32,4 +32,14 @@ public class AdminService {
 		admin.setPassword(password);
 		adminDAOImpl.updateAdmin(admin);
 	}
+
+	public boolean deleteAdmin(int id) {
+		Admin admin = SecurityContextHolder.getSecurityContext().getAdmin();
+		if (admin != null && admin.getIsSuper()) {
+			adminDAOImpl.deleteAdmin(id);
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

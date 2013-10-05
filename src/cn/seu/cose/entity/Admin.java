@@ -7,7 +7,7 @@ public class Admin {
 
 	private String password;
 
-	private String isSuper;
+	private boolean isSuper;
 
 	public int getId() {
 		return id;
@@ -33,11 +33,11 @@ public class Admin {
 		this.password = password;
 	}
 
-	public String getIsSuper() {
+	public boolean getIsSuper() {
 		return isSuper;
 	}
 
-	public void setIsSuper(String isSuper) {
+	public void setIsSuper(boolean isSuper) {
 		this.isSuper = isSuper;
 	}
 }
