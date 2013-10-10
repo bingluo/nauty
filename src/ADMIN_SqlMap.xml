@@ -41,4 +41,10 @@
 		DELETE FROM admin WHERE id = #value# AND is_super=0
 		]]>
 	</delete>
+	
+	<select id="selectAdminById" resultMap="AdminResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM admin WHERE id = #value#
+		]]>
+	</select>
 </sqlMap>

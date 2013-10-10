@@ -10,4 +10,6 @@ interface AdminDAO {
 	void updateAdmin(Admin admin);
 
 	void deleteAdmin(int id);
+
+	Admin getAmindById(int id);
 }

@@ -43,4 +43,10 @@ public class AdminDAOImpl extends SqlMapClientDaoSupport implements AdminDAO {
 		getSqlMapClientTemplate().delete("ADMIN.deleteAdminById", id);
 	}
 
+	@Override
+	public Admin getAmindById(int id) {
+		return (Admin) getSqlMapClientTemplate().queryForObject(
+				"ADMIN.selectAdminById", id);
+	}
+
 }

@@ -40,7 +40,7 @@ public class InitBaseInfoFilter implements Filter {
 
 		Integer adminId = (Integer) session.getAttribute("adminId");
 		if (adminId != null) {
-			// securityContext.setUser(adminService.getAmindById(adminId));
+			securityContext.setAdmin(adminService.getAmindById(adminId));
 		}
 
 		SecurityContextHolder.setSecurityContext(securityContext);

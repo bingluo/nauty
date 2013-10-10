@@ -42,4 +42,8 @@ public class AdminService {
 			return false;
 		}
 	}
+
+	public Admin getAmindById(int id) {
+		return adminDAOImpl.getAmindById(id);
+	}
 }
