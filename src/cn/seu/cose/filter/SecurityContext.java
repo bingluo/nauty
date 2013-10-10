@@ -70,7 +70,7 @@ public class SecurityContext {
 	 */
 	public void setAdmin(Admin admin) {
 		if (httpSession != null && admin != null) {
-			httpSession.setAttribute("userId", admin.getId());
+			httpSession.setAttribute("adminId", admin.getId());
 		}
 		this.admin = admin;
 	}
