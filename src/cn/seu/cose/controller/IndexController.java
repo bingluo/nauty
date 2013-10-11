@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.entity.SlidePojo;
 import cn.seu.cose.service.AdminService;
@@ -29,7 +30,9 @@ public class IndexController {
 	@RequestMapping("/")
 	public String index(Model model) {
 		List<SlidePojo> slides = slideService.getSlides();
+		List<ArticlePojo> news = articleService.newCenterInIndex();
 		model.addAttribute("slides", slides);
+		model.addAttribute("news", news);
 		CommonIssues(model);
 		return "index";
 	}

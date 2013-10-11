@@ -48,7 +48,7 @@
 		SELECT * FROM
 			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
 			 FROM ARTICLE a,category b
-			 WHERE a.cat_id = #catId# AND a.root_cat_id = b.id
+			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id
 			 ORDER BY a.post_time DESC) c
 		limit #base#,#range#
 		]]>
@@ -59,7 +59,7 @@
 		SELECT * FROM
 			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.from,a.post_time,b.uri_name
 			 FROM ARTICLE a,category b
-			 WHERE a.cat_id = #catId# AND a.root_cat_id = b.id
+			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id
 			 ORDER BY a.post_time DESC) c
 		limit #base#,#range#
 		]]>

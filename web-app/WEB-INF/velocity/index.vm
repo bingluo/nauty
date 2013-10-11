@@ -93,18 +93,13 @@
 	<!-- Flexslider -->
 	#parse("common/flexslider.vm")
 	<!-- Flexslider / End -->
-	<div class="one-third clolumn" style="margin-top:0;border:1px solid #ddd;">
-    		<div class="headline no-margin"><h4>Popular Posts</h4></div>
-    		
-    		<div class="latest-post-blog">
-    			<a href="#"><img src="/static/images/popular-post-01.png" alt=""></a>
-    			<p><a href="#">Maecenas metus lorem nulla, pretium lipsum.</a> <span>12 August 2012</span></p>
-    		</div>
-    	
-    		<div class="latest-post-blog">
-    			<a href="#"><img src="/static/images/popular-post-02.png" alt=""></a>
-    			<p><a href="#">Tetus lorem maecenas facili lipsum pretium.</a> <span>26 July 2012</span></p>
-    		</div>
+    <div class="one-third column" style="height:150px;padding:0px;display:block;background">
+    	<div class="headline" style="margin:5px 0 8px 0"><h3>新闻中心</h3></div>
+		<div id="marquees" style="height:300px;width:290px;overflow:hidden">
+			#foreach($article in $news)
+        	<div><i class="mini-ico-tag"></i> <a href="$article.uri">$article.title</a><br/><br/><br/></div>
+			#end
+		</div>
 	</div>
 </div>
 <!-- 960 Container / End -->
@@ -246,4 +241,26 @@
 </div>
 <!-- Footer / End -->
 </body>
+<script language="JavaScript">
+	$(document).ready(function(){
+        var funca = function() {
+			$("#marquees div:first-child").toggle(600);
+            var funcb = function() {
+				$("#marquees div:first-child").appendTo("#marquees");
+				$("#marquees div:last-child").toggle(600);
+			};
+			var timer_timeout = setTimeout(funcb, 600);
+        };
+        var timer_interval = setInterval(funca,2000);
+		
+		
+		$("#marquees a").mouseover(function(){
+			clearInterval(timer_interval);
+		});
+		
+		$("#marquees a").mouseout(function(){
+			timer_interval = setInterval(funca,2000);
+		});
+	});
+</script>
 </html>

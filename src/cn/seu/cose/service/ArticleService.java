@@ -7,16 +7,20 @@ import org.springframework.stereotype.Service;
 
 import cn.seu.cose.dao.ArticleDAOImpl;
 import cn.seu.cose.entity.ArticlePojo;
+import cn.seu.cose.util.LinkTool;
 
 @Service
 public class ArticleService {
 	@Autowired
 	ArticleDAOImpl articleDAOImpl;
 
-	public List<ArticlePojo> getArticleByCatIdAndPageIndexBrief(int catId,
-			int index) {
-		return articleDAOImpl.getArticlesByCatAndRangeBrief(catId,
-				10 * (index - 1), 10 * index);
+	public List<ArticlePojo> newCenterInIndex() {
+		List<ArticlePojo> news = articleDAOImpl.getArticlesByCatAndRangeBrief(
+				2, 0, 10);
+		for (ArticlePojo articlePojo : news) {
+			articlePojo.setRootCatUri(LinkTool.article(articlePojo));
+		}
+		return news;
 	}
 
 	public List<ArticlePojo> getArticleByCatIdAndPageIndex(int catId, int index) {
