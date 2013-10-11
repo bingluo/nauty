@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
 
-import cn.seu.cose.entity.Slide;
+import cn.seu.cose.entity.SlidePojo;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -19,17 +19,17 @@ public class SlideDAOImpl extends SqlMapClientDaoSupport implements SlideDAO {
 	}
 
 	@Override
-	public List<Slide> getSlides() {
+	public List<SlidePojo> getSlides() {
 		return getSqlMapClientTemplate().queryForList("SLIDE.selectSlide");
 	}
 
 	@Override
-	public void insertSlide(Slide slide) {
+	public void insertSlide(SlidePojo slide) {
 		getSqlMapClientTemplate().insert("SLIDE.insertSlide", slide);
 	}
 
 	@Override
-	public void updateSlide(Slide slide) {
+	public void updateSlide(SlidePojo slide) {
 		getSqlMapClientTemplate().update("SLIDE.updateSlide", slide);
 	}
 

@@ -1,51 +1,32 @@
 package cn.seu.cose.util;
 
+import cn.seu.cose.core.SystemContainer;
+import cn.seu.cose.entity.ArticlePojo;
+import cn.seu.cose.service.ArticleService;
+
 public class LinkTool {
-	private static String DOMAIN = "http://localhost/";
 
-	public static String blog(long blogid) {
+	private static ArticleService articleService = (ArticleService) SystemContainer
+			.lookup("articleService");
+
+	public static String image(String picName) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(DOMAIN);
-		sb.append("blog/").append(blogid).append(".html");
+		sb.append("/static/images/upload/").append(picName);
 		return sb.toString();
 	}
 
-	public static String user(long userid) {
+	public static String article(ArticlePojo article) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(DOMAIN);
-		sb.append("user/").append(userid).append(".html");
+		sb.append("/").append(article.getRootCatUri()).append("/");
+		sb.append(article.getCatId()).append("/");
+		sb.append(article.getId()).append(".html");
 		return sb.toString();
 	}
 
-	public static String folder(long folderId) {
+	public static String article(int id) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(DOMAIN);
-		sb.append("blog-folder/").append(folderId).append(".html");
-		return sb.toString();
-	}
-
-	public static String action(String actionName) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(DOMAIN);
-		sb.append("action/").append(actionName).append(".html");
-		return sb.toString();
-	}
-
-	public static String domain() {
-		return DOMAIN;
-	}
-
-	public static String blogEdit(String blogId) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(DOMAIN);
-		sb.append("edit-blog/").append(blogId).append(".html");
-		return sb.toString();
-	}
-
-	public static String image(String uri) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(DOMAIN);
-		sb.append("/static/images/upload/").append(uri);
-		return sb.toString();
+		ArticlePojo article = (ArticlePojo) articleService
+				.getArticleByIdBrief(id);
+		return article(article);
 	}
 }

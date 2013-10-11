@@ -6,19 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.seu.cose.dao.ArticleDAOImpl;
-import cn.seu.cose.entity.Article;
+import cn.seu.cose.entity.ArticlePojo;
 
 @Service
 public class ArticleService {
 	@Autowired
 	ArticleDAOImpl articleDAOImpl;
 
-	public List<Article> getArticleByCatIdAndPageIndex(int catId, int index) {
+	public List<ArticlePojo> getArticleByCatIdAndPageIndexBrief(int catId,
+			int index) {
+		return articleDAOImpl.getArticlesByCatAndRangeBrief(catId,
+				10 * (index - 1), 10 * index);
+	}
+
+	public List<ArticlePojo> getArticleByCatIdAndPageIndex(int catId, int index) {
 		return articleDAOImpl.getArticlesByCatAndRange(catId, 10 * (index - 1),
 				10 * index);
 	}
 
-	public Article getArticleById(int id) {
+	public ArticlePojo getArticleByIdBrief(int id) {
+		return articleDAOImpl.getArticleByIdBrief(id);
+	}
+
+	public ArticlePojo getArticleById(int id) {
 		return articleDAOImpl.getArticleById(id);
 	}
 
@@ -26,11 +36,11 @@ public class ArticleService {
 		return articleDAOImpl.getArticleCountByCatId(catId);
 	}
 
-	public int addArticle(Article article) {
+	public int addArticle(ArticlePojo article) {
 		return articleDAOImpl.insertArticle(article);
 	}
 
-	public void updateArticle(Article article) {
+	public void updateArticle(ArticlePojo article) {
 		articleDAOImpl.updateArticle(article);
 	}
 

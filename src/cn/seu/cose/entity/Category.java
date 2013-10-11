@@ -11,6 +11,8 @@ public class Category {
 
 	private boolean exclusiveArticle;
 
+	private String uriName;
+
 	public int getId() {
 		return id;
 	}
@@ -49,5 +51,13 @@ public class Category {
 
 	public void setExclusiveArticle(boolean exclusiveArticle) {
 		this.exclusiveArticle = exclusiveArticle;
+	}
+
+	public String getUriName() {
+		return uriName;
+	}
+
+	public void setUriName(String uriName) {
+		this.uriName = uriName;
 	}
 }

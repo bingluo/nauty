@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
 
-import cn.seu.cose.entity.Article;
+import cn.seu.cose.entity.ArticlePojo;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -22,13 +22,31 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
-	public Article getArticleById(int id) {
-		return (Article) getSqlMapClientTemplate().queryForObject(
+	public ArticlePojo getArticleByIdBrief(int id) {
+		return (ArticlePojo) getSqlMapClientTemplate().queryForObject(
+				"ARTICLE.selectArticleByIdBrief", id);
+	}
+
+	@Override
+	public ArticlePojo getArticleById(int id) {
+		return (ArticlePojo) getSqlMapClientTemplate().queryForObject(
 				"ARTICLE.selectArticleById", id);
 	}
 
 	@Override
-	public List<Article> getArticlesByCatAndRange(int catId, int base, int range) {
+	public List<ArticlePojo> getArticlesByCatAndRangeBrief(int catId, int base,
+			int range) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("catId", catId);
+		map.put("base", base);
+		map.put("range", range);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectArticleByCatIdAndBaseAndRangeBrief", map);
+	}
+
+	@Override
+	public List<ArticlePojo> getArticlesByCatAndRange(int catId, int base,
+			int range) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("catId", catId);
 		map.put("base", base);
@@ -44,13 +62,13 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
-	public int insertArticle(Article article) {
+	public int insertArticle(ArticlePojo article) {
 		return (Integer) getSqlMapClientTemplate().insert(
 				"ARTICLE.insertArticle", article);
 	}
 
 	@Override
-	public void updateArticle(Article article) {
+	public void updateArticle(ArticlePojo article) {
 		getSqlMapClientTemplate().update("ARTICLE.updateArticle", article);
 	}
 

@@ -2,18 +2,23 @@ package cn.seu.cose.dao;
 
 import java.util.List;
 
-import cn.seu.cose.entity.Article;
+import cn.seu.cose.entity.ArticlePojo;
 
 interface ArticleDAO {
-	Article getArticleById(int id);
+	ArticlePojo getArticleByIdBrief(int id);
 
-	List<Article> getArticlesByCatAndRange(int catId, int base, int range);
+	ArticlePojo getArticleById(int id);
+
+	List<ArticlePojo> getArticlesByCatAndRangeBrief(int catId, int base,
+			int range);
+
+	List<ArticlePojo> getArticlesByCatAndRange(int catId, int base, int range);
 
 	int getArticleCountByCatId(int catId);
 
-	int insertArticle(Article article);
+	int insertArticle(ArticlePojo article);
 
-	void updateArticle(Article article);
+	void updateArticle(ArticlePojo article);
 
 	void deleteArticle(int id);
 }

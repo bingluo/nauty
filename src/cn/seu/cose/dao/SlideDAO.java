@@ -2,14 +2,14 @@ package cn.seu.cose.dao;
 
 import java.util.List;
 
-import cn.seu.cose.entity.Slide;
+import cn.seu.cose.entity.SlidePojo;
 
 interface SlideDAO {
-	List<Slide> getSlides();
+	List<SlidePojo> getSlides();
 
-	void insertSlide(Slide slide);
+	void insertSlide(SlidePojo slide);
 
-	void updateSlide(Slide slide);
+	void updateSlide(SlidePojo slide);
 
 	void deleteSlide(int id);
 }

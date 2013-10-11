@@ -1,0 +1,23 @@
+<div class="two-thirds column">
+	<section class="slider">
+		<div class="flexslider home" style="min-height:150px;border:1px solid #ddd;padding:4px">
+			<ul class="slides" style="float:left;width:610px">
+				#foreach($slide in $slides)
+				<li>
+					<a href="$!{slide.articleUri}">
+						<img src="$!{slide.imgUri}" alt="$!{slide.title}" style="width:610px;height:343px"/>
+					</a>
+					<div class="slide-caption n">
+						<a href="$!{slide.articleUri}">
+							<h3>$!{slide.title}</h3>
+						</a>
+						#if($slide.brief)
+						<p>$!{slide.brief}</p>
+						#end
+					</div>
+				</li>
+				#end
+			</ul>
+		</div>
+	</section>
+</div>
