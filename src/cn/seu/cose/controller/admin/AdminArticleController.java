@@ -5,33 +5,68 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.Article;
+import cn.seu.cose.entity.Category;
 import cn.seu.cose.service.ArticleService;
+import cn.seu.cose.service.CategoryService;
 
 @Controller
 public class AdminArticleController {
 	@Autowired
 	private ArticleService articleService; 
+	@Autowired
+	private CategoryService catService;
 	
-	@RequestMapping("/admin/article_list")
-	public String articleList(@RequestParam("catId") String catIdStr, 
-			@RequestParam(value="pageIndex", required=false) String pageIndexStr, Model model) {
-		int catId = Integer.parseInt(catIdStr);
-		int index = 1;
-		if (!StringUtils.isBlank(pageIndexStr)) {
-			index = Integer.parseInt(pageIndexStr);
-		}
+	@RequestMapping("/admin/article_list-{topCatId}-{subCatId}-{pageIndex}")
+	public String articleList(@PathVariable(value="topCatId") String topCatIdStr, @PathVariable(value="subCatId") String subCatIdStr, 
+			@PathVariable(value="pageIndex") String pageIndexStr, Model model) {
+		
+		int topCatId = Integer.parseInt(topCatIdStr);
+		int subCatId = Integer.parseInt(subCatIdStr);
+		int pageIndex = Integer.parseInt(pageIndexStr);
+		
+		/* get top level cats */
+		List<Category> categories = catService.getCategoriesByLevel(0);
+		model.addAttribute("top_cat_list", categories);
+		categories = catService.getCategoriesByParentId(topCatId);
+		model.addAttribute("init_sub_cat_list" ,categories);
+		
+		int catId = subCatId<=0 ? topCatId : subCatId;
+		int index = pageIndex<=0 ? 1 : pageIndex;
 		List<Article> list = articleService.getArticleByCatIdAndPageIndex(catId, index);
 		model.addAttribute("article_list", list);
+		
+		model.addAttribute("topCatId", topCatId);
+		model.addAttribute("subCatId", subCatId);
+		model.addAttribute("pageIndex", pageIndex);
+		
+		return "admin_articles";
+	}
+	
+	@RequestMapping("/admin/article_list")
+	public String articleList(Model model) {
+		
+		List<Article> list = articleService.getArticleByCatIdAndPageIndex(1, 1); // init
+		model.addAttribute("article_list", list);
+		
+		/* get top level cats */
+		List<Category> categories = catService.getCategoriesByLevel(0);
+		model.addAttribute("top_cat_list", categories);
+		categories = catService.getCategoriesByParentId(1);
+		model.addAttribute("init_sub_cat_list" ,categories);
+		
+		model.addAttribute("topCatId", 1);
+		model.addAttribute("subCatId", 0);
+		model.addAttribute("pageIndex", 1);
 		return "admin_articles";
 	}
 	
@@ -47,7 +82,7 @@ public class AdminArticleController {
 		}
 	}
 	
-	@RequestMapping("/admin/del_article")
+	@RequestMapping(value="/admin/del_article", method=RequestMethod.POST)
 	public void postDel(@RequestParam("id") String idStr, HttpServletResponse response) {
 		try {
 			int id = Integer.parseInt(idStr);

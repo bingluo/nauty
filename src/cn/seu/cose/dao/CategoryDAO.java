@@ -6,4 +6,6 @@ import cn.seu.cose.entity.Category;
 
 interface CategoryDAO {
 	List<Category> getCategoriesByParentId(int parentId);
+
+	List<Category> getCategoriesByLevel(int level);
 }

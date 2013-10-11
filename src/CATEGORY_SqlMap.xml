@@ -18,4 +18,10 @@
 		SELECT * FROM CATEGORY WHERE parent_cat_id=#value#
 		]]>
 	</select>
+	
+	<select id="selectCategoryByLevel" resultMap="CategoryResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM CATEGORY WHERE cat_level=#value#
+		]]>
+	</select>
 </sqlMap>

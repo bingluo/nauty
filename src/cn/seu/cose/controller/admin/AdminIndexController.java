@@ -51,4 +51,10 @@ public class AdminIndexController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("/admin/logout")
+	public String logout() {
+		adminService.logout();
+		return "admin_login";
+	}
 }

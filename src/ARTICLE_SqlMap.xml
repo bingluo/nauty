@@ -24,7 +24,7 @@
 	<select id="selectArticleByCatIdAndBaseAndRange" resultMap="ArticleResultMap" parameterClass="java.util.Map">
 		<![CDATA[
 		SELECT * FROM
-			(SELECT a.id,a.title,a.subhead,a.cat_id,a.content,b.from,a.post_time
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.content,a.from,a.post_time
 			 FROM ARTICLE a
 			 WHERE a.cat_id = #catId#
 			 ORDER BY a.post_time DESC) b

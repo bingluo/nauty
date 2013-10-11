@@ -24,4 +24,10 @@ public class CategoryDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"CATEGORY.selectCategoryByParentCatId", parentId);
 	}
+	
+	@Override
+	public List<Category> getCategoriesByLevel(int level) {
+		return getSqlMapClientTemplate().queryForList(
+				"CATEGORY.selectCategoryByParentCatId", level);
+	}
 }

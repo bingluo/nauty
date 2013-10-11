@@ -1,0 +1,16 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")	
+<script type="text/javascript">
+	$("#sidebar_li_2").siblings().removeClass('active')
+	$("#sidebar_li_2").addClass('active');
+</script>		
+		
+		<div id="editor" stype="overflow:scroll; max-height:300px">
+		</div>
+		
+<script>
+  $(function(){
+    $('#editor').wysiwyg();
+  });
+</script>
+#parse("admin_footer.vm")

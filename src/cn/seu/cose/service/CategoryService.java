@@ -17,4 +17,8 @@ public class CategoryService {
 	public List<Category> getCategoriesByParentId(int parentId) {
 		return categoryDAOImpl.getCategoriesByParentId(parentId);
 	}
+	
+	public List<Category> getCategoriesByLevel(int level) {
+		return categoryDAOImpl.getCategoriesByLevel(level);
+	}
 }
