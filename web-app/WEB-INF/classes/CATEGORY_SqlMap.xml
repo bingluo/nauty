@@ -3,7 +3,8 @@
  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="CATEGORY">
 	<!-- 为类型定义别名 -->
-	<typeAlias alias="category" type="cn.seu.cose.entity.Category" />
+	<typeAlias alias="baseCategory" type="cn.seu.cose.entity.Category" />
+	<typeAlias alias="category" type="cn.seu.cose.entity.CategoryPojo" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="CategoryResultMap" class="category">
 		<result property="id" column="ID"/>
@@ -16,6 +17,12 @@
 	<select id="selectCategoryByParentCatId" resultMap="CategoryResultMap" parameterClass="int">
 		<![CDATA[
 		SELECT * FROM CATEGORY WHERE parent_cat_id=#value#
+		]]>
+	</select>
+	
+	<select id="selectRootCategories" resultMap="CategoryResultMap">
+		<![CDATA[
+		SELECT * FROM CATEGORY WHERE cat_level=1 ORDER BY id ASC
 		]]>
 	</select>
 </sqlMap>

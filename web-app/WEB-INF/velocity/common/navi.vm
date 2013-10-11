@@ -1,0 +1,20 @@
+<div class="sixteen columns">
+	<div id="navigation">
+		<ul id="nav">
+			<li><a href="/">首页</a></li>
+			#foreach($root in $cats)
+			<li><a href="/about.html">$root.catName</a>
+				#set($children = $root.children)
+				#if($children.size()>0)
+    				<ul>
+    				#foreach($child in $children)
+    				<li><a href=".html">$child.catName</a></li>
+    				#end
+    				</ul>
+				#end
+			</li>
+			#end
+		</ul>
+	</div> 
+	<div class="clear"></div>
+</div>
