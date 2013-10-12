@@ -119,7 +119,7 @@
 			var _sub_cat = $("#sub_cats_add option:selected").val();
 			var _from = "admin";
 			$.ajax({
-				url: "/admin/add_article",
+				url: "/admin/alt_article",
 				type: "post",
 				data: {id:_id, title:_title, subhead:_subhead, catId:_sub_cat, rootCatId:_top_cat, content:_html, from:_from},
 				dataType: "html",

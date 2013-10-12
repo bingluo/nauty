@@ -86,8 +86,8 @@
 			subhead = #subhead#,
 			content = #content#,
 			cat_id = #catId#,
-			root_cat_id = #rootCatId#
-			from = #from#
+			root_cat_id = #rootCatId#,
+			`from` = #from#
 		WHERE id = #id#
 		]]>
 	</update>
