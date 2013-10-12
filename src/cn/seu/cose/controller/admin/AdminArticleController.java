@@ -97,11 +97,6 @@ public class AdminArticleController {
 		article.setFrom(from);
 		article.setPostTime(new Date());
 		articleService.addArticle(article);
-		try {
-			response.sendRedirect("/admin/article_list");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@RequestMapping(value="/admin/del_article", method=RequestMethod.POST)
@@ -121,35 +116,34 @@ public class AdminArticleController {
 		}
 	}
 	
-	@RequestMapping("/admin/alt_article")
-	public void postAlt(Article article, HttpServletResponse response) {
-		/*
-		 * TODO
-		 */
-		try {
-			response.sendRedirect("admin/article_list");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	@RequestMapping(value="/admin/alt_article-{id}", method=RequestMethod.GET)
+	public String getAlt(@PathVariable("id") String idStr, Model model) {
+		Article article = articleService.getArticleById(Integer.parseInt(idStr));
+		model.addAttribute("article", article);
+		/* get cats */
+		List<CategoryPojo> categories = catService.getRootCategories();
+		model.addAttribute("top_cat_list", categories);
+		categories = catService.getCategoriesByParentId(article.getRootCatId());
+		model.addAttribute("init_sub_cat_list" ,categories);
+		
+		return "admin_articles_alt";
 	}
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/admin/get_article", method=RequestMethod.POST)
-	public void fetchArticle(@RequestParam("id") int id, HttpServletResponse response) {
-		Article article = articleService.getArticleById(id);
-		JSONObject jo = new JSONObject();
-		jo.put("id", article.getId());
-		jo.put("title", article.getTitle());
-		jo.put("subhead", article.getSubhead());
-		jo.put("catId", article.getCatId());
-		jo.put("content", article.getContent());
-		jo.put("from", article.getFrom());
-		jo.put("postTime", article.getPostTime());
-		response.setContentType("UTF-8");
-		try {
-			response.getWriter().write(jo.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	@RequestMapping(value="/admin/alt_article", method=RequestMethod.POST)
+	public void postAlt(@RequestParam("id") String idStr, @RequestParam("title") String title, @RequestParam("subhead") String subhead,
+			@RequestParam("catId") String catIdStr, @RequestParam("rootCatId") String rootCatIdStr,
+			@RequestParam("content") String content, @RequestParam("from") String from, 
+			HttpServletResponse response) {
+		ArticlePojo article = new ArticlePojo();
+		article.setId(Integer.parseInt(idStr));
+		article.setTitle(title);
+		article.setSubhead(subhead);
+		article.setCatId(Integer.parseInt(catIdStr));
+		article.setRootCatId(Integer.parseInt(rootCatIdStr));
+		article.setContent(content);
+		article.setFrom(from);
+		article.setPostTime(new Date());
+		articleService.updateArticle(article);
 	}
+	
 }

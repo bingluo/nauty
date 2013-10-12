@@ -35,7 +35,7 @@
 		</div>
 	</div>
 	<div id="breadcrumb">
-		<a href="/admin/index" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>首页</a>
+		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>首页</a>
 		<a href="#" class="current">文章管理</a>
 	</div>
 	<div class="container-fluid">
@@ -117,7 +117,7 @@
 										<td>$article.from</td>
 										<td>$article.postTime</td>
 										<td>
-											<button class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></button>
+											<a href="/admin/alt_article-$article.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
 											<button class="btn btn-warning" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
 										</td>
 									</tr>
@@ -139,15 +139,6 @@
 	<div class="modal-footer">
 		<button class="btn btn-primary" id="yes_del">是</button>
 	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
-	</div>
-</div>
-<div id="alt_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-body">
-	   
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" id="yes_alt">是</button>
-	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_alt">否</button>
 	</div>
 </div>
 
@@ -182,30 +173,6 @@
 				success:function(data){
 					$("#del_dialog").modal("hide");
 					location.reload();
-				},
-				error:function(){
-					$("#del_dialog").modal("hide");
-					alert("删除错误，请重试！");
-				}
-			});
-		});
-		
-		// show alt_dialog
-		$("button[id='alt_btn']").bind("click", function(){
-			articleId = $(this).parents("tr").find("td:first").html().trim()
-			
-			
-			$("#del_dialog").modal("show");
-		});
-		// yes submit alt
-		$("#yes_alt").bind("click", function(){
-			$.ajax({
-				url: "/admin/alt_article",
-				type: "post",
-				data: {id:articleId},
-				dataType: "html",
-				success:function(data){
-					$("#del_dialog").modal("hide");
 				},
 				error:function(){
 					$("#del_dialog").modal("hide");

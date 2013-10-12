@@ -35,7 +35,7 @@
 	</div>
 	<div id="breadcrumb">
 		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>首页</a>
-		<a href="#" class="current">添加文章</a>
+		<a href="#" class="current">编辑文章</a>
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -45,20 +45,21 @@
 						<span class="icon">
 							<i class="icon-align-justify"></i>									
 						</span>
-						<h5>添加文章</h5>
+						<h5>编辑文章</h5>
 					</div>
 					<div class="widget-content padding">
 						<form action="javascript:void(0)" method="post" class="form-horizontal" id="article_add_form">
+							<input type="hidden" id="art_id" value="$article.id">
 							<div class="control-group">
 								<label class="control-label">标题</label>
 								<div class="controls">
-									<input type="text" id="title">
+									<input type="text" id="title" value="$article.title">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">副标题</label>
 								<div class="controls">
-									<input type="text" id="subhead">
+									<input type="text" id="subhead" value="$article.subhead">
 								</div>
 							</div>
 							
@@ -67,20 +68,28 @@
 								<div class="controls">
 									<select id="top_cats_add" onchange="_topAddCatChanged()">
 										#foreach($topCat in $top_cat_list)
-											<option value="$topCat.id">$topCat.catName</option>
+											#if ($topCat.id == $article.rootCatId)
+												<option value="$topCat.id" selected>$topCat.catName</option>
+											#else
+												<option value="$topCat.id">$topCat.catName</option>
+											#end
 										#end
 									</select>
 									&nbsp;
 									<select id="sub_cats_add">
 										#foreach($init_sub in $init_sub_cat_list)
-											<option value="$init_sub.id" >$init_sub.catName</option>
+											#if ($init_sub.id == $article.catId)
+												<option value="$init_sub.id" selected>$init_sub.catName</option>
+											#else
+												<option value="$init_sub.id" >$init_sub.catName</option>
+											#end
 										#end
 									</select>
 								</div>
 							</div>
 							<div class="control-group">
 								<div class="controls">
-									<textarea id="editor" name="content" style="width:1000px;height:500px;"></textarea>
+									<textarea id="editor" name="content" style="width:1000px;height:500px;">$article.content</textarea>
 								</div>
 							</div>
 							<div class="control-group" >
@@ -102,6 +111,7 @@
 		// yes_add
 		$("#yes_add").bind("click", function(){
 			editor.sync();
+			var _id = $("#art_id").val();
 			var _html = $("#editor").val();
 			var _title = $("#title").val();
 			var _subhead= $("#subhead").val();
@@ -111,7 +121,7 @@
 			$.ajax({
 				url: "/admin/add_article",
 				type: "post",
-				data: {title:_title, subhead:_subhead, catId:_sub_cat, rootCatId:_top_cat, content:_html, from:_from},
+				data: {id:_id, title:_title, subhead:_subhead, catId:_sub_cat, rootCatId:_top_cat, content:_html, from:_from},
 				dataType: "html",
 				success:function(data){
 					window.location.href = "/admin/article_list-" + _top_cat + "-" + _sub_cat + "-1";
