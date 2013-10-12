@@ -22,24 +22,6 @@
 			}
 		});
 	}
-	function _topAddCatChanged() {
-		var sel_top_cat = $("#top_cats_add option:selected").val();
-		$.ajax({
-			url: "/admin/sub_cat_list",
-			type: "post",
-			data: {parentId:sel_top_cat},
-			dataType: "html",
-			success:function(data){
-				$("#sub_cats_add").find('option').remove() ;
-				var cat_array =eval(data);
-				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
-					$("#sub_cats_add").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
-				}
-			},
-			error:function(){
-			}
-		});
-	}
 </script>
 
 <div id="content">
@@ -107,7 +89,7 @@
 						</span>
 						<h5>文章列表</h5>
 						<span class="icon" id="add_display_btn">
-							<a href="javascript:void(0)" class="btn btn-primary btn-mini">
+							<a href="/admin/add_article" class="btn btn-primary btn-mini">
 								<i class="icon-plus icon-white"></i>添加文章
 							</a>
 						</span>
@@ -150,44 +132,6 @@
 </div>
 
 
-<div id="add_dialog" class="modal fade" tabindex="-1" style="width:1000px" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<form action="#" method="get" class="form-horizontal" style="float:left">
-		<div class="control-group">
-			<label class="control-label">标题</label>
-			<div class="controls">
-				<input type="text">
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">副标题</label>
-			<div class="controls">
-				<input type="text">
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<label class="control-label">类别</label>
-			<div class="controls">
-				<select id="top_cats_add" onchange="_topAddCatChanged()">
-					#foreach($topCat in $top_cat_list)
-						<option value="$topCat.id">$topCat.catName</option>
-					#end
-				</select>
-				&nbsp;
-				<select id="sub_cats_add">
-					#foreach($init_sub in $init_sub_cat_list)
-						<option value="$init_sub.id" >$init_sub.catName</option>
-					#end
-				</select>
-			</div>
-		</div>
-		<textarea id="editor" name="content" style="width:1000px;height:500px;"></textarea>
-	</form>
-	<div class="modal-footer">
-		<button class="btn btn-primary" id="yes_add">是</button>
-	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_add">否</button>
-	</div>
-</div>
 <div id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-body">
 	    <span>是否确定删除？</span>
@@ -222,29 +166,6 @@
 			window.location.href= "/admin/article_list-"+ top_cat_id + "-" + sub_cat_id + "-1";
 		});
 		/**************************************************************************/
-		
-		// show add dialog
-		$("#add_display_btn").bind("click", function(){
-			$("#add_dialog").modal("show");
-		});
-		
-		// yes_add
-		$("#yes_add").bind("click", function(){
-			$.ajax({
-				url: "/admin/add_article",
-				type: "post",
-				data: {:},
-				dataType: "html",
-				success:function(data){
-					$("#del_dialog").modal("hide");
-					location.reload();
-				},
-				error:function(){
-					$("#del_dialog").modal("hide");
-					alert("删除错误，请重试！");
-				}
-			});
-		});
 		
 		// show del_dialog
 		$("button[id='del_btn']").bind("click", function(){

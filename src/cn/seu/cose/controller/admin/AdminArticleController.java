@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.Article;
 import cn.seu.cose.entity.ArticlePojo;
-import cn.seu.cose.entity.Category;
 import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
@@ -36,7 +35,7 @@ public class AdminArticleController {
 		int subCatId = Integer.parseInt(subCatIdStr);
 		int pageIndex = Integer.parseInt(pageIndexStr);
 		
-		/* get top level cats */
+		/* get cats */
 		List<CategoryPojo> categories = catService.getRootCategories();
 		model.addAttribute("top_cat_list", categories);
 		categories = catService.getCategoriesByParentId(topCatId);
@@ -60,7 +59,7 @@ public class AdminArticleController {
 		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndex(1, 1); // init
 		model.addAttribute("article_list", list);
 		
-		/* get top level cats */
+		/* get cats */
 		List<CategoryPojo> categories = catService.getRootCategories();
 		model.addAttribute("top_cat_list", categories);
 		categories = catService.getCategoriesByParentId(1);
@@ -72,7 +71,18 @@ public class AdminArticleController {
 		return "admin_articles";
 	}
 	
-	@RequestMapping("/admin/add_article")
+	@RequestMapping(value="/admin/add_article", method=RequestMethod.GET)
+	public String getAdd(Model model) {
+		/* get cats */
+		List<CategoryPojo> categories = catService.getRootCategories();
+		model.addAttribute("top_cat_list", categories);
+		categories = catService.getCategoriesByParentId(1);
+		model.addAttribute("init_sub_cat_list" ,categories);
+		
+		return "admin_articles_add";
+	}
+	
+	@RequestMapping(value="/admin/add_article", method=RequestMethod.POST)
 	public void postAdd(HttpServletResponse response) {
 		/* 
 		 * TODO
