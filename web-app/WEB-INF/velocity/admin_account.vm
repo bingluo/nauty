@@ -5,7 +5,7 @@
 	$("#sidebar_li_4").addClass('active');
 	
 	$(document).ready(function(){
-		$("#account_form").validate({
+		/*$("#account_form").validate({
 			rules:{
 				password
 			}, 
@@ -14,7 +14,7 @@
 			highlight:function(element, errorClass, validClass) {
 				$(element).parents('.control-group').addClass('error');
 			},
-		});
+		});*/
 	});
 </script>
 <div id="content">
