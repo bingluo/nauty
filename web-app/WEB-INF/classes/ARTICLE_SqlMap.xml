@@ -39,7 +39,7 @@
 		<![CDATA[
 		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.from,a.post_time,b.uri_name
 		FROM ARTICLE a,category b
-		WHERE id=#value# AND a.root_cat_id=b.id
+		WHERE a.id=#value# AND a.root_cat_id=b.id
 		]]>
 	</select>
 	

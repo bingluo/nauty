@@ -71,8 +71,8 @@
 							</select>
 							&nbsp;
 							<span class="icon" id="fetch_article_btn">
-								<a href="javascript:void(0)" class="btn btn-primary btn" style="vertical-align:top">
-									&nbsp;&nbsp;<i class="icon-play"></i>&nbsp;&nbsp;
+								<a href="javascript:void(0)" class="btn btn-info btn" style="vertical-align:top">
+									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
 								</a>
 							</span>
 						</div>
@@ -118,7 +118,7 @@
 										<td>$article.postTime</td>
 										<td>
 											<a href="/admin/alt_article-$article.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
-											<button class="btn btn-warning" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
 										</td>
 									</tr>
 								#end

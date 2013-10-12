@@ -22,7 +22,7 @@ import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
 
 @Controller
-public class AdminArticleController {
+public class AdminArticleController extends AbstractController{
 	@Autowired
 	private ArticleService articleService; 
 	@Autowired
@@ -31,6 +31,8 @@ public class AdminArticleController {
 	@RequestMapping("/admin/article_list-{topCatId}-{subCatId}-{pageIndex}")
 	public String articleList(@PathVariable(value="topCatId") String topCatIdStr, @PathVariable(value="subCatId") String subCatIdStr, 
 			@PathVariable(value="pageIndex") String pageIndexStr, Model model) {
+		
+		putAdmin(model);
 		
 		int topCatId = Integer.parseInt(topCatIdStr);
 		int subCatId = Integer.parseInt(subCatIdStr);
@@ -56,17 +58,18 @@ public class AdminArticleController {
 	
 	@RequestMapping("/admin/article_list")
 	public String articleList(Model model) {
+		putAdmin(model);
 		
-		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndex(1, 1); // init
+		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndex(2, 1); // init
 		model.addAttribute("article_list", list);
 		
 		/* get cats */
 		List<CategoryPojo> categories = catService.getRootCategories();
 		model.addAttribute("top_cat_list", categories);
-		categories = catService.getCategoriesByParentId(1);
+		categories = catService.getCategoriesByParentId(2);
 		model.addAttribute("init_sub_cat_list" ,categories);
 		
-		model.addAttribute("topCatId", 1);
+		model.addAttribute("topCatId", 2);
 		model.addAttribute("subCatId", 0);
 		model.addAttribute("pageIndex", 1);
 		return "admin_articles";
@@ -74,6 +77,8 @@ public class AdminArticleController {
 	
 	@RequestMapping(value="/admin/add_article", method=RequestMethod.GET)
 	public String getAdd(Model model) {
+		putAdmin(model);
+		
 		/* get cats */
 		List<CategoryPojo> categories = catService.getRootCategories();
 		model.addAttribute("top_cat_list", categories);
@@ -118,6 +123,8 @@ public class AdminArticleController {
 	
 	@RequestMapping(value="/admin/alt_article-{id}", method=RequestMethod.GET)
 	public String getAlt(@PathVariable("id") String idStr, Model model) {
+		putAdmin(model);
+		
 		Article article = articleService.getArticleById(Integer.parseInt(idStr));
 		model.addAttribute("article", article);
 		/* get cats */
