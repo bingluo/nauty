@@ -48,17 +48,17 @@
 						<h5>添加文章</h5>
 					</div>
 					<div class="widget-content padding">
-						<form action="#" method="post" class="form-horizontal" id="article_add_form">
+						<form action="javascript:void(0)" method="post" class="form-horizontal" id="article_add_form">
 							<div class="control-group">
 								<label class="control-label">标题</label>
 								<div class="controls">
-									<input type="text">
+									<input type="text" id="title">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">副标题</label>
 								<div class="controls">
-									<input type="text">
+									<input type="text" id="subhead">
 								</div>
 							</div>
 							
@@ -83,9 +83,10 @@
 									<textarea id="editor" name="content" style="width:1000px;height:500px;"></textarea>
 								</div>
 							</div>
-							<div class="form-actions" >
-								<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;是&nbsp;&nbsp;</button>
-						    	<button class="btn btn-primary" id="no_add">&nbsp;&nbsp;否&nbsp;&nbsp;</button>
+							<div class="control-group" >
+								<div class="controls">
+									<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+							    </div>
 							</div>
 						</form>
 					</div>
@@ -98,28 +99,27 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		// global
-		var articleId = -1; 
-		var top_cat_id = 1;
-		var sub_cat_id = 0;
-		
 		// yes_add
-		/*$("#yes_add").bind("click", function(){
+		$("#yes_add").bind("click", function(){
+			editor.sync();
+			var _html = $("#editor").val();
+			var _title = $("#title").val();
+			var _subhead= $("#subhead").val();
+			var _top_cat = $("#top_cats_add option:selected").val();
+			var _sub_cat = $("#sub_cats_add option:selected").val();
+			var _from = "admin";
 			$.ajax({
 				url: "/admin/add_article",
 				type: "post",
-				data: {:},
+				data: {title:_title, subhead:_subhead, catId:_sub_cat, rootCatId:_top_cat, content:_html, from:_from},
 				dataType: "html",
 				success:function(data){
-					$("#del_dialog").modal("hide");
-					location.reload();
+					window.location.href = "/admin/article_list";
 				},
 				error:function(){
-					$("#del_dialog").modal("hide");
-					alert("删除错误，请重试！");
 				}
 			});
-		});*/
+		});
 	});
 </script>
 <script charset="utf-8" src="/static/editor/kindeditor.js"></script>

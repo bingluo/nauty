@@ -40,8 +40,8 @@ public class ArticleService {
 		return articleDAOImpl.getArticleCountByCatId(catId);
 	}
 
-	public int addArticle(ArticlePojo article) {
-		return articleDAOImpl.insertArticle(article);
+	public void addArticle(ArticlePojo article) {
+		articleDAOImpl.insertArticle(article);
 	}
 
 	public void updateArticle(ArticlePojo article) {

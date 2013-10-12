@@ -62,8 +62,8 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
-	public int insertArticle(ArticlePojo article) {
-		return (Integer) getSqlMapClientTemplate().insert(
+	public void insertArticle(ArticlePojo article) {
+		getSqlMapClientTemplate().insert(
 				"ARTICLE.insertArticle", article);
 	}
 

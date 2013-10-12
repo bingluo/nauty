@@ -74,12 +74,9 @@
 	<insert id="insertArticle" parameterClass="article">
 		<![CDATA[
 		INSERT INTO ARTICLE
-		(title,subhead,cat_Id,root_cat_id,content,from,post_time)
-		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,current_timestamp())
+		(title,subhead,cat_Id,root_cat_id,content,`from`,post_time)
+		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,#postTime#)
 		]]>
-		<selectKey resultClass="int" keyProperty="id">
-			select last_insert_id() as ID from ARTICLE limit 1
-		</selectKey>
 	</insert>
 
 	<update id="updateArticle" parameterClass="article">

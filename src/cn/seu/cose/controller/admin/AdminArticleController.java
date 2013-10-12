@@ -1,6 +1,7 @@
 package cn.seu.cose.controller.admin;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -83,10 +84,19 @@ public class AdminArticleController {
 	}
 	
 	@RequestMapping(value="/admin/add_article", method=RequestMethod.POST)
-	public void postAdd(HttpServletResponse response) {
-		/* 
-		 * TODO
-		 */
+	public void postAdd(@RequestParam("title") String title, @RequestParam("subhead") String subhead,
+			@RequestParam("catId") String catIdStr, @RequestParam("rootCatId") String rootCatIdStr,
+			@RequestParam("content") String content, @RequestParam("from") String from, 
+			HttpServletResponse response) {
+		ArticlePojo article = new ArticlePojo();
+		article.setTitle(title);
+		article.setSubhead(subhead);
+		article.setCatId(Integer.parseInt(catIdStr));
+		article.setRootCatId(Integer.parseInt(rootCatIdStr));
+		article.setContent(content);
+		article.setFrom(from);
+		article.setPostTime(new Date());
+		articleService.addArticle(article);
 		try {
 			response.sendRedirect("/admin/article_list");
 		} catch (IOException e) {
