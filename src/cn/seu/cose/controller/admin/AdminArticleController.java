@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.Article;
 import cn.seu.cose.entity.Category;
+import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
 
@@ -35,7 +36,7 @@ public class AdminArticleController {
 		int pageIndex = Integer.parseInt(pageIndexStr);
 		
 		/* get top level cats */
-		List<Category> categories = catService.getCategoriesByLevel(0);
+		List<CategoryPojo> categories = catService.getRootCategories();
 		model.addAttribute("top_cat_list", categories);
 		categories = catService.getCategoriesByParentId(topCatId);
 		model.addAttribute("init_sub_cat_list" ,categories);
@@ -59,7 +60,7 @@ public class AdminArticleController {
 		model.addAttribute("article_list", list);
 		
 		/* get top level cats */
-		List<Category> categories = catService.getCategoriesByLevel(0);
+		List<CategoryPojo> categories = catService.getRootCategories();
 		model.addAttribute("top_cat_list", categories);
 		categories = catService.getCategoriesByParentId(1);
 		model.addAttribute("init_sub_cat_list" ,categories);

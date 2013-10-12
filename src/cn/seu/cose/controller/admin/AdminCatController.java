@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.Category;
+import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.service.CategoryService;
 
 @Controller
@@ -22,7 +23,7 @@ public class AdminCatController {
 	
 	@RequestMapping("/admin/sub_cat_list")
 	public void fetchChildCatList(@RequestParam("parentId") int parentId, HttpServletResponse response) {
-		List<Category> list = catService.getCategoriesByParentId(parentId);
+		List<CategoryPojo> list = catService.getCategoriesByParentId(parentId);
 		JSONArray jsonArray = new JSONArray();
 		for (Category category : list) {
 			JSONObject jo = new JSONObject();
@@ -40,7 +41,7 @@ public class AdminCatController {
 	
 	@RequestMapping("/admin/top_cat_list")
 	public void fetchTopCatList(HttpServletResponse response) {
-		List<Category> list = catService.getCategoriesByLevel(0);
+		List<CategoryPojo> list = catService.getRootCategories();
 		JSONArray jsonArray = new JSONArray();
 		for (Category category : list) {
 			JSONObject jo = new JSONObject();
