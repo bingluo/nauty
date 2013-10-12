@@ -11,6 +11,8 @@ public class Article {
 
 	private int catId;
 
+	private int rootCatId;
+
 	private String content;
 
 	private String from;
@@ -47,6 +49,14 @@ public class Article {
 
 	public void setCatId(int catId) {
 		this.catId = catId;
+	}
+
+	public int getRootCatId() {
+		return rootCatId;
+	}
+
+	public void setRootCatId(int rootCatId) {
+		this.rootCatId = rootCatId;
 	}
 
 	public String getContent() {

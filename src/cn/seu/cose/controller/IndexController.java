@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.CategoryPojo;
+import cn.seu.cose.entity.SlidePojo;
 import cn.seu.cose.service.AdminService;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
+import cn.seu.cose.service.SlideService;
 
 @Controller
 public class IndexController {
@@ -21,9 +24,15 @@ public class IndexController {
 	private AdminService adminService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private SlideService slideService;
 
 	@RequestMapping("/")
-	public String newBlog(Model model) {
+	public String index(Model model) {
+		List<SlidePojo> slides = slideService.getSlides();
+		List<ArticlePojo> news = articleService.newCenterInIndex();
+		model.addAttribute("slides", slides);
+		model.addAttribute("news", news);
 		CommonIssues(model);
 		return "index";
 	}

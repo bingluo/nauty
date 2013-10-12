@@ -7,9 +7,11 @@ public class Slide {
 
 	private String title;
 
+	private String brief;
+
 	private int articleId;
 
-	private int picName;
+	private String picName;
 
 	private Date updateTime;
 
@@ -29,6 +31,14 @@ public class Slide {
 		this.title = title;
 	}
 
+	public String getBrief() {
+		return brief;
+	}
+
+	public void setBrief(String brief) {
+		this.brief = brief;
+	}
+
 	public int getArticleId() {
 		return articleId;
 	}
@@ -37,11 +47,11 @@ public class Slide {
 		this.articleId = articleId;
 	}
 
-	public int getPicName() {
+	public String getPicName() {
 		return picName;
 	}
 
-	public void setPicName(int picName) {
+	public void setPicName(String picName) {
 		this.picName = picName;
 	}
 

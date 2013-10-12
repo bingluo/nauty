@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.seu.cose.dao.SlideDAOImpl;
-import cn.seu.cose.entity.Slide;
+import cn.seu.cose.entity.SlidePojo;
+import cn.seu.cose.util.LinkTool;
 
 @Service
 public class SlideService {
@@ -14,15 +15,20 @@ public class SlideService {
 	@Autowired
 	SlideDAOImpl slideDAOImpl;
 
-	public List<Slide> getSlides() {
-		return slideDAOImpl.getSlides();
+	public List<SlidePojo> getSlides() {
+		List<SlidePojo> slides = slideDAOImpl.getSlides();
+		for (SlidePojo slidePojo : slides) {
+			slidePojo.setArticleUri(LinkTool.article(slidePojo.getArticleId()));
+			slidePojo.setImgUri(LinkTool.image(slidePojo.getPicName()));
+		}
+		return slides;
 	}
 
-	public void addSlide(Slide slide) {
+	public void addSlide(SlidePojo slide) {
 		slideDAOImpl.insertSlide(slide);
 	}
 
-	public void updateSlide(Slide slide) {
+	public void updateSlide(SlidePojo slide) {
 		slideDAOImpl.updateSlide(slide);
 	}
 

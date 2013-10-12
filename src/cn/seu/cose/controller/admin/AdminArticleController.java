@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.Article;
+import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.Category;
 import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.service.ArticleService;
@@ -43,7 +44,7 @@ public class AdminArticleController {
 		
 		int catId = subCatId<=0 ? topCatId : subCatId;
 		int index = pageIndex<=0 ? 1 : pageIndex;
-		List<Article> list = articleService.getArticleByCatIdAndPageIndex(catId, index);
+		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndex(catId, index);
 		model.addAttribute("article_list", list);
 		
 		model.addAttribute("topCatId", topCatId);
@@ -56,7 +57,7 @@ public class AdminArticleController {
 	@RequestMapping("/admin/article_list")
 	public String articleList(Model model) {
 		
-		List<Article> list = articleService.getArticleByCatIdAndPageIndex(1, 1); // init
+		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndex(1, 1); // init
 		model.addAttribute("article_list", list);
 		
 		/* get top level cats */

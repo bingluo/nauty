@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.seu.cose.entity.Slide;
+import cn.seu.cose.entity.SlidePojo;
 import cn.seu.cose.service.SlideService;
 
 @Controller
@@ -17,7 +18,7 @@ public class AdminSlideController {
 	
 	@RequestMapping("/admin/slide_list")
 	public String slideList(Model model) {
-		List<Slide> list = slideService.getSlides();
+		List<SlidePojo> list = slideService.getSlides();
 		model.addAttribute("slide_list", list);
 		return "admin_slides";
 	}
