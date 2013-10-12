@@ -30,7 +30,7 @@
 
 	<update id="updateAdmin" parameterClass="admin">
 		<![CDATA[
-		UPDATE ARTICLE
+		UPDATE ADMIN
 		SET	password = #password#
 		WHERE id = #id#
 		]]>

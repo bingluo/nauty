@@ -1,6 +1,0 @@
-#parse("admin_header.vm")
-#parse("admin_sidebar.vm")	
-		
-		
-		
-#parse("admin_footer.vm")

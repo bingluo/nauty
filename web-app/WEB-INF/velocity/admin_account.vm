@@ -1,0 +1,75 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")	
+<script type="text/javascript">
+	$("#sidebar_li_4").siblings().removeClass('active')
+	$("#sidebar_li_4").addClass('active');
+	
+	$(document).ready(function(){
+		$("#account_form").validate({
+			rules:{
+				password
+			}, 
+			errorClass: "help-inline",
+			errorElement: "span",
+			highlight:function(element, errorClass, validClass) {
+				$(element).parents('.control-group').addClass('error');
+			},
+		});
+	});
+</script>
+<div id="content">
+	<div id="content-header">
+		<h1>账户管理</h1>
+		<div class="btn-group">
+			<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+			<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+			<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+			<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+		<a href="#" class="current">账户管理</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-pencil"></i>
+						</span>
+						<h5>修改密码</h5>
+					</div>
+					<div class="widget-content padding">
+						<form action="/admin/account" id="account_form" class="form-horizontal" method="post" novalidate="novalidate">
+							<input type="hidden" name="id" value="$admin.id"/>
+							<div class="control-group">
+								<label class="control-label">用户名</label>
+								<div class="controls">
+									<input id="username" type="text" name="userName" value="$admin.username" readonly/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">密码</label>
+								<div class="controls">
+									<input id="password" type="password" name="password" value="$admin.password"/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">确认密码</label>
+								<div class="controls">
+									<input id="password2" type="password" name="password2" />
+								</div>
+							</div>
+							<div class="form-actions">
+								<input id="submit" class="btn btn-primary" type="submit" value="提交" />
+							</div>
+							
+						</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>		
+#parse("admin_footer.vm")

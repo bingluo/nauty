@@ -9,7 +9,7 @@
 	}
 ?>
 <!doctype html>
-<html>
+<html> attached
 <head>
 	<meta charset="utf-8" />
 	<title>KindEditor PHP</title>

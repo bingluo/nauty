@@ -20,6 +20,7 @@
         <script src="/static/js/jquery.uniform.js"></script>
         <script src="/static/js/bootstrap-colorpicker.js"></script>
         <script src="/static/js/bootstrap-datepicker.js"></script>
+        <script src="/static/js/jquery.validate.js"></script>
         
 	</head>
 	
@@ -30,7 +31,7 @@
 		</div>
 		<div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav btn-group">
-                <li class="btn btn-inverse" ><a title="" href="#"><i class="icon icon-user"></i> <span class="text"><strong>${login_admin}</strong></span></a></li>
+                <li class="btn btn-inverse" ><a title="" href="#"><i class="icon icon-user"></i> <span class="text"><strong>$login_admin</strong></span></a></li>
                 <li class="btn btn-inverse"><a title="" href="/admin/logout"><i class="icon icon-share-alt"></i> <span class="text">注销</span></a></li>
             </ul>
         </div>
