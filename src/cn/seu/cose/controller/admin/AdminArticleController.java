@@ -28,6 +28,8 @@ public class AdminArticleController extends AbstractController{
 	@Autowired
 	private CategoryService catService;
 	
+	public static final int PAGE_SIZE = 10;
+	
 	@RequestMapping("/admin/article_list-{topCatId}-{subCatId}-{pageIndex}")
 	public String articleList(@PathVariable(value="topCatId") String topCatIdStr, @PathVariable(value="subCatId") String subCatIdStr, 
 			@PathVariable(value="pageIndex") String pageIndexStr, Model model) {
@@ -46,12 +48,15 @@ public class AdminArticleController extends AbstractController{
 		
 		int catId = subCatId<=0 ? topCatId : subCatId;
 		int index = pageIndex<=0 ? 1 : pageIndex;
-		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndex(catId, index);
+		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(catId, index, PAGE_SIZE);
 		model.addAttribute("article_list", list);
 		
 		model.addAttribute("topCatId", topCatId);
 		model.addAttribute("subCatId", subCatId);
 		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("nextPageIndex", pageIndex+1);
+		model.addAttribute("prePageIndex", pageIndex-1);
+		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(topCatId,subCatId)));
 		
 		return "admin_articles";
 	}
@@ -60,7 +65,7 @@ public class AdminArticleController extends AbstractController{
 	public String articleList(Model model) {
 		putAdmin(model);
 		
-		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndex(2, 1); // init
+		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(2, 1, PAGE_SIZE); // init
 		model.addAttribute("article_list", list);
 		
 		/* get cats */
@@ -72,6 +77,9 @@ public class AdminArticleController extends AbstractController{
 		model.addAttribute("topCatId", 2);
 		model.addAttribute("subCatId", 0);
 		model.addAttribute("pageIndex", 1);
+		model.addAttribute("nextPageIndex", 2);
+		model.addAttribute("prePageIndex", 0);
+		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(2, 0)));
 		return "admin_articles";
 	}
 	
@@ -153,4 +161,13 @@ public class AdminArticleController extends AbstractController{
 		articleService.updateArticle(article);
 	}
 	
+	private int getPageCount(int count) {
+		if (count <= PAGE_SIZE) {
+			return 1;
+		} else if (count%PAGE_SIZE == 0) {
+			return count/PAGE_SIZE;
+		} else {
+			return count/PAGE_SIZE +1;
+		}
+	}
 }

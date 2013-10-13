@@ -71,6 +71,12 @@
 		]]>
 	</select>
 
+	<select id="selectCountByRootCatId" resultClass="int" parameterClass="int">
+		<![CDATA[
+		SELECT count(id) FROM ARTICLE WHERE root_cat_id=#value#
+		]]>
+	</select>
+	
 	<insert id="insertArticle" parameterClass="article">
 		<![CDATA[
 		INSERT INTO ARTICLE
@@ -87,7 +93,8 @@
 			content = #content#,
 			cat_id = #catId#,
 			root_cat_id = #rootCatId#,
-			`from` = #from#
+			`from` = #from#,
+			post_time = #postTime#
 		WHERE id = #id#
 		]]>
 	</update>

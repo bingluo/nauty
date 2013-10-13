@@ -27,6 +27,11 @@ public class ArticleService {
 		return articleDAOImpl.getArticlesByCatAndRange(catId, 10 * (index - 1),
 				10 * index);
 	}
+	
+	public List<ArticlePojo> getArticleByCatIdAndPageIndexAndPageSize(int catId, int index, int pageSize) {
+		return articleDAOImpl.getArticlesByCatAndRange(catId, pageSize * (index - 1),
+				pageSize * index);
+	}
 
 	public ArticlePojo getArticleByIdBrief(int id) {
 		return articleDAOImpl.getArticleByIdBrief(id);
@@ -36,7 +41,10 @@ public class ArticleService {
 		return articleDAOImpl.getArticleById(id);
 	}
 
-	public int getArticleCountByCatId(int catId) {
+	public int getArticleCountByCatId(int rootCatId, int catId) {
+		if (catId <= 0) {
+			return articleDAOImpl.getArticleCountByRootCatId(rootCatId);
+		}
 		return articleDAOImpl.getArticleCountByCatId(catId);
 	}
 

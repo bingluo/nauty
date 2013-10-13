@@ -5,16 +5,32 @@
 	$("#sidebar_li_4").addClass('active');
 	
 	$(document).ready(function(){
-		/*$("#account_form").validate({
-			rules:{
-				password
-			}, 
-			errorClass: "help-inline",
-			errorElement: "span",
-			highlight:function(element, errorClass, validClass) {
-				$(element).parents('.control-group').addClass('error');
-			},
-		});*/
+		$(":submit[id=submit]").click(function(check){  
+			var password = $("#password").val();
+			var password2 = $("#password2").val();
+			$("#pass1").remove();
+			$("#pass2").remove();
+			$("#pass3").remove();
+			
+			if(password == "") {
+				$("#password").parent().parent().addClass("error");
+				$("#password2").parent().parent().removeClass("error");
+				$("#password").parent().append('<span id="pass1" for="required" generated="true" class="help-inline">请填写新密码</span>');
+				check.preventDefault();//此处阻止提交表单  
+			} else if(password2 == "") {
+				$("#password").parent().parent().removeClass("error");
+				$("#password2").parent().parent().addClass("error");
+				$("#password2").parent().append('<span id="pass2" for="required" generated="true" class="help-inline">请确认新密码</span>');
+				check.preventDefault();//此处阻止提交表单  
+			} else if(password != password2) {
+				$("#password").parent().parent().addClass("error");
+				$("#password2").parent().parent().addClass("error");
+				$("#password2").parent().append('<span for="required" id="pass3" generated="true" class="help-inline">两次填写密码不一致</span>');
+				check.preventDefault();//此处阻止提交表单  
+			} else {
+				check.submit();
+			}
+		});
 	});
 </script>
 <div id="content">
@@ -28,7 +44,7 @@
 		</div>
 	</div>
 	<div id="breadcrumb">
-		<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
 		<a href="#" class="current">账户管理</a>
 	</div>
 	<div class="container-fluid">
@@ -51,13 +67,13 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">密码</label>
+								<label class="control-label">新密码</label>
 								<div class="controls">
-									<input id="password" type="password" name="password" value="$admin.password"/>
+									<input id="password" type="password" name="password"/>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">确认密码</label>
+								<label class="control-label">确认新密码</label>
 								<div class="controls">
 									<input id="password2" type="password" name="password2" />
 								</div>
