@@ -15,10 +15,10 @@ import cn.seu.cose.entity.Admin;
 import cn.seu.cose.service.AdminService;
 
 @Controller
-public class AdminIndexController extends AbstractController {
+public class AdminIndexController extends AbstractController{
 	@Autowired
 	private AdminService adminService;
-
+	
 	@RequestMapping("/admin/index")
 	public void adminIndex(Model model, HttpServletResponse response) {
 		String to = "";
@@ -35,16 +35,15 @@ public class AdminIndexController extends AbstractController {
 			e.printStackTrace();
 		}
 	}
-
-	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+	
+	@RequestMapping(value="/admin/login", method=RequestMethod.GET)
 	public String login() {
 		return "admin_login";
 	}
-
-	@RequestMapping(value = "/admin/login", method = RequestMethod.POST)
-	public void login(@RequestParam("username") String username,
-			@RequestParam("password") String password,
-			HttpServletResponse response) {
+	
+	@RequestMapping(value="/admin/login", method=RequestMethod.POST)
+	public void login(@RequestParam("username") String username, @RequestParam("password") String password
+			, HttpServletResponse response) {
 		Admin admin = adminService.logon(username, password);
 		String to = "/admin/login";
 		if (admin != null) {
@@ -56,14 +55,14 @@ public class AdminIndexController extends AbstractController {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@RequestMapping("/admin/logout")
 	public String logout() {
 		adminService.logout();
 		return "admin_login";
 	}
-
-	@RequestMapping("/admin/account")
+	
+	@RequestMapping("/admin/account") 
 	public String getAccount(Model model, HttpServletResponse response) {
 		Admin admin = adminService.getAdmin();
 		if (admin != null) {
@@ -79,10 +78,9 @@ public class AdminIndexController extends AbstractController {
 		}
 		return null;
 	}
-
-	@RequestMapping(value = "/admin/account", method = RequestMethod.POST)
-	public void getAccount(@RequestParam("password") String password,
-			HttpServletResponse response) {
+	
+	@RequestMapping(value="/admin/account", method=RequestMethod.POST) 
+	public void getAccount(@RequestParam("password") String password, HttpServletResponse response) {
 		if (adminService.getAdmin() != null) {
 			adminService.modifyPswd(password);
 		}
