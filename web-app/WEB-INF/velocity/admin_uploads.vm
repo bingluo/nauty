@@ -4,80 +4,128 @@
 	$("#sidebar_li_3").siblings().removeClass('active')
 	$("#sidebar_li_3").addClass('active');
 </script>
-<style type="text/css">
-	#editor {
-	max-height: 250px;
-	height: 250px;
-	background-color: white;
-	border-collapse: separate; 
-	border: 1px solid rgb(204, 204, 204); 
-	padding: 4px; 
-	box-sizing: content-box; 
-	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
-	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
-	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
-	overflow: scroll;
-	outline: none;
-}
-#voiceBtn {
-  width: 20px;
-  color: transparent;
-  background-color: transparent;
-  transform: scale(2.0, 2.0);
-  -webkit-transform: scale(2.0, 2.0);
-  -moz-transform: scale(2.0, 2.0);
-  border: transparent;
-  cursor: pointer;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-}
 
-div[data-role="editor-toolbar"] {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.dropdown-menu a {
-  cursor: pointer;
-}
-</style>
-		
-		<div id="editor" stype="overflow:scroll; max-height:300px">
+<div id="content">
+	<div id="content-header">
+		<h1>下载管理</h1>
+		<div class="btn-group">
+			<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+			<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+			<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+			<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
 		</div>
-		
-<script>
-  $(function(){
-    function initToolbarBootstrapBindings() {
-      var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
-            'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
-            'Times New Roman', 'Verdana'],
-            fontTarget = $('[title=Font]').siblings('.dropdown-menu');
-      $.each(fonts, function (idx, fontName) {
-          fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
-      });
-      $('a[title]').tooltip({container:'body'});
-    	$('.dropdown-menu input').click(function() {return false;})
-		    .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
-        .keydown('esc', function () {this.value='';$(this).change();});
+	</div>
+	<div id="breadcrumb">
+		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">下载管理</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-th"></i>
+						</span>
+						<h5>下载列表</h5>
+						<span class="icon" id="add_display_btn">
+							<a href="/admin/add_upload" class="btn btn-primary btn-mini">
+								<i class="icon-plus icon-white"></i>添加下载
+							</a>
+						</span>
+					</div>
+					<div class="widget-content padding">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th style="width:3%">ID</th>
+								<th>标题</th>
+								<th>路径</th>
+								<th style="width:15%">发布时间</th>
+								<th style="width:7%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach($upload in $upload_list)
+								<tr>
+									<td>$upload.id</td>
+									<td>$upload.uploadName</td>
+									<td><a target="_blank" href="$upload.initialName">$upload.initialName</a></td>
+									<td>$upload.uploadTime</td>
+									<td>
+										<a href="/admin/alt_upload-$upload.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
+										<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
+									</td>
+								</tr>
+							#end
+						</tbody>
+					</table>
+					<div class="pagination pagination-centered"">
+						<ul>
+							#if ($prePageIndex == 0) 
+								<li class="disabled"><a href="javascript:void(0)">前一页</a></li>
+							#else
+								<li><a href="/admin/upload_list-${prePageIndex}" >前一页</a></li>
+							#end
+					    	#if ($pageIndex == $pageCount)
+						    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
+					    	#else
+					    		<li><a href="/admin/upload_list-${nextPageIndex}">后一页</a></li>
+					    	#end
+						</ul>
+						<select style="vertical-align:top; height:inherit; width:80px" onchange="top.location=this.value;">
+							#foreach($i in [1..$pageCount]) 
+								#if ($i == $pageIndex)
+									<option value="/admin/upload_list-${i}" selected>$i</option>
+								#else
+									<option value="/admin/upload_list-${i}">$i</option>
+								#end
+								
+							#end
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-      $('[data-role=magic-overlay]').each(function () { 
-        var overlay = $(this), target = $(overlay.data('target')); 
-        overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
-      });
-      $('#voiceBtn').hide();
-      // if ("onwebkitspeechchange"  in document.createElement("input")) {
-      //   var editorOffset = $('#editor').offset();
-      //   $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
-      // } else {
-      //   $('#voiceBtn').hide();
-      // }
-    };
-    initToolbarBootstrapBindings();  
-    $('#editor').wysiwyg();
-    window.prettyPrint && prettyPrint();
-  });
+<div id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定删除？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_del">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// global
+		var uploadId = -1; 
+	
+		// show del_dialog
+		$("button[id='del_btn']").bind("click", function(){
+			uploadId = $(this).parents("tr").find("td:first").html().trim()
+			$("#del_dialog").modal("show");
+		});
+		// yes_del
+		$("#yes_del").bind("click", function(){
+			$.ajax({
+				url: "/admin/del_upload",
+				type: "post",
+				data: {id:uploadId},
+				dataType: "html",
+				success:function(data){
+					window.location.href="/admin/upload_list";
+				},
+				error:function(){
+					$("#del_dialog").modal("hide");
+					alert("删除错误，请重试！");
+				}
+			});
+		});
+	});
 </script>
+
 #parse("admin_footer.vm")

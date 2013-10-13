@@ -22,7 +22,12 @@ public class SlideDAOImpl extends SqlMapClientDaoSupport implements SlideDAO {
 	public List<SlidePojo> getSlides() {
 		return getSqlMapClientTemplate().queryForList("SLIDE.selectSlide");
 	}
-
+	
+	@Override 
+	public SlidePojo getSlideById(int id) {
+		return (SlidePojo)getSqlMapClientTemplate().queryForObject("SLIDE.selectSlideById", id);
+	}
+	
 	@Override
 	public void insertSlide(SlidePojo slide) {
 		getSqlMapClientTemplate().insert("SLIDE.insertSlide", slide);

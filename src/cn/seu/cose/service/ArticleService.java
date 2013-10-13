@@ -33,6 +33,10 @@ public class ArticleService {
 				pageSize * index);
 	}
 
+	public List<ArticlePojo> getArticlesByCatId(int subCatId) {
+		return articleDAOImpl.getArticlesBySubCatId(subCatId);
+	}
+	
 	public ArticlePojo getArticleByIdBrief(int id) {
 		return articleDAOImpl.getArticleByIdBrief(id);
 	}

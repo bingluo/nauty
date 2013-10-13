@@ -22,14 +22,25 @@ public class UploadDAOImpl extends SqlMapClientDaoSupport implements UploadDAO {
 	public List<Upload> getUploads() {
 		return getSqlMapClientTemplate().queryForList("UPLOAD.selectUpload");
 	}
-
+	
+	@Override 
+	public Upload getUploadById(int id) {
+		return (Upload)getSqlMapClientTemplate().queryForObject("UPLOAD.selectUploadById", id);
+	}
+	
 	@Override
 	public void insertUpload(Upload upload) {
 		getSqlMapClientTemplate().insert("UPLOAD.insertUpload", upload);
+	}
+	
+	@Override
+	public void updateUpload(Upload upload) {
+		getSqlMapClientTemplate().update("UPLOAD.updateUpload", upload);
 	}
 
 	@Override
 	public void deleteUploadById(int id) {
 		getSqlMapClientTemplate().delete("UPLOAD.deletUploadById", id);
 	}
+	
 }

@@ -98,7 +98,7 @@
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>ID</th>
+									<th style="width:3%">ID</th>
 									<th>文章标题</th>
 									<th>副标题</th>
 									<th style="width:5%">类别</th>
@@ -124,7 +124,7 @@
 								#end
 							</tbody>
 						</table>
-						<div class="pagination pagination-right"">
+						<div class="pagination pagination-centered"">
 							<ul>
 								#if ($prePageIndex == 0) 
 									<li class="disabled"><a href="javascript:void(0)">前一页</a></li>
@@ -205,12 +205,5 @@
 			});
 		});
 	});
-</script>
-<script charset="utf-8" src="/static/editor/kindeditor.js"></script>
-<script charset="utf-8" src="/static/editor/lang/zh_CN.js"></script>
-<script>
-    KindEditor.ready(function(K) {
-            window.editor = K.create('#editor');
-    });
 </script>
 #parse("admin_footer.vm")
