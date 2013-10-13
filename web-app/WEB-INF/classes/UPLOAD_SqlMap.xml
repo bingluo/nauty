@@ -17,7 +17,7 @@
 		SELECT * 
 		FROM ARTICLE
 		WHERE id=#value#
-		ORDER BY upload_time desc
+		ORDER BY uploadTime desc
 		]]>
 	</select>
 

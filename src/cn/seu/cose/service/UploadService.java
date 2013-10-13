@@ -25,4 +25,11 @@ public class UploadService {
 	public void deleteUpload(int id) {
 		uploadDAOImpl.deleteUploadById(id);
 	}
+	
+	public Upload getUpload(int id) {
+		return null;
+	}
+	public void altUpload(Upload upload) {
+		
+	}
 }

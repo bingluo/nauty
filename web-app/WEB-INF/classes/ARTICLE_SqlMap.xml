@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
@@ -105,3 +106,112 @@
 		]]>
 	</delete>
 </sqlMap>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ARTICLE">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="article" type="cn.seu.cose.entity.ArticlePojo" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="BriefArticleResultMap" class="article">
+		<result property="id" column="ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="subhead" column="SUBHEAD" nullValue=""/>
+		<result property="catId" column="CAT_ID"/>
+		<result property="rootCatId" column="ROOT_CAT_ID"/>
+		<result property="from" column="FROM" nullValue="未知"/>
+		<result property="postTime" column="POST_TIME"/>
+		<result property="rootCatUri" column="URI_NAME"/>
+	</resultMap>
+	<resultMap id="ArticleResultMap" class="article">
+		<result property="id" column="ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="subhead" column="SUBHEAD" nullValue=""/>
+		<result property="catId" column="CAT_ID"/>
+		<result property="rootCatId" column="ROOT_CAT_ID"/>
+		<result property="content" column="CONTENT" nullValue=""/>
+		<result property="from" column="FROM" nullValue="未知"/>
+		<result property="postTime" column="POST_TIME"/>
+		<result property="rootCatUri" column="URI_NAME"/>
+	</resultMap>
+	
+	<select id="selectArticleByIdBrief" resultMap="BriefArticleResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
+		FROM ARTICLE a,category b
+		WHERE a.id=#value# AND a.root_cat_id=b.id
+		]]>
+	</select>
+	
+	<select id="selectArticleById" resultMap="ArticleResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.from,a.post_time,b.uri_name
+		FROM ARTICLE a,category b
+		WHERE a.id=#value# AND a.root_cat_id=b.id
+		]]>
+	</select>
+	
+	<select id="selectArticleByCatIdAndBaseAndRangeBrief" resultMap="BriefArticleResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
+			 FROM ARTICLE a,category b
+			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id
+			 ORDER BY a.post_time DESC) c
+		limit #base#,#range#
+		]]>
+	</select>
+	
+	<select id="selectArticleByCatIdAndBaseAndRange" resultMap="ArticleResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.from,a.post_time,b.uri_name
+			 FROM ARTICLE a,category b
+			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id
+			 ORDER BY a.post_time DESC) c
+		limit #base#,#range#
+		]]>
+	</select>
+	
+	<select id="selectCountByCatId" resultClass="int" parameterClass="int">
+		<![CDATA[
+		SELECT count(id) FROM ARTICLE WHERE cat_id=#value#
+		]]>
+	</select>
+
+	<select id="selectCountByRootCatId" resultClass="int" parameterClass="int">
+		<![CDATA[
+		SELECT count(id) FROM ARTICLE WHERE root_cat_id=#value#
+		]]>
+	</select>
+	
+	<insert id="insertArticle" parameterClass="article">
+		<![CDATA[
+		INSERT INTO ARTICLE
+		(title,subhead,cat_Id,root_cat_id,content,`from`,post_time)
+		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,#postTime#)
+		]]>
+	</insert>
+
+	<update id="updateArticle" parameterClass="article">
+		<![CDATA[
+		UPDATE ARTICLE
+		SET	title = #title#,
+			subhead = #subhead#,
+			content = #content#,
+			cat_id = #catId#,
+			root_cat_id = #rootCatId#,
+			`from` = #from#,
+			post_time = #postTime#
+		WHERE id = #id#
+		]]>
+	</update>
+	
+	<delete id="deleteArticleById" parameterClass="int">
+		<![CDATA[
+		delete from Article where ID = #value#
+		]]>
+	</delete>
+</sqlMap>
+>>>>>>> branch 'master' of git@github.com:bingluo/nauty.git

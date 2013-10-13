@@ -1,0 +1,216 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")	
+<script type="text/javascript">
+	$("#sidebar_li_1").siblings().removeClass('active')
+	$("#sidebar_li_1").addClass('active');
+	function _topCatChanged() {
+		var sel_top_cat = $("#top_cats option:selected").val();
+		$.ajax({
+			url: "/admin/sub_cat_list",
+			type: "post",
+			data: {parentId:sel_top_cat},
+			dataType: "html",
+			success:function(data){
+				$("#sub_cats").find('option').remove() ;
+				var cat_array =eval(data);
+				$("#sub_cats").append('<option value="0">全选</option>');
+				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
+					$("#sub_cats").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
+				}
+			},
+			error:function(){
+			}
+		});
+	}
+</script>
+
+<div id="content">
+	<div id="content-header">
+		<h1>文章管理</h1>
+		<div class="btn-group">
+			<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+			<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+			<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+			<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">文章管理</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-content nopadding">
+					<div class="control-group">
+						<div class="controls">
+							<select id="top_cats" onchange="_topCatChanged()">
+								#foreach($topCat in $top_cat_list)
+									#if ($topCat.id == $topCatId)
+										<option value="$topCat.id" selected>$topCat.catName</option>
+									#else
+										<option value="$topCat.id">$topCat.catName</option>
+									#end
+								#end
+							</select>
+							&nbsp;
+							<select id="sub_cats">
+								#if ($subCatId == 0)
+									<option value="0" selected>全选</option>
+								#else
+									<option value="0">全选</option>
+								#end
+								#foreach($init_sub in $init_sub_cat_list)
+									#if ($init_sub.id == $subCatId)
+										<option value="$init_sub.id" selected>$init_sub.catName</option>
+									#else
+										<option value="$init_sub.id" >$init_sub.catName</option>
+									#end
+									
+								#end
+							</select>
+							&nbsp;
+							<span class="icon" id="fetch_article_btn">
+								<a href="javascript:void(0)" class="btn btn-info btn" style="vertical-align:top">
+									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
+								</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-th"></i>
+						</span>
+						<h5>文章列表</h5>
+						<span class="icon" id="add_display_btn">
+							<a href="/admin/add_article" class="btn btn-primary btn-mini">
+								<i class="icon-plus icon-white"></i>添加文章
+							</a>
+						</span>
+					</div>
+					<div class="widget-content padding">
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>文章标题</th>
+									<th>副标题</th>
+									<th style="width:5%">类别</th>
+									<th style="width:5%">来自</th>
+									<th style="width:15%">发布时间</th>
+									<th style="width:7%">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								#foreach($article in $article_list)
+									<tr>
+										<td>$article.id</td>
+										<td>$article.title</td>
+										<td>$article.subhead</td>
+										<td>$article.catId</td>
+										<td>$article.from</td>
+										<td>$article.postTime</td>
+										<td>
+											<a href="/admin/alt_article-$article.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
+										</td>
+									</tr>
+								#end
+							</tbody>
+						</table>
+						<div class="pagination pagination-right"">
+							<ul>
+								#if ($prePageIndex == 0) 
+									<li class="disabled"><a href="javascript:void(0)">前一页</a></li>
+								#else
+									<li><a href="/admin/article_list-${topCatId}-${subCatId}-${prePageIndex}" >前一页</a></li>
+								#end
+						    	#if ($pageIndex == $pageCount)
+							    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
+						    	#else
+						    		<li><a href="/admin/article_list-${topCatId}-${subCatId}-${nextPageIndex}">后一页</a></li>
+						    	#end
+							</ul>
+							<select style="vertical-align:top; height:inherit; width:80px" onchange="top.location=this.value;">
+								#foreach($i in [1..$pageCount]) 
+									#if ($i == $pageIndex)
+										<option value="/admin/article_list-${topCatId}-${subCatId}-${i}" selected>$i</option>
+									#else
+										<option value="/admin/article_list-${topCatId}-${subCatId}-${i}">$i</option>
+									#end
+									
+								#end
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定删除？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_del">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		// global
+		var articleId = -1; 
+		var top_cat_id = 1;
+		var sub_cat_id = 0;
+	
+		/**************************************************************************/
+		$("#fetch_article_btn").bind("click", function(){
+			top_cat_id = $("#top_cats option:selected").val();
+			sub_cat_id = $("#sub_cats option:selected").val();
+			
+			window.location.href= "/admin/article_list-"+ top_cat_id + "-" + sub_cat_id + "-1";
+		});
+		/**************************************************************************/
+		
+		// show del_dialog
+		$("button[id='del_btn']").bind("click", function(){
+			articleId = $(this).parents("tr").find("td:first").html().trim()
+			$("#del_dialog").modal("show");
+		});
+		// yes_del
+		$("#yes_del").bind("click", function(){
+			$.ajax({
+				url: "/admin/del_article",
+				type: "post",
+				data: {id:articleId},
+				dataType: "html",
+				success:function(data){
+					$("#del_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#del_dialog").modal("hide");
+					alert("删除错误，请重试！");
+				}
+			});
+		});
+	});
+</script>
+<script charset="utf-8" src="/static/editor/kindeditor.js"></script>
+<script charset="utf-8" src="/static/editor/lang/zh_CN.js"></script>
+<script>
+    KindEditor.ready(function(K) {
+            window.editor = K.create('#editor');
+    });
+</script>
+#parse("admin_footer.vm")

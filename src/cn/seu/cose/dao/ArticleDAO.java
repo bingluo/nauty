@@ -16,9 +16,11 @@ interface ArticleDAO {
 
 	int getArticleCountByCatId(int catId);
 
-	int insertArticle(ArticlePojo article);
+	void insertArticle(ArticlePojo article);
 
 	void updateArticle(ArticlePojo article);
 
 	void deleteArticle(int id);
+
+	int getArticleCountByRootCatId(int rootCatId);
 }

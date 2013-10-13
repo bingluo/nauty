@@ -42,7 +42,11 @@ public class AdminService {
 			return false;
 		}
 	}
-
+	
+	public Admin getAdmin() {
+		return SecurityContextHolder.getSecurityContext().getAdmin();
+	}
+	
 	public Admin getAmindById(int id) {
 		return adminDAOImpl.getAmindById(id);
 	}

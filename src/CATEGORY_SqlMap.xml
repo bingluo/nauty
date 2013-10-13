@@ -21,6 +21,12 @@
 		]]>
 	</select>
 	
+	<select id="selectCategoryByLevel" resultMap="CategoryResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM CATEGORY WHERE cat_level=#value#
+		]]>
+	</select>
+	
 	<select id="selectRootCategories" resultMap="CategoryResultMap">
 		<![CDATA[
 		SELECT * FROM CATEGORY WHERE cat_level=1 ORDER BY id ASC
