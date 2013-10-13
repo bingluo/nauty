@@ -8,22 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.seu.cose.entity.ArticlePojo;
-import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.entity.SlidePojo;
-import cn.seu.cose.service.AdminService;
 import cn.seu.cose.service.ArticleService;
-import cn.seu.cose.service.CategoryService;
 import cn.seu.cose.service.SlideService;
 
 @Controller
-public class IndexController {
+public class IndexController extends AbstractController {
 
 	@Autowired
 	private ArticleService articleService;
-	@Autowired
-	private AdminService adminService;
-	@Autowired
-	private CategoryService categoryService;
 	@Autowired
 	private SlideService slideService;
 
@@ -33,17 +26,7 @@ public class IndexController {
 		List<ArticlePojo> news = articleService.newCenterInIndex();
 		model.addAttribute("slides", slides);
 		model.addAttribute("news", news);
-		CommonIssues(model);
+		addCategories(model);
 		return "index";
-	}
-
-	@RequestMapping("/index")
-	public String newBloga() {
-		return "index";
-	}
-
-	public void CommonIssues(Model model) {
-		List<CategoryPojo> cats = categoryService.getRootsWithChildren();
-		model.addAttribute("cats", cats);
 	}
 }

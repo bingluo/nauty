@@ -8,4 +8,6 @@ interface CategoryDAO {
 	List<CategoryPojo> getCategoriesByParentId(int parentId);
 
 	List<CategoryPojo> getRootCategories();
+
+	List<CategoryPojo> getAllCats();
 }
