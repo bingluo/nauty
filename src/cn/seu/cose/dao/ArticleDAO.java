@@ -23,4 +23,8 @@ interface ArticleDAO {
 	void deleteArticle(int id);
 
 	int getArticleCountByRootCatId(int rootCatId);
+
+	List<ArticlePojo> getArticlesByRootCatId(int rootCatId);
+
+	List<ArticlePojo> getArticlesBySubCatId(int subCatId);
 }

@@ -21,7 +21,23 @@
         <script src="/static/js/bootstrap-colorpicker.js"></script>
         <script src="/static/js/bootstrap-datepicker.js"></script>
         <script src="/static/js/jquery.validate.js"></script>
-        
+        <style type="text/css">
+        	table{
+				width:100%;
+				table-layout:fixed;
+			}
+			td img{
+				max-width:45px;
+				min-width:45px;
+				max-height:30px;
+				min-height:30px;
+			} 
+			td{
+				white-space:nowrap;
+				overflow: hidden;
+				text-overflow:ellipsis;
+			}
+		</style>
 	</head>
 	
 	<body>

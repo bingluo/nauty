@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.caucho.server.http.HttpResponse;
-
 import cn.seu.cose.entity.Admin;
 import cn.seu.cose.service.AdminService;
 
@@ -65,7 +63,7 @@ public class AdminIndexController extends AbstractController{
 	}
 	
 	@RequestMapping("/admin/account") 
-	public String getAccount(Model model, HttpResponse response) {
+	public String getAccount(Model model, HttpServletResponse response) {
 		Admin admin = adminService.getAdmin();
 		if (admin != null) {
 			putAdmin(model);
@@ -82,7 +80,7 @@ public class AdminIndexController extends AbstractController{
 	}
 	
 	@RequestMapping(value="/admin/account", method=RequestMethod.POST) 
-	public void getAccount(@RequestParam("password") String password, HttpResponse response) {
+	public void getAccount(@RequestParam("password") String password, HttpServletResponse response) {
 		if (adminService.getAdmin() != null) {
 			adminService.modifyPswd(password);
 		}

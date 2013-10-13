@@ -23,7 +23,11 @@ public class SlideService {
 		}
 		return slides;
 	}
-
+	public SlidePojo getSlideById(int id) {
+		return slideDAOImpl.getSlideById(id);
+	}
+	
+	
 	public void addSlide(SlidePojo slide) {
 		slideDAOImpl.insertSlide(slide);
 	}

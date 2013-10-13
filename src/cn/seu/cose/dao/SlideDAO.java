@@ -12,4 +12,6 @@ interface SlideDAO {
 	void updateSlide(SlidePojo slide);
 
 	void deleteSlide(int id);
+
+	SlidePojo getSlideById(int id);
 }
