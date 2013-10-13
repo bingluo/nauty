@@ -206,11 +206,4 @@
 		});
 	});
 </script>
-<script charset="utf-8" src="/static/editor/kindeditor.js"></script>
-<script charset="utf-8" src="/static/editor/lang/zh_CN.js"></script>
-<script>
-    KindEditor.ready(function(K) {
-            window.editor = K.create('#editor');
-    });
-</script>
 #parse("admin_footer.vm")

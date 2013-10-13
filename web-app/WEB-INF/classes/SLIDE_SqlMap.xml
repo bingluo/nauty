@@ -19,6 +19,11 @@
 			SELECT * FROM SLIDE ORDER BY update_time DESC
 		]]>
 	</select>
+	<select id="selectSlideById" resultMap="SlideResultMap" parameterClass="int">
+		<![CDATA[
+			SELECT * FROM SLIDE WHERE id = #value# 
+		]]>
+	</select>
 
 	<insert id="insertSlide" parameterClass="slide">
 		<![CDATA[
@@ -32,7 +37,7 @@
 		<![CDATA[
 		UPDATE SLIDE
 		SET	title = #title#,
-			brief = #brief#
+			brief = #brief#,
 			article_id = #articleId#,
 			pic_name = #picName#,
 			update_time = #updateTime#

@@ -27,9 +27,10 @@ public class UploadService {
 	}
 	
 	public Upload getUpload(int id) {
-		return null;
+		return uploadDAOImpl.getUploadById(id);
 	}
-	public void altUpload(Upload upload) {
-		
+	public void updateUpload(Upload upload) {
+		uploadDAOImpl.updateUpload(upload);
 	}
+	
 }
