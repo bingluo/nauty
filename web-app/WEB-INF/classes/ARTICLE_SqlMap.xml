@@ -39,7 +39,7 @@
 		<![CDATA[
 		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.from,a.post_time,b.uri_name
 		FROM ARTICLE a,category b
-		WHERE id=#value# AND a.root_cat_id=b.id
+		WHERE a.id=#value# AND a.root_cat_id=b.id
 		]]>
 	</select>
 	
@@ -48,7 +48,7 @@
 		SELECT * FROM
 			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
 			 FROM ARTICLE a,category b
-			 WHERE a.cat_id = #catId# AND a.root_cat_id = b.id
+			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id
 			 ORDER BY a.post_time DESC) c
 		limit #base#,#range#
 		]]>
@@ -59,7 +59,7 @@
 		SELECT * FROM
 			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.from,a.post_time,b.uri_name
 			 FROM ARTICLE a,category b
-			 WHERE a.cat_id = #catId# AND a.root_cat_id = b.id
+			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id
 			 ORDER BY a.post_time DESC) c
 		limit #base#,#range#
 		]]>
@@ -71,15 +71,18 @@
 		]]>
 	</select>
 
+	<select id="selectCountByRootCatId" resultClass="int" parameterClass="int">
+		<![CDATA[
+		SELECT count(id) FROM ARTICLE WHERE root_cat_id=#value#
+		]]>
+	</select>
+	
 	<insert id="insertArticle" parameterClass="article">
 		<![CDATA[
 		INSERT INTO ARTICLE
-		(title,subhead,cat_Id,root_cat_id,content,from,post_time)
-		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,current_timestamp())
+		(title,subhead,cat_Id,root_cat_id,content,`from`,post_time)
+		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,#postTime#)
 		]]>
-		<selectKey resultClass="int" keyProperty="id">
-			select last_insert_id() as ID from ARTICLE limit 1
-		</selectKey>
 	</insert>
 
 	<update id="updateArticle" parameterClass="article">
@@ -89,8 +92,9 @@
 			subhead = #subhead#,
 			content = #content#,
 			cat_id = #catId#,
-			root_cat_id = #rootCatId#
-			from = #from#
+			root_cat_id = #rootCatId#,
+			`from` = #from#,
+			post_time = #postTime#
 		WHERE id = #id#
 		]]>
 	</update>
