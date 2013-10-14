@@ -60,26 +60,28 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 		return (Integer) getSqlMapClientTemplate().queryForObject(
 				"ARTICLE.selectCountByCatId", catId);
 	}
-	
+
 	@Override
 	public int getArticleCountByRootCatId(int rootCatId) {
 		return (Integer) getSqlMapClientTemplate().queryForObject(
 				"ARTICLE.selectCountByRootCatId", rootCatId);
 	}
-	
+
 	@Override
 	public List<ArticlePojo> getArticlesByRootCatId(int rootCatId) {
-		return getSqlMapClientTemplate().queryForList("ARTICLE.selectArticleByRootCatId", rootCatId);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectArticleByRootCatId", rootCatId);
 	}
+
 	@Override
 	public List<ArticlePojo> getArticlesBySubCatId(int subCatId) {
-		return getSqlMapClientTemplate().queryForList("ARTICLE.selectArticleBySubCatId", subCatId);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectArticleBySubCatId", subCatId);
 	}
-	
+
 	@Override
 	public void insertArticle(ArticlePojo article) {
-		getSqlMapClientTemplate().insert(
-				"ARTICLE.insertArticle", article);
+		getSqlMapClientTemplate().insert("ARTICLE.insertArticle", article);
 	}
 
 	@Override
@@ -90,5 +92,11 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	@Override
 	public void deleteArticle(int id) {
 		getSqlMapClientTemplate().delete("ARTICLE.deleteArticleById", id);
+	}
+
+	@Override
+	public ArticlePojo getExclusiveArticleByCatId(int catId) {
+		return (ArticlePojo) getSqlMapClientTemplate().queryForObject(
+				"ARTICLE.selectExclusiveArticleByCatId", catId);
 	}
 }

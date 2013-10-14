@@ -46,38 +46,7 @@
 <div class="container ie-dropdown-fix">
 
 	<!-- Header -->
-	<div id="header">
-
-		<!-- Logo -->
-		<div class="eight columns">
-			<div id="logo">
-				<a href="#"><img src="/static/images/logo.png" alt="logo" /></a>
-				<div id="tagline">It's time to impress your visitors!</div>
-				<div class="clear"></div>
-			</div>
-		</div>
-
-		<!-- Social / Contact -->
-		<div class="eight columns">
-			<!-- Social Icons -->
-			<ul class="social-icons">
-				<li class="facebook"><a href="#">Facebook</a></li>
-				<li class="twitter"><a href="#">Twitter</a></li>
-				<li class="dribbble"><a href="#">Dribbble</a></li>
-				<li class="linkedin"><a href="#">LinkedIn</a></li>
-				<li class="pintrest"><a href="#">Pintrest</a></li>
-			</ul>
-			<div class="clear"></div>
-			<!-- Contact Details -->
-			<div id="contact-details">
-				<ul>
-					<li><i class="mini-ico-envelope"></i><a href="#">support@centum.com</a></li>
-					<li><i class="mini-ico-user"></i>+48 880 450 120</li>
-				</ul>
-			</div>
-		</div>
-
-	</div>
+	#parse("common/header.vm")
 	<!-- Header / End -->
 	
 	<!-- Navigation -->
@@ -96,9 +65,11 @@
     <div class="one-third column" style="height:150px;padding:0px;display:block;background">
     	<div class="headline" style="margin:5px 0 8px 0"><h3>新闻中心</h3></div>
 		<div id="marquees" style="height:300px;width:290px;overflow:hidden">
-			#foreach($article in $news)
-        	<div><i class="mini-ico-tag"></i> <a href="$article.uri">$article.title</a><br/><br/><br/></div>
-			#end
+			<ul class="square_list">
+    			#foreach($article in $news)
+            	<li style="margin:10px 0px"> <a href="$article.uri">$article.title</a></li>
+				#end
+			</ul>
 		</div>
 	</div>
 </div>
@@ -219,46 +190,28 @@
 </div>
 <!-- Wrapper / End -->
 
-
-<!-- Footer
-================================================== -->
-
 <!-- Footer Start -->
-<div id="footer">
-	<!-- 960 Container -->
-	<div class="container">
-		<!-- Footer / Bottom -->
-		<div class="sixteen columns">
-			<div id="footer-bottom" style="text-align:center">
-				嘉兴市工业设计协会 &copy;  版权所有<br/>
-				CoSEr 技术支持
-				<div id="scroll-top-top"><a href="#"></a></div>
-			</div>
-		</div>
-	</div>
-	<!-- 960 Container / End -->
-
-</div>
+#parse("common/footer.vm")
 <!-- Footer / End -->
 </body>
 <script language="JavaScript">
 	$(document).ready(function(){
         var funca = function() {
-			$("#marquees div:first-child").toggle(600);
+			$(".square_list li:first-child").toggle(600);
             var funcb = function() {
-				$("#marquees div:first-child").appendTo("#marquees");
-				$("#marquees div:last-child").toggle(600);
+				$(".square_list li:first-child").appendTo(".square_list");
+				$(".square_list li:last-child").toggle(600);
 			};
 			var timer_timeout = setTimeout(funcb, 600);
         };
         var timer_interval = setInterval(funca,2000);
 		
 		
-		$("#marquees a").mouseover(function(){
+		$(".square_list li").mouseover(function(){
 			clearInterval(timer_interval);
 		});
 		
-		$("#marquees a").mouseout(function(){
+		$(".square_list li").mouseout(function(){
 			timer_interval = setInterval(funca,2000);
 		});
 	});

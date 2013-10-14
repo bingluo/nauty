@@ -11,13 +11,12 @@ public class LinkTool {
 
 	public static String image(String picName) {
 		StringBuilder sb = new StringBuilder();
-//		sb.append|("/static/images/upload/").append(picName);
-		sb.append("/static/upload/").append(picName);
+		sb.append(picName);
 		return sb.toString();
 	}
 
 	public static String article(ArticlePojo article) {
-		if(article == null) {
+		if (article == null) {
 			return "/";
 		}
 		StringBuilder sb = new StringBuilder();

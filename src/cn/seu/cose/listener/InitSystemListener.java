@@ -6,6 +6,7 @@ import javax.servlet.ServletContextListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.seu.cose.core.CategoryCache;
 import cn.seu.cose.core.SystemContainer;
 
 public class InitSystemListener implements ServletContextListener {
@@ -20,5 +21,6 @@ public class InitSystemListener implements ServletContextListener {
 				"/config.xml");
 		SystemContainer.setApplicationContext(applicationContext);
 
+		CategoryCache.init();
 	}
 }

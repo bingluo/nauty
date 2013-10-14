@@ -113,4 +113,12 @@
 		delete from Article where ID = #value#
 		]]>
 	</delete>
+	
+	<select id="selectExclusiveArticleByCatId" resultMap="ArticleResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.from,a.post_time,b.uri_name
+		from ARTICLE a,category b
+		WHERE cat_id = #catId# AND a.root_cat_id=b.id limit 0,1 
+		]]>
+    </select>
 </sqlMap>

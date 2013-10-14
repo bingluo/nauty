@@ -8,7 +8,7 @@ import cn.seu.cose.service.CategoryService;
 
 public class CategoryCache {
 	private static List<CategoryPojo> categories;
-	private static HashMap<Integer, CategoryPojo> idMap;
+	private static HashMap<Integer, CategoryPojo> idMap = new HashMap<Integer, CategoryPojo>();
 	private static List<CategoryPojo> rootsWithChildren;
 
 	public static void init() {
@@ -21,11 +21,11 @@ public class CategoryCache {
 		}
 	}
 
-	public CategoryPojo get(int id) {
+	public static CategoryPojo get(int id) {
 		return idMap.get(id);
 	}
 
-	public List<CategoryPojo> getRootsWithChildren() {
+	public static List<CategoryPojo> getRootsWithChildren() {
 		return rootsWithChildren;
 	}
 }

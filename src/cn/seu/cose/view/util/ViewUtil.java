@@ -1,36 +1,27 @@
 package cn.seu.cose.view.util;
 
-import java.util.Date;
-
-import org.joda.time.DateTime;
+import cn.seu.cose.core.CategoryCache;
+import cn.seu.cose.entity.CategoryPojo;
 
 public class ViewUtil {
-	public static String[] resolveTags(String tagString) {
-		return tagString.split(";");
+	public static String getBreadcrumb(int catId) {
+		CategoryPojo curCat = CategoryCache.get(catId);
+		if (curCat.getCatLevel() == 1) {
+			return "<h2 style='padding: 10px 0 10px 0;'>" + curCat.getCatName()
+					+ "</h2>";
+		} else {
+			return "<h2 style='padding: 10px 0 10px 0;'>"
+					+ CategoryCache.get(curCat.getParentCatId()).getCatName()
+					+ "<span>/ " + curCat.getCatName() + "</span></h2>";
+		}
 	}
 
-	public static int resolveDateGetDay(Date date) {
-		DateTime dateTime = new DateTime(date);
-		return dateTime.getDayOfMonth();
-	}
-
-	public static String resolveDateGetTime(Date date) {
-		DateTime dateTime = new DateTime(date);
-		return dateTime.toString("hh:mm a");
-	}
-
-	public static String timeFormat(Date date) {
-		DateTime dateTime = new DateTime(date);
-		return dateTime.toString("yyyy/MM/dd HH:mm (Ea)");
-	}
-
-	public static String timeFormat1(Date date) {
-		DateTime dateTime = new DateTime(date);
-		return dateTime.toString("yyyy/MM/dd HH:mm");
-	}
-
-	public static String dateFormat(Date date) {
-		DateTime dateTime = new DateTime(date);
-		return dateTime.toString("yyyy年MM月dd日");
+	public static String getParentCatName(int catId) {
+		CategoryPojo curCat = CategoryCache.get(catId);
+		if (curCat.getCatLevel() == 1) {
+			return curCat.getCatName();
+		} else {
+			return CategoryCache.get(curCat.getParentCatId()).getCatName();
+		}
 	}
 }
