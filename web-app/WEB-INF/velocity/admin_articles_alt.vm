@@ -110,6 +110,9 @@
 	$(document).ready(function(){
 		// yes_add
 		$("#yes_add").bind("click", function(){
+			$("#title").parent().parent().removeClass("error");
+			$("#req_title").remove();
+		
 			editor.sync();
 			var _id = $("#art_id").val();
 			var _html = $("#editor").val();
@@ -118,18 +121,24 @@
 			var _top_cat = $("#top_cats_add option:selected").val();
 			var _sub_cat = $("#sub_cats_add option:selected").val();
 			var _from = "admin";
-			$.ajax({
-				url: "/admin/alt_article",
-				type: "post",
-				data: {id:_id, title:_title, subhead:_subhead, catId:_sub_cat, rootCatId:_top_cat, content:_html, from:_from},
-				dataType: "html",
-				success:function(data){
-					window.location.href = "/admin/article_list-" + _top_cat + "-" + _sub_cat + "-1";
-				},
-				error:function(){
-					window.location.href = "/admin/article_list-" + _top_cat + "-" + _sub_cat + "-1";
-				}
-			});
+			
+			if(_title == "") {
+				$("#title").parent().parent().addClass("error");
+				$("#title").parent().append('<span id="req_title" for="required" generated="true" class="help-inline">请填写标题</span>');
+			} else {
+				$.ajax({
+					url: "/admin/alt_article",
+					type: "post",
+					data: {id:_id, title:_title, subhead:_subhead, catId:_sub_cat, rootCatId:_top_cat, content:_html, from:_from},
+					dataType: "html",
+					success:function(data){
+						window.location.href = "/admin/article_list-" + _top_cat + "-" + _sub_cat + "-1";
+					},
+					error:function(){
+						window.location.href = "/admin/article_list-" + _top_cat + "-" + _sub_cat + "-1";
+					}
+				});
+			}
 		});
 	});
 </script>

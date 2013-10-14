@@ -62,20 +62,34 @@
 	$(document).ready(function(){
 		// yes_add
 		$("#yes_add").bind("click", function(){
+			$("#initialName").parent().parent().removeClass("error");
+			$("#uploadName").parent().parent().removeClass("error");
+			$("#req_initialName").remove();
+			$("#req_uploadName").remove();		
+		
 			var _initialName = $("#initialName").val();
 			var _uploadName = $("#uploadName").val();
-			$.ajax({
-				url: "/admin/add_upload",
-				type: "post",
-				data: {initialName:_initialName, uploadName:_uploadName},
-				dataType: "html",
-				success:function(data){
-					window.location.href = "/admin/upload_list";
-				},
-				error:function(){
-					window.location.href = "/admin/upload_list";
-				}
-			});
+			
+			if(_uploadName == "") {
+				$("#uploadName").parent().parent().addClass("error");
+				$("#uploadName").parent().append('<span id="req_uploadName" for="required" generated="true" class="help-inline">请填写名称</span>');
+			} else if(_initialName == "") {
+				$("#initialName").parent().parent().addClass("error");
+				$("#initialName").parent().append('<span id="req_initialName" for="required" generated="true" class="help-inline">请选择文件</span>');
+			} else {
+				$.ajax({
+					url: "/admin/add_upload",
+					type: "post",
+					data: {initialName:_initialName, uploadName:_uploadName},
+					dataType: "html",
+					success:function(data){
+						window.location.href = "/admin/upload_list";
+					},
+					error:function(){
+						window.location.href = "/admin/upload_list";
+					}
+				});
+			}
 		});
 	});
 </script>
