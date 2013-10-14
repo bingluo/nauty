@@ -132,24 +132,36 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#yes_add").click(function(check) {
+			$("#title").parent().parent().removeClass("error");
+			$("#picName").parent().parent().removeClass("error");
+			$("#req_title").remove();
+			$("#req_pic").remove();
+		
 			var _title = $("#title").val();
 			var _brief = $("#brief").val();
 			var _articleId = $("#articles option:selected").val();
 			var _picName = $("#picName").val();
 			
-			$.ajax({
-				url: "/admin/add_slide",
-				type: "post",
-				data: {title:_title, brief:_brief, articleId:_articleId, picName:_picName},
-				dataType: "html",
-				success: function(data) {
-					window.location.href = "/admin/slide_list";
-				},
-				error: function(data) {
-					window.location.href = "/admin/slide_list";
-				}
-			});
-			
+			if(_title == "") {
+				$("#title").parent().parent().addClass("error");
+				$("#title").parent().append('<span id="req_title" for="required" generated="true" class="help-inline">请填写标题</span>');
+			} else if(_picName == "") { 
+				$("#picName").parent().parent().addClass("error");
+				$("#picName").parent().append('<span id="req_pic" for="required" generated="true" class="help-inline">请选择图片</span>');
+			} else {
+				$.ajax({
+					url: "/admin/add_slide",
+					type: "post",
+					data: {title:_title, brief:_brief, articleId:_articleId, picName:_picName},
+					dataType: "html",
+					success: function(data) {
+						window.location.href = "/admin/slide_list";
+					},
+					error: function(data) {
+						window.location.href = "/admin/slide_list";
+					}
+				});
+			}
 		});
 	});
 </script>
