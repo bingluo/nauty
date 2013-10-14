@@ -10,4 +10,8 @@ interface UploadDAO {
 	void insertUpload(Upload upload);
 
 	void deleteUploadById(int id);
+
+	Upload getUploadById(int id);
+
+	void updateUpload(Upload upload);
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
 
-import cn.seu.cose.entity.Category;
 import cn.seu.cose.entity.CategoryPojo;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -25,10 +24,15 @@ public class CategoryDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"CATEGORY.selectCategoryByParentCatId", parentId);
 	}
-	
+
 	@Override
 	public List<CategoryPojo> getRootCategories() {
 		return getSqlMapClientTemplate().queryForList(
 				"CATEGORY.selectRootCategories");
+	}
+
+	@Override
+	public List<CategoryPojo> getAllCats() {
+		return getSqlMapClientTemplate().queryForList("CATEGORY.selectAllCats");
 	}
 }

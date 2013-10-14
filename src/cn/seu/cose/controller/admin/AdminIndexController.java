@@ -15,21 +15,25 @@ import cn.seu.cose.entity.Admin;
 import cn.seu.cose.service.AdminService;
 
 @Controller
-public class AdminIndexController {
+public class AdminIndexController extends AbstractController{
 	@Autowired
 	private AdminService adminService;
 	
-	
 	@RequestMapping("/admin/index")
-	public String adminIndex(Model model) {
+	public void adminIndex(Model model, HttpServletResponse response) {
+		String to = "";
 		Admin admin = adminService.getAdmin();
 		if (admin != null) {
 			model.addAttribute("login_admin", admin.getUsername());
-			return "admin_index";
+			to = "/admin/article_list";
 		} else {
-			return "admin_login";
+			to = "/admin/login";
 		}
-		
+		try {
+			response.sendRedirect(to);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(value="/admin/login", method=RequestMethod.GET)
@@ -43,7 +47,7 @@ public class AdminIndexController {
 		Admin admin = adminService.logon(username, password);
 		String to = "/admin/login";
 		if (admin != null) {
-			to = "/admin/index";
+			to = "/admin/article_list";
 		}
 		try {
 			response.sendRedirect(to);
@@ -56,5 +60,35 @@ public class AdminIndexController {
 	public String logout() {
 		adminService.logout();
 		return "admin_login";
+	}
+	
+	@RequestMapping("/admin/account") 
+	public String getAccount(Model model, HttpServletResponse response) {
+		Admin admin = adminService.getAdmin();
+		if (admin != null) {
+			putAdmin(model);
+			model.addAttribute("admin", admin);
+			return "admin_account";
+		} else {
+			try {
+				response.sendRedirect("/admin/login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	@RequestMapping(value="/admin/account", method=RequestMethod.POST) 
+	public void getAccount(@RequestParam("password") String password, HttpServletResponse response) {
+		if (adminService.getAdmin() != null) {
+			adminService.modifyPswd(password);
+		}
+		try {
+			adminService.logout();
+			response.sendRedirect("/admin/login");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

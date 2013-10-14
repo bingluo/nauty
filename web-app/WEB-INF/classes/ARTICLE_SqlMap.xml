@@ -65,12 +65,27 @@
 		]]>
 	</select>
 	
+	<select id="selectArticleBySubCatId" resultMap="ArticleResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.from,a.post_time, b.uri_name
+		FROM ARTICLE a,category b
+		WHERE a.cat_id=#value# AND a.root_cat_id=b.id
+		]]>
+	</select>
+	
+	
 	<select id="selectCountByCatId" resultClass="int" parameterClass="int">
 		<![CDATA[
 		SELECT count(id) FROM ARTICLE WHERE cat_id=#value#
 		]]>
 	</select>
 
+	<select id="selectCountByRootCatId" resultClass="int" parameterClass="int">
+		<![CDATA[
+		SELECT count(id) FROM ARTICLE WHERE root_cat_id=#value#
+		]]>
+	</select>
+	
 	<insert id="insertArticle" parameterClass="article">
 		<![CDATA[
 		INSERT INTO ARTICLE
@@ -86,8 +101,9 @@
 			subhead = #subhead#,
 			content = #content#,
 			cat_id = #catId#,
-			root_cat_id = #rootCatId#
-			from = #from#
+			root_cat_id = #rootCatId#,
+			`from` = #from#,
+			post_time = #postTime#
 		WHERE id = #id#
 		]]>
 	</update>

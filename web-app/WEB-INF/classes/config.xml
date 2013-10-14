@@ -27,4 +27,5 @@
  	</bean>
 
 	<bean id="adminService" class="cn.seu.cose.service.AdminService" />
+	<bean id="categoryService" class="cn.seu.cose.service.CategoryService" />
 </beans>

@@ -1,0 +1,104 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")	
+<link rel="stylesheet" href="/static/editor/themes/default/default.css" />
+<script type="text/javascript">
+	$("#sidebar_li_3").siblings().removeClass('active')
+	$("#sidebar_li_3").addClass('active');
+</script>
+
+<div id="content">
+	<div id="content-header">
+		<h1>下载管理</h1>
+		<div class="btn-group">
+			<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+			<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+			<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+			<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">编辑下载</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-align-justify"></i>									
+						</span>
+						<h5>编辑下载</h5>
+					</div>
+					<div class="widget-content padding">
+						<form action="javascript:void(0)" method="post" class="form-horizontal" id="article_add_form">
+							<input type="hidden" value="$upload.id" id="uploadId"/>
+							<div class="control-group">
+								<label class="control-label">下载名称</label>
+								<div class="controls">
+									<input type="text" id="uploadName" value="$upload.uploadName">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">下载文件</label>
+								<div class="controls">
+									<input type="text" id="initialName" value="$upload.initialName"/> <input type="button" id="insertfile" value="选择文件" />
+								</div>
+							</div>
+							<div class="control-group" >
+								<div class="controls">
+									<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+							    </div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		// yes_add
+		$("#yes_add").bind("click", function(){
+			var _id = $("#uploadId").val();
+			var _initialName = $("#initialName").val();
+			var _uploadName = $("#uploadName").val();
+			$.ajax({
+				url: "/admin/alt_upload",
+				type: "post",
+				data: {id:_id, initialName:_initialName, uploadName:_uploadName},
+				dataType: "html",
+				success:function(data){
+					window.location.href = "/admin/upload_list";
+				},
+				error:function(){
+					window.location.href = "/admin/upload_list";
+				}
+			});
+		});
+	});
+</script>
+<script charset="utf-8" src="/static/editor/kindeditor.js"></script>
+<script charset="utf-8" src="/static/editor/lang/zh_CN.js"></script>
+<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#insertfile').click(function() {
+					editor.loadPlugin('insertfile', function() {
+						editor.plugin.fileDialog({
+							fileUrl : K('#initialName').val(),
+							clickFn : function(url, title) {
+								K('#initialName').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+#parse("admin_footer.vm")

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.seu.cose.dao.CategoryDAOImpl;
-import cn.seu.cose.entity.Category;
 import cn.seu.cose.entity.CategoryPojo;
 
 @Service
@@ -18,7 +17,7 @@ public class CategoryService {
 	public List<CategoryPojo> getCategoriesByParentId(int parentId) {
 		return categoryDAOImpl.getCategoriesByParentId(parentId);
 	}
-	
+
 	public List<CategoryPojo> getRootCategories() {
 		return categoryDAOImpl.getRootCategories();
 	}
@@ -32,5 +31,9 @@ public class CategoryService {
 			categoryPojo.setChildren(children);
 		}
 		return roots;
+	}
+
+	public List<CategoryPojo> getAllCategories() {
+		return categoryDAOImpl.getAllCats();
 	}
 }
