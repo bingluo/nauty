@@ -83,7 +83,7 @@
 	</div>
 
 </div>
-<div class="nine columns">
+<div class="eight columns">
 	#if($exclusive)
 	<!-- Post -->
 	<div class="post post-page">
@@ -99,49 +99,104 @@
 		</div>
 	</div>
 	#else
-	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
-		<div class="post-content"  style="margin:0px;">
-			<div class="post-title"><h4><a href="blog_post.html">This is a standard post format with preview picture</a></h4></div>
-			<div class="post-meta"><span><i class="mini-ico-calendar"></i>On 10 August, 2012</span></div>
-			<a class="post-entry" href="blog_post.html">详细内容</a>
-		</div>
-	</div>
-	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
-		<div class="post-content"  style="margin:0px;">
-			<div class="post-title"><h4><a href="blog_post.html">This is a standard post format with preview picture</a></h4></div>
-			<div class="post-meta"><span><i class="mini-ico-calendar"></i>On 10 August, 2012</span></div>
-			<a class="post-entry" href="blog_post.html">详细内容</a>
-		</div>
-	</div>
-	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
-		<div class="post-content"  style="margin:0px;">
-			<div class="post-title"><h4><a href="blog_post.html">This is a standard post format with preview picture</a></h4></div>
-			<div class="post-meta"><span><i class="mini-ico-calendar"></i>On 10 August, 2012</span></div>
-			<a class="post-entry" href="blog_post.html">详细内容</a>
-		</div>
+	<!-- Post -->
+	<div class="post post-page">
+		#foreach($article in $articles)
+    	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
+    		<div class="post-content"  style="margin:0px;">
+    			<div class="post-title" style="font-weight:bold;">
+						<a href="$article.uri">$article.title</a>
+				</div>
+    			<div class="post-meta"><span><i class="mini-ico-calendar"></i>$article.postTime</span></div>
+    			<a class="post-entry" href="$article.uri">详细内容</a>
+    		</div>
+    	</div>
+		#end
+		#if($pageCount>1)
+    	<ul class="pagination">
+			#if($pageIndex<=5)
+				#set($base = 1)
+				#if($pageCount<=10)
+					#set($high = $pageCount)
+				#else
+					#set($high = 10)
+				#end
+			#else
+				#set($base = $pageIndex-4)
+				#if($apgeCount > $pageIndex+5)
+					#set($high = $pageIndex+5)
+				#else
+					#set($high = $pageCount)
+				#end
+			#end
+			#foreach($i in [$base..$high])
+				#if($pageIndex!=$i)<a href="$!{uri}?pn=$i">#end
+					<li #if($pageIndex==$i)class="current"#end>$i</li>
+				#if($pageIndex!=$i)</a>#end
+			#end
+			#if($pageIndex<$pageCount)
+				#set($next = $pageIndex +1)
+    		<a href="$!{uri}?pn=$!{next}"><li>下一页></li></a>
+    		<a href="$!{uri}?pn=$!{pageCount}"><li>尾页</li></a>
+			#end
+    	</ul>
+		#end
 	</div>
 	#end
 	<div class="clear"></div>
 </div>
-	<!-- Popular Posts -->
-	<div class="four columns">
-		<div class="headline no-margin"><h4>Popular Posts</h4></div>
-		
-		<div class="latest-post-blog">
-			<a href="#"><img src="images/popular-post-01.png" alt="" /></a>
-			<p><a href="#">Maecenas metus lorem nulla, pretium lipsum.</a> <span>12 August 2012</span></p>
-		</div>
-	
-		<div class="latest-post-blog">
-			<a href="#"><img src="images/popular-post-02.png" alt="" /></a>
-			<p><a href="#">Tetus lorem maecenas facili lipsum pretium.</a> <span>26 July 2012</span></p>
-		</div>
-			
-		<div class="latest-post-blog">
-			<a href="#"><img src="images/popular-post-03.png" alt="" /></a>
-			<p><a href="#">Lorem pretium metusnula lorem ipsum dolor.</a> <span>16 June 2012</span></p>
-		</div>
+	<!-- 特别关注 -->
+	<div class="five columns">
+        <div class="icon-box widget first">
+        	<i class="ico-stats" style="margin:-6px 0 0 0px"></i>
+			<a href="/new/cat-15/" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+        	<h4 style="margin-top: 0px;">特别关注</h4>
+			<ul class="circle_list" style="margin-top: 15px;">
+				#foreach($concern in $concerns)
+				<li>
+					<div class="latest-post-blog" style="margin-bottom:8px;">
+                       	<a href="$concern.uri">$!{concern.title}</a>
+					</div>
+            	</li>
+				#end
+			</ul>
+        </div>
 	</div>
+	<!-- 评奖赛事 -->
+	<div class="five columns" style="float:right">
+        <div class="icon-box widget">
+        	<i class="ico-cup" style="margin:-6px 0 0 0px"></i>
+			<a href="/events/" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+        	<h4 style="margin-top: 0px;">评奖赛事</h4>
+			<ul class="circle_list" style="margin-top: 15px;">
+				#foreach($event in $events)
+				<li>
+					<div class="latest-post-blog" style="margin-bottom:8px;">
+                       	<a href="$!{event.uri}">$!{event.title}</a>
+					</div>
+            	</li>
+				#end
+			</ul>
+        </div>
+	</div>
+	<!-- 认证培训 -->
+	<div class="five columns" style="float:right">
+        <div class="icon-box widget">
+        	<i class="ico-certificate" style="margin:-6px 0 0 0px"></i>
+			<a href="/train/" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+        	<h4 style="margin-top: 0px;">认证培训</h4>
+			<ul class="circle_list" style="margin-top: 15px;">
+				#foreach($train in $trains)
+				<li>
+					<div class="latest-post-blog" style="margin-bottom:8px;">
+                       	<a href="$!{train.uri}">$!{train.title}</a>
+					</div>
+            	</li>
+				#end
+			</ul>
+        </div>
+	</div>
+
 
 </div>
 <!-- 960 Container / End -->
@@ -152,7 +207,6 @@
 <!-- Footer / End -->
 <script language="JavaScript">
 	$(document).ready(function(){
-		$(".cats").hover();
 	});
 </script>
 </body>

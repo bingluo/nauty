@@ -2,6 +2,8 @@ package cn.seu.cose.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,121 +26,128 @@ public class CatController extends AbstractController {
 
 	// about
 	@RequestMapping("/about/")
-	public String viewAboutCatIndex(Model model) {
-		return view(model, 9, 1);
+	public String viewAboutCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 9, index);
 	}
 
 	@RequestMapping("/about/cat-{catId}/")
-	public String viewAboutCat(Model model, @PathVariable("catId") int catId) {
-		return view(model, catId, 1);
-	}
-
-	@RequestMapping("/about/cat-{catId}/page-{pageIndex}/")
 	public String viewAboutCat(Model model, @PathVariable("catId") int catId,
-			@PathVariable("pageIndex") int pageIndex) {
-		return view(model, catId, pageIndex);
+			HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
 	}
 
 	// new
 	@RequestMapping("/new/")
-	public String viewNewCatIndex(Model model) {
-		return view(model, 2, 1);
+	public String viewNewCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 2, index);
 	}
 
 	@RequestMapping("/new/cat-{catId}/")
-	public String viewNewCat(Model model, @PathVariable("catId") int catId) {
-		return view(model, catId, 1);
-	}
-
-	@RequestMapping("/new/cat-{catId}/page-{pageIndex}/")
 	public String viewNewCat(Model model, @PathVariable("catId") int catId,
-			@PathVariable("pageIndex") int pageIndex) {
-		return view(model, catId, pageIndex);
+			HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
 	}
 
 	// work
 	@RequestMapping("/work/")
-	public String viewWorkCatIndex(Model model) {
-		return view(model, 3, 1);
+	public String viewWorkCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 3, index);
 	}
 
 	@RequestMapping("/work/cat-{catId}/")
-	public String viewWorkCat(Model model, @PathVariable("catId") int catId) {
-		return view(model, catId, 1);
-	}
-
-	@RequestMapping("/work/cat-{catId}/page-{pageIndex}/")
 	public String viewWorkCat(Model model, @PathVariable("catId") int catId,
-			@PathVariable("pageIndex") int pageIndex) {
-		return view(model, catId, pageIndex);
+			HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
 	}
 
 	// policy
 	@RequestMapping("/policy/")
-	public String viewPolicyCatIndex(Model model) {
-		return view(model, 4, 1);
+	public String viewPolicyCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 4, index);
 	}
 
 	@RequestMapping("/policy/cat-{catId}/")
-	public String viewPolicyCat(Model model, @PathVariable("catId") int catId) {
-		return view(model, catId, 1);
-	}
-
-	@RequestMapping("/policy/cat-{catId}/page-{pageIndex}/")
 	public String viewPolicyCat(Model model, @PathVariable("catId") int catId,
-			@PathVariable("pageIndex") int pageIndex) {
-		return view(model, catId, pageIndex);
+			HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
 	}
 
 	// train
 	@RequestMapping("/train/")
-	public String viewTrainCatIndex(Model model) {
-		return view(model, 28, 1);
+	public String viewTrainCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 28, index);
 	}
 
 	@RequestMapping("/train/cat-{catId}/")
-	public String viewTrainCat(Model model, @PathVariable("catId") int catId) {
-		return view(model, catId, 1);
-	}
-
-	@RequestMapping("/train/cat-{catId}/page-{pageIndex}/")
 	public String viewTrainCat(Model model, @PathVariable("catId") int catId,
-			@PathVariable("pageIndex") int pageIndex) {
-		return view(model, catId, pageIndex);
+			HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
 	}
 
 	// events
 	@RequestMapping("/events/")
-	public String viewEventsCatIndex(Model model) {
-		return view(model, 6, 1);
+	public String viewEventsCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 6, index);
 	}
 
 	@RequestMapping("/events/cat-{catId}/")
-	public String viewEventsCat(Model model, @PathVariable("catId") int catId) {
-		return view(model, catId, 1);
-	}
-
-	@RequestMapping("/events/cat-{catId}/page-{pageIndex}/")
 	public String viewEventsCat(Model model, @PathVariable("catId") int catId,
-			@PathVariable("pageIndex") int pageIndex) {
-		return view(model, catId, pageIndex);
+			HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
 	}
 
 	// space
 	@RequestMapping("/space/")
-	public String viewSpaceCatIndex(Model model) {
-		return view(model, 6, 1);
+	public String viewSpaceCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 6, index);
 	}
 
 	@RequestMapping("/space/cat-{catId}/")
-	public String viewSpaceCat(Model model, @PathVariable("catId") int catId) {
-		return view(model, catId, 1);
-	}
-
-	@RequestMapping("/space/cat-{catId}/page-{pageIndex}/")
 	public String viewSpaceCat(Model model, @PathVariable("catId") int catId,
-			@PathVariable("pageIndex") int pageIndex) {
-		return view(model, catId, pageIndex);
+			HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
 	}
 
 	@RequestMapping("/download.html/")
@@ -152,11 +161,15 @@ public class CatController extends AbstractController {
 		model.addAttribute("curCat", categoryPojo);
 
 		List<CategoryPojo> cats = null;
+		int rootCatId;
 		if (categoryPojo.getCatLevel() == 1) {
+			rootCatId = categoryPojo.getId();
 			model.addAttribute("rootCat", categoryPojo);
 			cats = categoryService
 					.getCategoriesByParentId(categoryPojo.getId());
 		} else {
+			rootCatId = CategoryCache.get(categoryPojo.getParentCatId())
+					.getId();
 			model.addAttribute("rootCat",
 					CategoryCache.get(categoryPojo.getParentCatId()));
 			model.addAttribute("curCat", categoryPojo);
@@ -164,6 +177,13 @@ public class CatController extends AbstractController {
 					.getParentCatId());
 		}
 		model.addAttribute("childrenCats", cats);
+
+		// concerns
+		List<ArticlePojo> concerns = articleService.getConcerns();
+		model.addAttribute("concerns", concerns);
+		// events
+		List<ArticlePojo> events = articleService.getEvents();
+		model.addAttribute("events", events);
 
 		if (categoryPojo.isExclusiveArticle()) {
 			model.addAttribute("exclusive", true);
@@ -173,7 +193,22 @@ public class CatController extends AbstractController {
 			List<ArticlePojo> articles = articleService
 					.getArticleByCatIdAndPageIndexAndPageSize(catId, pageIndex,
 							10);
+			int articleCount = articleService.getArticleCountByCatId(rootCatId,
+					catId);
+
+			model.addAttribute("articles", articles);
+			model.addAttribute("pageIndex", pageIndex);
+			model.addAttribute("pageCount",
+					(int) Math.ceil((double) articleCount / 10));
 		}
 		return "viewCat";
+	}
+
+	private int pageIndexResolve(String pageIndex) {
+		int index = 1;
+		if (pageIndex != null && !pageIndex.trim().isEmpty()) {
+			index = Integer.valueOf(pageIndex.trim());
+		}
+		return index;
 	}
 }

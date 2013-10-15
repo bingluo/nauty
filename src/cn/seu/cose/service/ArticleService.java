@@ -18,20 +18,28 @@ public class ArticleService {
 		List<ArticlePojo> news = articleDAOImpl.getArticlesByCatAndRangeBrief(
 				2, 0, 10);
 		for (ArticlePojo articlePojo : news) {
-			articlePojo.setRootCatUri(LinkTool.article(articlePojo));
+			articlePojo.setUri(LinkTool.article(articlePojo));
 		}
 		return news;
 	}
 
 	public List<ArticlePojo> getArticleByCatIdAndPageIndex(int catId, int index) {
-		return articleDAOImpl.getArticlesByCatAndRange(catId, 10 * (index - 1),
-				10 * index);
+		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
+				catId, 10 * (index - 1), 10 * index);
+		for (ArticlePojo articlePojo : articles) {
+			articlePojo.setUri(LinkTool.article(articlePojo));
+		}
+		return articles;
 	}
 
 	public List<ArticlePojo> getArticleByCatIdAndPageIndexAndPageSize(
 			int catId, int index, int pageSize) {
-		return articleDAOImpl.getArticlesByCatAndRange(catId, pageSize
-				* (index - 1), pageSize * index);
+		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
+				catId, pageSize * (index - 1), pageSize * index);
+		for (ArticlePojo articlePojo : articles) {
+			articlePojo.setUri(LinkTool.article(articlePojo));
+		}
+		return articles;
 	}
 
 	public List<ArticlePojo> getArticlesByCatId(int subCatId) {
@@ -47,7 +55,7 @@ public class ArticleService {
 	}
 
 	public int getArticleCountByCatId(int rootCatId, int catId) {
-		if (catId <= 0) {
+		if (catId <= 8) {
 			return articleDAOImpl.getArticleCountByRootCatId(rootCatId);
 		}
 		return articleDAOImpl.getArticleCountByCatId(catId);
@@ -67,5 +75,23 @@ public class ArticleService {
 
 	public ArticlePojo getExclusiveArticleByCatId(int catId) {
 		return articleDAOImpl.getExclusiveArticleByCatId(catId);
+	}
+
+	public List<ArticlePojo> getConcerns() {
+		List<ArticlePojo> articles = articleDAOImpl
+				.getArticlesByCatAndRangeBrief(15, 0, 5);
+		for (ArticlePojo articlePojo : articles) {
+			articlePojo.setUri(LinkTool.article(articlePojo));
+		}
+		return articles;
+	}
+
+	public List<ArticlePojo> getEvents() {
+		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(6,
+				0, 5);
+		for (ArticlePojo articlePojo : articles) {
+			articlePojo.setUri(LinkTool.article(articlePojo));
+		}
+		return articles;
 	}
 }
