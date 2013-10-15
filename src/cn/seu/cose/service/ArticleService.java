@@ -94,4 +94,22 @@ public class ArticleService {
 		}
 		return articles;
 	}
+
+	public List<ArticlePojo> getTrains() {
+		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(5,
+				0, 5);
+		for (ArticlePojo articlePojo : articles) {
+			articlePojo.setUri(LinkTool.article(articlePojo));
+		}
+		return articles;
+	}
+
+	public List<ArticlePojo> getRelates(int catId) {
+		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
+				catId, 0, 10);
+		for (ArticlePojo articlePojo : articles) {
+			articlePojo.setUri(LinkTool.article(articlePojo));
+		}
+		return articles;
+	}
 }

@@ -20,7 +20,7 @@ public class LinkTool {
 			return "/";
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append("/").append(article.getRootCatUri()).append("/");
+		sb.append("/").append(article.getRootCatUri()).append("/cat-");
 		sb.append(article.getCatId()).append("/");
 		sb.append(article.getId()).append(".html");
 		return sb.toString();

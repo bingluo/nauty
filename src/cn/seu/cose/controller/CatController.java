@@ -184,6 +184,9 @@ public class CatController extends AbstractController {
 		// events
 		List<ArticlePojo> events = articleService.getEvents();
 		model.addAttribute("events", events);
+		// trains
+		List<ArticlePojo> trains = articleService.getTrains();
+		model.addAttribute("trains", trains);
 
 		if (categoryPojo.isExclusiveArticle()) {
 			model.addAttribute("exclusive", true);
