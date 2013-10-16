@@ -25,12 +25,21 @@ public class UploadService {
 	public void deleteUpload(int id) {
 		uploadDAOImpl.deleteUploadById(id);
 	}
-	
+
 	public Upload getUpload(int id) {
 		return uploadDAOImpl.getUploadById(id);
 	}
+
 	public void updateUpload(Upload upload) {
 		uploadDAOImpl.updateUpload(upload);
 	}
-	
+
+	public int getUploadCount() {
+		return uploadDAOImpl.selectUploadCount();
+	}
+
+	public List<Upload> getUploadsByIndexAndPagesize(int index, int pagesize) {
+		return uploadDAOImpl.getUploadByBaseAndRange((index - 1) * pagesize,
+				pagesize);
+	}
 }

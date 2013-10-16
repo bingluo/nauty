@@ -29,4 +29,5 @@ interface ArticleDAO {
 	List<ArticlePojo> getArticlesBySubCatId(int subCatId);
 
 	ArticlePojo getExclusiveArticleByCatId(int catId);
+
 }

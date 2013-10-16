@@ -7,12 +7,17 @@ public class ViewUtil {
 	public static String getBreadcrumb(int catId) {
 		CategoryPojo curCat = CategoryCache.get(catId);
 		if (curCat.getCatLevel() == 1) {
-			return "<h2 style='padding: 10px 0 10px 0;'>" + curCat.getCatName()
-					+ "</h2>";
+			return "<h2 style='padding: 10px 0 10px 0;'><a href='/"
+					+ curCat.getUriName() + "/' style='color:#333'>"
+					+ curCat.getCatName() + "</a></h2>";
 		} else {
-			return "<h2 style='padding: 10px 0 10px 0;'>"
+			CategoryPojo parent = CategoryCache.get(curCat.getParentCatId());
+			return "<h2 style='padding: 10px 0 10px 0;'><a href='/"
+					+ parent.getUriName() + "/' style='color:#333'>"
 					+ CategoryCache.get(curCat.getParentCatId()).getCatName()
-					+ "<span>/ " + curCat.getCatName() + "</span></h2>";
+					+ "</a><span>/ <a href='/" + parent.getUriName() + "/cat-"
+					+ catId + "/' style='color:#aaa'>" + curCat.getCatName()
+					+ "</a></span></h2>";
 		}
 	}
 

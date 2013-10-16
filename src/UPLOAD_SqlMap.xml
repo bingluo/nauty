@@ -20,6 +20,23 @@
 		]]>
 	</select>
 	
+	<select id="selectUploadCount" resultClass="int" >
+		<![CDATA[
+		SELECT count(id)
+		FROM UPLOAD
+		]]>
+	</select>
+	
+	<select id="selectUploadByBaseAndRange" resultMap="UploadResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM
+			(SELECT *
+			FROM UPLOAD
+			ORDER BY upload_time desc) a
+		limit #base#,#range#
+		]]>
+	</select>
+	
 	<select id="selectUploadById" resultMap="UploadResultMap" parameterClass="int">
 		<![CDATA[
 		SELECT * 

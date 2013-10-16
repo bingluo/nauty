@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cn.seu.cose.core.CategoryCache;
 import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.CategoryPojo;
+import cn.seu.cose.entity.Upload;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
+import cn.seu.cose.service.UploadService;
 
 @Controller
 public class CatController extends AbstractController {
@@ -23,6 +25,8 @@ public class CatController extends AbstractController {
 	CategoryService categoryService;
 	@Autowired
 	ArticleService articleService;
+	@Autowired
+	UploadService uploadService;
 
 	// about
 	@RequestMapping("/about/")
@@ -138,7 +142,7 @@ public class CatController extends AbstractController {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
 		int index = pageIndexResolve(pageIndex);
-		return view(model, 6, index);
+		return view(model, 7, index);
 	}
 
 	@RequestMapping("/space/cat-{catId}/")
@@ -150,9 +154,19 @@ public class CatController extends AbstractController {
 		return view(model, catId, index);
 	}
 
-	@RequestMapping("/download.html/")
-	public String downloadCenter(Model model) {
-		return "downloadCenter";
+	@RequestMapping("/download.html")
+	public String downloadCenter(Model model, HttpServletRequest request) {
+		addCategories(model);
+		int sumCount = uploadService.getUploadCount();
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		List<Upload> uploads = uploadService.getUploadsByIndexAndPagesize(
+				index, 20);
+		model.addAttribute("pageCount", (int) Math.ceil((double) sumCount / 20));
+		model.addAttribute("uploads", uploads);
+		model.addAttribute("sumCount", sumCount);
+		model.addAttribute("pageIndex", index);
+		return "download";
 	}
 
 	private String view(Model model, int catId, int pageIndex) {
@@ -203,6 +217,7 @@ public class CatController extends AbstractController {
 			model.addAttribute("pageIndex", pageIndex);
 			model.addAttribute("pageCount",
 					(int) Math.ceil((double) articleCount / 10));
+			model.addAttribute("articleCount", articleCount);
 		}
 		return "viewCat";
 	}

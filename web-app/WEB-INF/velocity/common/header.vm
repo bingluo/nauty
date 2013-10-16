@@ -4,8 +4,8 @@
 		<!-- Logo -->
 		<div class="eight columns">
 			<div id="logo">
-				<a href="#"><img src="/static/images/logo.png" alt="logo" /></a>
-				<div id="tagline">It's time to impress your visitors!</div>
+				<a href="/"><img src="/static/images/logo.png" alt="logo" /></a>
+				<div id="tagline">嘉兴市工业设计协会</div>
 				<div class="clear"></div>
 			</div>
 		</div>

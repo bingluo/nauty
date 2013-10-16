@@ -31,6 +31,11 @@
 <script src="/static/js/fancybox.js"></script>
 <script src="/static/js/carousel.js"></script>
 <script src="/static/js/isotope.js"></script>
+<style>
+	.pagination li {
+	padding: 2px 5px;
+	}
+</style>
 </head>
 <body>
 
@@ -98,57 +103,58 @@
 		#end
 	</div>
 	#else
-	<!-- Post -->
-	#foreach($article in $articles)
-   	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
-   		<div class="post-content"  style="margin:0px;">
-   			<div class="post-title" style="font-weight:bold;">
-					<a href="$article.uri">$article.title</a>
-			</div>
-   			<div class="post-meta"><span><i class="mini-ico-calendar"></i>$article.postTime</span></div>
-			<div class="post-description">
-				<p>$article.content</p>
-			</div>
-			<a class="post-entry" href="$article.uri">详细内容</a>
-   		</div>
-   	</div>
-	#end
-	#if($pageCount>1)
-   	<ul class="pagination">
-		#if($pageIndex<=5)
-			#set($base = 1)
-			#if($pageCount<=10)
-				#set($high = $pageCount)
-			#else
-				#set($high = 10)
-			#end
-		#else
-			#set($base = $pageIndex-4)
-			#if($apgeCount > $pageIndex+5)
-				#set($high = $pageIndex+5)
-			#else
-				#set($high = $pageCount)
-			#end
+    	<!-- Post -->
+    	#foreach($article in $articles)
+       	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
+       		<div class="post-content"  style="margin:0px;">
+       			<div class="post-title" style="font-weight:bold;">
+    					<a href="$article.uri">$article.title</a>
+    			</div>
+       			<div class="post-meta"><span><i class="mini-ico-calendar"></i>$article.postTime</span></div>
+    			<div class="post-description">
+    				<p>${article.pureText}</p>
+    			</div>
+    			<a class="post-entry" href="$article.uri">详细内容</a>
+       		</div>
+       	</div>
+    	#end
+    	#if($pageCount>1)
+       	<ul class="pagination">
+    		#if($pageIndex<=5)
+    			#set($base = 1)
+    			#if($pageCount<=10)
+    				#set($high = $pageCount)
+    			#else
+    				#set($high = 10)
+    			#end
+    		#else
+				<a href="$!{uri}?pn=1"><li>首页</li></a>
+    			#set($base = $pageIndex - 4)
+    			#if($pageCount > $pageIndex + 5)
+    				#set($high = $pageIndex + 5)
+    			#else
+    				#set($high = $pageCount)
+    			#end
+    		#end
+    		#foreach($i in [$base..$high])
+    			#if($pageIndex!=$i)<a href="$!{uri}?pn=$i">#end
+    				<li #if($pageIndex==$i)class="current"#end>$i</li>
+    			#if($pageIndex!=$i)</a>#end
+    		#end
+    		#if($pageIndex<$pageCount)
+    			#set($next = $pageIndex + 1)
+       		<a href="$!{uri}?pn=$!{next}"><li>下一页></li></a>
+       		<a href="$!{uri}?pn=$!{pageCount}"><li>尾页</li></a>
+    		#end
+       	</ul>
 		#end
-		#foreach($i in [$base..$high])
-			#if($pageIndex!=$i)<a href="$!{uri}?pn=$i">#end
-				<li #if($pageIndex==$i)class="current"#end>$i</li>
-			#if($pageIndex!=$i)</a>#end
-		#end
-		#if($pageIndex<$pageCount)
-			#set($next = $pageIndex +1)
-   		<a href="$!{uri}?pn=$!{next}"><li>下一页></li></a>
-   		<a href="$!{uri}?pn=$!{pageCount}"><li>尾页</li></a>
-		#end
-   	</ul>
-	#end
-
+		<div style="padding-top: 20px;">共 ${pageCount} 页 ${articleCount} 条</div>
 	#end
 	</div>
 	<div class="clear"></div>
 </div>
 	<!-- 特别关注 -->
-	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin:1px;">
+	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget first">
         	<i class="ico-stats" style="margin:-6px 0 0 0px"></i>
 			<a href="/new/cat-15/" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
@@ -165,7 +171,7 @@
         </div>
 	</div>
 	<!-- 评奖赛事 -->
-	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin:1px;">
+	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget">
         	<i class="ico-cup" style="margin:-6px 0 0 0px"></i>
 			<a href="/events/" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
@@ -182,7 +188,7 @@
         </div>
 	</div>
 	<!-- 认证培训 -->
-	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin:1px;">
+	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget">
         	<i class="ico-certificate" style="margin:-6px 0 0 0px"></i>
 			<a href="/train/" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
@@ -209,6 +215,15 @@
 <!-- Footer / End -->
 <script language="JavaScript">
 	$(document).ready(function(){
+		$(".circle_list li div a").css("color","#666");
+		$(".circle_list li div a").hover(function(){
+			$(this).css("color","#72b626");
+			$(this).css("text-decoration","underline");
+		},
+		function(){
+			$(this).css("color","#666");
+			$(this).css("text-decoration","none");
+		});
 	});
 </script>
 </body>

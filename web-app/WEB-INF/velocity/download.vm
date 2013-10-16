@@ -31,6 +31,7 @@
 <script src="/static/js/fancybox.js"></script>
 <script src="/static/js/carousel.js"></script>
 <script src="/static/js/isotope.js"></script>
+
 </head>
 <body>
 
@@ -55,7 +56,10 @@
 	
 		<!-- Page Title -->
 		<div id="page-title">
-			$viewUtil.getBreadcrumb($curCat.id)
+			<h2 style='padding: 10px 0 10px 0;'>
+				<a href='/download.html' style='color:#333'>下载中心</a>
+				<span>/ <a href='/download.html' style='color:#aaa'>下载中心</a></span>
+			</h2>
 			<div id="bolded-line"></div>
 		</div>
 		<!-- Page Title / End -->
@@ -71,38 +75,63 @@
 <div class="container">
 <!-- Widget
 ================================================== -->
-<div class="eleven columns">
+<div class="three columns">
+	<!-- Categories -->
+	<div class="widget first">
+		<div class="headline no-margin"><h4>下载中心</h4></div>
+			<ul class="links-list-alt">
+				<li class="cats"><a href="/download.html" style="font-weight:bold">下载中心</a></li>
+			</ul>
+	</div>
+
+</div>
+<div class="thirteen columns">
 	<div class="post post-page" style="min-height:700px;">
-	<!-- Post -->
-    	<div class="post-content" style="margin:0px;">
-    		#if($article)
-    		<div class="post-title" style="text-align: center;"><h2>$!article.title</h2>
-    		<h3>$!article.subhead</h3></div>
-    		<div class="post-meta" style="text-align: center;"><span><i class="mini-ico-calendar"></i>$!article.postTime</span> <span><i class="mini-ico-user"></i>来自  $!article.from</span> </div>
-    		<div class="post-description">
-    				$!article.content
-    		</div>
+    	<!-- Post -->
+		<div class="tooltips">
+		<ul>
+    	#foreach($upload in $uploads)
+		<li style="margin:0px 0px 15px 0;"><i class="mini-ico-tag"></i>
+			<a href="$!{upload.initialName}" rel="tooltip" data-original-title="$!{upload.initialName}">${upload.uploadName}</a>
+		</li>
+		#end
+		</ul>
+		</div>
+    	#if($pageCount > 1)
+       	<ul class="pagination">
+    		#if($pageIndex<=5)
+    			#set($base = 1)
+    			#if($pageCount<=10)
+    				#set($high = $pageCount)
+    			#else
+    				#set($high = 10)
+    			#end
+    		#else
+				<a href="$!{uri}?pn=1"><li>首页</li></a>
+    			#set($base = $pageIndex - 4)
+    			#if($pageCount > $pageIndex + 5)
+    				#set($high = $pageIndex + 5)
+    			#else
+    				#set($high = $pageCount)
+    			#end
     		#end
-    	</div>
+    		#foreach($i in [$base..$high])
+    			#if($pageIndex!=$i)<a href="$!{uri}?pn=$i">#end
+    				<li #if($pageIndex==$i)class="current"#end>$i</li>
+    			#if($pageIndex!=$i)</a>#end
+    		#end
+    		#if($pageIndex<$pageCount)
+    			#set($next = $pageIndex + 1)
+       		<a href="$!{uri}?pn=$!{next}"><li>下一页></li></a>
+       		<a href="$!{uri}?pn=$!{pageCount}"><li>尾页</li></a>
+    		#end
+       	</ul>
+		#end
+		<div style="padding-top: 20px;">共 ${pageCount} 页 ${sumCount} 条</div>
 	</div>
 	<div class="clear"></div>
 </div>
-	<!-- 特别关注 -->
-	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
-        <div class="icon-box widget first">
-        	<i class="ico-sampler" style="margin:-6px 0 0 0px"></i>
-        	<h4 style="margin-top: 0px;">相关资讯</h4>
-			<ul class="circle_list" style="margin-top: 15px;">
-				#foreach($relate in $relates)
-				<li>
-					<div class="latest-post-blog" style="margin-bottom:8px;">
-                       	<a href="$relate.uri">$!{relate.title}</a>
-					</div>
-            	</li>
-				#end
-			</ul>
-        </div>
-	</div>
+
 </div>
 <!-- 960 Container / End -->
 </div>
@@ -112,15 +141,6 @@
 <!-- Footer / End -->
 <script language="JavaScript">
 	$(document).ready(function(){
-		$(".circle_list li div a").css("color","#666");
-		$(".circle_list li div a").hover(function(){
-			$(this).css("color","#72b626");
-			$(this).css("text-decoration","underline");
-		},
-		function(){
-			$(this).css("color","#666");
-			$(this).css("text-decoration","none");
-		});
 	});
 </script>
 </body>

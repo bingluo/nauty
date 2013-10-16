@@ -63,8 +63,8 @@
 	#parse("common/flexslider.vm")
 	<!-- Flexslider / End -->
     <div class="one-third column" style="height:150px;padding:0px;display:block;background">
-    	<div class="headline" style="margin:5px 0 8px 0"><h3>新闻中心</h3></div>
-		<div id="marquees" style="height:300px;width:290px;overflow:hidden">
+    	<div class="headline" style="margin:5px 0 0px 0"><h3>新闻中心</h3></div>
+		<div id="marquees" style="height:315px;width:290px;overflow:hidden">
 			<ul class="square_list">
     			#foreach($article in $news)
             	<li style="margin:10px 0px"> <a href="$article.uri">$article.title</a></li>
@@ -118,9 +118,11 @@
 <!-- 960 Container -->
 <div class="container">
 
-	<div class="sixteen columns">
+	<div class="sixteen columns" style="height: 45px;">
 		<!-- Headline -->
-		<div class="headline no-margin"><h3>Recent Work</h3></div>
+		<div class="no-margin icon-box"><i class="ico-book-open" style="margin-left: -10px;margin-top:-7px;"></i>
+			<a href="/journal/" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<h3>协会刊物</h3></div>
 	</div>
 	
 	<!-- Project -->
@@ -139,7 +141,7 @@
 	
 	<!-- Project -->
 	<div class="four columns">
-		<div class="picture"><a href="/static/images/portfolio/portoflio-08-large.jpg" rel="image" title="Coffee Time"><img src="images/portfolio/portoflio-08.jpg" alt="" /><div class="image-overlay-zoom"></div></a></div>
+		<div class="picture"><a href="/static/images/portfolio/portoflio-08-large.jpg" rel="image" title="Coffee Time"><img src="/static/images/portfolio/portoflio-08.jpg" alt="" /><div class="image-overlay-zoom"></div></a></div>
 		<div class="item-description">
 			<h5><a href="#">Coffee Time</a></h5>
 			<p>Amet sit lorem ligula est, eget conseact etur lectus hendrerit suscipit maecenas.</p>
@@ -164,26 +166,6 @@
 		</div>
 	</div>
 	
-</div>
-<!-- 960 Container / End -->
-
-
-<!-- 960 Container -->
-<div class="container">
-	<div class="sixteen columns">
-	
-		<!-- Headline -->
-		<div class="headline no-margin"><h3>Our Clients</h3></div>
-		
-		<ul class="client-list">
-			<li><img src="/static/images/logo-01.png" alt="" /></li>
-			<li><img src="/static/images/logo-02.png" alt="" /></li>
-			<li><img src="/static/images/logo-03.png" alt="" /></li>
-			<li><img src="/static/images/logo-04.png" alt="" /></li>
-			<li><img src="/static/images/logo-05.png" alt="" /></li>
-		</ul>
-		
-	</div>
 </div>
 <!-- 960 Container / End -->
 

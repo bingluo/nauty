@@ -16,7 +16,7 @@ public class ArticleService {
 
 	public List<ArticlePojo> newCenterInIndex() {
 		List<ArticlePojo> news = articleDAOImpl.getArticlesByCatAndRangeBrief(
-				2, 0, 10);
+				2, 0, 15);
 		for (ArticlePojo articlePojo : news) {
 			articlePojo.setUri(LinkTool.article(articlePojo));
 		}
@@ -25,7 +25,7 @@ public class ArticleService {
 
 	public List<ArticlePojo> getArticleByCatIdAndPageIndex(int catId, int index) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
-				catId, 10 * (index - 1), 10 * index);
+				catId, 10 * (index - 1), 10);
 		for (ArticlePojo articlePojo : articles) {
 			articlePojo.setUri(LinkTool.article(articlePojo));
 		}
@@ -35,7 +35,7 @@ public class ArticleService {
 	public List<ArticlePojo> getArticleByCatIdAndPageIndexAndPageSize(
 			int catId, int index, int pageSize) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
-				catId, pageSize * (index - 1), pageSize * index);
+				catId, pageSize * (index - 1), pageSize);
 		for (ArticlePojo articlePojo : articles) {
 			articlePojo.setUri(LinkTool.article(articlePojo));
 		}

@@ -14,4 +14,8 @@ interface UploadDAO {
 	Upload getUploadById(int id);
 
 	void updateUpload(Upload upload);
+
+	int selectUploadCount();
+
+	List<Upload> getUploadByBaseAndRange(int base, int range);
 }

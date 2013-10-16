@@ -15,6 +15,8 @@ public class Article {
 
 	private String content;
 
+	private String pureText;
+
 	private String from;
 
 	private Date postTime;
@@ -65,6 +67,14 @@ public class Article {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getPureText() {
+		return pureText;
+	}
+
+	public void setPureText(String pureText) {
+		this.pureText = pureText;
 	}
 
 	public String getFrom() {
