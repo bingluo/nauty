@@ -51,7 +51,10 @@ public class ArticleService {
 	}
 
 	public ArticlePojo getArticleById(int id) {
-		return articleDAOImpl.getArticleById(id);
+		ArticlePojo article = articleDAOImpl.getArticleById(id);
+		article.setPrevious(articleDAOImpl.getPreviousArticle(article));
+		article.setNext(articleDAOImpl.getNextArticle(article));
+		return article;
 	}
 
 	public int getArticleCountByCatId(int rootCatId, int catId) {

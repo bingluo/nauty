@@ -30,4 +30,7 @@ interface ArticleDAO {
 
 	ArticlePojo getExclusiveArticleByCatId(int catId);
 
+	ArticlePojo getPreviousArticle(ArticlePojo article);
+
+	ArticlePojo getNextArticle(ArticlePojo article);
 }

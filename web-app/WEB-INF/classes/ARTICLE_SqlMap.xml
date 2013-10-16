@@ -124,23 +124,23 @@
 		]]>
     </select>
 	
-	<select id="selectPreviousArticle" resultClass="BriefArticleResultMap" parameterClass="article">
+	<select id="selectPreviousArticle" resultMap="BriefArticleResultMap" parameterClass="article">
 		<![CDATA[
 		SELECT * FROM 
-			(SELECT *
-    		FROM article a
-    		WHERE a.post_time < #postTime# AND a.cat_id=#catId#
-    		ORDER BY a.post_time DESC) b
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
+    		FROM article a,category b
+    		WHERE a.cat_id=#catId# AND a.cat_id = b.id AND a.post_time < #postTime# 
+    		ORDER BY a.post_time DESC) c
 		limit 0,1
 		]]>
 	</select>
 	
-	<select id="selectNextArticle" resultClass="BriefArticleResultMap" parameterClass="article">
+	<select id="selectNextArticle" resultMap="BriefArticleResultMap" parameterClass="article">
 		<![CDATA[
 		SELECT * FROM 
-			(SELECT *
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
     		FROM article a,category b
-    		WHERE a.post_time > #postTime# AND a.cat_id=#catId#
+    		WHERE a.cat_id=#catId# AND a.cat_id = b.id AND a.post_time > #postTime# 
     		ORDER BY a.post_time ASC) c
 		limit 0,1
 		]]>
