@@ -7,8 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
-import org.springmodules.cache.annotations.CacheFlush;
-import org.springmodules.cache.annotations.Cacheable;
 
 import cn.seu.cose.entity.ArticlePojo;
 
@@ -47,7 +45,7 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
-	@Cacheable(modelId = "articleCacheModel")
+	// @Cacheable(value = { "articleCache" })
 	public List<ArticlePojo> getArticlesByCatAndRange(int catId, int base,
 			int range) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -83,19 +81,19 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
-	@CacheFlush(modelId = "articleFlushModel")
+	// @CacheFlush(modelId = "articleFlushModel")
 	public void insertArticle(ArticlePojo article) {
 		getSqlMapClientTemplate().insert("ARTICLE.insertArticle", article);
 	}
 
 	@Override
-	@CacheFlush(modelId = "articleFlushModel")
+	// @CacheFlush(modelId = "articleFlushModel")
 	public void updateArticle(ArticlePojo article) {
 		getSqlMapClientTemplate().update("ARTICLE.updateArticle", article);
 	}
 
 	@Override
-	@CacheFlush(modelId = "articleFlushModel")
+	// @CacheFlush(modelId = "articleFlushModel")
 	public void deleteArticle(int id) {
 		getSqlMapClientTemplate().delete("ARTICLE.deleteArticleById", id);
 	}

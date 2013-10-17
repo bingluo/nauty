@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.seu.cose.entity.ArticlePojo;
 
-interface ArticleDAO {
+public interface ArticleDAO {
 	ArticlePojo getArticleByIdBrief(int id);
 
 	ArticlePojo getArticleById(int id);

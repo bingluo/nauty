@@ -101,7 +101,7 @@
 		SET	title = #title#,
 			subhead = #subhead#,
 			content = #content#,
-			pure_text = #pureText#
+			pure_text = #pureText#,
 			cat_id = #catId#,
 			root_cat_id = #rootCatId#,
 			`from` = #from#,

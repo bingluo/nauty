@@ -3,6 +3,7 @@ package cn.seu.cose.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import cn.seu.cose.dao.ArticleDAOImpl;
@@ -14,6 +15,7 @@ public class ArticleService {
 	@Autowired
 	ArticleDAOImpl articleDAOImpl;
 
+	@Cacheable(value = { "articleCache" })
 	public List<ArticlePojo> newCenterInIndex() {
 		List<ArticlePojo> news = articleDAOImpl.getArticlesByCatAndRangeBrief(
 				2, 0, 15);
