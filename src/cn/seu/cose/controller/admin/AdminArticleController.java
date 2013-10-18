@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import oracle.net.aso.a;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -99,7 +101,7 @@ public class AdminArticleController extends AbstractController{
 	@RequestMapping(value="/admin/add_article", method=RequestMethod.POST)
 	public void postAdd(@RequestParam("title") String title, @RequestParam("subhead") String subhead,
 			@RequestParam("catId") String catIdStr, @RequestParam("rootCatId") String rootCatIdStr,
-			@RequestParam("content") String content, @RequestParam("from") String from, 
+			@RequestParam("content") String content, @RequestParam("from") String from, @RequestParam("pure") String pure,
 			HttpServletResponse response) {
 		ArticlePojo article = new ArticlePojo();
 		article.setTitle(title);
@@ -109,6 +111,7 @@ public class AdminArticleController extends AbstractController{
 		article.setContent(content);
 		article.setFrom(from);
 		article.setPostTime(new Date());
+		article.setPureText(pure);
 		articleService.addArticle(article);
 	}
 	
@@ -147,7 +150,7 @@ public class AdminArticleController extends AbstractController{
 	@RequestMapping(value="/admin/alt_article", method=RequestMethod.POST)
 	public void postAlt(@RequestParam("id") String idStr, @RequestParam("title") String title, @RequestParam("subhead") String subhead,
 			@RequestParam("catId") String catIdStr, @RequestParam("rootCatId") String rootCatIdStr,
-			@RequestParam("content") String content, @RequestParam("from") String from, 
+			@RequestParam("content") String content, @RequestParam("from") String from, @RequestParam("pure") String pure,
 			HttpServletResponse response) {
 		ArticlePojo article = new ArticlePojo();
 		article.setId(Integer.parseInt(idStr));
@@ -158,6 +161,7 @@ public class AdminArticleController extends AbstractController{
 		article.setContent(content);
 		article.setFrom(from);
 		article.setPostTime(new Date());
+		article.setPureText(pure);
 		articleService.updateArticle(article);
 	}
 	

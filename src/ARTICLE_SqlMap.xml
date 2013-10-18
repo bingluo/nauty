@@ -90,8 +90,8 @@
 	<insert id="insertArticle" parameterClass="article">
 		<![CDATA[
 		INSERT INTO ARTICLE
-		(title,subhead,cat_Id,root_cat_id,content,`from`,post_time)
-		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,#postTime#)
+		(title,subhead,cat_Id,root_cat_id,content,`from`,post_time, pure_text)
+		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,#postTime#, #pureText#)
 		]]>
 	</insert>
 
