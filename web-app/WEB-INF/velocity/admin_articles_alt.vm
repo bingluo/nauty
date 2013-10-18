@@ -121,7 +121,7 @@
 			var _top_cat = $("#top_cats_add option:selected").val();
 			var _sub_cat = $("#sub_cats_add option:selected").val();
 			var _from = "admin";
-			
+			var _pure = editor.text();
 			if(_title == "") {
 				$("#title").parent().parent().addClass("error");
 				$("#title").parent().append('<span id="req_title" for="required" generated="true" class="help-inline">请填写标题</span>');
@@ -129,7 +129,7 @@
 				$.ajax({
 					url: "/admin/alt_article",
 					type: "post",
-					data: {id:_id, title:_title, subhead:_subhead, catId:_sub_cat, rootCatId:_top_cat, content:_html, from:_from},
+					data: {id:_id, title:_title, subhead:_subhead, catId:_sub_cat, rootCatId:_top_cat, content:_html, from:_from, pure:_pure},
 					dataType: "html",
 					success:function(data){
 						window.location.href = "/admin/article_list-" + _top_cat + "-" + _sub_cat + "-1";
