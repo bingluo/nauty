@@ -117,7 +117,7 @@ public class AdminIndexController extends AbstractController{
 	@RequestMapping(value="/admin/add_admin", method=RequestMethod.GET)
 	public String getAdd(Model model) {
 		model.addAttribute("super", adminService.getAdmin());
-		return "admin_add";
+		return "admin_super_add";
 	}
 	
 	@RequestMapping(value="/admin/add_admin", method=RequestMethod.POST)
@@ -127,23 +127,35 @@ public class AdminIndexController extends AbstractController{
 		admin.setPassword(pass);
 		admin.setIsSuper(false);
 		adminService.register(admin);
+		try {
+			response.sendRedirect("/admin/super");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(value="/admin/super_account-{id}", method=RequestMethod.GET)
 	public String getSuper(@PathVariable("id")String idStr, Model model) {
 		Admin superAdmin = adminService.getAmindById(Integer.parseInt(idStr));
 		model.addAttribute("super", superAdmin);
-		return "admin_account_super";
+		return "admin_super_alt";
 	}
 	
 	@RequestMapping(value="/admin/super_account", method=RequestMethod.POST)
-	public void postSuper(@RequestParam("username")String username, @RequestParam("passowrd")String password, @RequestParam("id") String idStr, 
+	public void postSuper(@RequestParam("username")String username, @RequestParam("password")String password, @RequestParam("id") String idStr, 
 			HttpServletResponse response) {
 		Admin superAdmin = new Admin();
 		superAdmin.setId(Integer.parseInt(idStr));
 		superAdmin.setUsername(username);
 		superAdmin.setPassword(password);
 		superAdmin.setIsSuper(true);
+		adminService.updateSuper(superAdmin);
+		try {
+			adminService.logout();
+			response.sendRedirect("/admin/super");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 }
