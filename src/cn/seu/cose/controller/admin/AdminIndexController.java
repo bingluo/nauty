@@ -1,12 +1,14 @@
 package cn.seu.cose.controller.admin;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +25,12 @@ public class AdminIndexController extends AbstractController{
 	public void adminIndex(Model model, HttpServletResponse response) {
 		String to = "";
 		Admin admin = adminService.getAdmin();
-		if (admin != null) {
+		if (admin != null && !admin.getIsSuper()) {
 			model.addAttribute("login_admin", admin.getUsername());
 			to = "/admin/article_list";
-		} else {
+		} else if (admin !=null && admin.getIsSuper()) {
+			to = "/admin/super";
+		}else {
 			to = "/admin/login";
 		}
 		try {
@@ -46,8 +50,10 @@ public class AdminIndexController extends AbstractController{
 			, HttpServletResponse response) {
 		Admin admin = adminService.logon(username, password);
 		String to = "/admin/login";
-		if (admin != null) {
+		if (admin != null && !admin.getIsSuper()) {
 			to = "/admin/article_list";
+		} else if (admin != null && admin.getIsSuper()) {
+			to = "/admin/super";
 		}
 		try {
 			response.sendRedirect(to);
@@ -90,5 +96,54 @@ public class AdminIndexController extends AbstractController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/*
+	 * super
+	 */
+	@RequestMapping(value="/admin/super", method=RequestMethod.GET)
+	public String loginSuper(Model model) {
+		model.addAttribute("super", adminService.getAdmin());
+		List<Admin> list = adminService.getAdmins();
+		model.addAttribute("admin_list", list);
+		return "admin_super";
+	}
+	
+	@RequestMapping(value="/admin/del_admin", method=RequestMethod.POST)
+	public void postDel(@RequestParam("id")String adminIdStr, HttpServletResponse response) {
+		adminService.deleteAdmin(Integer.parseInt(adminIdStr)); 
+	}
+	
+	@RequestMapping(value="/admin/add_admin", method=RequestMethod.GET)
+	public String getAdd(Model model) {
+		model.addAttribute("super", adminService.getAdmin());
+		return "admin_add";
+	}
+	
+	@RequestMapping(value="/admin/add_admin", method=RequestMethod.POST)
+	public void postAdd(@RequestParam("username")String username, @RequestParam("password")String pass, HttpServletResponse response) {
+		Admin admin = new Admin();
+		admin.setUsername(username);
+		admin.setPassword(pass);
+		admin.setIsSuper(false);
+		adminService.register(admin);
+	}
+	
+	@RequestMapping(value="/admin/super_account-{id}", method=RequestMethod.GET)
+	public String getSuper(@PathVariable("id")String idStr, Model model) {
+		Admin superAdmin = adminService.getAmindById(Integer.parseInt(idStr));
+		model.addAttribute("super", superAdmin);
+		return "admin_account_super";
+	}
+	
+	@RequestMapping(value="/admin/super_account", method=RequestMethod.POST)
+	public void postSuper(@RequestParam("username")String username, @RequestParam("passowrd")String password, @RequestParam("id") String idStr, 
+			HttpServletResponse response) {
+		Admin superAdmin = new Admin();
+		superAdmin.setId(Integer.parseInt(idStr));
+		superAdmin.setUsername(username);
+		superAdmin.setPassword(password);
+		superAdmin.setIsSuper(true);
+		
 	}
 }

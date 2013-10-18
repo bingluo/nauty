@@ -1,6 +1,7 @@
 package cn.seu.cose.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,11 @@ public class AdminDAOImpl extends SqlMapClientDaoSupport implements AdminDAO {
 		return (Admin) getSqlMapClientTemplate().queryForObject(
 				"ADMIN.selectAdminByNameAndPswd", map);
 	}
-
+	@Override
+	public List<Admin> getAdmins() {
+		return (List<Admin>)getSqlMapClientTemplate().queryForList("ADMIN.selectAdmins");
+	}
+	
 	@Override
 	public void insertAdmin(Admin admin) {
 		getSqlMapClientTemplate().insert("ADMIN.insertAdmin", admin);
@@ -37,7 +42,12 @@ public class AdminDAOImpl extends SqlMapClientDaoSupport implements AdminDAO {
 	public void updateAdmin(Admin admin) {
 		getSqlMapClientTemplate().update("ADMIN.updateAdmin", admin);
 	}
-
+	
+	@Override
+	public void updateSuperAdmin(Admin admin) {
+		getSqlMapClientTemplate().update("ADMIN.updateSuperAdmin", admin);
+	}
+	
 	@Override
 	public void deleteAdmin(int id) {
 		getSqlMapClientTemplate().delete("ADMIN.deleteAdminById", id);

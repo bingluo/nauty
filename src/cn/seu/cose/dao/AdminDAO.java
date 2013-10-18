@@ -1,5 +1,7 @@
 package cn.seu.cose.dao;
 
+import java.util.List;
+
 import cn.seu.cose.entity.Admin;
 
 interface AdminDAO {
@@ -12,4 +14,8 @@ interface AdminDAO {
 	void deleteAdmin(int id);
 
 	Admin getAmindById(int id);
+
+	List<Admin> getAdmins();
+
+	void updateSuperAdmin(Admin admin);
 }
