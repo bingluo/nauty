@@ -19,7 +19,15 @@
     		WHERE username=#username# AND password=#password#
 		]]>
 	</select>
-
+	
+	<select id="selectAdmins" resultMap="AdminResultMap">
+		<![CDATA[
+    		SELECT * 
+    		FROM ADMIN
+    		WHERE is_super=0
+		]]>
+	</select>
+	
 	<insert id="insertAdmin" parameterClass="admin">
 		<![CDATA[
     		INSERT INTO ADMIN
@@ -32,6 +40,15 @@
 		<![CDATA[
 		UPDATE ADMIN
 		SET	password = #password#
+		WHERE id = #id#
+		]]>
+	</update>
+	
+	<update id="updateSuperAdmin" parameterClass="admin">
+		<![CDATA[
+		UPDATE ADMIN
+		SET	username = #username#, 
+			password = #password#
 		WHERE id = #id#
 		]]>
 	</update>

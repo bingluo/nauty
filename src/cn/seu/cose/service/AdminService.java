@@ -1,5 +1,7 @@
 package cn.seu.cose.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +51,24 @@ public class AdminService {
 	
 	public Admin getAmindById(int id) {
 		return adminDAOImpl.getAmindById(id);
+	}
+	
+	/*
+	 * 获取普通的admin
+	 */
+	public List<Admin> getAdmins() {
+		return adminDAOImpl.getAdmins();
+	}
+	
+	/*
+	 * 修改超级管理员账号或密码
+	 */
+	public boolean updateSuper(Admin admin) {
+		try {
+			adminDAOImpl.updateSuperAdmin(admin);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }
