@@ -33,16 +33,16 @@ public class AdminSlideController extends AbstractController{
 	private ArticleService articleService;
 	
 	@RequestMapping("/admin/slide_list")
-	public String slideList(Model model) {
-		putAdmin(model);
+	public String slideList(Model model, HttpServletResponse response) {
+		putAdmin(model, response);
 		List<SlidePojo> list = slideService.getSlides();
 		model.addAttribute("slide_list", list);
 		return "admin_slides";
 	}
 	
 	@RequestMapping(value="/admin/add_slide", method=RequestMethod.GET)
-	public String getAdd(Model model) {
-		putAdmin(model);
+	public String getAdd(Model model,  HttpServletResponse response) {
+		putAdmin(model, response);
 		/* get cats */
 		List<CategoryPojo> categories = catService.getRootCategories();
 		model.addAttribute("top_cat_list", categories);
@@ -86,8 +86,8 @@ public class AdminSlideController extends AbstractController{
 	}
 	
 	@RequestMapping(value="/admin/alt_slide-{id}", method=RequestMethod.GET)
-	public String getAlt(@PathVariable("id")String idStr, Model model) {
-		putAdmin(model);
+	public String getAlt(@PathVariable("id")String idStr, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
 		int id = Integer.parseInt(idStr);
 		SlidePojo slide = slideService.getSlideById(id);
 		model.addAttribute("slide", slide);

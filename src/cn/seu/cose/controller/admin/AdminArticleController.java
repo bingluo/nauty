@@ -1,7 +1,6 @@
 package cn.seu.cose.controller.admin;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -34,9 +33,9 @@ public class AdminArticleController extends AbstractController{
 	
 	@RequestMapping("/admin/article_list-{topCatId}-{subCatId}-{pageIndex}")
 	public String articleList(@PathVariable(value="topCatId") String topCatIdStr, @PathVariable(value="subCatId") String subCatIdStr, 
-			@PathVariable(value="pageIndex") String pageIndexStr, Model model) {
+			@PathVariable(value="pageIndex") String pageIndexStr, Model model, HttpServletResponse response) {
 		model.addAttribute("searchInput", "");
-		putAdmin(model);
+		putAdmin(model, response);
 		
 		int topCatId = Integer.parseInt(topCatIdStr);
 		int subCatId = Integer.parseInt(subCatIdStr);
@@ -65,7 +64,7 @@ public class AdminArticleController extends AbstractController{
 	
 	@RequestMapping("/admin/article_list_search-{searchInput}")
 	public String searchArticle(@PathVariable("searchInput")String searchInput, Model model, HttpServletRequest request, HttpServletResponse response) {
-		putAdmin(model);
+		putAdmin(model, response);
 		List<ArticlePojo> list = articleService.searchArticle(searchInput);
 		model.addAttribute("article_list", list);
 		model.addAttribute("searchInput", searchInput);
@@ -86,9 +85,9 @@ public class AdminArticleController extends AbstractController{
 	
 	
 	@RequestMapping("/admin/article_list")
-	public String articleList(Model model) {
+	public String articleList(Model model, HttpServletResponse response) {
 		model.addAttribute("searchInput", "");
-		putAdmin(model);
+		putAdmin(model, response);
 		
 		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(2, 1, PAGE_SIZE); // init
 		model.addAttribute("article_list", list);
@@ -109,8 +108,8 @@ public class AdminArticleController extends AbstractController{
 	}
 	
 	@RequestMapping(value="/admin/add_article", method=RequestMethod.GET)
-	public String getAdd(Model model) {
-		putAdmin(model);
+	public String getAdd(Model model, HttpServletResponse response) {
+		putAdmin(model, response);
 		
 		/* get cats */
 		List<CategoryPojo> categories = catService.getRootCategories();
@@ -157,8 +156,8 @@ public class AdminArticleController extends AbstractController{
 	}
 	
 	@RequestMapping(value="/admin/alt_article-{id}", method=RequestMethod.GET)
-	public String getAlt(@PathVariable("id") String idStr, Model model) {
-		putAdmin(model);
+	public String getAlt(@PathVariable("id") String idStr, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
 		
 		Article article = articleService.getArticleById(Integer.parseInt(idStr));
 		model.addAttribute("article", article);

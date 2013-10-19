@@ -27,8 +27,8 @@ public class AdminUploadController extends AbstractController {
 	private UploadService uploadService;
 	
 	@RequestMapping("/admin/upload_list")
-	public String uploadList(Model model) {
-		putAdmin(model);
+	public String uploadList(Model model, HttpServletResponse response) {
+		putAdmin(model,response);
 		List<Upload> list = uploadService.getUploads();
 		model.addAttribute("upload_list", list.subList(0, getToIndex(list, PAGE_SIZE)));
 		model.addAttribute("pageIndex", 1);
@@ -39,8 +39,8 @@ public class AdminUploadController extends AbstractController {
 	}
 	
 	@RequestMapping("/admin/upload_list-{pageIndex}")
-	public String uploadList(@PathVariable("pageIndex")String pageIndexStr, Model model) {
-		putAdmin(model);
+	public String uploadList(@PathVariable("pageIndex")String pageIndexStr, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
 		int pageIndex = Integer.parseInt(pageIndexStr);
 		List<Upload> list = uploadService.getUploads();
 		model.addAttribute("upload_list", list.subList((pageIndex-1)*PAGE_SIZE, getToIndex(list, pageIndex*PAGE_SIZE)));
@@ -62,8 +62,8 @@ public class AdminUploadController extends AbstractController {
 	}
 	
 	@RequestMapping(value="/admin/add_upload", method=RequestMethod.GET)
-	public String getAdd(Model model) {
-		putAdmin(model);
+	public String getAdd(Model model, HttpServletResponse response) {
+		putAdmin(model, response);
 		return "admin_uploads_add";
 	}
 	
@@ -101,8 +101,8 @@ public class AdminUploadController extends AbstractController {
 	}
 	
 	@RequestMapping(value="/admin/alt_upload-{id}", method=RequestMethod.GET)
-	public String getAlt(@PathVariable("id")String idStr, Model model) {
-		putAdmin(model);
+	public String getAlt(@PathVariable("id")String idStr, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
 		Upload upload = uploadService.getUpload(Integer.parseInt(idStr));
 		model.addAttribute("upload", upload);
 		return "admin_uploads_alt";

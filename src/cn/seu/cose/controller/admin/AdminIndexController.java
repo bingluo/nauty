@@ -72,7 +72,7 @@ public class AdminIndexController extends AbstractController{
 	public String getAccount(Model model, HttpServletResponse response) {
 		Admin admin = adminService.getAdmin();
 		if (admin != null) {
-			putAdmin(model);
+			putAdmin(model, response);
 			model.addAttribute("admin", admin);
 			return "admin_account";
 		} else {
