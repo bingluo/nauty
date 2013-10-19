@@ -69,6 +69,13 @@
 									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
 								</a>
 							</span>
+							
+							<span style="float:right; margin-left:10px; margin-right:20px" class="icon" id="search_article_btn">
+								<a href="javascript:void(0)" class="btn btn-success btn" style="vertical-align:top">
+									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
+								</a>
+							</span>
+							<input style="float:right;" type="text" value="$searchInput" placeHolder="文章检索" id="search_input"/>
 						</div>
 					</div>
 				</div>
@@ -175,6 +182,23 @@
 			window.location.href= "/admin/article_list-"+ top_cat_id + "-" + sub_cat_id + "-1";
 		});
 		/**************************************************************************/
+		
+		
+		$("#search_article_btn").bind("click", function(){
+			var search_input = $("#search_input").val().trim();
+			if(search_input == "") {
+				$("#search_input").css("border-color", "red");
+				$("#search_input").attr("placeHolder", "请输入搜索内容");
+			} else if(search_input.length > 10) {
+				$("#search_input").css("border-color", "red");
+				$("#search_input").css("color", "red");
+				$("#search_input").val("");
+				$("#search_input").attr("placeHolder", "搜索内容过长");
+			} else {
+				window.location.href = "/admin/article_list_search-" + search_input;
+			}
+			
+		});
 		
 		// show del_dialog
 		$("button[id='del_btn']").bind("click", function(){
