@@ -43,7 +43,15 @@ public class ArticleService {
 		}
 		return articles;
 	}
-
+	
+	public List<ArticlePojo> searchArticle(String searchInput) {
+		List<ArticlePojo> articles = articleDAOImpl.searchArticle(searchInput);
+		for (ArticlePojo articlePojo : articles) {
+			articlePojo.setUri(LinkTool.article(articlePojo));
+		}
+		return articles;
+	}
+	
 	public List<ArticlePojo> getArticlesByCatId(int subCatId) {
 		return articleDAOImpl.getArticlesBySubCatId(subCatId);
 	}
@@ -65,7 +73,7 @@ public class ArticleService {
 		}
 		return articleDAOImpl.getArticleCountByCatId(catId);
 	}
-
+	
 	public void addArticle(ArticlePojo article) {
 		articleDAOImpl.insertArticle(article);
 	}

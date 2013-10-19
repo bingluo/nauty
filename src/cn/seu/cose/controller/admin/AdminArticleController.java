@@ -1,12 +1,12 @@
 package cn.seu.cose.controller.admin;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import oracle.net.aso.a;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class AdminArticleController extends AbstractController{
 	@RequestMapping("/admin/article_list-{topCatId}-{subCatId}-{pageIndex}")
 	public String articleList(@PathVariable(value="topCatId") String topCatIdStr, @PathVariable(value="subCatId") String subCatIdStr, 
 			@PathVariable(value="pageIndex") String pageIndexStr, Model model) {
-		
+		model.addAttribute("searchInput", "");
 		putAdmin(model);
 		
 		int topCatId = Integer.parseInt(topCatIdStr);
@@ -63,8 +63,31 @@ public class AdminArticleController extends AbstractController{
 		return "admin_articles";
 	}
 	
+	@RequestMapping("/admin/article_list_search-{searchInput}")
+	public String searchArticle(@PathVariable("searchInput")String searchInput, Model model, HttpServletRequest request, HttpServletResponse response) {
+		putAdmin(model);
+		List<ArticlePojo> list = articleService.searchArticle(searchInput);
+		model.addAttribute("article_list", list);
+		model.addAttribute("searchInput", searchInput);
+		/* get cats */
+		List<CategoryPojo> categories = catService.getRootCategories();
+		model.addAttribute("top_cat_list", categories);
+		categories = catService.getCategoriesByParentId(2);
+		model.addAttribute("init_sub_cat_list" ,categories);
+		
+		model.addAttribute("topCatId", 2);
+		model.addAttribute("subCatId", 0);
+		model.addAttribute("pageIndex", 1);
+		model.addAttribute("nextPageIndex", 2);
+		model.addAttribute("prePageIndex", 0);
+		model.addAttribute("pageCount", getPageCount(list.size()));
+		return "admin_articles";
+	}
+	
+	
 	@RequestMapping("/admin/article_list")
 	public String articleList(Model model) {
+		model.addAttribute("searchInput", "");
 		putAdmin(model);
 		
 		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(2, 1, PAGE_SIZE); // init

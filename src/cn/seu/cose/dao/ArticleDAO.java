@@ -33,4 +33,6 @@ public interface ArticleDAO {
 	ArticlePojo getPreviousArticle(ArticlePojo article);
 
 	ArticlePojo getNextArticle(ArticlePojo article);
+
+	List<ArticlePojo> searchArticle(String searchInput);
 }

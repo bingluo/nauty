@@ -55,7 +55,12 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"ARTICLE.selectArticleByCatIdAndBaseAndRange", map);
 	}
-
+	
+	@Override
+	public List<ArticlePojo> searchArticle(String searchInput) {
+		return getSqlMapClientTemplate().queryForList("ARTICLE.searchAtrticle", searchInput);
+	}
+	
 	@Override
 	public int getArticleCountByCatId(int catId) {
 		return (Integer) getSqlMapClientTemplate().queryForObject(
