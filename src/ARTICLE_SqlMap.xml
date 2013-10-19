@@ -92,7 +92,7 @@
 		<![CDATA[
 		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time, b.uri_name
 		FROM ARTICLE a,category b
-		WHERE (a.title LIKE '%$value$%' OR a.subhead LIKE '%$value$%') AND a.root_cat_id = b.id
+		WHERE (a.title LIKE concat('%', #value#, '%') OR a.subhead LIKE concat('%', #value#, '%')) AND a.root_cat_id = b.id
 		]]>
 	</select>
 	
