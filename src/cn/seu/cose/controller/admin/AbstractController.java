@@ -15,7 +15,7 @@ public class AbstractController {
 		if (admin != null) {
 			model.addAttribute("login_admin", admin.getUsername());
 		} else {
-			model.addAttribute("login_admin", "NOT_KNOWN");
+			model.addAttribute("login_admin", "管理员");
 		}
 	}
 }
