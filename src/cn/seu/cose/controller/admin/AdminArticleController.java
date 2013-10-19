@@ -134,7 +134,8 @@ public class AdminArticleController extends AbstractController{
 		article.setContent(content);
 		article.setFrom(from);
 		article.setPostTime(new Date());
-		article.setPureText(pure);
+		int briefLength = pure.length() > 100 ? 100 : pure.length();
+		article.setPureText(pure.substring(0, briefLength) + "……");
 		articleService.addArticle(article);
 	}
 	
@@ -184,7 +185,8 @@ public class AdminArticleController extends AbstractController{
 		article.setContent(content);
 		article.setFrom(from);
 		article.setPostTime(new Date());
-		article.setPureText(pure);
+		int briefLength = pure.length() > 100 ? 100 : pure.length();
+		article.setPureText(pure.substring(0, briefLength) + "……");
 		articleService.updateArticle(article);
 	}
 	
