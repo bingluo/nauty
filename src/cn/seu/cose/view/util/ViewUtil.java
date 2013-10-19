@@ -1,5 +1,10 @@
 package cn.seu.cose.view.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import cn.seu.cose.core.CategoryCache;
 import cn.seu.cose.entity.CategoryPojo;
 
@@ -20,7 +25,19 @@ public class ViewUtil {
 					+ "</a></span></h2>";
 		}
 	}
-
+	
+	public static String fTime(String time) {
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+		try {
+			Date date = sdf.parse(time);
+			sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			return sdf.format(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static String getParentCatName(int catId) {
 		CategoryPojo curCat = CategoryCache.get(catId);
 		if (curCat.getCatLevel() == 1) {
