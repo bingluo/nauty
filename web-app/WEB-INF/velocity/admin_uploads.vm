@@ -45,7 +45,7 @@
 									<td>$upload.id</td>
 									<td>$upload.uploadName</td>
 									<td><a target="_blank" href="$upload.initialName">$upload.initialName</a></td>
-									<td>$upload.uploadTime</td>
+									<td>$viewUtil.fTime("$upload.uploadTime")</td>
 									<td>
 										<a href="/admin/alt_upload-$upload.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
 										<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>

@@ -110,7 +110,7 @@
        			<div class="post-title" style="font-weight:bold;">
     					<a href="$article.uri">$article.title</a>
     			</div>
-       			<div class="post-meta"><span><i class="mini-ico-calendar"></i>$article.postTime</span></div>
+       			<div class="post-meta"><span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$article.postTime")</span></div>
     			<div class="post-description">
     				<p>${article.pureText}</p>
     			</div>
