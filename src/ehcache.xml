@@ -14,4 +14,12 @@
 		timeToIdleSeconds="7200"
 		timeToLiveSeconds="7200"
 		memoryStoreEvictionPolicy="LFU" />
+		
+	<cache name="publicationCache"  
+		maxElementsInMemory="50"  
+		eternal="false"  
+		overflowToDisk="false"
+		timeToIdleSeconds="7200"
+		timeToLiveSeconds="7200"
+		memoryStoreEvictionPolicy="LFU" />
 </ehcache>

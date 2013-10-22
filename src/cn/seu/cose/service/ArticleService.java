@@ -3,6 +3,7 @@ package cn.seu.cose.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class ArticleService {
 		return news;
 	}
 
+	@Cacheable(value = { "articleCache" })
 	public List<ArticlePojo> getArticleByCatIdAndPageIndex(int catId, int index) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
 				catId, 10 * (index - 1), 10);
@@ -34,6 +36,7 @@ public class ArticleService {
 		return articles;
 	}
 
+	@Cacheable(value = { "articleCache" })
 	public List<ArticlePojo> getArticleByCatIdAndPageIndexAndPageSize(
 			int catId, int index, int pageSize) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
@@ -43,7 +46,7 @@ public class ArticleService {
 		}
 		return articles;
 	}
-	
+
 	public List<ArticlePojo> searchArticle(String searchInput) {
 		List<ArticlePojo> articles = articleDAOImpl.searchArticle(searchInput);
 		for (ArticlePojo articlePojo : articles) {
@@ -51,7 +54,7 @@ public class ArticleService {
 		}
 		return articles;
 	}
-	
+
 	public List<ArticlePojo> getArticlesByCatId(int subCatId) {
 		return articleDAOImpl.getArticlesBySubCatId(subCatId);
 	}
@@ -67,21 +70,25 @@ public class ArticleService {
 		return article;
 	}
 
+	@Cacheable(value = { "articleCache" })
 	public int getArticleCountByCatId(int rootCatId, int catId) {
 		if (catId <= 8) {
 			return articleDAOImpl.getArticleCountByRootCatId(rootCatId);
 		}
 		return articleDAOImpl.getArticleCountByCatId(catId);
 	}
-	
+
+	@CacheEvict(value = "articleCache", allEntries = true)
 	public void addArticle(ArticlePojo article) {
 		articleDAOImpl.insertArticle(article);
 	}
 
+	@CacheEvict(value = "articleCache", allEntries = true)
 	public void updateArticle(ArticlePojo article) {
 		articleDAOImpl.updateArticle(article);
 	}
 
+	@CacheEvict(value = "articleCache", allEntries = true)
 	public void deleteArticle(int id) {
 		articleDAOImpl.deleteArticle(id);
 	}
@@ -90,6 +97,7 @@ public class ArticleService {
 		return articleDAOImpl.getExclusiveArticleByCatId(catId);
 	}
 
+	@Cacheable(value = { "articleCache" })
 	public List<ArticlePojo> getConcerns() {
 		List<ArticlePojo> articles = articleDAOImpl
 				.getArticlesByCatAndRangeBrief(15, 0, 5);
@@ -99,6 +107,7 @@ public class ArticleService {
 		return articles;
 	}
 
+	@Cacheable(value = { "articleCache" })
 	public List<ArticlePojo> getEvents() {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(6,
 				0, 5);
@@ -108,6 +117,7 @@ public class ArticleService {
 		return articles;
 	}
 
+	@Cacheable(value = { "articleCache" })
 	public List<ArticlePojo> getTrains() {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(5,
 				0, 5);
@@ -117,6 +127,7 @@ public class ArticleService {
 		return articles;
 	}
 
+	@Cacheable(value = { "articleCache" })
 	public List<ArticlePojo> getRelates(int catId) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
 				catId, 0, 10);
