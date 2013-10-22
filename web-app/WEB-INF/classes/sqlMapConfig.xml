@@ -16,4 +16,5 @@
 	<sqlMap resource="SLIDE_SqlMap.xml" />
 	<sqlMap resource="CATEGORY_SqlMap.xml" />
 	<sqlMap resource="UPLOAD_SqlMap.xml" />
+	<sqlMap resource="PUBLICATION_SqlMap.xml" />
 </sqlMapConfig>

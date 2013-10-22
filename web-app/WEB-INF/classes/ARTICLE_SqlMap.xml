@@ -87,11 +87,20 @@
 		]]>
 	</select>
 	
+	
+	<select id="searchAtrticle" resultMap="ArticleResultMap" parameterClass="string">
+		<![CDATA[
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time, b.uri_name
+		FROM ARTICLE a,category b
+		WHERE (a.title LIKE concat('%', #value#, '%') OR a.subhead LIKE concat('%', #value#, '%')) AND a.root_cat_id = b.id
+		]]>
+	</select>
+	
 	<insert id="insertArticle" parameterClass="article">
 		<![CDATA[
 		INSERT INTO ARTICLE
-		(title,subhead,cat_Id,root_cat_id,content,`from`,post_time)
-		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,#postTime#)
+		(title,subhead,cat_Id,root_cat_id,content,`from`,post_time, pure_text)
+		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,#postTime#, #pureText#)
 		]]>
 	</insert>
 

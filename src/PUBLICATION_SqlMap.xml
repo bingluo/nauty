@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PUBLICATION">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="publication" type="cn.seu.cose.entity.PublicationPojo" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="PublicationResultMap" class="publication">
+		<result property="id" column="ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="intro" column="INTRO" nullValue=""/>
+		<result property="images" column="IMAGES" nullValue=""/>
+		<result property="postTime" column="POST_TIME" nullValue=""/>
+	</resultMap>
+	
+	<select id="selectPublicationById" resultMap="PublicationResultMap" parameterClass="int">
+		<![CDATA[
+			SELECT a.id,a.title,a.intro,a.images,a.post_time
+    		FROM publication a
+			WHERE a.id=#id#
+		]]>
+	</select>
+	
+	<select id="selectRecentPublications" resultMap="PublicationResultMap">
+		<![CDATA[
+		SELECT * FROM 
+			(SELECT a.id,a.title,a.intro,a.images,a.post_time
+    		FROM publication a
+    		ORDER BY a.post_time DESC) b
+		limit 0,4
+		]]>
+	</select>	
+	
+	<select id="selectPublicationsByBaseAndRange" resultMap="PublicationResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM 
+			(SELECT a.id,a.title,a.intro,a.images,a.post_time
+    		FROM publication a
+    		ORDER BY a.post_time DESC) b
+		limit #base#,#range#
+		]]>
+	</select>
+	
+	<insert id="insertPublication" parameterClass="publication">	
+		<![CDATA[
+		INSERT INTO publication
+		(title,intro,images,post_time)
+		VALUES (#title#,#intro#,#images#,#postTime#)
+		]]>
+	</insert>
+	
+	<update id="updatePublication" parameterClass="publication">
+		<![CDATA[
+		UPDATE publication
+		SET title = #title#,
+			intro = #intro#,
+			images = #images#,
+			post_time = #postTime#
+		WHERE id = #id#
+		]]>
+	</update>
+	
+	<delete id="deletePublication" parameterClass="int">
+		<![CDATA[
+		delete from PUBLICATION where ID = #value#
+		]]>
+	</delete>
+</sqlMap>
