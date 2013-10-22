@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.seu.cose.entity.SlidePojo;
 
-interface SlideDAO {
+public interface SlideDAO {
 	List<SlidePojo> getSlides();
 
 	void insertSlide(SlidePojo slide);

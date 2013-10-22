@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.seu.cose.entity.CategoryPojo;
 
-interface CategoryDAO {
+public interface CategoryDAO {
 	List<CategoryPojo> getCategoriesByParentId(int parentId);
 
 	List<CategoryPojo> getRootCategories();

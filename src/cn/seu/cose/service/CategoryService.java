@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.seu.cose.dao.CategoryDAOImpl;
+import cn.seu.cose.dao.CategoryDAO;
 import cn.seu.cose.entity.CategoryPojo;
 
 @Service
 public class CategoryService {
 
 	@Autowired
-	CategoryDAOImpl categoryDAOImpl;
+	CategoryDAO categoryDAOImpl;
 
 	public List<CategoryPojo> getCategoriesByParentId(int parentId) {
 		return categoryDAOImpl.getCategoriesByParentId(parentId);

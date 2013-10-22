@@ -12,6 +12,13 @@
 		<result property="extra" column="EXTRA"/>
 	</resultMap>
 
+	<select id="selectAllParameter" resultMap="ParameterResultMap">		
+		<![CDATA[
+    		SELECT * 
+    		FROM PARAMETER
+		]]>
+	</select>
+	
 	<select id="selectParameterByKey" resultMap="ParameterResultMap" parameterClass="java.lang.String">
 		<![CDATA[
     		SELECT * 

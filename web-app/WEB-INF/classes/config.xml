@@ -11,16 +11,6 @@
 	http://www.springframework.org/schema/cache  
 	http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
 	
-	<!-- 从classpath加载EHCACHE配置
-	<ehcache:config configLocation="classpath:ehcache.xml" />
-	
-	<ehcache:annotations providerId="cacheProvider">
-		<ehcache:caching id="articleCacheModel" cacheName="articleCache" />
-		<ehcache:flushing id="articleFlushModel" cacheNames="articleCache" when="before"/>
-	</ehcache:annotations>
-	 -->
-
-
     <!-- 使Spring支持自动检测组件，如注解的Controller -->
 	<context:annotation-config />
 	<context:component-scan base-package="cn.seu.cose.dao" />

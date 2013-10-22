@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.seu.cose.entity.PublicationPojo;
 
-interface PublicationDAO {
+public interface PublicationDAO {
 	PublicationPojo getPublicationById(int id);
 
 	List<PublicationPojo> getRecentPublications();

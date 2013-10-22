@@ -7,14 +7,14 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import cn.seu.cose.dao.PublicationDAOImpl;
+import cn.seu.cose.dao.PublicationDAO;
 import cn.seu.cose.entity.PublicationPojo;
 
 @Service
 public class PublicationService {
 
 	@Autowired
-	PublicationDAOImpl publicationDAOImpl;
+	PublicationDAO publicationDAOImpl;
 
 	@Cacheable(value = { "publicationCache" })
 	public PublicationPojo getPublicationById(int id) {

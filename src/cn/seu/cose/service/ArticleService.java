@@ -7,14 +7,14 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import cn.seu.cose.dao.ArticleDAOImpl;
+import cn.seu.cose.dao.ArticleDAO;
 import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.util.LinkTool;
 
 @Service
 public class ArticleService {
 	@Autowired
-	ArticleDAOImpl articleDAOImpl;
+	ArticleDAO articleDAOImpl;
 
 	@Cacheable(value = { "articleCache" })
 	public List<ArticlePojo> newCenterInIndex() {

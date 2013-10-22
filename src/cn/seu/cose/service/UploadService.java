@@ -5,16 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.seu.cose.dao.UploadDAOImpl;
+import cn.seu.cose.dao.UploadDAO;
 import cn.seu.cose.entity.Upload;
 
 @Service
 public class UploadService {
 
 	@Autowired
-	UploadDAOImpl uploadDAOImpl;
+	UploadDAO uploadDAOImpl;
 
 	public List<Upload> getUploads() {
+		UploadDAO upload;
 		return uploadDAOImpl.getUploads();
 	}
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.seu.cose.entity.Admin;
 
-interface AdminDAO {
+public interface AdminDAO {
 	Admin getAdmin(String username, String pswd);
 
 	void insertAdmin(Admin admin);

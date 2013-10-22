@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.seu.cose.entity.Upload;
 
-interface UploadDAO {
+public interface UploadDAO {
 	List<Upload> getUploads();
 
 	void insertUpload(Upload upload);
