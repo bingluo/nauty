@@ -17,4 +17,5 @@
 	<sqlMap resource="CATEGORY_SqlMap.xml" />
 	<sqlMap resource="UPLOAD_SqlMap.xml" />
 	<sqlMap resource="PUBLICATION_SqlMap.xml" />
+	<sqlMap resource="PARAMETER_SqlMap.xml" />
 </sqlMapConfig>

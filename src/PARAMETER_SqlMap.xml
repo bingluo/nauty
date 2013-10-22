@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PARAMETER">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="parameter" type="cn.seu.cose.entity.Parameter" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="ParameterResultMap" class="parameter">
+		<result property="parameterKey" column="PARAMETER_KEY"/>
+		<result property="parameterName" column="PARAMETER_NAME"/>
+		<result property="parameterValue" column="PARAMETER_VALUE"/>
+		<result property="extra" column="EXTRA"/>
+	</resultMap>
+
+	<select id="selectParameterByKey" resultMap="ParameterResultMap" parameterClass="java.lang.String">
+		<![CDATA[
+    		SELECT * 
+    		FROM PARAMETER
+    		WHERE parameter_key=#value#
+		]]>
+	</select>
+
+	<update id="updateParameter" parameterClass="parameter">
+		<![CDATA[
+		UPDATE PARAMETER
+		SET	parameter_name = #parameterName#,
+			parameter_value = #parameterValue#,
+			extra = #extra#,
+		WHERE parameter_key = #parameterKey#
+		]]>
+	</update>
+</sqlMap>
