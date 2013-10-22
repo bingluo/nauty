@@ -20,7 +20,7 @@ public class PublicationService {
 		List<PublicationPojo> publications = publicationDAOImpl
 				.getAllPublications();
 		for (PublicationPojo publication : publications) {
-			publication.setImgUrls(publication.getImages().split(","));
+			resolveImgs(publication);
 		}
 		return publications;
 	}
@@ -28,7 +28,7 @@ public class PublicationService {
 	@Cacheable(value = { "publicationCache" })
 	public PublicationPojo getPublicationById(int id) {
 		PublicationPojo publication = publicationDAOImpl.getPublicationById(id);
-		publication.setImgUrls(publication.getImages().split(","));
+		resolveImgs(publication);
 		return publication;
 	}
 
@@ -37,7 +37,7 @@ public class PublicationService {
 		List<PublicationPojo> publications = publicationDAOImpl
 				.getRecentPublications();
 		for (PublicationPojo publication : publications) {
-			publication.setImgUrls(publication.getImages().split(","));
+			resolveImgs(publication);
 		}
 		return publications;
 	}
@@ -48,8 +48,9 @@ public class PublicationService {
 		List<PublicationPojo> publications = publicationDAOImpl
 				.getPublicationsByBaseAndRange((index - 1) * pageSize, pageSize);
 		for (PublicationPojo publication : publications) {
-			publication.setImgUrls(publication.getImages().split(","));
+			resolveImgs(publication);
 		}
+
 		return publications;
 	}
 
@@ -66,5 +67,20 @@ public class PublicationService {
 	@CacheEvict(value = "publicationCache", allEntries = true)
 	public void deletePublication(int id) {
 		publicationDAOImpl.deletePublication(id);
+	}
+
+	/**
+	 * 解析图片，并设置封面
+	 * 
+	 * @param publication
+	 */
+	private void resolveImgs(PublicationPojo publication) {
+		if (publication == null) {
+			return;
+		}
+		publication.setImgUrls(publication.getImages().split(","));
+		if (publication.getImgUrls().length > 0) {
+			publication.setCoverUrl(publication.getImgUrls()[0]);
+		}
 	}
 }
