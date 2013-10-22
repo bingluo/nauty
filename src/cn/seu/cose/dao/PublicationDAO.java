@@ -5,6 +5,8 @@ import java.util.List;
 import cn.seu.cose.entity.PublicationPojo;
 
 public interface PublicationDAO {
+	List<PublicationPojo> getAllPublications();
+
 	PublicationPojo getPublicationById(int id);
 
 	List<PublicationPojo> getRecentPublications();

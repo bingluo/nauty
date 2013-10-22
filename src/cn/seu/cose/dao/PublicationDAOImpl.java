@@ -21,6 +21,12 @@ public class PublicationDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
+	public List<PublicationPojo> getAllPublications() {
+		return getSqlMapClientTemplate().queryForList(
+				"PUBLICATION.selectAllPublications");
+	}
+
+	@Override
 	public PublicationPojo getPublicationById(int id) {
 		return (PublicationPojo) getSqlMapClientTemplate().queryForObject(
 				"PUBLICATION.selectPublicationById", id);

@@ -13,6 +13,12 @@
 		<result property="postTime" column="POST_TIME" nullValue=""/>
 	</resultMap>
 	
+	<select id="selectAllPublications" resultMap="PublicationResultMap">
+		<![CDATA[
+			SELECT * FROM publication
+		]]>
+	</select>
+	
 	<select id="selectPublicationById" resultMap="PublicationResultMap" parameterClass="int">
 		<![CDATA[
 			SELECT a.id,a.title,a.intro,a.images,a.post_time

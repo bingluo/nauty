@@ -16,6 +16,15 @@ public class PublicationService {
 	@Autowired
 	PublicationDAO publicationDAOImpl;
 
+	public List<PublicationPojo> getAllPublications() {
+		List<PublicationPojo> publications = publicationDAOImpl
+				.getAllPublications();
+		for (PublicationPojo publication : publications) {
+			publication.setImgUrls(publication.getImages().split(","));
+		}
+		return publications;
+	}
+
 	@Cacheable(value = { "publicationCache" })
 	public PublicationPojo getPublicationById(int id) {
 		PublicationPojo publication = publicationDAOImpl.getPublicationById(id);
