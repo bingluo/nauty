@@ -13,20 +13,22 @@
 		<!-- Social / Contact -->
 		<div class="eight columns">
 			<!-- Social Icons -->
-			<ul class="social-icons">
-				<li class="facebook"><a href="#">Facebook</a></li>
-				<li class="twitter"><a href="#">Twitter</a></li>
-				<li class="dribbble"><a href="#">Dribbble</a></li>
-				<li class="linkedin"><a href="#">LinkedIn</a></li>
-				<li class="pintrest"><a href="#">Pintrest</a></li>
-			</ul>
-			<div class="clear"></div>
-			<!-- Contact Details -->
-			<div id="contact-details">
-				<ul>
-					<li><i class="mini-ico-envelope"></i><a href="#">${email}</a></li>
-					<li><i class="mini-ico-user"></i>${phone}</li>
-				</ul>
+			<div class="tooltips">
+    			<ul class="social-icons">
+    				<li class="facebook"><a href="#">Facebook</a></li>
+    				<li class="twitter"><a href="#">Twitter</a></li>
+    				<li class="dribbble"><a href="#">Dribbble</a></li>
+    				<li class="linkedin"><a href="#">LinkedIn</a></li>
+    				<li class="pintrest"><a href="#">Pintrest</a></li>
+    			</ul>
+    			<div class="clear"></div>
+    			<!-- Contact Details -->
+    			<div id="contact-details">
+    				<ul>
+    					<li><i class="mini-ico-envelope"></i><a href="/contact.html" rel="tooltip" data-original-title="给我们留言">${email}</a></li>
+    					<li><i class="mini-ico-user"></i>${phone}</li>
+    				</ul>
+    			</div>
 			</div>
 		</div>
 

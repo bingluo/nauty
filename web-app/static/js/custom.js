@@ -217,35 +217,41 @@ jQuery(document).ready(function()
 /*	Contact Form
 /*----------------------------------------------------*/
 (function() {
-var animateSpeed=300;
 var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 
 	// Validating
 	
+	function validateSubject(subject) {
+		if (subject.val()=='') {subject.addClass('validation-error'); return false;}
+		else {subject.removeClass('validation-error'); return true;}
+	}
+	
 	function validateName(name) {
-		if (name.val()=='*') {name.addClass('validation-error',animateSpeed); return false;}
-		else {name.removeClass('validation-error',animateSpeed); return true;}
+		if (name.val()=='') {name.addClass('validation-error'); return false;}
+		else {name.removeClass('validation-error'); return true;}
 	}
 
 	function validateEmail(email,regex) {
-		if (!regex.test(email.val())) {email.addClass('validation-error',animateSpeed); return false;}
-		else {email.removeClass('validation-error',animateSpeed); return true;}
+		if (!regex.test(email.val())) {email.addClass('validation-error'); return false;}
+		else {email.removeClass('validation-error'); return true;}
 	}
 		
 	function validateMessage(message) {
-		if (message.val()=='') {message.addClass('validation-error',animateSpeed); return false;}
-		else {message.removeClass('validation-error',animateSpeed); return true;}
+		if (message.val()=='') {message.addClass('validation-error'); return false;}
+		else {message.removeClass('validation-error'); return true;}
 	}
 				
 	$('#send').click(function() {
 	
 		var result=true;
 		
+		var subject = $('input[name=subject]');
 		var name = $('input[name=name]');
 		var email = $('input[name=email]');
 		var message = $('textarea[name=message]');
 				
 		// Validate
+		if(!validateName(subject)) result=false;
 		if(!validateName(name)) result=false;
 		if(!validateEmail(email,emailReg)) result=false;
 		if(!validateMessage(message)) result=false;
@@ -253,7 +259,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 		if(result==false) return false;
 				
 		// Data
-		var data = 'name=' + name.val() + '&email=' + email.val() + '&message='  + encodeURIComponent(message.val());
+		var data = 'subject=' + subject.val() + '&name=' + name.val() + '&email=' + email.val() + '&message='  + encodeURIComponent(message.val());
 		
 		// Disable fields
 		$('.text').attr('disabled','true');
@@ -265,10 +271,10 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 		$.ajax({
 		
 			// PHP file that processes the data and send mail
-			url: "contact.php",	
+			url: "/contact",	
 			
-			// GET method is used
-			type: "GET",
+			// POST method is used
+			type: "POST",
 
 			// Pass the data			
 			data: data,		
@@ -303,6 +309,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 		
 	});
 		
+	$('input[name=subject]').blur(function(){validateSubject($(this));});
 	$('input[name=name]').blur(function(){validateName($(this));});
 	$('input[name=email]').blur(function(){validateEmail($(this),emailReg); });
 	$('textarea[name=message]').blur(function(){validateMessage($(this)); });
