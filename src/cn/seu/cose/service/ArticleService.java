@@ -16,7 +16,7 @@ public class ArticleService {
 	@Autowired
 	ArticleDAO articleDAOImpl;
 
-	@Cacheable(value = { "articleCache" })
+	@Cacheable(value = "articleCache", key = "'newCenterInIndex'")
 	public List<ArticlePojo> newCenterInIndex() {
 		List<ArticlePojo> news = articleDAOImpl.getArticlesByCatAndRangeBrief(
 				2, 0, 15);
@@ -26,7 +26,7 @@ public class ArticleService {
 		return news;
 	}
 
-	@Cacheable(value = { "articleCache" })
+	@Cacheable(value = "articleCache", key = "'getArticleByCatIdAndPageIndex:'+ #catId +','+ #index ")
 	public List<ArticlePojo> getArticleByCatIdAndPageIndex(int catId, int index) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
 				catId, 10 * (index - 1), 10);
@@ -36,7 +36,7 @@ public class ArticleService {
 		return articles;
 	}
 
-	@Cacheable(value = { "articleCache" })
+	@Cacheable(value = "articleCache", key = "'getArticleByCatIdAndPageIndexAndPageSize:'+ #catId +','+#index+','+#pageSize")
 	public List<ArticlePojo> getArticleByCatIdAndPageIndexAndPageSize(
 			int catId, int index, int pageSize) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
@@ -65,12 +65,23 @@ public class ArticleService {
 
 	public ArticlePojo getArticleById(int id) {
 		ArticlePojo article = articleDAOImpl.getArticleById(id);
-		article.setPrevious(articleDAOImpl.getPreviousArticle(article));
-		article.setNext(articleDAOImpl.getNextArticle(article));
+		ArticlePojo previous = articleDAOImpl.getPreviousArticle(article);
+		ArticlePojo next = articleDAOImpl.getNextArticle(article);
+
+		article.setUri(LinkTool.article(article));
+		if (previous != null) {
+			previous.setUri(LinkTool.article(previous));
+		}
+		if (next != null) {
+			next.setUri(LinkTool.article(next));
+		}
+
+		article.setPrevious(previous);
+		article.setNext(next);
 		return article;
 	}
 
-	@Cacheable(value = { "articleCache" })
+	@Cacheable(value = "articleCache", key = "'getArticleCountByCatId:' + #rootCatId + ',' + #catId")
 	public int getArticleCountByCatId(int rootCatId, int catId) {
 		if (catId <= 8) {
 			return articleDAOImpl.getArticleCountByRootCatId(rootCatId);
@@ -97,7 +108,7 @@ public class ArticleService {
 		return articleDAOImpl.getExclusiveArticleByCatId(catId);
 	}
 
-	@Cacheable(value = { "articleCache" })
+	@Cacheable(value = "articleCache", key = "'getConcerns'")
 	public List<ArticlePojo> getConcerns() {
 		List<ArticlePojo> articles = articleDAOImpl
 				.getArticlesByCatAndRangeBrief(15, 0, 5);
@@ -107,7 +118,7 @@ public class ArticleService {
 		return articles;
 	}
 
-	@Cacheable(value = { "articleCache" })
+	@Cacheable(value = "articleCache", key = "'getEvents'")
 	public List<ArticlePojo> getEvents() {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(6,
 				0, 5);
@@ -117,7 +128,7 @@ public class ArticleService {
 		return articles;
 	}
 
-	@Cacheable(value = { "articleCache" })
+	@Cacheable(value = "articleCache", key = "'getTrains'")
 	public List<ArticlePojo> getTrains() {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(5,
 				0, 5);
@@ -127,7 +138,7 @@ public class ArticleService {
 		return articles;
 	}
 
-	@Cacheable(value = { "articleCache" })
+	@Cacheable(value = "articleCache", key = "'getRelates:'+#catId")
 	public List<ArticlePojo> getRelates(int catId) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
 				catId, 0, 10);

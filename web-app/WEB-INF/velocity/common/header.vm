@@ -24,8 +24,8 @@
 			<!-- Contact Details -->
 			<div id="contact-details">
 				<ul>
-					<li><i class="mini-ico-envelope"></i><a href="#">support@centum.com</a></li>
-					<li><i class="mini-ico-user"></i>+48 880 450 120</li>
+					<li><i class="mini-ico-envelope"></i><a href="#">${email}</a></li>
+					<li><i class="mini-ico-user"></i>${phone}</li>
 				</ul>
 			</div>
 		</div>

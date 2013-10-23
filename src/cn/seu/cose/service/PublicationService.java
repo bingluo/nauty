@@ -25,14 +25,14 @@ public class PublicationService {
 		return publications;
 	}
 
-	@Cacheable(value = { "publicationCache" })
+	@Cacheable(value = "publicationCache", key = "'getPublicationById:'+#id")
 	public PublicationPojo getPublicationById(int id) {
 		PublicationPojo publication = publicationDAOImpl.getPublicationById(id);
 		resolveImgs(publication);
 		return publication;
 	}
 
-	@Cacheable(value = { "publicationCache" })
+	@Cacheable(value = "publicationCache", key = "'getRecentPublications'")
 	public List<PublicationPojo> getRecentPublications() {
 		List<PublicationPojo> publications = publicationDAOImpl
 				.getRecentPublications();
@@ -42,7 +42,7 @@ public class PublicationService {
 		return publications;
 	}
 
-	@Cacheable(value = { "publicationCache" })
+	@Cacheable(value = "publicationCache", key = "'getPublicationByIndexAndPageSize:' + #index + ',' + #pageSize")
 	public List<PublicationPojo> getPublicationByIndexAndPageSize(int index,
 			int pageSize) {
 		List<PublicationPojo> publications = publicationDAOImpl

@@ -85,8 +85,8 @@
     		#end
     	</div>
 	</div>
-	<div style="font-weight:bold;margin:10px 0">上一篇:#if($article.previous) <a href="#">$!{article.previous.title}</a>#else 没有了#end</div>
-	<div style="font-weight:bold;margin:5px 0">下一篇:#if($article.next) <a href="#">$!{article.next.title}</a>#else 没有了#end</div>
+	<div style="font-weight:bold;margin:10px 0">上一篇:#if($article.previous) <a href="$!{article.previous.uri}">$!{article.previous.title}</a>#else 没有了#end</div>
+	<div style="font-weight:bold;margin:5px 0">下一篇:#if($article.next) <a href="$!{article.next.uri}">$!{article.next.title}</a>#else 没有了#end</div>
 	<div class="clear"></div>
 </div>
 	<!-- 特别关注 -->
