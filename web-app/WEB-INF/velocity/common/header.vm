@@ -3,9 +3,9 @@
 
 		<!-- Logo -->
 		<div class="eight columns">
-			<div id="logo">
-				<a href="/"><img src="/static/images/logo.png" alt="logo" /></a>
-				<div id="tagline">嘉兴市工业设计协会</div>
+			<div id="logo" style="margin:0 auto 22px 10px">
+				<a href="/"><img src="/static/images/jida-logo.png" alt="logo" /></a>
+			<!--	<div id="tagline">嘉兴市工业设计协会</div> -->
 				<div class="clear"></div>
 			</div>
 		</div>
@@ -23,7 +23,7 @@
     			</ul>
     			<div class="clear"></div>
     			<!-- Contact Details -->
-    			<div id="contact-details">
+    			<div id="contact-details" style="margin-top:70px">
     				<ul>
     					<li><i class="mini-ico-envelope"></i><a href="/contact.html" rel="tooltip" data-original-title="给我们留言">${email}</a></li>
     					<li><i class="mini-ico-user"></i>${phone}</li>
