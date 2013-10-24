@@ -20,14 +20,15 @@ public class ViewUtil {
 			return "<h2 style='padding: 10px 0 10px 0;'><a href='/"
 					+ parent.getUriName() + "/' style='color:#333'>"
 					+ CategoryCache.get(curCat.getParentCatId()).getCatName()
-					+ "</a><span>/ <a href='/" + parent.getUriName() + "/cat-"
+					+ "</a><span> / <a href='/" + parent.getUriName() + "/cat-"
 					+ catId + "/' style='color:#aaa'>" + curCat.getCatName()
 					+ "</a></span></h2>";
 		}
 	}
-	
+
 	public static String fTime(String time) {
-		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+		SimpleDateFormat sdf = new SimpleDateFormat(
+				"EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 		try {
 			Date date = sdf.parse(time);
 			sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -37,7 +38,7 @@ public class ViewUtil {
 		}
 		return null;
 	}
-	
+
 	public static String getParentCatName(int catId) {
 		CategoryPojo curCat = CategoryCache.get(catId);
 		if (curCat.getCatLevel() == 1) {

@@ -33,36 +33,28 @@
 <script src="/static/js/isotope.js"></script>
 </head>
 <body>
-
 <!-- Content
 ================================================== -->
 <!-- Wrapper Start -->
 <div id="wrapper">
 <!-- Header
 ================================================== -->
-
 <!-- 960 Container -->
 <div class="container ie-dropdown-fix">
-
 	<!-- Header -->
 	#parse("common/header.vm")
 	<!-- Header / End -->
-	
 	<!-- Navigation -->
 	#parse("common/navi.vm")
 	<!-- Navigation / End -->
 </div>
 <!-- 960 Container / End -->
-
 <!-- 960 Container -->
 <div class="container">
-
 	<div class="sixteen columns">
-	
 		<!-- Page Title -->
 		<div id="page-title">
 			<h2><a href="/publication/" style='color:#333'>协会刊物</a></h2>
-			
 			<!-- Filters -->
 			<div id="filters">
 				<ul class="option-set" data-option-key="filter">
@@ -78,14 +70,11 @@
 			<div id="bolded-line"></div>
 		</div>
 		<!-- Page Title / End -->
-
 	</div>
 </div>
 <!-- 960 Container / End -->
-
 <!-- 960 Container -->
 <div class="container">
-	
 	<!-- Portfolio Content -->
 	<div id="portfolio-wrapper">
 		<!-- 1/4 Column -->
@@ -105,7 +94,6 @@
 		#end
 	</div>
 	<!-- End Portfolio Content -->
-		
 </div>
 <!-- End 960 Container -->
 </div>
