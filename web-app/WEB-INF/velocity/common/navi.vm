@@ -13,7 +13,13 @@
     				</ul>
 				#end
 			</li>
-			#end
+			#end			
+			<!-- Search Form -->
+			<div class="search-form">
+				<form method="get" action="#" />
+					<input type="text" class="search-text-box" />
+				</form>
+			</div>
 		</ul>
 	</div> 
 	<div class="clear"></div>
