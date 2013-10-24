@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+<head>
+
+<!-- Basic Page Needs
+================================================== -->
+<meta charset="utf-8" />
+<title>嘉兴市工业设计协会</title>
+
+<!-- Mobile Specific
+================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/boxed.css" id="layout" />
+<link rel="stylesheet" type="text/css" href="/static/css/colors/green.css" id="colors" />
+
+<!-- Java Script
+================================================== -->
+<script src="/static/js/jquery-1.8.js"></script>
+<script src="/static/js/custom.js"></script>
+<script src="/static/js/selectnav.js"></script>
+<script src="/static/js/flexslider.js"></script>
+<script src="/static/js/twitter.js"></script>
+<script src="/static/js/tooltip.js"></script>
+<script src="/static/js/effects.js"></script>
+<script src="/static/js/fancybox.js"></script>
+<script src="/static/js/carousel.js"></script>
+<script src="/static/js/isotope.js"></script>
+</head>
+<body>
+
+<!-- Content
+================================================== -->
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+
+<!-- 960 Container -->
+<div class="container ie-dropdown-fix">
+
+	<!-- Header -->
+	#parse("common/header.vm")
+	<!-- Header / End -->
+	
+	<!-- Navigation -->
+	#parse("common/navi.vm")
+	<!-- Navigation / End -->
+</div>
+<!-- 960 Container / End -->
+
+<!-- 960 Container -->
+<div class="container">
+
+	<div class="sixteen columns">
+	
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2><a href="/publication/" style='color:#333'>协会刊物</a></h2>
+			
+			<!-- Filters -->
+			<div id="filters">
+				<ul class="option-set" data-option-key="filter">
+					<li><a href="#filter" class="selected" data-option-value="*">所有</a></li>
+					<li><a href="#filter" data-option-value=".hot">热门</a></li>
+					#foreach($year in $years)
+					<li><a href="#filter" data-option-value=".$!{year}">$!{year}</a></li>
+					#end
+				</ul>
+			</div>
+			<div class="clear"></div>
+			
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+
+	</div>
+</div>
+<!-- 960 Container / End -->
+
+<!-- 960 Container -->
+<div class="container">
+	
+	<!-- Portfolio Content -->
+	<div id="portfolio-wrapper">
+		<!-- 1/4 Column -->
+		#foreach($publication in $publications)
+		<div class="four columns portfolio-item #if(${publication.isHot()})hot#end $!{publication.year}">
+			<div class="picture">
+				<a href="/publication/$!{publication.id}.html">
+					<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+					<div class="image-overlay-link"></div>
+				</a>
+			</div>
+			<div class="item-description alt">
+				<h5><a href="/publication/$!{publication.id}.html">$!{publication.title}</a></h5>
+				<p>$!{publication.brief}</p>
+			</div>
+		</div>
+		#end
+	</div>
+	<!-- End Portfolio Content -->
+		
+</div>
+<!-- End 960 Container -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+</body>
+</html>

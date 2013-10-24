@@ -120,8 +120,8 @@
 
 	<div class="sixteen columns" style="height: 45px;">
 		<!-- Headline -->
-		<div class="no-margin icon-box"><i class="ico-book-open" style="margin-left: -10px;margin-top:-7px;"></i>
-			<a href="/publication/" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+		<div class="no-margin icon-box tooltips"><i class="ico-book-open" style="margin-left: -10px;margin-top:-7px;"></i>
+			<a href="/publication/" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
 			<h3>协会刊物</h3></div>
 	</div>
 
@@ -130,39 +130,20 @@
 	<div class="four columns">
 		<div class="picture">
 			<a href="/publication/$!{publication.id}.html">
-				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" />
+				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
 				<div class="image-overlay-link"></div>
 			</a>
 		</div>
 		<div class="item-description">
 			<h5><a href="/publication/${publication.id}.html">$!{publication.title}</a></h5>
-			<p>$!{publication.intro}</p>
+			<p>$!{publication.brief}</p>
 		</div>
 	</div>
 	#end
-	
-	<!-- Picture Zoom
-	<div class="four columns">
-		<div class="picture">
-			<a href="/static/images/portfolio/portoflio-08-large.jpg" rel="image" title="Coffee Time">
-				<img src="/static/images/portfolio/portoflio-08.jpg" alt="" />
-				<div class="image-overlay-zoom"></div>
-			</a>
-		</div>
-		<div class="item-description">
-			<h5><a href="#">Coffee Time</a></h5>
-			<p>Amet sit lorem ligula est, eget conseact etur lectus hendrerit suscipit maecenas.</p>
-		</div>
-	</div>
-	-->
-	
-	
 </div>
 <!-- 960 Container / End -->
-
 </div>
 <!-- Wrapper / End -->
-
 <!-- Footer Start -->
 #parse("common/footer.vm")
 <!-- Footer / End -->

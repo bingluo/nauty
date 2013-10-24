@@ -64,4 +64,9 @@ public class PublicationDAOImpl extends SqlMapClientDaoSupport implements
 	public void deletePublication(int id) {
 		getSqlMapClientTemplate().delete("PUBLICATION.deletePublication", id);
 	}
+
+	@Override
+	public void addClickCounts(int id) {
+		getSqlMapClientTemplate().update("PUBLICATION.clickUp", id);
+	}
 }

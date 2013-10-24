@@ -7,6 +7,7 @@ public class Publication {
 	private String title;
 	private String intro;
 	private String images;
+	private int clickCounts;
 	private Date postTime;
 
 	public int getId() {
@@ -39,6 +40,14 @@ public class Publication {
 
 	public void setImages(String images) {
 		this.images = images;
+	}
+
+	public int getClickCounts() {
+		return clickCounts;
+	}
+
+	public void setClickCounts(int clickCounts) {
+		this.clickCounts = clickCounts;
 	}
 
 	public Date getPostTime() {

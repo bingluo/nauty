@@ -8,7 +8,7 @@
 				#if($children.size()>0)
     				<ul>
     				#foreach($child in $children)
-    				<li><a href="/${root.uriName}/cat-${child.id}/">$child.catName</a></li>
+    				<li><a href="/${root.uriName}/cat-${child.id}/" style="padding: 17px 20px;">$child.catName</a></li>
     				#end
     				</ul>
 				#end

@@ -18,4 +18,6 @@ public interface PublicationDAO {
 	void updatePublication(PublicationPojo publication);
 
 	void deletePublication(int id);
+
+	void addClickCounts(int id);
 }
