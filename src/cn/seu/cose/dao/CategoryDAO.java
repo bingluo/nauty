@@ -10,4 +10,6 @@ public interface CategoryDAO {
 	List<CategoryPojo> getRootCategories();
 
 	List<CategoryPojo> getAllCats();
+
+	CategoryPojo getCatById(int id);
 }

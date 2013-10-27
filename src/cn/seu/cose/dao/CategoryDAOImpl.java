@@ -35,4 +35,10 @@ public class CategoryDAOImpl extends SqlMapClientDaoSupport implements
 	public List<CategoryPojo> getAllCats() {
 		return getSqlMapClientTemplate().queryForList("CATEGORY.selectAllCats");
 	}
+	
+	@Override
+	public CategoryPojo getCatById(int id) {
+		return (CategoryPojo) getSqlMapClientTemplate().queryForObject("CATEGORY.selectCategoryById", id);
+	}
 }
+

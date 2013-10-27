@@ -125,6 +125,9 @@ public class AdminArticleController extends AbstractController{
 			@RequestParam("catId") String catIdStr, @RequestParam("rootCatId") String rootCatIdStr,
 			@RequestParam("content") String content, @RequestParam("from") String from, @RequestParam("pure") String pure,
 			HttpServletResponse response) {
+		
+		CategoryPojo cat = catService.getCategoryById(Integer.parseInt(catIdStr));
+		
 		ArticlePojo article = new ArticlePojo();
 		article.setTitle(title);
 		article.setSubhead(subhead);
@@ -135,6 +138,16 @@ public class AdminArticleController extends AbstractController{
 		article.setPostTime(new Date());
 		int briefLength = pure.length() > 100 ? 100 : pure.length();
 		article.setPureText(pure.substring(0, briefLength) + "……");
+		
+		if (cat.isExclusiveArticle()) {
+			List<ArticlePojo> list = articleService.getArticlesByCatId(Integer.parseInt(catIdStr));
+			if (list != null && !list.isEmpty()) {
+				ArticlePojo temp = list.get(0);
+				article.setId(temp.getId());
+				articleService.updateArticle(article);
+				return;
+			}
+		}
 		articleService.addArticle(article);
 	}
 	

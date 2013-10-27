@@ -33,6 +33,10 @@ public class CategoryService {
 		return roots;
 	}
 
+	public CategoryPojo getCategoryById(int id) {
+		return categoryDAOImpl.getCatById(id);
+	}
+	
 	public List<CategoryPojo> getAllCategories() {
 		return categoryDAOImpl.getAllCats();
 	}
