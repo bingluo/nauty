@@ -101,7 +101,7 @@
 						<h5>添加管理员</h5>
 					</div>
 					<div class="widget-content padding">
-						<form action="/admin/super_account" id="account_form" class="form-horizontal" method="post" novalidate="novalidate">
+						<form action="/admin/add_admin" id="account_form" class="form-horizontal" method="post" novalidate="novalidate">
 							<div class="control-group">
 								<label class="control-label">账户名</label>
 								<div class="controls">
