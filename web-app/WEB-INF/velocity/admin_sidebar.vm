@@ -5,7 +5,7 @@
 		<li id="sidebar_li_2"><a href="/admin/slide_list"><i class="icon icon-picture"></i><span>Slide管理</span></a></li>
 		<li id="sidebar_li_3"><a href="/admin/upload_list"><i class="icon icon-folder-open"></i><span>下载管理</span></a></li>
 		<li id="sidebar_li_4"><a href="/admin/account"><i class="icon icon-user"></i><span>账户管理</span></a></li>
-		<li id="sidebar_li_5"><a href="/admin/info"><i class="icon icon-user"></i><span>其他信息管理</span></a></li>
+		<li id="sidebar_li_5"><a href="/admin/info"><i class="icon icon-globe"></i><span>其他信息管理</span></a></li>
 	</ul>
 		
 </div>
