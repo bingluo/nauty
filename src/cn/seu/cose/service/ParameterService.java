@@ -7,14 +7,14 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import cn.seu.cose.dao.ParameterDAO;
+import cn.seu.cose.dao.ParameterDAOImpl;
 import cn.seu.cose.entity.Parameter;
 
 @Service
 public class ParameterService {
 
 	@Autowired
-	ParameterDAO parameterDAOImpl;
+	ParameterDAOImpl parameterDAOImpl;
 
 	public List<Parameter> getAllParameters() {
 		return parameterDAOImpl.getAllParameters();
@@ -41,6 +41,15 @@ public class ParameterService {
 		Parameter parameter = parameterDAOImpl.getParameterByKey(key);
 		if (parameter != null) {
 			parameter.setParameterValue(value);
+			parameterDAOImpl.updateParameter(parameter);
+		}
+	}
+	
+	@CacheEvict(value = "parameterCache")
+	public void updateParameterExtra(String key, String extra) {
+		Parameter parameter = parameterDAOImpl.getParameterByKey(key);
+		if (parameter != null) {
+			parameter.setExtra(extra);
 			parameterDAOImpl.updateParameter(parameter);
 		}
 	}

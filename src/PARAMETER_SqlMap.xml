@@ -30,9 +30,8 @@
 	<update id="updateParameter" parameterClass="parameter">
 		<![CDATA[
 		UPDATE PARAMETER
-		SET	parameter_name = #parameterName#,
-			parameter_value = #parameterValue#,
-			extra = #extra#,
+		SET	parameter_value = #parameterValue#,
+			extra = #extra#
 		WHERE parameter_key = #parameterKey#
 		]]>
 	</update>
