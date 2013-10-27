@@ -7,6 +7,12 @@
 		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/static/css/bootstrap-responsive.min.css" />
         <link rel="stylesheet" href="/static/css/unicorn.login.css" />
+        <script src="/static/js/jquery.min.js"></script>
+        <script type="text/javascript">
+        	$(document).ready(function() {
+        		$("input")[0].focus();
+        	});
+        </script>
     </head>
     <body>
         <div id="logo">

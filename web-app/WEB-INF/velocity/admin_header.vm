@@ -37,6 +37,11 @@
 				text-overflow:ellipsis;
 			}
 		</style>
+		 <script type="text/javascript">
+        	$(document).ready(function() {
+        		$("input")[0].focus();
+        	});
+        </script>
 	</head>
 	
 	<body>
