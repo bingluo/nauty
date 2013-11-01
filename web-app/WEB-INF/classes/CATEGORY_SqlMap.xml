@@ -21,6 +21,12 @@
 		]]>
 	</select>
 	
+	<select id="selectCategoryById" resultMap="CategoryResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM CATEGORY WHERE id=#value# LIMIT 1;
+		]]>
+	</select>
+	
 	<select id="selectCategoryByLevel" resultMap="CategoryResultMap" parameterClass="int">
 		<![CDATA[
 		SELECT * FROM CATEGORY WHERE cat_level=#value#

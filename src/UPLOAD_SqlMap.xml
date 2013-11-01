@@ -10,6 +10,7 @@
 		<result property="initialName" column="INITIAL_NAME"/>
 		<result property="uploadName" column="UPLOAD_NAME"/>
 		<result property="uploadTime" column="UPLOAD_TIME"/>
+		<result property="uploadSize" column="UPLOAD_SIZE"/>
 	</resultMap>
 
 	<select id="selectUpload" resultMap="UploadResultMap">
@@ -49,8 +50,8 @@
 	<insert id="insertUpload" parameterClass="upload">
 		<![CDATA[
 		INSERT INTO UPLOAD
-		(initial_name,upload_name,upload_time)
-		VALUES (#initialName#,#uploadName#,current_timestamp())
+		(initial_name,upload_name,upload_time,upload_size)
+		VALUES (#initialName#,#uploadName#,current_timestamp(),#uploadSize#)
 		]]>
 	</insert>
 
@@ -66,6 +67,7 @@
 			SET upload_name = #uploadName#,
 				initial_name = #initialName#,
 				upload_time = current_timestamp()
+				upload_size = #uploadSize#,
 		WHERE id = #id#
 		]]>
 	</insert>

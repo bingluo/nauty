@@ -11,6 +11,8 @@ public class Upload {
 
 	private Date uploadTime;
 
+	private int uploadSize;
+
 	public int getId() {
 		return id;
 	}
@@ -41,5 +43,13 @@ public class Upload {
 
 	public void setUploadTime(Date uploadTime) {
 		this.uploadTime = uploadTime;
+	}
+
+	public int getUploadSize() {
+		return uploadSize;
+	}
+
+	public void setUploadSize(int uploadSize) {
+		this.uploadSize = uploadSize;
 	}
 }

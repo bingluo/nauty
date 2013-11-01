@@ -92,7 +92,7 @@
 		<ul>
     	#foreach($upload in $uploads)
 		<li style="margin:0px 0px 15px 0;"><i class="mini-ico-tag"></i>
-			<a href="$!{upload.initialName}" rel="tooltip" data-original-title="$!{upload.initialName}">${upload.uploadName}</a>
+			<a href="$!{upload.initialName}" rel="tooltip" data-original-title="$!{upload.uploadSize}">$!{upload.uploadName}</a>
 		</li>
 		#end
 		</ul>
