@@ -1,6 +1,10 @@
 #parse("admin_header.vm")
 #parse("admin_sidebar.vm")
 <link rel="stylesheet" href="/static/editor/themes/default/default.css" />
+<script type="text/javascript">
+	$("#sidebar_li_4").siblings().removeClass('active')
+	$("#sidebar_li_4").addClass('active');
+</script>
 
 <div id="content">
 	<div id="content-header">
@@ -57,8 +61,10 @@
 	$(document).ready(function(){
 		$("#yes_add").click(function(check) {
 			$("#title").parent().parent().removeClass("error");
+			$("#intro").parent().parent().removeClass("error");
 			$("#picName").parent().parent().removeClass("error");
 			$("#req_title").remove();
+			$("#req_intro").remove();
 			$("#req_pic").remove();
 		
 			var _title = $("#title").val();
@@ -68,6 +74,9 @@
 			if(_title == "") {
 				$("#title").parent().parent().addClass("error");
 				$("#title").parent().append('<span id="req_title" for="required" generated="true" class="help-inline">请填写标题</span>');
+			} else if(_intro == "") {
+				$("#intro").parent().parent().addClass("error");
+				$("#intro").parent().append('<span id="req_intro" for="required" generated="true" class="help-inline">请填写简介</span>');
 			} else if(_picName == "") { 
 				$("#picName").parent().parent().addClass("error");
 				$("#picName").parent().append('<span id="req_pic" for="required" generated="true" class="help-inline">请选择图片</span>');

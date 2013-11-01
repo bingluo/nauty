@@ -105,7 +105,7 @@
 									<th>文章标题</th>
 									<th>副标题</th>
 									<th style="width:5%">类别</th>
-									<th style="width:5%">来自</th>
+									<th style="width:7%">来自</th>
 									<th style="width:15%">发布时间</th>
 									<th>操作</th>
 								</tr>

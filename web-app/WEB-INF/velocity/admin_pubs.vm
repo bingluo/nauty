@@ -1,6 +1,9 @@
 #parse("admin_header.vm")
 #parse("admin_sidebar.vm")	
-	
+<script type="text/javascript">
+	$("#sidebar_li_4").siblings().removeClass('active')
+	$("#sidebar_li_4").addClass('active');
+</script>
 <div id="content">
 	<div id="content-header">
 		<h1>刊物管理</h1>
