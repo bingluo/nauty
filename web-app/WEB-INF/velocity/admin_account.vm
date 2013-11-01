@@ -1,8 +1,8 @@
 #parse("admin_header.vm")
 #parse("admin_sidebar.vm")	
 <script type="text/javascript">
-	$("#sidebar_li_4").siblings().removeClass('active')
-	$("#sidebar_li_4").addClass('active');
+	$("#sidebar_li_5").siblings().removeClass('active')
+	$("#sidebar_li_5").addClass('active');
 	
 	$(document).ready(function(){
 		$(":submit[id=submit]").click(function(check){  

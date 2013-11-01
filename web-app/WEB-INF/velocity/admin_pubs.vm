@@ -1,35 +1,13 @@
 #parse("admin_header.vm")
 #parse("admin_sidebar.vm")	
-<script type="text/javascript">
-	$("#sidebar_li_2").siblings().removeClass('active')
-	$("#sidebar_li_2").addClass('active');
-	function _topCatChanged() {
-		var sel_top_cat = $("#top_cats option:selected").val();
-		$.ajax({
-			url: "/admin/sub_cat_list",
-			type: "post",
-			data: {parentId:sel_top_cat},
-			dataType: "html",
-			success:function(data){
-				$("#sub_cats").find('option').remove() ;
-				var cat_array =eval(data);
-				$("#sub_cats").append('<option value="0">全选</option>');
-				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
-					$("#sub_cats").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
-				}
-			},
-			error:function(){
-			}
-		});
-	}
-</script>		
+	
 <div id="content">
 	<div id="content-header">
-		<h1>Slide管理</h1>
+		<h1>刊物管理</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
-		<a href="#" class="current">Slide管理</a>
+		<a href="/admin/pub_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">刊物管理</a>
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -39,10 +17,10 @@
 						<span class="icon">
 							<i class="icon-th"></i>
 						</span>
-						<h5>Slide列表</h5>
+						<h5>刊物列表</h5>
 						<span class="icon" id="add_display_btn">
-							<a href="/admin/add_slide" class="btn btn-primary btn-mini">
-								<i class="icon-plus icon-white"></i>添加Slide
+							<a href="/admin/add_pub" class="btn btn-primary btn-mini">
+								<i class="icon-plus icon-white"></i>添加刊物
 							</a>
 						</span>
 					</div>
@@ -51,25 +29,33 @@
 							<thead>
 								<tr>
 									<th style="width:3%">ID</th>
-									<th>Slide标题</th>
-									<th>Slide简介</th>
-									<th style="width:5%">来自文章</th>
-									<th style="width:4%">图片</th>
-									<th>发布时间</th>
+									<th>标题</th>
+									<th>简介</th>
+									<th style="width:15%">图片</th>
+									<th style="width:15%">发布时间</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								#foreach($slide in $slide_list)
+								#foreach($pub in $pub_list)
 									<tr>
-										<td>$slide.id</td>
-										<td>$slide.title</td>
-										<td>$slide.brief</td>
-										<td>$slide.articleId</td>
-										<td><a target="_blank" href="$slide.picName" /><img src="$slide.picName"/></td>
-										<td>$viewUtil.fTime("$slide.updateTime")</td>
+										<td>$pub.id</td>
+										<td width="15%">$pub.title</td>
+										
+										#if ($pub.intro.length() < 30) 
+											<td width="15%">$pub.intro</td>
+										#else
+											<td width="15%">$pub.intro.substring(0,29)...</td>
+										#end
+										
 										<td>
-											<a href="/admin/alt_slide-$slide.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
+											#foreach($img in $pub.imgUrls)
+												<a target="_blank" href="$img" /><img src="$img"/>
+											#end
+										</td>
+										<td>$viewUtil.fTime("$pub.postTime")</td>
+										<td>
+											<a href="/admin/alt_pub-$pub.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
 											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
 										</td>
 									</tr>
@@ -97,19 +83,19 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		// global
-		var slideId = -1; 
+		var pubId = -1; 
 		
 		// show del_dialog
 		$("button[id='del_btn']").bind("click", function(){
-			slideId = $(this).parents("tr").find("td:first").html().trim()
+			pubId = $(this).parents("tr").find("td:first").html().trim()
 			$("#del_dialog").modal("show");
 		});
 		// yes_del
 		$("#yes_del").bind("click", function(){
 			$.ajax({
-				url: "/admin/del_slide",
+				url: "/admin/del_pub",
 				type: "post",
-				data: {slideId:slideId},
+				data: {id:pubId},
 				dataType: "html",
 				success:function(data){
 					$("#del_dialog").modal("hide");

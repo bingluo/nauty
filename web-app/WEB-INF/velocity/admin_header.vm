@@ -24,6 +24,12 @@
         <style type="text/css">
         	table{
 				width:100%;
+				table-layout:fixed;
+			}
+			td {
+				white-space:nowrap;
+				overflow: hidden;
+				text-overflow:ellipsis;
 			}
 			td img{
 				max-width:45px;
@@ -31,15 +37,13 @@
 				max-height:30px;
 				min-height:30px;
 			} 
-			td{
-				white-space:nowrap;
-				overflow: hidden;
-				text-overflow:ellipsis;
-			}
+			
 		</style>
 		 <script type="text/javascript">
         	$(document).ready(function() {
-        		$("input")[0].focus();
+        		if($("input")[0]) {
+	        		$("input")[0].focus();
+        		}
         	});
         </script>
 	</head>
