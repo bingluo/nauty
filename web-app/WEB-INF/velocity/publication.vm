@@ -71,30 +71,33 @@
 </div>
 <!-- 960 Container / End -->
 <!-- 960 Container -->
+<div class="container" style="float:right;margin-top: 0px;">
+	<div class="four columns">
+		<ul class="project-info">
+			<li><strong>发布日期:</strong> $viewUtil.fTime("$!{publication.postTime}")</li>
+		</ul>
+		<!--
+		<a href="#" class="button color launch">Launch Project</a>
+		-->
+	</div>
+</div>
 <div class="container">
 	<!-- Slider -->
 	<div class="sixteen columns">
 		<div class="flexslider home">
 			<ul class="slides">
-				<li><img src="images/portfolio/portoflio-single-01.jpg" alt="" /></li>
-				<li><img src="images/portfolio/portoflio-single-02.jpg" alt="" /></li>
+				#foreach($imgUrl in $publication.imgUrls)
+				<li><img src="$!{imgUrl}" alt="" /></li>
+				#end
 			 </ul>
 		</div>
 	</div>
 </div>
 <!-- End 960 Container -->
 <!-- 960 Container -->
-<div class="container" style="margin-top: 30px;">
-	<div class="four columns">
-		<ul class="project-info">
-			<li><strong>Client:</strong> Google</li>
-			<li><strong>Date:</strong> August 2012</li>
-		</ul>
-		<a href="#" class="button color launch">Launch Project</a>
-	</div>
-	<div class="twelve columns tooltips">
-		<div class="six columns alpha"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula felis euismod semper. Donec ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna mollis ornare vel eu leo. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.Nullam quis risus eget urna mollis ornare.</p></div>
-		<div class="six columns alpha"><p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum. Donec id elit non mi porta gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat porttitor.</p></div>
+<div class="container" style="margin: 20px 0 0 10px;">
+	<div class="sixteen columns alpha">
+		<p>$!{publication.intro}</p>
 	</div>
 </div>
 <!-- End 960 Container -->
