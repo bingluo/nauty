@@ -75,48 +75,7 @@
 </div>
 <!-- 960 Container / End -->
 <!-- 960 Container -->
-<div class="container">
-	<!-- Icon Boxes -->
-	<div class="icon-box-container">
-
-		<!-- Icon Box Start -->
-		<div class="one-third column">
-			<div class="icon-box">
-				<i class="ico-display" style="margin-left: -10px;"></i>
-				<h3>Fresh &amp; Clean Design</h3>
-				<p>Proin iaculis purus consequat sem cure digni ssim. Donec porttitora entum suscipit aenean rhoncus posuere odio in tincidunt.</p>
-			</div>
-		</div>
-		<!-- Icon Box End -->
-		
-		<!-- Icon Box Start -->
-		<div class="one-third column">
-			<div class="icon-box">
-				<i class="ico-cogwheel"></i>
-				<h3>Easily Customization</h3>
-				<p>Nam aliquam volutpat leo vel bibendum nunc elit purus, tempus pulvinare rhoncus egestas nibh volutpat leo.</p>
-			</div>
-		</div>
-		<!-- Icon Box End -->
-		
-		<!-- Icon Box Start -->
-		<div class="one-third column">
-			<div class="icon-box">
-				<i class="ico-iphone"></i>
-				<h3>Fully Responsive</h3>
-				<p>Fusce porttitor turpis quis molestie costant equat. Nam purus, tincidunt sedeat dapibus ugravida ut dui. Fusce et magna libero.</p>
-			</div>
-		</div>
-		<!-- Icon Box End -->
-		
-	</div>
-	<!-- Icon Boxes / End -->
-	
-</div>
-<!-- 960 Container / End -->
-
-<!-- 960 Container -->
-<div class="container">
+<div class="container" style="margin-top:30px">
 
 	<div class="sixteen columns" style="height: 45px;">
 		<!-- Headline -->
