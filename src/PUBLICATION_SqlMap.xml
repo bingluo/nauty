@@ -60,8 +60,8 @@
 	<insert id="insertPublication" parameterClass="publication">	
 		<![CDATA[
 		INSERT INTO publication
-		(title,intro,images,click_counts,post_time)
-		VALUES (#title#,#intro#,#images#,#clickCounts#,#postTime#)
+		(title,intro,images,post_time)
+		VALUES (#title#,#intro#,#images#,#postTime#)
 		]]>
 	</insert>
 	
@@ -71,7 +71,6 @@
 		SET title = #title#,
 			intro = #intro#,
 			images = #images#,
-			click_counts = #clickCounts#,
 			post_time = #postTime#
 		WHERE id = #id#
 		]]>
