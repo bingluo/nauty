@@ -15,22 +15,22 @@
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/boxed.css" id="layout" />
-<link rel="stylesheet" type="text/css" href="/static/css/colors/green.css" id="colors" />
+<link rel="stylesheet" type="text/css" href="$!{viewUtil.getContextPath()}/static/css/style.css" />
+<link rel="stylesheet" type="text/css" href="$!{viewUtil.getContextPath()}/static/css/boxed.css" id="layout" />
+<link rel="stylesheet" type="text/css" href="$!{viewUtil.getContextPath()}/static/css/colors/green.css" id="colors" />
 
 <!-- Java Script
 ================================================== -->
-<script src="/static/js/jquery-1.8.js"></script>
-<script src="/static/js/custom.js"></script>
-<script src="/static/js/selectnav.js"></script>
-<script src="/static/js/flexslider.js"></script>
-<script src="/static/js/twitter.js"></script>
-<script src="/static/js/tooltip.js"></script>
-<script src="/static/js/effects.js"></script>
-<script src="/static/js/fancybox.js"></script>
-<script src="/static/js/carousel.js"></script>
-<script src="/static/js/isotope.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/jquery-1.8.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/custom.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/selectnav.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/flexslider.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/twitter.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/tooltip.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/effects.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/fancybox.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/carousel.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/isotope.js"></script>
 </head>
 <body>
 <!-- Content
@@ -54,7 +54,7 @@
 	<div class="sixteen columns">
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2><a href="/publication/" style='color:#333'>协会刊物</a> <span>/ <a href="/publication/$!{publication.id}.html" style='color:#aaa'>$!{publication.title}</a></span></h2>
+			<h2><a href="$!{viewUtil.getContextPath()}/publication/" style='color:#333'>协会刊物</a> <span>/ <a href="$!{viewUtil.getContextPath()}/publication/$!{publication.id}.html" style='color:#aaa'>$!{publication.title}</a></span></h2>
 			<!-- Portfolio Navi 
 			<div id="portfolio-navi">
 				<ul>
@@ -87,7 +87,7 @@
 		<div class="flexslider home">
 			<ul class="slides">
 				#foreach($imgUrl in $publication.imgUrls)
-				<li><img src="$!{imgUrl}" alt="" /></li>
+				<li><img src="$!{viewUtil.getContextPath()}$!{imgUrl}" alt="" /></li>
 				#end
 			 </ul>
 		</div>
@@ -111,13 +111,13 @@
 	#foreach($publication in $recentPublications)
 	<div class="four columns">
 		<div class="picture">
-			<a href="/publication/$!{publication.id}.html">
-				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+			<a href="$!{viewUtil.getContextPath()}/publication/$!{publication.id}.html">
+				<img src="$!{viewUtil.getContextPath()}$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
 				<div class="image-overlay-link"></div>
 			</a>
 		</div>
 		<div class="item-description">
-			<h5><a href="/publication/${publication.id}.html">$!{publication.title}</a></h5>
+			<h5><a href="$!{viewUtil.getContextPath()}/publication/${publication.id}.html">$!{publication.title}</a></h5>
 			<p>$!{publication.brief}</p>
 		</div>
 	</div>

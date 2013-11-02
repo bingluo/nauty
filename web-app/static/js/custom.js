@@ -271,7 +271,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 		$.ajax({
 		
 			// PHP file that processes the data and send mail
-			url: "/contact",	
+			url: $formAction,	
 			
 			// POST method is used
 			type: "POST",

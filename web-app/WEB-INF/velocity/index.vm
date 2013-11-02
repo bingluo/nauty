@@ -1,60 +1,48 @@
-
 <!DOCTYPE html>
 <!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
 <head>
-
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8" />
 <title>嘉兴市工业设计协会</title>
-
 <!-- Mobile Specific
 ================================================== -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/boxed.css" id="layout" />
-<link rel="stylesheet" type="text/css" href="/static/css/colors/green.css" id="colors" />
-
+<link rel="stylesheet" type="text/css" href="$viewUtil.getContextPath()/static/css/style.css" />
+<link rel="stylesheet" type="text/css" href="$viewUtil.getContextPath()/static/css/boxed.css" id="layout" />
+<link rel="stylesheet" type="text/css" href="$viewUtil.getContextPath()/static/css/colors/green.css" id="colors" />
 <!-- Java Script
 ================================================== -->
-<script src="/static/js/jquery-1.8.js"></script>
-<script src="/static/js/custom.js"></script>
-<script src="/static/js/selectnav.js"></script>
-<script src="/static/js/flexslider.js"></script>
-<script src="/static/js/twitter.js"></script>
-<script src="/static/js/tooltip.js"></script>
-<script src="/static/js/effects.js"></script>
-<script src="/static/js/fancybox.js"></script>
-<script src="/static/js/carousel.js"></script>
-<script src="/static/js/isotope.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/jquery-1.8.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/custom.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/selectnav.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/flexslider.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/twitter.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/tooltip.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/effects.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/fancybox.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/carousel.js"></script>
+<script src="$viewUtil.getContextPath()/static/js/isotope.js"></script>
 </head>
 <body>
-
 <!-- Wrapper Start -->
 <div id="wrapper">
-
-
 <!-- Header
 ================================================== -->
-
 <!-- 960 Container -->
 <div class="container ie-dropdown-fix">
-
 	<!-- Header -->
 	#parse("common/header.vm")
 	<!-- Header / End -->
-	
 	<!-- Navigation -->
 	#parse("common/navi.vm")
 	<!-- Navigation / End -->
 </div>
 <!-- 960 Container / End -->
-
 <!-- Content
 ================================================== -->
 <!-- 960 Container -->
@@ -67,7 +55,7 @@
 		<div id="marquees" style="height:315px;width:290px;overflow:hidden">
 			<ul class="square_list">
     			#foreach($article in $news)
-            	<li style="margin:10px 0px"> <a href="$article.uri">$article.title</a></li>
+            	<li style="margin:10px 0px"> <a href="$!{viewUtil.getContextPath()}$!{article.uri}">$article.title</a></li>
 				#end
 			</ul>
 		</div>
@@ -76,25 +64,23 @@
 <!-- 960 Container / End -->
 <!-- 960 Container -->
 <div class="container" style="margin-top:30px">
-
 	<div class="sixteen columns" style="height: 45px;">
 		<!-- Headline -->
 		<div class="no-margin icon-box tooltips"><i class="ico-book-open" style="margin-left: -10px;margin-top:-7px;"></i>
-			<a href="/publication/" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<a href="$viewUtil.getContextPath()/publication/" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
 			<h3>协会刊物</h3></div>
 	</div>
-
 	#foreach($publication in $recentPublications)
 	<!-- Project -->
 	<div class="four columns">
 		<div class="picture">
-			<a href="/publication/$!{publication.id}.html">
-				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+			<a href="$viewUtil.getContextPath()/publication/$!{publication.id}.html">
+				<img src="$viewUtil.getContextPath()/$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
 				<div class="image-overlay-link"></div>
 			</a>
 		</div>
 		<div class="item-description">
-			<h5><a href="/publication/${publication.id}.html">$!{publication.title}</a></h5>
+			<h5><a href="$viewUtil.getContextPath()/publication/${publication.id}.html">$!{publication.title}</a></h5>
 			<p>$!{publication.brief}</p>
 		</div>
 	</div>

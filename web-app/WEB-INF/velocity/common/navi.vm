@@ -1,14 +1,14 @@
 <div class="sixteen columns">
 	<div id="navigation">
 		<ul id="nav">
-			<li><a href="/">首页</a></li>
+			<li><a href="$!{viewUtil.getContextPath()}">首页</a></li>
 			#foreach($root in $cats)
-			<li><a href="/${root.uriName}#if($root.children.size()==0).html#else/#end">$root.catName</a>
+			<li><a href="$!{viewUtil.getContextPath()}/${root.uriName}#if($root.children.size()==0).html#else/#end">$root.catName</a>
 				#set($children = $root.children)
 				#if($children.size()>0)
     				<ul>
     				#foreach($child in $children)
-    				<li><a href="/${root.uriName}/cat-${child.id}/">$child.catName</a></li>
+    				<li><a href="$!{viewUtil.getContextPath()}/${root.uriName}/cat-${child.id}/">$child.catName</a></li>
     				#end
     				</ul>
 				#end

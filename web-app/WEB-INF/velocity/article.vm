@@ -15,22 +15,22 @@
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/boxed.css" id="layout" />
-<link rel="stylesheet" type="text/css" href="/static/css/colors/green.css" id="colors" />
+<link rel="stylesheet" type="text/css" href="$!{viewUtil.getContextPath()}/static/css/style.css" />
+<link rel="stylesheet" type="text/css" href="$!{viewUtil.getContextPath()}/static/css/boxed.css" id="layout" />
+<link rel="stylesheet" type="text/css" href="$!{viewUtil.getContextPath()}/static/css/colors/green.css" id="colors" />
 
 <!-- Java Script
 ================================================== -->
-<script src="/static/js/jquery-1.8.js"></script>
-<script src="/static/js/custom.js"></script>
-<script src="/static/js/selectnav.js"></script>
-<script src="/static/js/flexslider.js"></script>
-<script src="/static/js/twitter.js"></script>
-<script src="/static/js/tooltip.js"></script>
-<script src="/static/js/effects.js"></script>
-<script src="/static/js/fancybox.js"></script>
-<script src="/static/js/carousel.js"></script>
-<script src="/static/js/isotope.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/jquery-1.8.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/custom.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/selectnav.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/flexslider.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/twitter.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/tooltip.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/effects.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/fancybox.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/carousel.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/isotope.js"></script>
 </head>
 <body>
 
@@ -85,8 +85,8 @@
     		#end
     	</div>
 	</div>
-	<div style="font-weight:bold;margin:10px 0">上一篇:#if($article.previous) <a href="$!{article.previous.uri}">$!{article.previous.title}</a>#else 没有了#end</div>
-	<div style="font-weight:bold;margin:5px 0">下一篇:#if($article.next) <a href="$!{article.next.uri}">$!{article.next.title}</a>#else 没有了#end</div>
+	<div style="font-weight:bold;margin:10px 0">上一篇:#if($article.previous) <a href="$!{viewUtil.getContextPath()}$!{article.previous.uri}">$!{article.previous.title}</a>#else 没有了#end</div>
+	<div style="font-weight:bold;margin:5px 0">下一篇:#if($article.next) <a href="$!{viewUtil.getContextPath()}$!{article.next.uri}">$!{article.next.title}</a>#else 没有了#end</div>
 	<div class="clear"></div>
 </div>
 	<!-- 特别关注 -->
@@ -98,7 +98,7 @@
 				#foreach($relate in $relates)
 				<li>
 					<div class="latest-post-blog" style="margin-bottom:8px;">
-                       	<a href="$relate.uri">$!{relate.title}</a>
+                       	<a href="$!{viewUtil.getContextPath()}$relate.uri">$!{relate.title}</a>
 					</div>
             	</li>
 				#end

@@ -4,11 +4,11 @@
 			<ul class="slides" style="float:left;width:610px">
 				#foreach($slide in $slides)
 				<li>
-					<a href="$!{slide.articleUri}">
-						<img src="$!{slide.imgUri}" alt="$!{slide.title}" style="width:610px;height:343px"/>
+					<a href="$!{viewUtil.getContextPath()}$!{slide.articleUri}">
+						<img src="$!{viewUtil.getContextPath()}$!{slide.imgUri}" alt="$!{slide.title}" style="width:610px;height:343px"/>
 					</a>
 					<div class="slide-caption n">
-						<a href="$!{slide.articleUri}">
+						<a href="$!{viewUtil.getContextPath()}$!{slide.articleUri}">
 							<h3>$!{slide.title}</h3>
 						</a>
 						#if($slide.brief)

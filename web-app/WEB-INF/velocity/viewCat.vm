@@ -15,22 +15,22 @@
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/boxed.css" id="layout" />
-<link rel="stylesheet" type="text/css" href="/static/css/colors/green.css" id="colors" />
+<link rel="stylesheet" type="text/css" href="$!{viewUtil.getContextPath()}/static/css/style.css" />
+<link rel="stylesheet" type="text/css" href="$!{viewUtil.getContextPath()}/static/css/boxed.css" id="layout" />
+<link rel="stylesheet" type="text/css" href="$!{viewUtil.getContextPath()}/static/css/colors/green.css" id="colors" />
 
 <!-- Java Script
 ================================================== -->
-<script src="/static/js/jquery-1.8.js"></script>
-<script src="/static/js/custom.js"></script>
-<script src="/static/js/selectnav.js"></script>
-<script src="/static/js/flexslider.js"></script>
-<script src="/static/js/twitter.js"></script>
-<script src="/static/js/tooltip.js"></script>
-<script src="/static/js/effects.js"></script>
-<script src="/static/js/fancybox.js"></script>
-<script src="/static/js/carousel.js"></script>
-<script src="/static/js/isotope.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/jquery-1.8.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/custom.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/selectnav.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/flexslider.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/twitter.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/tooltip.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/effects.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/fancybox.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/carousel.js"></script>
+<script src="$!{viewUtil.getContextPath()}/static/js/isotope.js"></script>
 <style>
 	.pagination li {
 	padding: 2px 5px;
@@ -82,7 +82,7 @@
 		<div class="headline no-margin"><h4>$rootCat.catName</h4></div>
 			<ul class="links-list-alt">
 				#foreach($cat in $childrenCats)
-				<li class="cats"><a href="/$rootCat.uriName/cat-$cat.id/" #if($cat.id==$curCat.id)style="font-weight:bold"#end>$cat.catName</a></li>
+				<li class="cats"><a href="$!{viewUtil.getContextPath()}/$rootCat.uriName/cat-$cat.id/" #if($cat.id==$curCat.id)style="font-weight:bold"#end>$cat.catName</a></li>
 				#end
 			</ul>
 	</div>
@@ -108,13 +108,13 @@
        	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
        		<div class="post-content"  style="margin:0px;">
        			<div class="post-title" style="font-weight:bold;">
-    					<a href="$article.uri">$article.title</a>
+    					<a href="$!{viewUtil.getContextPath()}$article.uri">$article.title</a>
     			</div>
        			<div class="post-meta"><span><i class="mini-ico-calendar"></i>$!viewUtil.fTime("$article.postTime")</span></div>
     			<div class="post-description">
     				<p>${article.pureText}</p>
     			</div>
-    			<a class="post-entry" href="$article.uri">详细内容</a>
+    			<a class="post-entry" href="$!{viewUtil.getContextPath()}$article.uri">详细内容</a>
        		</div>
        	</div>
     	#end
@@ -128,7 +128,7 @@
     				#set($high = 10)
     			#end
     		#else
-				<a href="$!{uri}?pn=1"><li>首页</li></a>
+				<a href="$!{viewUtil.getContextPath()}$!{uri}?pn=1"><li>首页</li></a>
     			#set($base = $pageIndex - 4)
     			#if($pageCount > $pageIndex + 5)
     				#set($high = $pageIndex + 5)
@@ -137,14 +137,14 @@
     			#end
     		#end
     		#foreach($i in [$base..$high])
-    			#if($pageIndex!=$i)<a href="$!{uri}?pn=$i">#end
+    			#if($pageIndex!=$i)<a href="$!{viewUtil.getContextPath()}$!{uri}?pn=$i">#end
     				<li #if($pageIndex==$i)class="current"#end>$i</li>
     			#if($pageIndex!=$i)</a>#end
     		#end
     		#if($pageIndex<$pageCount)
     			#set($next = $pageIndex + 1)
-       		<a href="$!{uri}?pn=$!{next}"><li>下一页></li></a>
-       		<a href="$!{uri}?pn=$!{pageCount}"><li>尾页</li></a>
+       		<a href="$!{viewUtil.getContextPath()}$!{uri}?pn=$!{next}"><li>下一页></li></a>
+       		<a href="$!{viewUtil.getContextPath()}$!{uri}?pn=$!{pageCount}"><li>尾页</li></a>
     		#end
        	</ul>
 		#end
@@ -157,13 +157,13 @@
 	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget first tooltips">
         	<i class="ico-stats" style="margin:-6px 0 0 0px"></i>
-			<a href="/new/cat-15/" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<a href="$!{viewUtil.getContextPath()}/new/cat-15/" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
         	<h4 style="margin-top: 0px;">特别关注</h4>
 			<ul class="circle_list" style="margin-top: 15px;">
 				#foreach($concern in $concerns)
 				<li>
 					<div class="latest-post-blog" style="margin-bottom:8px;">
-                       	<a href="$concern.uri">$!{concern.title}</a>
+                       	<a href="$!{viewUtil.getContextPath()}$concern.uri">$!{concern.title}</a>
 					</div>
             	</li>
 				#end
@@ -174,13 +174,13 @@
 	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget tooltips">
         	<i class="ico-cup" style="margin:-6px 0 0 0px"></i>
-			<a href="/events/"  rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<a href="$!{viewUtil.getContextPath()}/events/"  rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
         	<h4 style="margin-top: 0px;">评奖赛事</h4>
 			<ul class="circle_list" style="margin-top: 15px;">
 				#foreach($event in $events)
 				<li>
 					<div class="latest-post-blog" style="margin-bottom:8px;">
-                       	<a href="$!{event.uri}">$!{event.title}</a>
+                       	<a href="$!{viewUtil.getContextPath()}$!{event.uri}">$!{event.title}</a>
 					</div>
             	</li>
 				#end
@@ -191,13 +191,13 @@
 	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget tooltips">
         	<i class="ico-certificate" style="margin:-6px 0 0 0px"></i>
-			<a href="/train/" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<a href="$!{viewUtil.getContextPath()}/train/" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
         	<h4 style="margin-top: 0px;">认证培训</h4>
 			<ul class="circle_list" style="margin-top: 15px;">
 				#foreach($train in $trains)
 				<li>
 					<div class="latest-post-blog" style="margin-bottom:8px;">
-                       	<a href="$!{train.uri}">$!{train.title}</a>
+                       	<a href="$!{viewUtil.getContextPath()}$!{train.uri}">$!{train.title}</a>
 					</div>
             	</li>
 				#end
