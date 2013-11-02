@@ -1,15 +1,12 @@
 	<!-- Header -->
 	<div id="header">
-
 		<!-- Logo -->
 		<div class="eight columns">
 			<div id="logo" style="margin:0 auto 22px 10px">
-				<a href="$!{viewUtil.getContextPath()}"><img src="$!{viewUtil.getContextPath()}/static/images/jida-logo.png" alt="logo" /></a>
-			<!--	<div id="tagline">嘉兴市工业设计协会</div> -->
+				<a href="$!{viewUtil.getContextPath()}/"><img src="$!{viewUtil.getContextPath()}/static/images/jida-logo.png" alt="logo" /></a>
 				<div class="clear"></div>
 			</div>
 		</div>
-
 		<!-- Social / Contact -->
 		<div class="eight columns">
 			<!-- Social Icons -->
