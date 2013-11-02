@@ -33,6 +33,7 @@ public class PublicationController extends AbstractController {
 	public String publication(@PathVariable("id") int id, Model model) {
 		addCategories(model);
 		PublicationPojo publication = publicationService.getPublicationById(id);
+		publicationService.clickUp(id);
 		List<PublicationPojo> recentPublications = publicationService
 				.getRecentPublications();
 		model.addAttribute("recentPublications", recentPublications);
