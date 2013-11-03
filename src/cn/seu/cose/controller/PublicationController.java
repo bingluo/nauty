@@ -19,7 +19,7 @@ public class PublicationController extends AbstractController {
 
 	@RequestMapping("/publication/")
 	public String publicationList(Model model) {
-		addCategories(model);
+		basicIssue(model);
 		List<PublicationPojo> publications = publicationService
 				.getAllPublications();
 		List<String> years = publicationService.classify(publications);
@@ -31,7 +31,7 @@ public class PublicationController extends AbstractController {
 
 	@RequestMapping("/publication/{id}.html")
 	public String publication(@PathVariable("id") int id, Model model) {
-		addCategories(model);
+		basicIssue(model);
 		PublicationPojo publication = publicationService.getPublicationById(id);
 		publicationService.clickUp(id);
 		List<PublicationPojo> recentPublications = publicationService

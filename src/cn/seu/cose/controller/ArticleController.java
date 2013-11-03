@@ -24,7 +24,7 @@ public class ArticleController extends AbstractController {
 			@PathVariable("rootCat") String rootCat,
 			@PathVariable("catId") int catId,
 			@PathVariable("articleId") int articleId) {
-		addCategories(model);
+		basicIssue(model);
 		ArticlePojo article = articleService.getArticleById(articleId);
 		CategoryPojo category = CategoryCache.get(catId);
 		model.addAttribute("curCat", category);

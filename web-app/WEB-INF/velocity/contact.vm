@@ -109,11 +109,9 @@
 	<div class="four columns">
 		<div class="headline low-margin"><h4>社交平台</h4></div>
 		<div id="social" class="tooltips">
-			<a href="#" rel="tooltip" title="Facebook" class="facebook">Facebook</a>
-			<a href="#" rel="tooltip" title="Evernote" class="evernote">Evernote</a>
-			<a href="#" rel="tooltip" title="LinkedIn" class="linkedin">LinkedIn</a>
-			<a href="#" rel="tooltip" title="Google Plus" class="googleplus">Google Plus</a>
-			<a href="#" rel="tooltip" title="Vimeo" class="vimeo">Vimeo</a>
+			#foreach($social in $socials)
+			<a href="$!{social.parameterValue}" rel="tooltip" title="$!{social.parameterName}" class="$!{social.parameterKey}">$!{social.parameterName}</a>
+			#end
 		</div>
 	</div>
 </div>

@@ -1801,6 +1801,11 @@ blockquote {
 }
 
 /* Icon List */
+.renren{background: url(../images/icons/social/renren.png) no-repeat;}
+.sina{background: url(../images/icons/social/sina.png) no-repeat;}
+.douban{background: url(../images/icons/social/douban.png) no-repeat;}
+.qzone{background: url(../images/icons/social/qzone.png) no-repeat;}
+.txweibo{background: url(../images/icons/social/txweibo.png) no-repeat;}
 .amazon {background: url(../images/icons/social/amazon.png) no-repeat;}
 .behance {background: url(../images/icons/social/behance.png) no-repeat;}
 .blogger {background: url(../images/icons/social/blogger.png) no-repeat;}

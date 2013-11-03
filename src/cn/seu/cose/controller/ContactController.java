@@ -48,7 +48,7 @@ public class ContactController extends AbstractController {
 
 	@RequestMapping(value = "/contact.html")
 	public String contact(Model model) {
-		addCategories(model);
+		basicIssue(model);
 		String location = parameterService.getParameterByKey(
 				Constant.PARAMETER_KEY_LOCATION).getParameterValue();
 		String gpslocation = parameterService.getParameterByKey(

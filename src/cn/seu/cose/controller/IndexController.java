@@ -38,7 +38,7 @@ public class IndexController extends AbstractController {
 		model.addAttribute("slides", slides);
 		model.addAttribute("news", news);
 		model.addAttribute("recentPublications", recentPublications);
-		addCategories(model);
+		basicIssue(model);
 		return "index";
 	}
 

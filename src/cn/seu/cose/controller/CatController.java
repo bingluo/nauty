@@ -156,7 +156,7 @@ public class CatController extends AbstractController {
 
 	@RequestMapping("/download.html")
 	public String downloadCenter(Model model, HttpServletRequest request) {
-		addCategories(model);
+		basicIssue(model);
 		int sumCount = uploadService.getUploadCount();
 		String pageIndex = (String) request.getParameter("pn");
 		int index = pageIndexResolve(pageIndex);
@@ -170,7 +170,7 @@ public class CatController extends AbstractController {
 	}
 
 	private String view(Model model, int catId, int pageIndex) {
-		addCategories(model);
+		basicIssue(model);
 		CategoryPojo categoryPojo = CategoryCache.get(catId);
 		model.addAttribute("curCat", categoryPojo);
 

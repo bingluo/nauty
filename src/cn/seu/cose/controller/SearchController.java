@@ -23,7 +23,7 @@ public class SearchController extends AbstractController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String searchArticles(Model model, HttpServletRequest request,
 			@RequestParam("keyword") String keyword) {
-		addCategories(model);
+		basicIssue(model);
 		List<ArticlePojo> articles = null;
 		if (keyword == null || keyword.trim().equals("")) {
 		} else {
