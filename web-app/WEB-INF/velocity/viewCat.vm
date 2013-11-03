@@ -119,6 +119,15 @@
 	</div>
 	<div class="clear"></div>
 </div>
+   	<div class="five columns widget first" style="margin: -5px 0 30px 20px;">
+       	<div class="headline no-margin"><h3>文章搜索</h3></div>
+           <div class="search no-margin icon-box tooltips">
+       		<form method="POST" action="$!{viewUtil.getContextPath()}/search">
+       			<input type="text" onblur="if(this.value=='')this.value='';" onfocus="if(this.value=='')this.value='';" value="" class="text" style="width:68%;display:inline-block;vertical-align: text-top;">
+       			<a href="#" class="color ico-white ico-search" rel="tooltip" data-original-title="搜索文章" style="margin:0px 0px 0 7px;padding:2px 2px;display:inline-block;background-color:#72b626;background-repeat: no-repeat;background-position:-342px -102px;width:30px;height:30px;vertical-align: text-top;"></a>
+       		</form>
+       	</div>
+   	</div>
 	<!-- 特别关注 -->
 	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget first tooltips">
