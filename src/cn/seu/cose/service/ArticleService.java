@@ -147,4 +147,19 @@ public class ArticleService {
 		}
 		return articles;
 	}
+
+	public List<ArticlePojo> highlightKeyword(List<ArticlePojo> articles,
+			String keyword) {
+		for (ArticlePojo article : articles) {
+			article.setTitle(article.getTitle().replaceAll(
+					keyword,
+					"<span style='background-color:#5ca20d'>" + keyword
+							+ "</span>"));
+			article.setSubhead(article.getSubhead().replaceAll(
+					keyword,
+					"<span style='background-color:#5ca20d'>" + keyword
+							+ "</span>"));
+		}
+		return articles;
+	}
 }

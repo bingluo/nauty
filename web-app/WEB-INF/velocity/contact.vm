@@ -99,10 +99,15 @@
             }
             google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
+		<ul class="project-info" style="margin-top:10px;">
+			<li><strong>地址:</strong> $!{location}</li>
+			<li><strong>邮箱:</strong> $!{email}</li>
+			<li><strong>电话:</strong> $!{phone}</li>
+		</ul>
 	</div>
 	<!-- Contact Details -->
 	<div class="four columns">
-		<div class="headline low-margin"><h4>Social</h4></div>
+		<div class="headline low-margin"><h4>社交平台</h4></div>
 		<div id="social" class="tooltips">
 			<a href="#" rel="tooltip" title="Facebook" class="facebook">Facebook</a>
 			<a href="#" rel="tooltip" title="Evernote" class="evernote">Evernote</a>

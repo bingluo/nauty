@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("common/head.vm")
+<body>
+<!-- Content
+================================================== -->
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+<!-- 960 Container -->
+<div class="container ie-dropdown-fix">
+	<!-- Header -->
+	#parse("common/header.vm")
+	<!-- Header / End -->
+	<!-- Navigation -->
+	#parse("common/navi.vm")
+	<!-- Navigation / End -->
+	<div class="sixteen columns">
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2 style='padding: 10px 0 10px 0;'>文章搜索 <span>: $!{keyword}</span></h2>
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+	</div>
+</div>
+<!-- 960 Container / End -->
+<!-- Blog Posts
+================================================== -->
+<!-- 960 Container -->
+<div class="container">
+<!-- Widget
+================================================== -->
+<div class="three columns">
+	<!-- Categories -->
+	<div class="widget first">
+		<div class="headline no-margin"><h4>文章搜索</h4></div>
+			<ul class="links-list-alt">
+				<li class="cats">关键字：$!{keyword}</li>
+			</ul>
+	</div>
+
+</div>
+<div class="eight columns">
+	<div class="post post-page" style="min-height:700px;">
+		<div class="search no-margin icon-box five columns tooltips" style="margin-bottom:20px;">
+		#parse("common/search_form.vm")
+       	</div>
+    	<!-- Post -->
+		<div class="tooltips eight columns">
+		<ul>
+    	#foreach($article in $searchResults)
+       	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
+       		<div class="post-content"  style="margin:0px;">
+				<div class="post-title">
+					<h2><a href="$!{viewUtil.getContextPath()}$article.uri">$!{article.title}</a></h2>
+					#if(${article.subhead})
+					<a href="$!{viewUtil.getContextPath()}$article.uri" style="font-size:16px;color:#434343">$!{article.subhead}</a>
+					#end
+				</div>
+       			<div class="post-meta">
+					<span><i class="mini-ico-calendar"></i>$!viewUtil.fTime("$article.postTime")</span>
+					<span><i class="mini-ico-user"></i>来自 $!{article.from}</span>
+				</div>
+    			<div class="post-description">
+    				<p>$!{article.pureText}</p>
+    			</div>
+    			<a class="post-entry" href="$!{viewUtil.getContextPath()}$article.uri">详细内容</a>
+       		</div>
+       	</div>
+		#end
+		</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+</div>
+<!-- 960 Container / End -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+<script language="JavaScript">
+	$(document).ready(function(){
+		$("#searchForm").submit(function(){
+			if($("input[name='keyword']").val()!=""){
+				return true;
+			}else{
+				return false;
+			}
+		});
+		
+		$("#searchBtn").click(function(){
+			$("#searchForm").submit();
+		});
+	});
+</script>
+</body>
+</html>

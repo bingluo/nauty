@@ -28,13 +28,10 @@
     <div class="one-third column" style="height:150px;padding:0px;display:block;background">
 		<div class="headline no-margin"><h3>文章搜索</h3></div>
     	<div class="search no-margin icon-box tooltips">
-			<form method="POST" action="$!{viewUtil.getContextPath()}/search">
-				<input type="text" onblur="if(this.value=='')this.value='';" onfocus="if(this.value=='')this.value='';" value="" class="text" style="width:72%;display:inline-block;vertical-align: text-top;">
-				<a href="#" class="color ico-white ico-search" rel="tooltip" data-original-title="搜索文章" style="margin:0px 0px 0 5px;padding:2px 2px;display:inline-block;background-color:#72b626;background-repeat: no-repeat;background-position:-342px -102px;width:30px;height:30px;vertical-align: text-top;"></a>
-			</form>
+		#parse("common/search_form.vm")
 		</div>
     	<div class="headline" style="margin:5px 0 0px 0"><h3>新闻中心</h3></div>
-    	<div id="marquees" style="height:255px;width:290px;overflow:hidden">
+    	<div id="marquees" style="height:236px;width:290px;overflow:hidden">
     		<ul class="square_list">
        			#foreach($article in $news)
                	<li style="margin:10px 0px"> <a href="$!{viewUtil.getContextPath()}$!{article.uri}">$article.title</a></li>
@@ -94,6 +91,18 @@
 		
 		$(".square_list li").mouseout(function(){
 			timer_interval = setInterval(funca,2000);
+		});
+		
+		$("#searchForm").submit(function(){
+			if($("input[name='keyword']").val()!=""){
+				return true;
+			}else{
+				return false;
+			}
+		});
+		
+		$("#searchBtn").click(function(){
+			$("#searchForm").submit();
 		});
 	});
 </script>
