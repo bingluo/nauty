@@ -31,12 +31,11 @@ public class AdminInfoController extends AbstractController{
 	}
 	
 	@RequestMapping(value="/admin/info", method=RequestMethod.POST)
-	public void postInfos(@RequestParam("key")String key, @RequestParam("param_value") String value, @RequestParam("extra") String extra, HttpServletResponse response) {
+	public void postInfos(@RequestParam("key")String key, @RequestParam("param_value") String value, HttpServletResponse response) {
 		if (key != null && !key.isEmpty()) {
 			if (value!=null && !value.isEmpty()) {
 				paramService.updateParameterValue(key, value);
 			}
-			paramService.updateParameterExtra(key, extra);
 		}
 		try {
 			response.sendRedirect("/admin/info");

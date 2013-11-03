@@ -38,7 +38,7 @@
 		<h1>账户管理</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
 		<a href="#" class="current">账户管理</a>
 	</div>
 	<div class="container-fluid">
@@ -52,7 +52,7 @@
 						<h5>修改密码</h5>
 					</div>
 					<div class="widget-content padding">
-						<form action="/admin/account" id="account_form" class="form-horizontal" method="post" novalidate="novalidate">
+						<form action="$!{viewUtil.getContextPath()}/admin/account" id="account_form" class="form-horizontal" method="post" novalidate="novalidate">
 							<input type="hidden" name="id" value="$admin.id"/>
 							<div class="control-group">
 								<label class="control-label">用户名</label>

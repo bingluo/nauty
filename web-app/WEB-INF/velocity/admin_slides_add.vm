@@ -1,55 +1,14 @@
 #parse("admin_header.vm")
 #parse("admin_sidebar.vm")
-<link rel="stylesheet" href="/static/editor/themes/default/default.css" />
-<script type="text/javascript">
-	$("#sidebar_li_2").siblings().removeClass('active')
-	$("#sidebar_li_2").addClass('active');
-	function _topAddCatChanged() {
-		var sel_top_cat = $("#top_cats_add option:selected").val();
-		$.ajax({
-			url: "/admin/sub_cat_list",
-			type: "post",
-			data: {parentId:sel_top_cat},
-			dataType: "html",
-			success:function(data){
-				$("#sub_cats_add").find('option').remove() ;
-				var cat_array =eval(data);
-				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
-					$("#sub_cats_add").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
-				}
-			},
-			error:function(){
-			}
-		});
-	}
-	function _subAddCatChanged() {
-		var sel_sub_cat = $("#sub_cats_add option:selected").val();
-		$.ajax({
-			url: "/admin/fetch_articles",
-			type: "post",
-			data: {subCatId:sel_sub_cat},
-			dataType: "html",
-			success:function(data){
-				$("#articles").find('option').remove() ;
-				var article_array =eval(data);
-				for(var i_article=0; i_article<article_array.length; i_article++) {
-					$("#articles").append('<option value="'+ article_array[i_article].id +'">◆ '+ article_array[i_article].title +'</option>');
-				}
-			},
-			error:function(){
-			}
-		});
-		
-	}
-</script>
+<link rel="stylesheet" href="$!{viewUtil.getContextPath()}/static/editor/themes/default/default.css" />
 
 <div id="content">
 	<div id="content-header">
-		<h1>Slide管理</h1>
+		<h1>滚动图片管理</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
-		<a href="#" class="current">添加Slide</a>
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">添加滚动图片</a>
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -59,18 +18,18 @@
 						<span class="icon">
 							<i class="icon-align-justify"></i>									
 						</span>
-						<h5>添加Slide</h5>
+						<h5>添加滚动图片</h5>
 					</div>
 					<div class="widget-content padding">
 						<form action="javascript:void(0)" method="post" class="form-horizontal" id="article_add_form">
 							<div class="control-group">
-								<label class="control-label">Slide标题</label>
+								<label class="control-label">滚动图片标题</label>
 								<div class="controls">
 									<input type="text" id="title" name="title">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">Slide简介</label>
+								<label class="control-label">滚动图片简介</label>
 								<div class="controls">
 									<input type="text" id="brief" name="brief">
 								</div>
@@ -98,15 +57,17 @@
 											#end
 										#end
 									</select>
+								</div>
+								<div class="controls">
 									<select id="articles" style="width:500px;">
 										#foreach($article in $init_article_list)
-											<option value="$article.id">◆ $article.title</option>
+											<option value="$article.id">$article.id. $article.title</option>
 										#end
 									</select>
 								</div>
 							</div>
 							<div class="control-group" >
-								<label class="control-label">Slide图片</label>
+								<label class="control-label">滚动图片</label>
 								<div class="controls">
 									<input type="text" id="picName" value=""/><input type="button" id="image3" value="选择图片" />
 							    </div>
@@ -122,8 +83,51 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" id="context_path" value="$!{viewUtil.getContextPath()}"/>
 
 <script type="text/javascript">
+	$("#sidebar_li_2").siblings().removeClass('active')
+	$("#sidebar_li_2").addClass('active');
+	var context_path = $("#context_path").val();
+	
+	function _topAddCatChanged() {
+		var sel_top_cat = $("#top_cats_add option:selected").val();
+		$.ajax({
+			url: context_path + "/admin/sub_cat_list",
+			type: "post",
+			data: {parentId:sel_top_cat},
+			dataType: "html",
+			success:function(data){
+				$("#sub_cats_add").find('option').remove() ;
+				var cat_array =eval(data);
+				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
+					$("#sub_cats_add").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
+				}
+			},
+			error:function(){
+			}
+		});
+	}
+	function _subAddCatChanged() {
+		var sel_sub_cat = $("#sub_cats_add option:selected").val();
+		$.ajax({
+			url: context_path + "/admin/fetch_articles",
+			type: "post",
+			data: {subCatId:sel_sub_cat},
+			dataType: "html",
+			success:function(data){
+				$("#articles").find('option').remove() ;
+				var article_array =eval(data);
+				for(var i_article=0; i_article<article_array.length; i_article++) {
+					$("#articles").append('<option value="'+ article_array[i_article].id +'">'+article_array[i_article].id + '. '+article_array[i_article].title +'</option>');
+				}
+			},
+			error:function(){
+			}
+		});
+		
+	}
+
 	$(document).ready(function(){
 		$("#yes_add").click(function(check) {
 			$("#title").parent().parent().removeClass("error");
@@ -144,23 +148,23 @@
 				$("#picName").parent().append('<span id="req_pic" for="required" generated="true" class="help-inline">请选择图片</span>');
 			} else {
 				$.ajax({
-					url: "/admin/add_slide",
+					url: context_path + "/admin/add_slide",
 					type: "post",
 					data: {title:_title, brief:_brief, articleId:_articleId, picName:_picName},
 					dataType: "html",
 					success: function(data) {
-						window.location.href = "/admin/slide_list";
+						window.location.href = context_path + "/admin/slide_list";
 					},
 					error: function(data) {
-						window.location.href = "/admin/slide_list";
+						window.location.href = context_path + "/admin/slide_list";
 					}
 				});
 			}
 		});
 	});
 </script>
-<script charset="utf-8" src="/static/editor/kindeditor.js"></script>
-<script charset="utf-8" src="/static/editor/lang/zh_CN.js"></script>
+<script charset="utf-8" src="$!{viewUtil.getContextPath()}/static/editor/kindeditor.js"></script>
+<script charset="utf-8" src="$!{viewUtil.getContextPath()}/static/editor/lang/zh_CN.js"></script>
 <script>
 KindEditor.ready(function(K) {
 	var editor = K.editor({
