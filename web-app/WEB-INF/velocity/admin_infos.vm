@@ -39,7 +39,7 @@
 		<h1>其他信息管理</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
 		<a href="#" class="current">其他信息管理</a>
 	</div>
 	<div class="container-fluid">
@@ -54,19 +54,15 @@
 					</div>
 					<div class="widget-content padding">
 						#foreach($info in $info_list)
-							<form action="/admin/info" id="account_form" class="form-horizontal" method="post" novalidate="novalidate">
+							<form action="$!{viewUtil.getContextPath()}/admin/info" id="account_form" class="form-horizontal" method="post" novalidate="novalidate">
 								<div class="control-group">
 										<input type="hidden" name="key" value="$info.parameterKey"/>
 										<label class="control-label">$info.parameterName</label>
 										<div class="controls">
-											<input id="$info.parameterKey" type="text" name="param_value" value="$info.parameterValue"/>
-										</div>
-										<label class="control-label">$info.parameterName 附加信息</label>
-										<div class="controls">
 											#if (!$info.extra || $info.extra == "")
-												<input id="${info.parameterKey}_extra" type="text" name="extra" value="" placeHolder="默认为空"/>
+												<input id="$info.parameterKey" type="text" name="param_value" value="$info.parameterValue"  placeHolder="默认为空"/>
 											#else 
-												<input id="${info.parameterKey}_extra" type="text" name="extra" value="$info.extra"/>
+												<input id="$info.parameterKey" type="text" name="param_value" value="$info.parameterValue"  placeHolder="$info.extra"/>
 											#end
 										</div>
 								</div>

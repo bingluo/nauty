@@ -1,16 +1,12 @@
 #parse("admin_header.vm")
 #parse("admin_sidebar.vm")	
-<script type="text/javascript">
-	$("#sidebar_li_3").siblings().removeClass('active')
-	$("#sidebar_li_3").addClass('active');
-</script>
 
 <div id="content">
 	<div id="content-header">
 		<h1>下载管理</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
 		<a href="#" class="current">下载管理</a>
 	</div>
 	<div class="container-fluid">
@@ -23,7 +19,7 @@
 						</span>
 						<h5>下载列表</h5>
 						<span class="icon" id="add_display_btn">
-							<a href="/admin/add_upload" class="btn btn-primary btn-mini">
+							<a href="$!{viewUtil.getContextPath()}/admin/add_upload" class="btn btn-primary btn-mini">
 								<i class="icon-plus icon-white"></i>添加下载
 							</a>
 						</span>
@@ -44,10 +40,10 @@
 								<tr>
 									<td>$upload.id</td>
 									<td>$upload.uploadName</td>
-									<td><a target="_blank" href="$upload.initialName">$upload.initialName</a></td>
+									<td><a target="_blank" href="$!{viewUtil.getContextPath()}$upload.initialName">$upload.initialName</a></td>
 									<td>$viewUtil.fTime("$upload.uploadTime")</td>
 									<td>
-										<a href="/admin/alt_upload-$upload.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
+										<a href="$!{viewUtil.getContextPath()}/admin/alt_upload-$upload.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
 										<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
 									</td>
 								</tr>
@@ -59,20 +55,20 @@
 							#if ($prePageIndex == 0) 
 								<li class="disabled"><a href="javascript:void(0)">前一页</a></li>
 							#else
-								<li><a href="/admin/upload_list-${prePageIndex}" >前一页</a></li>
+								<li><a href="$!{viewUtil.getContextPath()}/admin/upload_list-${prePageIndex}" >前一页</a></li>
 							#end
 					    	#if ($pageIndex == $pageCount)
 						    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
 					    	#else
-					    		<li><a href="/admin/upload_list-${nextPageIndex}">后一页</a></li>
+					    		<li><a href="$!{viewUtil.getContextPath()}/admin/upload_list-${nextPageIndex}">后一页</a></li>
 					    	#end
 						</ul>
 						<select style="vertical-align:top; height:inherit; width:80px" onchange="top.location=this.value;">
 							#foreach($i in [1..$pageCount]) 
 								#if ($i == $pageIndex)
-									<option value="/admin/upload_list-${i}" selected>$i</option>
+									<option value="$!{viewUtil.getContextPath()}/admin/upload_list-${i}" selected>$i</option>
 								#else
-									<option value="/admin/upload_list-${i}">$i</option>
+									<option value="$!{viewUtil.getContextPath()}/admin/upload_list-${i}">$i</option>
 								#end
 								
 							#end
@@ -83,6 +79,7 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" value="$!{viewUtil.getContextPath()}" id="context_path" />
 
 <div id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-body">
@@ -94,6 +91,11 @@
 	</div>
 </div>
 <script type="text/javascript">
+	$("#sidebar_li_3").siblings().removeClass('active')
+	$("#sidebar_li_3").addClass('active');
+	var context_path = $("#context_path").val();
+	
+	
 	$(document).ready(function(){
 		// global
 		var uploadId = -1; 
@@ -106,12 +108,12 @@
 		// yes_del
 		$("#yes_del").bind("click", function(){
 			$.ajax({
-				url: "/admin/del_upload",
+				url: context_path + "/admin/del_upload",
 				type: "post",
 				data: {id:uploadId},
 				dataType: "html",
 				success:function(data){
-					window.location.href="/admin/upload_list";
+					window.location.href= context_path + "/admin/upload_list";
 				},
 				error:function(){
 					$("#del_dialog").modal("hide");

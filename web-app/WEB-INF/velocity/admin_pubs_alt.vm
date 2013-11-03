@@ -1,17 +1,13 @@
 #parse("admin_header.vm")
 #parse("admin_sidebar.vm")
-<link rel="stylesheet" href="/static/editor/themes/default/default.css" />
-<script type="text/javascript">
-	$("#sidebar_li_4").siblings().removeClass('active')
-	$("#sidebar_li_4").addClass('active');
-</script>
+<link rel="stylesheet" href="$!{viewUtil.getContextPath()}/static/editor/themes/default/default.css" />
 
 <div id="content">
 	<div id="content-header">
 		<h1>刊物管理</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
 		<a href="#" class="current">编辑刊物</a>
 	</div>
 	<div class="container-fluid">
@@ -57,8 +53,13 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" id="context_path" value="$!{viewUtil.getContextPath()}"/>
 
 <script type="text/javascript">
+	$("#sidebar_li_4").siblings().removeClass('active')
+	$("#sidebar_li_4").addClass('active');
+	var context_path = $("#context_path").val();
+	
 	$(document).ready(function(){
 		$("#yes_add").click(function(check) {
 			$("#title").parent().parent().removeClass("error");
@@ -84,23 +85,23 @@
 				$("#picName").parent().append('<span id="req_pic" for="required" generated="true" class="help-inline">请选择图片</span>');
 			} else {
 				$.ajax({
-					url: "/admin/alt_pub",
+					url: context_path + "/admin/alt_pub",
 					type: "post",
 					data: {id:_id, title:_title, intro:_intro, images:_picName},
 					dataType: "html",
 					success: function(data) {
-						window.location.href = "/admin/pub_list";
+						window.location.href = context_path + "/admin/pub_list";
 					},
 					error: function(data) {
-						window.location.href = "/admin/pub_list";
+						window.location.href = context_path + "/admin/pub_list";
 					}
 				});
 			}
 		});
 	});
 </script>
-<script charset="utf-8" src="/static/editor/kindeditor.js"></script>
-<script charset="utf-8" src="/static/editor/lang/zh_CN.js"></script>
+<script charset="utf-8" src="$!{viewUtil.getContextPath()}/static/editor/kindeditor.js"></script>
+<script charset="utf-8" src="$!{viewUtil.getContextPath()}/static/editor/lang/zh_CN.js"></script>
 <script>
 KindEditor.ready(function(K) {
 	var editor = K.editor({

@@ -1,35 +1,12 @@
 #parse("admin_header.vm")
 #parse("admin_sidebar.vm")	
-<script type="text/javascript">
-	$("#sidebar_li_1").siblings().removeClass('active')
-	$("#sidebar_li_1").addClass('active');
-	function _topCatChanged() {
-		var sel_top_cat = $("#top_cats option:selected").val();
-		$.ajax({
-			url: "/admin/sub_cat_list",
-			type: "post",
-			data: {parentId:sel_top_cat},
-			dataType: "html",
-			success:function(data){
-				$("#sub_cats").find('option').remove() ;
-				var cat_array =eval(data);
-				$("#sub_cats").append('<option value="0">全选</option>');
-				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
-					$("#sub_cats").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
-				}
-			},
-			error:function(){
-			}
-		});
-	}
-</script>
 
 <div id="content">
 	<div id="content-header">
 		<h1>文章管理</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
 		<a href="#" class="current">文章管理</a>
 	</div>
 	<div class="container-fluid">
@@ -92,7 +69,7 @@
 						</span>
 						<h5>文章列表</h5>
 						<span class="icon" id="add_display_btn">
-							<a href="/admin/add_article" class="btn btn-primary btn-mini">
+							<a href="$!{viewUtil.getContextPath()}/admin/add_article" class="btn btn-primary btn-mini">
 								<i class="icon-plus icon-white"></i>添加文章
 							</a>
 						</span>
@@ -120,7 +97,7 @@
 										<td>$article.from</td>
 										<td>$viewUtil.fTime("$article.postTime")</td>
 										<td>
-											<a href="/admin/alt_article-$article.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
+											<a href="$!{viewUtil.getContextPath()}/admin/alt_article-$article.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
 											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
 										</td>
 									</tr>
@@ -132,20 +109,20 @@
 								#if ($prePageIndex == 0) 
 									<li class="disabled"><a href="javascript:void(0)">前一页</a></li>
 								#else
-									<li><a href="/admin/article_list-${topCatId}-${subCatId}-${prePageIndex}" >前一页</a></li>
+									<li><a href="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${prePageIndex}" >前一页</a></li>
 								#end
 						    	#if ($pageIndex == $pageCount)
 							    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
 						    	#else
-						    		<li><a href="/admin/article_list-${topCatId}-${subCatId}-${nextPageIndex}">后一页</a></li>
+						    		<li><a href="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${nextPageIndex}">后一页</a></li>
 						    	#end
 							</ul>
 							<select style="vertical-align:top; height:inherit; width:80px" onchange="top.location=this.value;">
 								#foreach($i in [1..$pageCount]) 
 									#if ($i == $pageIndex)
-										<option value="/admin/article_list-${topCatId}-${subCatId}-${i}" selected>$i</option>
+										<option value="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${i}" selected>$i</option>
 									#else
-										<option value="/admin/article_list-${topCatId}-${subCatId}-${i}">$i</option>
+										<option value="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${i}">$i</option>
 									#end
 									
 								#end
@@ -157,7 +134,7 @@
 		</div>
 	</div>
 </div>
-
+<input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
 
 <div id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-body">
@@ -170,6 +147,30 @@
 </div>
 
 <script type="text/javascript">
+	$("#sidebar_li_1").siblings().removeClass('active')
+	$("#sidebar_li_1").addClass('active');
+	var context_path = $("#context_path").val();
+	
+	function _topCatChanged() {
+		var sel_top_cat = $("#top_cats option:selected").val();
+		$.ajax({
+			url: context_path + "/admin/sub_cat_list",
+			type: "post",
+			data: {parentId:sel_top_cat},
+			dataType: "html",
+			success:function(data){
+				$("#sub_cats").find('option').remove() ;
+				var cat_array =eval(data);
+				$("#sub_cats").append('<option value="0">全选</option>');
+				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
+					$("#sub_cats").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
+				}
+			},
+			error:function(){
+			}
+		});
+	}
+
 	$(document).ready(function(){
 		// global
 		var articleId = -1; 
@@ -181,7 +182,7 @@
 			top_cat_id = $("#top_cats option:selected").val();
 			sub_cat_id = $("#sub_cats option:selected").val();
 			
-			window.location.href= "/admin/article_list-"+ top_cat_id + "-" + sub_cat_id + "-1";
+			window.location.href= context_path + "/admin/article_list-"+ top_cat_id + "-" + sub_cat_id + "-1";
 		});
 		/**************************************************************************/
 		
@@ -197,7 +198,7 @@
 				$("#search_input").val("");
 				$("#search_input").attr("placeHolder", "搜索内容过长");
 			} else {
-				window.location.href = "/admin/article_list_search-" + search_input;
+				window.location.href = context_path + "/admin/article_list_search-" + search_input;
 			}
 			
 		});
@@ -210,7 +211,7 @@
 		// yes_del
 		$("#yes_del").bind("click", function(){
 			$.ajax({
-				url: "/admin/del_article",
+				url: context_path + "/admin/del_article",
 				type: "post",
 				data: {id:articleId},
 				dataType: "html",
