@@ -57,9 +57,11 @@
 											#end
 										#end
 									</select>
+								</div>
+								<div class="controls">
 									<select id="articles" style="width:500px;">
 										#foreach($article in $init_article_list)
-											<option value="$article.id">◆ $article.title</option>
+											<option value="$article.id">$article.id. $article.title</option>
 										#end
 									</select>
 								</div>
@@ -117,7 +119,7 @@
 				$("#articles").find('option').remove() ;
 				var article_array =eval(data);
 				for(var i_article=0; i_article<article_array.length; i_article++) {
-					$("#articles").append('<option value="'+ article_array[i_article].id +'">◆ '+ article_array[i_article].title +'</option>');
+					$("#articles").append('<option value="'+ article_array[i_article].id +'">'+article_array[i_article].id + '. '+article_array[i_article].title +'</option>');
 				}
 			},
 			error:function(){
