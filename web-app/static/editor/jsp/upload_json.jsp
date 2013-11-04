@@ -19,7 +19,7 @@
 String savePath = pageContext.getServletContext().getRealPath("/") + "static/upload/";
 
 //文件保存目录URL
-String saveUrl  = request.getContextPath() + "/static/upload/";
+String saveUrl  = "/static/upload/";
 
 
 //定义允许上传的文件扩展名
