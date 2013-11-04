@@ -136,7 +136,7 @@
 </div>
 <input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
 
-<div id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div style="display:none" id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-body">
 	    <span>是否确定删除？</span>
 	</div>
@@ -145,6 +145,7 @@
 	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
 	</div>
 </div>
+
 
 <script type="text/javascript">
 	$("#sidebar_li_1").siblings().removeClass('active')
@@ -172,6 +173,8 @@
 	}
 
 	$(document).ready(function(){
+		$("#del_dialog").css("display","none");
+		
 		// global
 		var articleId = -1; 
 		var top_cat_id = 1;
@@ -205,8 +208,27 @@
 		
 		// show del_dialog
 		$("button[id='del_btn']").bind("click", function(){
-			articleId = $(this).parents("tr").find("td:first").html().trim()
-			$("#del_dialog").modal("show");
+			articleId = $(this).parents("tr").find("td:first").html().trim();
+			if(!$.browser.msie) {
+				$("#del_dialog").css("display","block");
+				$("#del_dialog").modal("show");
+				
+			} else {
+				alert("已删除文章");
+				$.ajax({
+					url: context_path + "/admin/del_article",
+					type: "post",
+					data: {id:articleId},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("删除错误，请重试！");
+					}
+				});
+			}
+			
 		});
 		// yes_del
 		$("#yes_del").bind("click", function(){
