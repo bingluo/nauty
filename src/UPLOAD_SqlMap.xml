@@ -50,8 +50,8 @@
 	<insert id="insertUpload" parameterClass="upload">
 		<![CDATA[
 		INSERT INTO UPLOAD
-		(initial_name,upload_name,upload_time,upload_size)
-		VALUES (#initialName#,#uploadName#,current_timestamp(),#uploadSize#)
+		(initial_name,upload_name,upload_time)
+		VALUES (#initialName#,#uploadName#,current_timestamp())
 		]]>
 	</insert>
 
@@ -67,7 +67,6 @@
 			SET upload_name = #uploadName#,
 				initial_name = #initialName#,
 				upload_time = current_timestamp()
-				upload_size = #uploadSize#,
 		WHERE id = #id#
 		]]>
 	</insert>
