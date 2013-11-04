@@ -37,7 +37,7 @@
 							
 							<div class="control-group">
 								<label class="control-label">类别</label>
-								<div class="controls">
+								<div class="controls" style="padding-left:20px;">
 									<select id="top_cats_add" onchange="_topAddCatChanged()">
 										#foreach($topCat in $top_cat_list)
 											#if ($topCat.id == $article.rootCatId)
@@ -60,8 +60,8 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<div class="controls">
-									<textarea id="editor" name="content" style="width:1000px;height:500px;">$article.content</textarea>
+								<div class="controls" style="margin-left:0px;padding-left:20px;">
+									<textarea id="editor" name="content" style="width:700px;height:400px;">$article.content</textarea>
 								</div>
 							</div>
 							<div class="control-group" >

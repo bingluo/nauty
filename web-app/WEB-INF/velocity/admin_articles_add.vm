@@ -36,7 +36,7 @@
 							
 							<div class="control-group">
 								<label class="control-label">类别</label>
-								<div class="controls">
+								<div class="controls" style="padding-left:20px;">
 									<select id="top_cats_add" onchange="_topAddCatChanged()">
 										#foreach($topCat in $top_cat_list)
 											<option value="$topCat.id">$topCat.catName</option>
@@ -51,12 +51,12 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<div class="controls" style="max-width:700px;height:400px;">
-									<textarea id="editor" name="content" style="max-width:700px;height:400px;"></textarea>
+								<div class="controls" style="max-width:700px;height:400px;margin-left:0px;padding-left:20px;">
+									<textarea id="editor" name="content" style="width:700px;height:400px;"></textarea>
 								</div>
 							</div>
 							<div class="control-group" >
-								<div class="controls">
+								<div class="controls" style="margin-left:200px;">
 									<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
 							    </div>
 							</div>
