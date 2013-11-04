@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.Upload;
 import cn.seu.cose.service.UploadService;
+import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
 public class AdminUploadController extends AbstractController {
@@ -72,7 +73,7 @@ public class AdminUploadController extends AbstractController {
 		try {
 			int id = Integer.parseInt(idStr);
 			uploadService.deleteUpload(id);
-			response.sendRedirect("/admin/upload_list");  //******
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/upload_list");  //******
 		} catch (Exception e) {
 			JSONObject jo = new JSONObject();
 			jo.put("error", 1);
@@ -94,7 +95,7 @@ public class AdminUploadController extends AbstractController {
 		upload.setUploadTime(new Date());
 		uploadService.updateUpload(upload);
 		try {
-			response.sendRedirect("admin/upload_list");
+			response.sendRedirect(ViewUtil.getContextPath() + "admin/upload_list");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

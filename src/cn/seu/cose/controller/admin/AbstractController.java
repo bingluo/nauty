@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import cn.seu.cose.entity.Admin;
 import cn.seu.cose.service.AdminService;
+import cn.seu.cose.view.util.ViewUtil;
 
 public class AbstractController {
 	@Autowired
@@ -21,7 +22,7 @@ public class AbstractController {
 		} else {
 //			model.addAttribute("login_admin", "管理员");
 			try {
-				response.sendRedirect("/admin/login");
+				response.sendRedirect(ViewUtil.getContextPath() + "/admin/login");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

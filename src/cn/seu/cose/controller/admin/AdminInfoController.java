@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.Parameter;
 import cn.seu.cose.service.ParameterService;
+import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
 public class AdminInfoController extends AbstractController{
@@ -38,7 +39,7 @@ public class AdminInfoController extends AbstractController{
 			}
 		}
 		try {
-			response.sendRedirect("/admin/info");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/info");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

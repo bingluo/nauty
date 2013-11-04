@@ -22,6 +22,7 @@ import cn.seu.cose.entity.SlidePojo;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
 import cn.seu.cose.service.SlideService;
+import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
 public class AdminSlideController extends AbstractController{
@@ -73,7 +74,7 @@ public class AdminSlideController extends AbstractController{
 		try {
 			int id = Integer.parseInt(slideIdStr);
 			slideService.deleteSlide(id);
-			response.sendRedirect("/admin/slide_list");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/slide_list");
 		} catch (Exception e) {
 			JSONObject jo = new JSONObject();
 			jo.put("error", 1);

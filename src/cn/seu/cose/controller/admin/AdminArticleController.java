@@ -23,6 +23,7 @@ import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
+import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
 public class AdminArticleController extends AbstractController{
@@ -159,7 +160,7 @@ public class AdminArticleController extends AbstractController{
 		try {
 			int id = Integer.parseInt(idStr);
 			articleService.deleteArticle(id);
-			response.sendRedirect("/admin/article_list");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/article_list");
 		} catch (Exception e) {
 			JSONObject jo = new JSONObject();
 			jo.put("error", 1);

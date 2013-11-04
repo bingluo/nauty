@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.PublicationPojo;
 import cn.seu.cose.service.PublicationService;
+import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
 public class AdminPubController extends AbstractController{
@@ -54,7 +55,7 @@ public class AdminPubController extends AbstractController{
 	public void postDel(@RequestParam("id") String idStr,  HttpServletResponse response) {
 		try {
 			pubService.deletePublication(Integer.parseInt(idStr));
-			response.sendRedirect("/admin/pub_list");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/pub_list");
 		} catch (Exception e) {
 			JSONObject jo = new JSONObject();
 			jo.put("error", 1);

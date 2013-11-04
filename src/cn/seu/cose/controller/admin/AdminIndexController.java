@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.Admin;
 import cn.seu.cose.service.AdminService;
+import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
 public class AdminIndexController extends AbstractController{
@@ -27,11 +28,11 @@ public class AdminIndexController extends AbstractController{
 		Admin admin = adminService.getAdmin();
 		if (admin != null && !admin.getIsSuper()) {
 			model.addAttribute("login_admin", admin.getUsername());
-			to = "/admin/article_list";
+			to = ViewUtil.getContextPath() + "/admin/article_list";
 		} else if (admin !=null && admin.getIsSuper()) {
-			to = "/admin/super";
+			to = ViewUtil.getContextPath() + "/admin/super";
 		}else {
-			to = "/admin/login";
+			to = ViewUtil.getContextPath() + "/admin/login";
 		}
 		try {
 			response.sendRedirect(to);
@@ -49,11 +50,11 @@ public class AdminIndexController extends AbstractController{
 	public void login(@RequestParam("username") String username, @RequestParam("password") String password
 			, HttpServletResponse response) {
 		Admin admin = adminService.logon(username, password);
-		String to = "/admin/login";
+		String to = ViewUtil.getContextPath() + "/admin/login";
 		if (admin != null && !admin.getIsSuper()) {
-			to = "/admin/article_list";
+			to = ViewUtil.getContextPath() + "/admin/article_list";
 		} else if (admin != null && admin.getIsSuper()) {
-			to = "/admin/super";
+			to = ViewUtil.getContextPath() + "/admin/super";
 		}
 		try {
 			response.sendRedirect(to);
@@ -77,7 +78,7 @@ public class AdminIndexController extends AbstractController{
 			return "admin_account";
 		} else {
 			try {
-				response.sendRedirect("/admin/login");
+				response.sendRedirect(ViewUtil.getContextPath() + "/admin/login");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -92,7 +93,7 @@ public class AdminIndexController extends AbstractController{
 		}
 		try {
 			adminService.logout();
-			response.sendRedirect("/admin/login");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/login");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -152,7 +153,7 @@ public class AdminIndexController extends AbstractController{
 		adminService.updateSuper(superAdmin);
 		try {
 			adminService.logout();
-			response.sendRedirect("/admin/super");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/super");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
