@@ -1302,13 +1302,14 @@ form {
 .form-horizontal .control-label {
 	padding-top: 15px;
 	width: 180px;
+	margin-right:20px;
 }
 .form-horizontal .controls {
-	margin-left: 200px;
+	margin-left: 20px;
 	padding: 10px 0;
 }
 .form-horizontal input[type=text], .form-horizontal input[type=password], .form-horizontal textarea {
-	width: 80%;
+	width: 60%;
 }
 .form-horizontal .form-actions {
 	margin-top: 0;
