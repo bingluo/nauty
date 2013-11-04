@@ -67,7 +67,7 @@
 										</div>
 								</div>
 								<div class="form-actions">
-									<input id="submit" class="btn btn-info" type="submit" value="更新" />
+									<input id="submit" class="btn btn-info" type="submit" value="更新" style="margin-left:20px;"/>
 								</div>
 							</form>
 						#end
