@@ -9,8 +9,8 @@ public class Constant {
 	public static final String[] PARAMETER_KEY_SOCIALS = { "sina", "txweibo",
 			"renren", "douban", "qzone" };
 
-	public static final String blogMailAddress = "jxindustrialdesign@163.com";
-	public static final String blogMailAccount = "jxindustrialdesign@163.com";
-	public static final String blogMailPassword = "!ndu5tr!a1de5!gn";
-	public static final String blogMailServer = "smtp.163.com";
+	public static final String mailAddress = "jxindustrialdesign@163.com";// jxindustrial@sina.com;
+	public static final String mailAccount = "jxindustrialdesign@163.com";
+	public static final String mailPassword = "!ndu5tr!a1de5!gn";
+	public static final String mailServer = "smtp.163.com";
 }

@@ -34,7 +34,8 @@ public class ContactController extends AbstractController {
 		content.append("<p>内容：")
 				.append(command.getMessage().replaceAll("\n", "<\br>"))
 				.append("</p>");
-		content.append("<p>他（她）的邮箱：").append(command.getEmail()).append("</p>");
+		content.append("<p>他（她）的邮箱：").append(command.getEmail())
+				.append("</p></html>");
 
 		String toAddress = parameterService.getParameterByKey(
 				Constant.PARAMETER_KEY_EMAIL).getParameterValue();
