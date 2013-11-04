@@ -3,6 +3,8 @@ package cn.seu.cose.controller.admin;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -136,6 +138,7 @@ public class AdminArticleController extends AbstractController{
 		article.setContent(content);
 		article.setFrom(from);
 		article.setPostTime(new Date());
+		pure = wrapPure(pure);
 		int briefLength = pure.length() > 100 ? 100 : pure.length();
 		article.setPureText(pure.substring(0, briefLength) + "……");
 		
@@ -197,6 +200,7 @@ public class AdminArticleController extends AbstractController{
 		article.setContent(content);
 		article.setFrom(from);
 		article.setPostTime(new Date());
+		pure = wrapPure(pure);
 		int briefLength = pure.length() > 100 ? 100 : pure.length();
 		article.setPureText(pure.substring(0, briefLength) + "……");
 		articleService.updateArticle(article);
@@ -211,4 +215,18 @@ public class AdminArticleController extends AbstractController{
 			return count/PAGE_SIZE +1;
 		}
 	}
+	
+	private static String wrapPure(String pure) {
+		Pattern p_image;
+		String regEx_img = "<img.*?>";
+		p_image = Pattern.compile(regEx_img, Pattern.CASE_INSENSITIVE);
+		
+		Matcher matcher = p_image.matcher(pure);
+		while(matcher.find()) {
+			System.out.println(matcher.group());
+			pure = matcher.replaceAll("");
+		}
+		return pure;
+	}
+	
 }
