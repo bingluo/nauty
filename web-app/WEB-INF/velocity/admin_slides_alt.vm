@@ -73,7 +73,7 @@
 								</div>
 							</div>
 							<div class="control-group" >
-								<label class="control-label">Slide图片</label>
+								<label class="control-label">滚动图片</label>
 								<div class="controls">
 									<input type="text" id="picName" value="$slide.picName"/>&nbsp;&nbsp;<input type="button" id="image3" value="选择图片" />
 							    </div>
