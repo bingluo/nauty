@@ -58,18 +58,18 @@
 											#end
 										#end
 									</select>
-									<label class="control-label">选择类别</label>
-									<div class="controls" style="padding-left:20px;">
-										<select id="articles" style="width:500px;">
-											#foreach($article in $init_article_list)
-												#if ($article.id == $slide.articleId)
-													<option value="$article.id" selected>$article.id. $article.title</option>
-												#else
-													<option value="$article.id">$article.id. $article.title</option>
-												#end
+								</div>
+								<label class="control-label">选择文章</label>
+								<div class="controls" style="padding-left:20px;">
+									<select id="articles" style="width:500px;">
+										#foreach($article in $init_article_list)
+											#if ($article.id == $slide.articleId)
+												<option value="$article.id" selected>$article.id. $article.title</option>
+											#else
+												<option value="$article.id">$article.id. $article.title</option>
 											#end
-										</select>
-									</div>
+										#end
+									</select>
 								</div>
 							</div>
 							<div class="control-group" >

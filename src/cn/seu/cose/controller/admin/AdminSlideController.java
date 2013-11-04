@@ -92,9 +92,13 @@ public class AdminSlideController extends AbstractController{
 		SlidePojo slide = slideService.getSlideById(id);
 		model.addAttribute("slide", slide);
 		int articleId = slide.getArticleId();
-		ArticlePojo article = articleService.getArticleById(articleId);
-		int topCatId = article.getRootCatId();
-		int subCatId = article.getCatId();
+		int topCatId = 2;
+		int subCatId = 15;
+		if (articleId >=0 ) {
+			ArticlePojo article = articleService.getArticleById(articleId);
+			topCatId = article.getRootCatId();
+			subCatId = article.getCatId();
+		}
 		
 		/* get cats */
 		List<CategoryPojo> categories = catService.getRootCategories();
