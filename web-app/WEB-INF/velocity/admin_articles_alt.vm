@@ -65,7 +65,7 @@
 								</div>
 							</div>
 							<div class="control-group" >
-								<div class="controls">
+								<div class="controls" style="margin-left:200px;">
 									<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
 							    </div>
 							</div>

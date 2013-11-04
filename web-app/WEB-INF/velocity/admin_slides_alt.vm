@@ -37,8 +37,8 @@
 							</div>
 							
 							<div class="control-group">
-								<label class="control-label">选择文章</label>
-								<div class="controls">
+								<label class="control-label">选择类别</label>
+								<div class="controls" style="padding-left:20px;">
 									<select id="top_cats_add" onchange="_topAddCatChanged()">
 										#foreach($topCat in $top_cat_list)
 											#if ($topCat.id == $topCatId)
@@ -58,21 +58,24 @@
 											#end
 										#end
 									</select>
-									<select id="articles" style="width:500px;">
-										#foreach($article in $init_article_list)
-											#if ($article.id == $slide.articleId)
-												<option value="$article.id" selected>$article.id. $article.title</option>
-											#else
-												<option value="$article.id">$article.id. $article.title</option>
+									<label class="control-label">选择类别</label>
+									<div class="controls" style="padding-left:20px;">
+										<select id="articles" style="width:500px;">
+											#foreach($article in $init_article_list)
+												#if ($article.id == $slide.articleId)
+													<option value="$article.id" selected>$article.id. $article.title</option>
+												#else
+													<option value="$article.id">$article.id. $article.title</option>
+												#end
 											#end
-										#end
-									</select>
+										</select>
+									</div>
 								</div>
 							</div>
 							<div class="control-group" >
 								<label class="control-label">Slide图片</label>
 								<div class="controls">
-									<input type="text" id="picName" value="$slide.picName"/><input type="button" id="image3" value="选择图片" />
+									<input type="text" id="picName" value="$slide.picName"/>&nbsp;&nbsp;<input type="button" id="image3" value="选择图片" />
 							    </div>
 							<div class="control-group" >
 								<div class="controls">
