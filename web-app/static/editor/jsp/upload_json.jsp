@@ -16,10 +16,11 @@
  */
 
 //文件保存目录路径
-String savePath = pageContext.getServletContext().getRealPath("/") + "images/upload/";
+String savePath = pageContext.getServletContext().getRealPath("/") + "static/upload/";
 
 //文件保存目录URL
-String saveUrl  = request.getContextPath() + "/images/upload/";
+String saveUrl  = request.getContextPath() + "../static/upload/";
+
 
 //定义允许上传的文件扩展名
 HashMap<String, String> extMap = new HashMap<String, String>();
@@ -29,7 +30,7 @@ extMap.put("media", "swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb");
 extMap.put("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2");
 
 //最大文件大小
-long maxSize = 1000000;
+long maxSize = 100000000;
 
 response.setContentType("text/html; charset=UTF-8");
 
