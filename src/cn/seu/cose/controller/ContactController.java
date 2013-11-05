@@ -54,12 +54,9 @@ public class ContactController extends AbstractController {
 				Constant.PARAMETER_KEY_LOCATION).getParameterValue();
 		String gpslocation = parameterService.getParameterByKey(
 				Constant.PARAMETER_KEY_GPS_LOCATION).getParameterValue();
-		String contactIntro = parameterService.getParameterByKey(
-				Constant.PARAMETER_KEY_CONTACT).getParameterValue();
 
 		model.addAttribute("location", location);
 		model.addAttribute("gpslocation", gpslocation);
-		model.addAttribute("contactIntro", contactIntro);
 		return "contact";
 	}
 }
