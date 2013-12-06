@@ -17,7 +17,7 @@ public class PublicationController extends AbstractController {
 	@Autowired
 	PublicationService publicationService;
 
-	@RequestMapping("/publication/")
+	@RequestMapping("/publication")
 	public String publicationList(Model model) {
 		basicIssue(model);
 		List<PublicationPojo> publications = publicationService

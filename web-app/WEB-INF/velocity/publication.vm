@@ -25,7 +25,7 @@
 	<div class="sixteen columns">
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2><a href="$!{viewUtil.getContextPath()}/publication/" style='color:#333'>协会刊物</a> <span>/ <a href="$!{viewUtil.getContextPath()}/publication/$!{publication.id}.html" style='color:#aaa'>$!{publication.title}</a></span></h2>
+			<h2><a href="$!{viewUtil.getContextPath()}/publication" style='color:#333'>协会刊物</a> <span>/ <a href="$!{viewUtil.getContextPath()}/publication/$!{publication.id}.html" style='color:#aaa'>$!{publication.title}</a></span></h2>
 			<!-- Portfolio Navi 
 			<div id="portfolio-navi">
 				<ul>

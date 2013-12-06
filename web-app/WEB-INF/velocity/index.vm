@@ -46,7 +46,7 @@
 	<div class="sixteen columns" style="height: 45px;">
 		<!-- Headline -->
 		<div class="no-margin icon-box tooltips"><i class="ico-book-open" style="margin-left: -10px;margin-top:-7px;"></i>
-			<a href="$viewUtil.getContextPath()/publication/" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<a href="$viewUtil.getContextPath()/publication" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
 			<h3>协会刊物</h3></div>
 	</div>
 	#foreach($publication in $recentPublications)

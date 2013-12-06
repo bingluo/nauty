@@ -35,7 +35,7 @@ public class IndexController extends AbstractController {
 		return "index";
 	}
 
-	@RequestMapping("favicon.ico")
+	@RequestMapping("/favicon.ico")
 	public void favicon(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher(

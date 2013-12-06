@@ -25,7 +25,7 @@
 	<div class="sixteen columns">
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2><a href="$!{viewUtil.getContextPath()}/publication/" style='color:#333'>协会刊物</a></h2>
+			<h2><a href="$!{viewUtil.getContextPath()}/publication" style='color:#333'>协会刊物</a></h2>
 			<!-- Filters -->
 			<div id="filters">
 				<ul class="option-set" data-option-key="filter">

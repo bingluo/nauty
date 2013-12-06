@@ -20,17 +20,17 @@ public class ViewUtil {
 		if (curCat.getCatLevel() == 1) {
 			return "<h2 style='padding: 10px 0 10px 0;'><a href='"
 					+ CONTEXT_PATH + "/" + curCat.getUriName()
-					+ "/' style='color:#333'>" + curCat.getCatName()
+					+ "' style='color:#333'>" + curCat.getCatName()
 					+ "</a></h2>";
 		} else {
 			CategoryPojo parent = CategoryCache.get(curCat.getParentCatId());
 			return "<h2 style='padding: 10px 0 10px 0;'><a href='"
 					+ CONTEXT_PATH + "/" + parent.getUriName()
-					+ "/' style='color:#333'>"
+					+ "' style='color:#333'>"
 					+ CategoryCache.get(curCat.getParentCatId()).getCatName()
 					+ "</a><span> / <a href='" + CONTEXT_PATH + "/"
 					+ parent.getUriName() + "/cat-" + catId
-					+ "/' style='color:#aaa'>" + curCat.getCatName()
+					+ "' style='color:#aaa'>" + curCat.getCatName()
 					+ "</a></span></h2>";
 		}
 	}

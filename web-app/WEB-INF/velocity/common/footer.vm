@@ -13,7 +13,7 @@
 				<li><a href="$!{viewUtil.getContextPath()}/">首页</a></li>
 				#foreach($root in $cats)
 				#if($velocityCount<5)
-				<li><a href="$!{viewUtil.getContextPath()}/${root.uriName}#if($root.children.size()==0).html#else/#end">$root.catName</a></li>
+				<li><a href="$!{viewUtil.getContextPath()}/${root.uriName}#if($root.children.size()==0).html#end">$root.catName</a></li>
 				#end
 				#end
 			</ul>
@@ -24,10 +24,10 @@
 			<ul class="links-list">
 				#foreach($root in $cats)
 				#if($velocityCount>4)
-				<li><a href="$!{viewUtil.getContextPath()}/${root.uriName}#if($root.children.size()==0).html#else/#end">$root.catName</a></li>
+				<li><a href="$!{viewUtil.getContextPath()}/${root.uriName}#if($root.children.size()==0).html#end">$root.catName</a></li>
 				#end
 				#end
-				<li><a href="$!{viewUtil.getContextPath()}/publication/">协会刊物</a></li>
+				<li><a href="$!{viewUtil.getContextPath()}/publication">协会刊物</a></li>
 			</ul>
 			<!--
 			<div class="flickr-widget">
@@ -42,7 +42,7 @@
 				#foreach($publication in $recentPublications)
 				<li><a href="$viewUtil.getContextPath()/publication/$!{publication.id}.html">$!{publication.title}</a></li>
 				#end
-				<li><a href="$viewUtil.getContextPath()/publication/">查看更多>></a></li>
+				<li><a href="$viewUtil.getContextPath()/publication">查看更多>></a></li>
 			</ul>
 		</div>
 		<!-- Footer / Bottom -->

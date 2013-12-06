@@ -48,7 +48,7 @@
 		<div class="headline no-margin"><h4>$rootCat.catName</h4></div>
 			<ul class="links-list-alt">
 				#foreach($cat in $childrenCats)
-				<li class="cats"><a href="$!{viewUtil.getContextPath()}/$rootCat.uriName/cat-$cat.id/" #if($cat.id==$curCat.id)style="font-weight:bold"#end>$cat.catName</a></li>
+				<li class="cats"><a href="$!{viewUtil.getContextPath()}/$rootCat.uriName/cat-$!{cat.id}" #if($cat.id==$curCat.id)style="font-weight:bold"#end>$!{cat.catName}</a></li>
 				#end
 			</ul>
 	</div>
@@ -132,7 +132,7 @@
 	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget first tooltips">
         	<i class="ico-parents" style="margin:-6px 0 0 0px"></i>
-			<a href="$!{viewUtil.getContextPath()}/new/cat-15/" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<a href="$!{viewUtil.getContextPath()}/new/cat-15" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
         	<h4 style="margin-top: 0px;">特别关注</h4>
 			<ul class="circle_list" style="margin-top: 15px;">
 				#foreach($concern in $concerns)
@@ -149,7 +149,7 @@
 	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget tooltips">
         	<i class="ico-cup" style="margin:-6px 0 0 0px"></i>
-			<a href="$!{viewUtil.getContextPath()}/events/"  rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<a href="$!{viewUtil.getContextPath()}/events"  rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
         	<h4 style="margin-top: 0px;">评奖赛事</h4>
 			<ul class="circle_list" style="margin-top: 15px;">
 				#foreach($event in $events)
@@ -166,7 +166,7 @@
 	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget tooltips">
         	<i class="ico-certificate" style="margin:-6px 0 0 0px"></i>
-			<a href="$!{viewUtil.getContextPath()}/train/" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<a href="$!{viewUtil.getContextPath()}/train" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
         	<h4 style="margin-top: 0px;">认证培训</h4>
 			<ul class="circle_list" style="margin-top: 15px;">
 				#foreach($train in $trains)
