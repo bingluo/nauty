@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DESIGNER">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="baseDesigner" type="cn.seu.cose.entity.Designer" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="DesignerResultMap" class="baseDesigner">
+		<result property="id" column="ID"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="password" column="PASSWORD"/>
+		<result property="email" column="EMAIL"/>
+		<result property="intro" column="INTRO"/>
+		<result property="avatar" column="AVATAR"/>
+		<result property="registerTime" column="REGISTER_TIME"/>
+		<result property="certificateTime" column="CERTIFICATE_TIME"/>
+		<result property="certificated" column="CERTIFICATED"/>
+	</resultMap>
+
+</sqlMap>
