@@ -1,5 +1,9 @@
 package cn.seu.cose.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
@@ -19,6 +23,16 @@ public class CommentDAOImpl extends SqlMapClientDaoSupport implements CommentDAO
 		return (Comment) getSqlMapClientTemplate().queryForObject(
 				"COMMENT.selectCommentyById", id);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Comment> getCommentViaRefAndType(int refId, int type) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("referenceId", refId);
+		map.put("commentType", type);
+		return (List<Comment>) getSqlMapClientTemplate().queryForList(
+				"COMMENT.selectCommentByRefAndType", map);
+	}
 
 	@Override
 	public void insertComment(Comment comment) {
@@ -26,6 +40,7 @@ public class CommentDAOImpl extends SqlMapClientDaoSupport implements CommentDAO
 	}
 
 	@Override
+	@Deprecated
 	public void updateComment(Comment comment) {
 		getSqlMapClientTemplate().update("COMMENT.updateComment", comment);
 	}

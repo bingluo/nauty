@@ -22,6 +22,14 @@
 		]]>
 	</select>
 	
+	<select id="selectCommentByRefAndType" resultMap="CommentResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+    		SELECT * 
+    		FROM COMMENT
+    		WHERE referenceId=#referenceId# AND commentType=#commentType#
+		]]>
+	</select>
+	
 	<insert id="insertComment" parameterClass="comment">
 		<![CDATA[
     		INSERT INTO COMMENT
