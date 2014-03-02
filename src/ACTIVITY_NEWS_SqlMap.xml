@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ACTIVITY_NEWS">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="baseActivityNews" type="cn.seu.cose.entity.ActivityNews" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="ActivityNewsResultMap" class="baseActivityNews">
+		<result property="id" column="ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="activityId" column="ACTIVITY_ID"/>
+		<result property="updateTime" column="UPDATE_TIME"/>
+		<result property="postUserId" column="POST_USER_ID"/>
+	</resultMap>
+	
+	<select id="selectActivityNewsByActivityId" resultMap="ActivityNewsResultMap" parameterClass="int">		
+		<![CDATA[
+        	SELECT *
+        	FROM activity_news
+			WHERE activity_id = #value#
+    		ORDER BY update_time desc
+		]]>
+	</select>
+	
+	<insert id="insertActivityNews" parameterClass="baseActivityNews">		
+		<![CDATA[
+        	INSERT INTO activity_news
+			(title,content,activity_id,update_time,post_user_id)
+    		VALUES (#title#,#content#,#activityId#,current_timestamp(),#postUserId#)
+		]]>
+	</insert>
+	
+	<delete id="deleteActivityNews" parameterClass="int">
+		<![CDATA[
+			delete from activity_news where id = #id#
+		]]>
+	</delete>
+	
+	<update id="updateActivityNews" parameterClass="baseActivityNews">
+		<![CDATA[
+			UPDATE activity_news
+			SET title = #title#,
+			content = #content#,
+			activity_id = #activityId#,
+			update_time = current_timestamp(),
+			post_user_id = #postUserId#
+			WHERE id = #id#
+		]]>
+	</update>
+</sqlMap>
