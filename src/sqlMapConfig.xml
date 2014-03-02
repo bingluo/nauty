@@ -18,4 +18,12 @@
 	<sqlMap resource="UPLOAD_SqlMap.xml" />
 	<sqlMap resource="PUBLICATION_SqlMap.xml" />
 	<sqlMap resource="PARAMETER_SqlMap.xml" />
+	
+	<sqlMap resource="ACTIVITY_SqlMap.xml" />
+	<sqlMap resource="ACTIVITY_APPLICATION_SqlMap.xml" />
+	<sqlMap resource="ACTIVITY_NEWS_SqlMap.xml" />
+	<sqlMap resource="ACTIVITY_PHOTO_SqlMap.xml" />
+	<sqlMap resource="COMMENT_SqlMap.xml" />
+	<sqlMap resource="DESIGNER_SqlMap.xml" />
+	<sqlMap resource="WORK_SqlMap.xml" />
 </sqlMapConfig>

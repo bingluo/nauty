@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ACTIVITY_PHOTO">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="baseActivityPhoto" type="cn.seu.cose.entity.ActivityPhoto" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="ActivityPhotoResultMap" class="baseActivityPhoto">
+		<result property="id" column="ID"/>
+		<result property="picUri" column="PIC_URI"/>
+		<result property="activityId" column="ACTIVITY_ID"/>
+		<result property="intro" column="INTRO"/>
+		<result property="postTime" column="POST_TIME"/>
+	</resultMap>
+	
+	<select id="selectActivityPhotoByActivityId" resultMap="ActivityPhotoResultMap" parameterClass="int">		
+		<![CDATA[
+        	SELECT *
+        	FROM activity_photo
+			WHERE activity_id = #value#
+    		ORDER BY post_time desc
+		]]>
+	</select>
+	
+	<insert id="insertActivityPhoto" parameterClass="baseActivityPhoto">		
+		<![CDATA[
+        	INSERT INTO activity_photo
+			(pic_uri,activity_id,intro,post_time)
+    		VALUES (#picUri#,#activityId#,#intro#,#postTime#)
+		]]>
+	</insert>
+	
+	<delete id="deleteActivityPhoto" parameterClass="int">
+		<![CDATA[
+			delete from activity_photo where id = #id#
+		]]>
+	</delete>
+	
+	<update id="updateActivityPhoto" parameterClass="baseActivityPhoto">
+		<![CDATA[
+			UPDATE activity_photo
+			SET pic_uri = #picUri#,
+			activity_id = #activityId#,
+			intro = #intro#,
+			post_time = #postTime#
+			WHERE id = #id#
+		]]>
+	</update>
+</sqlMap>
