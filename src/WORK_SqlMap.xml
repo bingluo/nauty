@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="WORK">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="work" type="cn.seu.cose.entity.Work" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="WorkResultMap" class="work">
+		<result property="id" column="ID"/>
+		<result property="workName" column="WORK_NAME"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="workPics" column="WORK_PICS"/>
+		<result property="activityId" column="ACTIVITY_ID"/>
+		<result property="intro" column="INTRO"/>
+		<result property="voteCount" column="VOTE_COUNT"/>
+		<result property="updateTime" column="UPDATE_TIME"/>
+	</resultMap>
+
+	<select id="selectWorkById" resultMap="WorkResultMap" parameterClass="int">
+		<![CDATA[
+    		SELECT * 
+    		FROM WORK
+    		WHERE id=#value#
+		]]>
+	</select>
+	
+	<select id="selectWorksByUserId" resultMap="WorkResultMap" parameterClass="int">
+		<![CDATA[
+    		SELECT * 
+    		FROM WORK
+    		WHERE userId=#value#
+		]]>
+	</select>
+	
+	<insert id="insertWork" parameterClass="work">
+		<![CDATA[
+    		INSERT INTO WORK
+    		(workName,userId,workPics,activityId,intro,voteCount,updateTime)
+    		VALUES (#workName#,#userId#,#workPics#,#activityId#,#intro#,#voteCount#,#updateTime#)
+    	]]>
+	</insert>
+
+	<update id="updateWork" parameterClass="work">
+		<![CDATA[
+		UPDATE WORK
+		SET	workName = #workName#,
+			workPics= #workPics#,
+			activityId = #activityId#,
+			intro = #intro#,
+			updateTime = #updateTime#
+		WHERE id = #id#
+		]]>
+	</update>
+	
+	<update id="updateVote" parameterClass="int">
+		<![CDATA[
+		UPDATE WORK
+		SET	voteCount = voteCount + 1
+		WHERE id = #value#
+		]]>
+	</update>
+	
+	<delete id="deleteWork" parameterClass="int">
+		<![CDATA[
+		DELETE FROM WORK WHERE id = #value#
+		]]>
+	</delete>
+	
+</sqlMap>

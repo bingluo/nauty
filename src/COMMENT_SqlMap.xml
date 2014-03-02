@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="COMMENT">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="comment" type="cn.seu.cose.entity.Comment" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="CommentResultMap" class="comment">
+		<result property="id" column="ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="content" column="CONTENT"/>
+		<result property="commentTime" column="COMMENT_TIME"/>
+		<result property="referenceId" column="REFERENCE_ID"/>
+		<result property="commentType" column="COMMENT_TYPE"/>
+	</resultMap>
+
+	<select id="selectCommentById" resultMap="CommentResultMap" parameterClass="int">
+		<![CDATA[
+    		SELECT * 
+    		FROM COMMENT
+    		WHERE id=#value#
+		]]>
+	</select>
+	
+	<insert id="insertComment" parameterClass="comment">
+		<![CDATA[
+    		INSERT INTO COMMENT
+    		(userId,content,commentTime, referenceId,commentType)
+    		VALUES (#userId#,#content#,#commentTime#,#referenceId#,#commentType#)
+    	]]>
+	</insert>
+
+	<update id="updateComment" parameterClass="comment">
+		<![CDATA[
+		UPDATE COMMENT
+		SET	content = #content#,
+			commentTime= #commentTime#
+		WHERE id = #id#
+		]]>
+	</update>
+	
+	<delete id="deleteComment" parameterClass="int">
+		<![CDATA[
+		DELETE FROM COMMENT WHERE id = #value#
+		]]>
+	</delete>
+	
+</sqlMap>
