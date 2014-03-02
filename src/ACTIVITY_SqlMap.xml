@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ACTIVITY">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="baseActivity" type="cn.seu.cose.entity.Activity" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="ActivityResultMap" class="baseActivity">
+		<result property="id" column="ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="intro" column="INTRO"/>
+		<result property="titlePic" column="TITLE_PIC"/>
+		<result property="appBeginTime" column="APP_BEGIN_TIME"/>
+		<result property="appEndTime" column="APP_END_TIME"/>
+		<result property="actBeginTime" column="ACT_BEGIN_TIME"/>
+		<result property="actEndTime" column="ACT_END_TIME"/>
+	</resultMap>
+	
+	<select id="selectRecentActivities" resultMap="ActivityResultMap">		
+		<![CDATA[
+    		SELECT * FROM(
+        		SELECT * 
+        		FROM activity
+    			ORDER BY act_begin_time desc) a
+    		limit 4 
+		]]>
+	</select>
+	
+	<select id="selectCurrentActivities" resultMap="ActivityResultMap">		
+		<![CDATA[
+    		SELECT * 
+    		FROM activity
+			WHERE current_timestamp() BETWEEN act_begin_time AND act_end_time
+			ORDER BY act_begin_time desc
+		]]>
+	</select>
+	
+	<select id="selectAllActivities" resultMap="ActivityResultMap">		
+		<![CDATA[
+    		SELECT * 
+    		FROM activity
+			ORDER BY act_begin_time desc
+		]]>
+	</select>
+		
+	<select id="selectActivityById" resultMap="ActivityResultMap" parameterClass="int">		
+		<![CDATA[
+    		SELECT * 
+    		FROM activity
+			WHERE id = #value#
+		]]>
+	</select>
+	
+	<update id="updateActivity" parameterClass="baseActivity">
+		<![CDATA[
+    		UPDATE DESIGNER
+    		SET	title = #TITLE#,
+    			intro = #INTRO#,
+    			titlePic = #TITLE_PIC#,
+    			appBeginTime = #APP_BEGIN_TIME#,
+    			appEndTime = #APP_END_TIME#,
+    			actBeginTime = #ACT_BEGIN_TIME#,
+    			actEndTime = #ACT_END_TIME#,
+    		WHERE id = #id#
+		]]>
+	</update>
+	
+	<delete id="deleteActivityById" parameterClass="int">
+		<![CDATA[
+		delete from Activity where ID = #value#
+		]]>
+	</delete>
+</sqlMap>

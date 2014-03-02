@@ -17,4 +17,62 @@
 		<result property="certificated" column="CERTIFICATED"/>
 	</resultMap>
 
+	<select id="selectAllDesigners" resultMap="DesignerResultMap">		
+		<![CDATA[
+    		SELECT * 
+    		FROM designer
+		]]>
+	</select>	
+	
+	<select id="selectAllCertificatedDesigners" resultMap="DesignerResultMap">		
+		<![CDATA[
+    		SELECT * 
+    		FROM designer
+			WHERE certificated = 1
+		]]>
+	</select>
+	
+	<select id="selectDesignerById" resultMap="DesignerResultMap" parameterClass="int">
+		<![CDATA[
+    		SELECT * 
+    		FROM designer
+    		WHERE id = #value#
+		]]>
+	</select>
+	
+	<select id="selectDesignerByUserNameAndPswd" resultMap="DesignerResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+    		SELECT * 
+    		FROM designer
+    		WHERE user_name = #userName# AND password = #password#
+		]]>
+	</select>
+	
+	<insert id="insertDesigner" parameterClass="baseDesigner">
+		<![CDATA[
+    		INSERT INTO DESIGNER
+    		(username,password,email,intro,avatar,register_time)
+    		VALUES (#username#,#password#,#email#,#intro#,#avatar#,current_timestamp())
+		]]>
+	</select>
+
+	<update id="certificateDesignerById" parameterClass="int">
+		<![CDATA[
+		UPDATE DESIGNER
+		SET	certificate_time = current_timestamp(),
+			certificated = 1
+		WHERE id = #value#
+		]]>
+	</update>
+
+	<update id="updateDesigner" parameterClass="baseDesigner">
+		<![CDATA[
+		UPDATE DESIGNER
+		SET	password = #password#,
+			email = #email#,
+			intro = #intro#,
+			avatar = #avatar#,
+		WHERE id = #id#
+		]]>
+	</update>
 </sqlMap>
