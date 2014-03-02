@@ -54,13 +54,13 @@
 	<update id="updateActivity" parameterClass="baseActivity">
 		<![CDATA[
     		UPDATE DESIGNER
-    		SET	title = #TITLE#,
-    			intro = #INTRO#,
-    			titlePic = #TITLE_PIC#,
-    			appBeginTime = #APP_BEGIN_TIME#,
-    			appEndTime = #APP_END_TIME#,
-    			actBeginTime = #ACT_BEGIN_TIME#,
-    			actEndTime = #ACT_END_TIME#,
+    		SET	title = #title#,
+    			intro = #intro#,
+    			title_pic = #titlePic#,
+    			app_begin_time = #appBeginTime#,
+    			app_end_time = #appEndTime#,
+    			act_begin_time = #actBeginTime#,
+    			act_end_time = #actEndTime#,
     		WHERE id = #id#
 		]]>
 	</update>

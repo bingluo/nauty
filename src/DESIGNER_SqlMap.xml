@@ -51,10 +51,10 @@
 	<insert id="insertDesigner" parameterClass="baseDesigner">
 		<![CDATA[
     		INSERT INTO DESIGNER
-    		(username,password,email,intro,avatar,register_time)
-    		VALUES (#username#,#password#,#email#,#intro#,#avatar#,current_timestamp())
+    		(user_name,password,email,intro,avatar,register_time)
+    		VALUES (#userName#,#password#,#email#,#intro#,#avatar#,current_timestamp())
 		]]>
-	</select>
+	</insert>
 
 	<update id="certificateDesignerById" parameterClass="int">
 		<![CDATA[
