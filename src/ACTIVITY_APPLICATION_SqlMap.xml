@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ACTIVITY_APPLICATION">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="baseActivityApplication" type="cn.seu.cose.entity.ActivityApplication" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="ActivityApplicationResultMap" class="baseActivityApplication">
+		<result property="id" column="ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="activityId" column="ACTIVITY_ID"/>
+		<result property="applyTime" column="APPLY_TIME"/>
+	</resultMap>
+	
+	<select id="selectActivityEnrollmentByActivityId" resultMap="ActivityApplicationResultMap" parameterClass="int">		
+		<![CDATA[
+        	SELECT * 
+        	FROM activity_application
+			WHERE activity_id = #value#
+    		ORDER BY apply_time asc
+		]]>
+	</select>
+	
+	<insert id="insertActivityApplication" parameterClass="java.util.Map">		
+		<![CDATA[
+        	INSERT INTO activity_application
+			(user_id,activity_id,apply_time)
+    		VALUES (#userId#,#activityId#,current_timestamp())
+		]]>
+	</insert>
+	
+	<delete id="deleteActivityById" parameterClass="java.util.Map">
+		<![CDATA[
+			delete from activity_application where user_id = #userId# and activity_id = #activityId#
+		]]>
+	</delete>
+</sqlMap>
