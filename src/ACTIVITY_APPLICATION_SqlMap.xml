@@ -29,7 +29,7 @@
 		]]>
 	</insert>
 	
-	<delete id="deleteActivityById" parameterClass="java.util.Map">
+	<delete id="deleteActivityApplication" parameterClass="java.util.Map">
 		<![CDATA[
 			delete from activity_application where user_id = #userId# and activity_id = #activityId#
 		]]>

@@ -6,11 +6,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import org.springframework.stereotype.Component;
 
 import cn.seu.cose.entity.ActivityApplication;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+@Component
 @SuppressWarnings("unchecked")
 public class ActivityApplicationDAOImpl extends SqlMapClientDaoSupport
 		implements ActivityApplicationDAO {
@@ -43,6 +45,6 @@ public class ActivityApplicationDAOImpl extends SqlMapClientDaoSupport
 		map.put("userId", userId);
 		map.put("activityId", activityId);
 		getSqlMapClientTemplate().delete(
-				"ACTIVITY_APPLICATION.deleteActivityById", map);
+				"ACTIVITY_APPLICATION.deleteActivityApplication", map);
 	}
 }
