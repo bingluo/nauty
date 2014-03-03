@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
 
-import cn.seu.cose.entity.ActivityNews;
 import cn.seu.cose.entity.ActivityPhoto;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -22,7 +21,7 @@ public class ActivityPhotoDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
-	public List<ActivityNews> getActivityPhotoByActivityId(int id) {
+	public List<ActivityPhoto> getActivityPhotoByActivityId(int id) {
 		return getSqlMapClientTemplate().queryForList(
 				"ACTIVITY_PHOTO.selectActivityPhotoByActivityId", id);
 	}
