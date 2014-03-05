@@ -25,18 +25,18 @@ public class ParameterService {
 		return parameterDAOImpl.getParameterByKey(key);
 	}
 
-	@CacheEvict(value = "parameterCache")
+	@CacheEvict(value = "parameterCache",allEntries = true)
 	public void updateParameterValue(Parameter parameter, String value) {
 		parameter.setParameterValue(value);
 		parameterDAOImpl.updateParameter(parameter);
 	}
 
-	@CacheEvict(value = "parameterCache")
+	@CacheEvict(value = "parameterCache",allEntries = true)
 	public void updateParameterValue(Parameter parameter) {
 		parameterDAOImpl.updateParameter(parameter);
 	}
 
-	@CacheEvict(value = "parameterCache")
+	@CacheEvict(value = "parameterCache",allEntries = true)
 	public void updateParameterValue(String key, String value) {
 		Parameter parameter = parameterDAOImpl.getParameterByKey(key);
 		if (parameter != null) {
@@ -45,7 +45,7 @@ public class ParameterService {
 		}
 	}
 	
-	@CacheEvict(value = "parameterCache")
+	@CacheEvict(value = "parameterCache",allEntries = true)
 	public void updateParameterExtra(String key, String extra) {
 		Parameter parameter = parameterDAOImpl.getParameterByKey(key);
 		if (parameter != null) {
