@@ -36,7 +36,7 @@
 		<![CDATA[
     		INSERT INTO WORK
     		(workName,userId,workPics,activityId,intro,voteCount,updateTime)
-    		VALUES (#workName#,#userId#,#workPics#,#activityId#,#intro#,#voteCount#,#updateTime#)
+    		VALUES (#workName#,#userId#,#workPics#,#activityId#,#intro#,#voteCount#,current_timestamp())
     	]]>
 	</insert>
 
@@ -47,7 +47,7 @@
 			workPics= #workPics#,
 			activityId = #activityId#,
 			intro = #intro#,
-			updateTime = #updateTime#
+			updateTime = current_timestamp()
 		WHERE id = #id#
 		]]>
 	</update>

@@ -61,7 +61,7 @@
 		<![CDATA[
 		INSERT INTO publication
 		(title,intro,images,post_time)
-		VALUES (#title#,#intro#,#images#,#postTime#)
+		VALUES (#title#,#intro#,#images#,current_timestamp())
 		]]>
 	</insert>
 	
@@ -71,7 +71,7 @@
 		SET title = #title#,
 			intro = #intro#,
 			images = #images#,
-			post_time = #postTime#
+			post_time = current_timestamp()
 		WHERE id = #id#
 		]]>
 	</update>

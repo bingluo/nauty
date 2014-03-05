@@ -40,7 +40,7 @@
 			brief = #brief#,
 			article_id = #articleId#,
 			pic_name = #picName#,
-			update_time = #updateTime#
+			update_time = current_timestamp()
 		WHERE id = #id#
 		]]>
 	</update>

@@ -34,7 +34,7 @@
 		<![CDATA[
     		INSERT INTO COMMENT
     		(userId,content,commentTime, referenceId,commentType)
-    		VALUES (#userId#,#content#,#commentTime#,#referenceId#,#commentType#)
+    		VALUES (#userId#,#content#,current_timestamp(),#referenceId#,#commentType#)
     	]]>
 	</insert>
 
@@ -42,7 +42,7 @@
 		<![CDATA[
 		UPDATE COMMENT
 		SET	content = #content#,
-			commentTime= #commentTime#
+			commentTime= current_timestamp()
 		WHERE id = #id#
 		]]>
 	</update>
