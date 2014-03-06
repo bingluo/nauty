@@ -1149,7 +1149,10 @@ ol.commentlist li:first-child {
 	padding: 25px 0 0px 0;
 }
 
-ol.commentlist li {list-style: none;}
+ol.commentlist li {
+	list-style: none;
+	width: 100%;
+}
 
 ol li ol.childlist{
 	float:right;
@@ -1224,8 +1227,8 @@ ol li ol.childlist .comment-des {
 
 .comment-by span.date {
 	color:#888;
-	padding-right: 7px; 
-	float: right;
+	padding-left: 25px; 
+	float: left;
 }
 
 .ie7 .comment-by .date {display: none;}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+
+<!-- Content
+================================================== -->
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+
+<!-- 960 Container -->
+<div class="container ie-dropdown-fix">
+
+	<!-- Header -->
+	#parse("common/header.vm")
+	<!-- Header / End -->
+	
+	<!-- Navigation -->
+	#parse("common/navi.vm")
+	<!-- Navigation / End -->
+	<div class="sixteen columns">
+	
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2>设计师 <span>/ $!{designer.userName}</span></h2>
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+
+	</div>
+</div>
+<!-- 960 Container / End -->
+
+<!-- Blog Posts
+================================================== -->
+<!-- 960 Container -->
+<div class="container">
+<!-- Widget
+================================================== -->
+    <div class="four columns">
+    	<div>
+        	<img src="#if($designer.avatar)$!{designer.avatar} #else /static/images/about-01.png #end" alt="">
+        	<div class="team-name tooltips"><h5>$!{designer.userName} #if($ownCenter==true)<a href="/designer/$!{designer.id}/admin/profile" rel="tooltip" data-original-title="修改个人资料 ">修改个人资料</a>#end</h5> <span>Email: $!{designer.email}</span></div>
+        	<div class="team-about"><p>$!{designer.intro}</p>
+    		</div>
+    	</div>
+    	<div class="clear"></div>
+    	<!-- Categories -->
+    	#if($ownCenter==true)
+    		<a href="/designer/$!{designer.id}/admin/new-work" class="button color medium">发布作品</a>
+    		<a href="/designer/$!{designer.id}/admin/new-blog" class="button color medium">发表博文</a>
+    	#else
+    		<a href="/designer/$!{designer.id}/works" class="button color medium">设计作品</a>
+    		<a href="/designer/$!{designer.id}/blogs" class="button color medium">个人博客</a>
+    	#end
+    </div>
+    <div class="twelve columns">
+    	<div class="headline no-margin"><h4>空间留言 <span class="comments-amount">($!{comments.size()})</span></h4></div>
+		<div class="comments-sec">
+    		<ol class="commentlist">
+				#foreach($comment in $comments)
+    			<li>
+    				<div class="comments">
+    					<div class="avatar">
+							<img src="#if($!{comment.designer})$!{comment.designer.avatar}#else http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=50#end" alt="" width="50" height="50" border="0">
+						</div>
+    					<div class="comment-des">
+        					<div class="comment-by">
+    							<strong>#if($!{comment.designer})$!{comment.designer.userName}#else 匿名#end</strong>
+    							<span class="date">$!{comment.commentTime}</span>
+    						</div>
+        					<p>$!{comment.comment.content}</p>
+    					</div>
+    				</div>
+    			</li>
+				#end
+    		</ol>
+		</div>
+	</div>
+</div>
+<!-- 960 Container / End -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+<script language="JavaScript">
+
+</script>
+</body>
+</html>
