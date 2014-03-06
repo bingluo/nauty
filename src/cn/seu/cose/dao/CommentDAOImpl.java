@@ -7,31 +7,34 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
-import com.ibatis.sqlmap.client.SqlMapClient;
+
 import cn.seu.cose.entity.Comment;
 
+import com.ibatis.sqlmap.client.SqlMapClient;
+
 @Component
-public class CommentDAOImpl extends SqlMapClientDaoSupport implements CommentDAO{
+public class CommentDAOImpl extends SqlMapClientDaoSupport implements
+		CommentDAO {
 
 	@Autowired(required = true)
 	public void setSqlMapClientTemp(SqlMapClient sqlMapClient) {
 		setSqlMapClient(sqlMapClient);
 	}
-	
+
 	@Override
 	public Comment getCommentViaId(int id) {
 		return (Comment) getSqlMapClientTemplate().queryForObject(
 				"COMMENT.selectCommentyById", id);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Comment> getCommentViaRefAndType(int refId, int type) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("referenceId", refId);
-		map.put("commentType", type);
+		map.put("type", type);
 		return (List<Comment>) getSqlMapClientTemplate().queryForList(
-				"COMMENT.selectCommentByRefAndType", map);
+				"COMMENT.selectCommentByRef", map);
 	}
 
 	@Override

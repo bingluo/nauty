@@ -100,7 +100,7 @@
 		<![CDATA[
 		INSERT INTO ARTICLE
 		(title,subhead,cat_Id,root_cat_id,content,`from`,post_time, pure_text)
-		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,#postTime#, #pureText#)
+		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,#from#,current_timestamp(), #pureText#)
 		]]>
 	</insert>
 
@@ -114,7 +114,7 @@
 			cat_id = #catId#,
 			root_cat_id = #rootCatId#,
 			`from` = #from#,
-			post_time = #postTime#
+			post_time = current_timestamp()
 		WHERE id = #id#
 		]]>
 	</update>
