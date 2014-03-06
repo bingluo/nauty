@@ -26,14 +26,15 @@
 		<![CDATA[
     		SELECT * 
     		FROM COMMENT
-    		WHERE referenceId=#referenceId# AND commentType=#commentType#
+    		WHERE reference_id=#referenceId# AND comment_type=#commentType#
+			ORDER BY comment_time DESC
 		]]>
 	</select>
 	
 	<insert id="insertComment" parameterClass="comment">
 		<![CDATA[
     		INSERT INTO COMMENT
-    		(userId,content,commentTime, referenceId,commentType)
+    		(user_id,content,comment_time, reference_id,comment_type)
     		VALUES (#userId#,#content#,current_timestamp(),#referenceId#,#commentType#)
     	]]>
 	</insert>
@@ -42,7 +43,7 @@
 		<![CDATA[
 		UPDATE COMMENT
 		SET	content = #content#,
-			commentTime= current_timestamp()
+			comment_time= current_timestamp()
 		WHERE id = #id#
 		]]>
 	</update>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cn.seu.cose.dao.DesignerDAO;
 import cn.seu.cose.entity.Designer;
+import cn.seu.cose.filter.SecurityContextHolder;
 
 @Service
 public class DesignerService {
@@ -42,4 +43,28 @@ public class DesignerService {
 		designerDAOImpl.updateDesigner(designer);
 	}
 
+	/**
+	 * return whether the current user sign in or not
+	 * 
+	 * @return
+	 */
+	public boolean ifSignIn() {
+		Designer designer = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		if (designer == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean isTheSignInOne(int designerId) {
+		Designer designer = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		if (designer == null || designer.getId() != designerId) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

@@ -10,7 +10,7 @@ public class Comment {
 	private Date commentTime;
 	// reference to the object
 	private int referenceId;
-	// 1:article 2:activity_news 3:activity_photo 4:work 5:designer
+	// 0:article 1:activity_news 2:activity_photo 3:work 4:designer
 	private int commentType;
 
 	public int getId() {

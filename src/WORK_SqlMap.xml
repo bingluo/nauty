@@ -28,14 +28,14 @@
 		<![CDATA[
     		SELECT * 
     		FROM WORK
-    		WHERE userId=#value#
+    		WHERE user_id=#value#
 		]]>
 	</select>
 	
 	<insert id="insertWork" parameterClass="work">
 		<![CDATA[
     		INSERT INTO WORK
-    		(workName,userId,workPics,activityId,intro,voteCount,updateTime)
+    		(work_name,user_id,work_pics,activity_id,intro,vote_count,update_time)
     		VALUES (#workName#,#userId#,#workPics#,#activityId#,#intro#,#voteCount#,current_timestamp())
     	]]>
 	</insert>
@@ -43,11 +43,11 @@
 	<update id="updateWork" parameterClass="work">
 		<![CDATA[
 		UPDATE WORK
-		SET	workName = #workName#,
-			workPics= #workPics#,
-			activityId = #activityId#,
+		SET	work_name = #workName#,
+			work_pics= #workPics#,
+			activity_id = #activityId#,
 			intro = #intro#,
-			updateTime = current_timestamp()
+			update_time = current_timestamp()
 		WHERE id = #id#
 		]]>
 	</update>
@@ -55,7 +55,7 @@
 	<update id="updateVote" parameterClass="int">
 		<![CDATA[
 		UPDATE WORK
-		SET	voteCount = voteCount + 1
+		SET	vote_count = vote_count + 1
 		WHERE id = #value#
 		]]>
 	</update>
