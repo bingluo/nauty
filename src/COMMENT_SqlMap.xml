@@ -22,11 +22,11 @@
 		]]>
 	</select>
 	
-	<select id="selectCommentByRefAndType" resultMap="CommentResultMap" parameterClass="java.util.Map">
+	<select id="selectCommentByRef" resultMap="CommentResultMap" parameterClass="java.util.Map">
 		<![CDATA[
     		SELECT * 
     		FROM COMMENT
-    		WHERE referenceId=#referenceId# AND commentType=#commentType#
+    		WHERE referenceId=#value#
 		]]>
 	</select>
 	

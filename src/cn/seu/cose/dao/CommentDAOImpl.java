@@ -26,12 +26,11 @@ public class CommentDAOImpl extends SqlMapClientDaoSupport implements CommentDAO
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Comment> getCommentViaRefAndType(int refId, int type) {
+	public List<Comment> getCommentViaRef(int refId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("referenceId", refId);
-		map.put("commentType", type);
 		return (List<Comment>) getSqlMapClientTemplate().queryForList(
-				"COMMENT.selectCommentByRefAndType", map);
+				"COMMENT.selectCommentByRef", map);
 	}
 
 	@Override

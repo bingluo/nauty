@@ -7,7 +7,7 @@ import cn.seu.cose.entity.Comment;
 public interface CommentDAO {
 
 	Comment getCommentViaId(int id);
-	List<Comment> getCommentViaRefAndType(int refId, int type);
+	List<Comment> getCommentViaRef(int refId);
 	
 	void insertComment(Comment comment);
 	

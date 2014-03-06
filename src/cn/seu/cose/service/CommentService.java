@@ -18,8 +18,8 @@ public class CommentService {
 		return commentDAOImpl.getCommentViaId(id);
 	}
 	
-	public List<Comment> getCommentsByRefAndType(int refId, int type) {
-		return commentDAOImpl.getCommentViaRefAndType(refId, type);
+	public List<Comment> getCommentsByRef(int refId) {
+		return commentDAOImpl.getCommentViaRef(refId);
 	}
 	
 	public void insertComment(Comment comment) {
