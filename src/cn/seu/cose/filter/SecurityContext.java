@@ -5,12 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cn.seu.cose.entity.Admin;
+import cn.seu.cose.entity.Designer;
 
 public class SecurityContext {
 	private HttpServletRequest httpRequest;
 	private HttpSession httpSession;
 	private HttpServletResponse httpResponse;
 	private Admin admin;
+	private Designer designer;
 
 	/**
 	 * @return the httpRequest
@@ -73,5 +75,16 @@ public class SecurityContext {
 			httpSession.setAttribute("adminId", admin.getId());
 		}
 		this.admin = admin;
+	}
+
+	public Designer getDesigner() {
+		return designer;
+	}
+
+	public void setDesigner(Designer designer) {
+		if (httpSession != null && designer != null) {
+			httpSession.setAttribute("designerId", designer.getId());
+		}
+		this.designer = designer;
 	}
 }
