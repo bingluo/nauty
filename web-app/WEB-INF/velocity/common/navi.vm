@@ -13,7 +13,8 @@
     				</ul>
 				#end
 			</li>
-			#end			
+			#end
+			<li><a href="$!{viewUtil.getContextPath()}/contact.html">联系我们</a></li>		
 		</ul>
 	</div> 
 	<div class="clear"></div>

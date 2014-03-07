@@ -9,16 +9,25 @@
 		</div>
 		<!-- Social / Contact -->
 		<div class="six columns">
-			<!-- Social Icons -->
 			<div class="tooltips">
-    			<ul class="social-icons">
+				<div class="tags" style="text-align:right;font-size:14px;font-weight:bold;">
+				#if($!{curUser})
+					$!{curUser.userName},您好 
+					<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}">我的空间</a>
+				#else
+					<a href="$!{viewUtil.getContextPath()}/signIn">登录</a>
+					<a href="$!{viewUtil.getContextPath()}/register">注册</a>
+				#end
+				</div>
+				<!-- Social Icons -->
+    			<ul class="social-icons" style="margin-top:50px;">
 					#foreach($social in $socials)
     				<li class="$!{social.parameterKey}"><a href="$!{social.parameterValue}">$!{social.parameterName}</a></li>
 					#end
     			</ul>
     			<div class="clear"></div>
     			<!-- Contact Details -->
-    			<div id="contact-details" style="margin-top:100px">
+    			<div id="contact-details" style="margin-top:15px">
     				<ul>
     					<li><i class="mini-ico-envelope"></i><a href="$!{viewUtil.getContextPath()}/contact.html" rel="tooltip" data-original-title="给我们留言">${email}</a></li>
     					<li><i class="mini-ico-user"></i>${phone}</li>

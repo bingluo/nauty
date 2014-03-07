@@ -134,7 +134,7 @@
 	text-decoration: none;
 	font-size: 12px;
 	font-weight: bold;
-	padding: 17px 25px;
+	padding: 13px 21px;
 	background: url(../images/navigation-divider.png) no-repeat right 50%;
 }
 
@@ -151,7 +151,7 @@
 #navigation ul ul {
 	position: absolute;
 	display: none;
-	top: 51px;
+	top: 44px;
 	left: 0;
 	background: #303030;
 	z-index: 999;
