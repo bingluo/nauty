@@ -34,7 +34,7 @@ public class CommentDAOImpl extends SqlMapClientDaoSupport implements
 		map.put("referenceId", refId);
 		map.put("type", type);
 		return (List<Comment>) getSqlMapClientTemplate().queryForList(
-				"COMMENT.selectCommentByRef", map);
+				"COMMENT.selectCommentByRefAndType", map);
 	}
 
 	@Override
