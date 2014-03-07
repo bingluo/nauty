@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+
+<!-- Content
+================================================== -->
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+
+<!-- 960 Container -->
+<div class="container ie-dropdown-fix">
+
+	<!-- Header -->
+	#parse("common/header.vm")
+	<!-- Header / End -->
+	
+	<!-- Navigation -->
+	#parse("common/navi.vm")
+	<!-- Navigation / End -->
+	<div class="sixteen columns">
+	
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2>设计师 <span>/ <a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}" style="color:#aaa">$!{designer.userName}</a></span></h2>
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+
+	</div>
+</div>
+<!-- 960 Container / End -->
+
+<!-- Blog Posts
+================================================== -->
+<!-- 960 Container -->
+<div class="container">
+<!-- Widget
+================================================== -->
+	#parse("designer/profile-left-bar.vm")
+	<div class="twelve columns tooltips">
+		<div class="headline no-margin"><h4>设计作品 <span class="comments-amount">($!{works.size()})</span></h4></div>
+	</div>
+	#foreach($work in $works)
+	<div class="four columns">
+    	<div class="picture">
+    		<a href="/designer/$!{designer.id}/works/$!{work.id}.html">
+    			<img src="/static/works/$!{work.workPics.get(0)}" alt="$!{work.workName}" style="height:139px">
+    			<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
+    		</a>
+    	</div>
+    	<div class="item-description">
+    		<h5><a href="/designer/$!{designer.id}/works/$!{work.id}.html">$!{work.workName}</a></h5>
+    	</div>
+    </div>
+	#end
+	</div>
+</div>
+<!-- 960 Container / End -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+<script language="JavaScript">
+
+</script>
+</body>
+</html>

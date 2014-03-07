@@ -1,6 +1,9 @@
 package cn.seu.cose.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.seu.cose.command.MessageCommand;
+import cn.seu.cose.entity.Comment;
 import cn.seu.cose.entity.CommentPojo;
 import cn.seu.cose.entity.Designer;
-import cn.seu.cose.entity.Work;
+import cn.seu.cose.entity.WorkPojo;
+import cn.seu.cose.filter.SecurityContextHolder;
 import cn.seu.cose.service.CommentService;
 import cn.seu.cose.service.DesignerService;
 import cn.seu.cose.service.WorkService;
@@ -47,7 +53,7 @@ public class DesignerCenterController extends AbstractController {
 		setIfOwnCenter(model, designerId);
 
 		Designer designer = designerService.getDesignerById(designerId);
-		List<Work> works = workService.getWorkByUser(designerId);
+		List<WorkPojo> works = workService.getWorkByUser(designerId);
 		List<CommentPojo> comments = commentService.getCommentsByRefAndType(
 				designerId, CommentType.DESIGNER.ordinal());
 
@@ -70,7 +76,7 @@ public class DesignerCenterController extends AbstractController {
 		setIfOwnCenter(model, designerId);
 
 		Designer designer = designerService.getDesignerById(designerId);
-		List<Work> works = workService.getWorkByUser(designerId);
+		List<WorkPojo> works = workService.getWorkByUser(designerId);
 
 		model.addAttribute("designer", designer);
 		model.addAttribute("works", works);
@@ -83,14 +89,14 @@ public class DesignerCenterController extends AbstractController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/designer/{designerId}/works/{workId}")
+	@RequestMapping("/designer/{designerId}/works/{workId}.html")
 	public String viewWork(Model model,
 			@PathVariable("designerId") int designerId,
 			@PathVariable("workId") int workId) {
 		basicIssue(model);
 		setIfOwnCenter(model, designerId);
 		Designer designer = designerService.getDesignerById(designerId);
-		Work work = workService.getWorkViaId(workId);
+		WorkPojo work = workService.getWorkViaId(workId);
 		List<CommentPojo> comments = commentService.getCommentsByRefAndType(
 				workId, CommentType.WORK.ordinal());
 
@@ -99,6 +105,31 @@ public class DesignerCenterController extends AbstractController {
 		model.addAttribute("comments", comments);
 
 		return "designer/viewWork";
+	}
+
+	/**
+	 * leave a message
+	 */
+	@RequestMapping("/designer/{designerId}/message")
+	public void leaveMessage(Model model, MessageCommand command,
+			HttpServletResponse response,
+			@PathVariable("designerId") int designerId) {
+		Designer designer = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		designer = designerService.getDesignerById(1);
+		if (designer != null) {
+			Comment comment = new Comment();
+			comment.setUserId(designer.getId());
+			comment.setContent(command.getMessage());
+			comment.setReferenceId(designerId);
+			comment.setCommentType(CommentType.DESIGNER.ordinal());
+			commentService.insertComment(comment);
+		}
+		try {
+			response.sendRedirect("/designer/" + designerId);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
