@@ -40,6 +40,14 @@
 		]]>
 	</select>
 	
+	<select id="selectDesignerByName" resultMap="DesignerResultMap" parameterClass="java.lang.String">
+		<![CDATA[
+    		SELECT * 
+    		FROM designer
+    		WHERE user_name = #value#
+		]]>
+	</select>
+	
 	<select id="selectDesignerByUserNameAndPswd" resultMap="DesignerResultMap" parameterClass="java.util.Map">
 		<![CDATA[
     		SELECT * 

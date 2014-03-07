@@ -10,18 +10,18 @@ import cn.seu.cose.core.CategoryCache;
 import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.entity.Parameter;
 import cn.seu.cose.entity.PublicationPojo;
-import cn.seu.cose.service.CategoryService;
+import cn.seu.cose.service.DesignerService;
 import cn.seu.cose.service.ParameterService;
 import cn.seu.cose.service.PublicationService;
 import cn.seu.cose.util.Constant;
 
 public class AbstractController {
 	@Autowired
-	private CategoryService categoryService;
-	@Autowired
 	private ParameterService parameterService;
 	@Autowired
 	private PublicationService publicationService;
+	@Autowired
+	private DesignerService designerService;
 
 	protected void basicIssue(Model model) {
 		List<CategoryPojo> cats = CategoryCache.getRootsWithChildren();
@@ -51,5 +51,9 @@ public class AbstractController {
 		model.addAttribute("cats", cats);
 		model.addAttribute("contactIntro", contactIntro);
 		model.addAttribute("recentPublications", recentPublications);
+
+		if (designerService.isSignIn()) {
+			model.addAttribute("curUser", designerService.getCurrentUser());
+		}
 	}
 }

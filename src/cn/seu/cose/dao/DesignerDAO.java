@@ -18,4 +18,6 @@ public interface DesignerDAO {
 	void certificateDesignerById(int id);
 
 	void updateDesigner(Designer designer);
+
+	Designer getDesignerByName(String name);
 }

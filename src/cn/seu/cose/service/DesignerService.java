@@ -27,6 +27,10 @@ public class DesignerService {
 		return designerDAOImpl.getDesignerById(id);
 	}
 
+	public Designer getDesignerByName(String name) {
+		return designerDAOImpl.getDesignerByName(name);
+	}
+
 	public Designer getDesignerByUsernameAndPswd(String username, String pwd) {
 		return designerDAOImpl.getDesignerByUsernameAndPswd(username, pwd);
 	}
@@ -44,11 +48,21 @@ public class DesignerService {
 	}
 
 	/**
+	 * designer sign in
+	 */
+	public Designer signIn(String name, String pswd) {
+		Designer designer = designerDAOImpl.getDesignerByUsernameAndPswd(name,
+				pswd);
+		SecurityContextHolder.getSecurityContext().setDesigner(designer);
+		return designer;
+	}
+
+	/**
 	 * return whether the current user sign in or not
 	 * 
 	 * @return
 	 */
-	public boolean ifSignIn() {
+	public boolean isSignIn() {
 		Designer designer = SecurityContextHolder.getSecurityContext()
 				.getDesigner();
 		if (designer == null) {
@@ -66,5 +80,14 @@ public class DesignerService {
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * get the current designer who has signed in
+	 */
+	public Designer getCurrentUser() {
+		Designer designer = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		return designer;
 	}
 }

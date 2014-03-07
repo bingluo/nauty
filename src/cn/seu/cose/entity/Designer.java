@@ -7,7 +7,7 @@ public class Designer {
 	private String userName;
 	private String password;
 	private String email;
-	private String intro;
+	private String intro = "无";
 	private String avatar;
 	private Date registerTime;
 	private Date certificateTime;

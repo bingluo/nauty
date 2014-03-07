@@ -64,4 +64,10 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 	public void updateDesigner(Designer designer) {
 		getSqlMapClientTemplate().update("DESIGNER.updateDesigner", designer);
 	}
+
+	@Override
+	public Designer getDesignerByName(String name) {
+		return (Designer) getSqlMapClientTemplate().queryForObject(
+				"DESIGNER.selectDesignerByName", name);
+	}
 }

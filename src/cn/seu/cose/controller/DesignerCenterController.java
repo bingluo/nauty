@@ -1,6 +1,7 @@
 package cn.seu.cose.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.command.MessageCommand;
 import cn.seu.cose.entity.Comment;
@@ -32,25 +35,10 @@ public class DesignerCenterController extends AbstractController {
 	@Autowired
 	CommentService commentService;
 
-	/**
-	 * common method
-	 * 
-	 * @param model
-	 * @param designerId
-	 */
-	private void setIfOwnCenter(Model model, int designerId) {
-		if (designerService.isTheSignInOne(designerId)) {
-			model.addAttribute("ownCenter", true);
-		} else {
-			model.addAttribute("ownCenter", false);
-		}
-	}
-
 	@RequestMapping("/designer/{designerId}")
 	public String designerCenterIndex(Model model,
 			@PathVariable("designerId") int designerId) {
 		basicIssue(model);
-		setIfOwnCenter(model, designerId);
 
 		Designer designer = designerService.getDesignerById(designerId);
 		List<WorkPojo> works = workService.getWorkByUser(designerId);
@@ -73,7 +61,6 @@ public class DesignerCenterController extends AbstractController {
 	public String designerCenterWorks(Model model,
 			@PathVariable("designerId") int designerId) {
 		basicIssue(model);
-		setIfOwnCenter(model, designerId);
 
 		Designer designer = designerService.getDesignerById(designerId);
 		List<WorkPojo> works = workService.getWorkByUser(designerId);
@@ -94,7 +81,7 @@ public class DesignerCenterController extends AbstractController {
 			@PathVariable("designerId") int designerId,
 			@PathVariable("workId") int workId) {
 		basicIssue(model);
-		setIfOwnCenter(model, designerId);
+
 		Designer designer = designerService.getDesignerById(designerId);
 		WorkPojo work = workService.getWorkViaId(workId);
 		List<CommentPojo> comments = commentService.getCommentsByRefAndType(
@@ -105,6 +92,50 @@ public class DesignerCenterController extends AbstractController {
 		model.addAttribute("comments", comments);
 
 		return "designer/viewWork";
+	}
+
+	/**
+	 * register page
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String registerPage(Model model, HttpServletResponse response)
+			throws IOException {
+		if (designerService.isSignIn()) {
+			response.sendRedirect("/");
+			return "index";
+		} else {
+			basicIssue(model);
+			return "register";
+		}
+	}
+
+	/**
+	 * register submit
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public void registerPage(Model model, HttpServletResponse response,
+			@RequestParam("name") String name,
+			@RequestParam("pswd") String pswd,
+			@RequestParam("email") String email) throws IOException {
+		PrintWriter out = response.getWriter();
+		if (designerService.isSignIn()) {
+			out.write("0");
+		} else if (designerService.getDesignerByName(name) != null) {
+			out.write("2");
+		} else {
+			Designer designer = new Designer();
+			designer.setUserName(name);
+			designer.setPassword(pswd);
+			designer.setEmail(email);
+			designerService.insertDesigner(designer);
+			designer = designerService.getDesignerByName(name);
+			designerService.signIn(name, pswd);
+			out.write("1");
+		}
 	}
 
 	/**

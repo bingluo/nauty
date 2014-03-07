@@ -13,7 +13,8 @@
 				<div class="tags" style="text-align:right;font-size:14px;font-weight:bold;">
 				#if($!{curUser})
 					$!{curUser.userName},您好 
-					<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}">我的空间</a>
+					<a href="$!{viewUtil.getContextPath()}/designer/$!{curUser.id}">我的空间</a>
+					<a href="$!{viewUtil.getContextPath()}/log-off">退出</a>
 				#else
 					<a href="$!{viewUtil.getContextPath()}/signIn">登录</a>
 					<a href="$!{viewUtil.getContextPath()}/register">注册</a>
