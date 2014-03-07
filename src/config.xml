@@ -21,8 +21,8 @@
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
     	<property name="url" value="jdbc:mysql://localhost:3306/nauty?useUnicode=true&amp;characterEncoding=UTF-8"/>
-    	<property name="username" value="bingluo" />
-    	<property name="password" value="bingluo" />
+    	<property name="username" value="root" />
+    	<property name="password" value="root" />
 	</bean>
 
  	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
@@ -31,6 +31,7 @@
  	</bean>
 
 	<bean id="adminService" class="cn.seu.cose.service.AdminService" />
+	<bean id="designerService" class="cn.seu.cose.service.DesignerService" />
 	<bean id="categoryService" class="cn.seu.cose.service.CategoryService" />
 	
 		
