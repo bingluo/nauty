@@ -16,7 +16,7 @@
 					<a href="$!{viewUtil.getContextPath()}/designer/$!{curUser.id}">我的空间</a>
 					<a href="$!{viewUtil.getContextPath()}/log-off">退出</a>
 				#else
-					<a href="$!{viewUtil.getContextPath()}/signIn">登录</a>
+					<a href="$!{viewUtil.getContextPath()}/sign-in">登录</a>
 					<a href="$!{viewUtil.getContextPath()}/register">注册</a>
 				#end
 				</div>
