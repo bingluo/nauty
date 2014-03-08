@@ -325,6 +325,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 	// Validating
 	function validateName(name) {
 		if (name.val()=='') {name.addClass('validation-error'); return false;}
+		else if (name.val().indexOf(' ')>=0){name.addClass('validation-error'); return false;}
 		else {name.removeClass('validation-error'); return true;}
 	}
 
