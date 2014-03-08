@@ -92,7 +92,7 @@
 				#end
 				<div class="success-message">
 					<div class="notification success closeable four column" id="notification_1" style="display: block;">
-						<p><span>成功!</span> 我们已经收到您的留言，将尽快给您回复.</p>
+						<p><span>评论成功!</span> 请刷新页面查看评论。</p>
 						<a class="close" href="#"></a>
 					</div>
 				</div>
@@ -117,7 +117,8 @@
 				$("#messageText").css('border','1px solid #d8d8d8');
 				$("#messageText").css('background','#ffffff');
 				$.ajax({
-					url: "/designer/$!{designer.id}/message",
+					type: 'POST',
+					url: "/designer/$!{designer.id}/works/$!{work.id}/comment",
 					data: {
 						message: $message
 					},

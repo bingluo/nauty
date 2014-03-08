@@ -24,6 +24,7 @@ import cn.seu.cose.service.CommentService;
 import cn.seu.cose.service.DesignerService;
 import cn.seu.cose.service.WorkService;
 import cn.seu.cose.util.Constant.CommentType;
+import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
 public class DesignerCenterController extends AbstractController {
@@ -94,6 +95,18 @@ public class DesignerCenterController extends AbstractController {
 		return "designer/viewWork";
 	}
 
+	@RequestMapping(value = "/sign-in", method = RequestMethod.GET)
+	public String signInPage(Model model, HttpServletResponse response)
+			throws IOException {
+		if (designerService.isSignIn()) {
+			response.sendRedirect("/");
+			return "index";
+		} else {
+			basicIssue(model);
+			return "signIn";
+		}
+	}
+
 	/**
 	 * register page
 	 * 
@@ -139,15 +152,14 @@ public class DesignerCenterController extends AbstractController {
 	}
 
 	/**
-	 * leave a message
+	 * leave a message to designer
 	 */
-	@RequestMapping("/designer/{designerId}/message")
+	@RequestMapping(value = "/designer/{designerId}/message", method = RequestMethod.POST)
 	public void leaveMessage(Model model, MessageCommand command,
 			HttpServletResponse response,
 			@PathVariable("designerId") int designerId) {
 		Designer designer = SecurityContextHolder.getSecurityContext()
 				.getDesigner();
-		designer = designerService.getDesignerById(1);
 		if (designer != null) {
 			Comment comment = new Comment();
 			comment.setUserId(designer.getId());
@@ -157,7 +169,60 @@ public class DesignerCenterController extends AbstractController {
 			commentService.insertComment(comment);
 		}
 		try {
-			response.sendRedirect("/designer/" + designerId);
+			response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+					+ designerId);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * comment to work in designer center
+	 */
+	@RequestMapping(value = "/designer/{designerId}/works/{workId}/comment", method = RequestMethod.POST)
+	public void commentWorkInDesignerCenter(Model model,
+			MessageCommand command, HttpServletResponse response,
+			@PathVariable("designerId") int designerId,
+			@PathVariable("workId") int workId) {
+		Designer designer = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		if (designer != null) {
+			Comment comment = new Comment();
+			comment.setUserId(designer.getId());
+			comment.setContent(command.getMessage());
+			comment.setReferenceId(workId);
+			comment.setCommentType(CommentType.WORK.ordinal());
+			commentService.insertComment(comment);
+		}
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+					+ designerId + "/works/" + workId + ".html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * comment to work in activity
+	 */
+	@RequestMapping(value = "/activity/{activityId}/works/{workId}/comment", method = RequestMethod.POST)
+	public void commentWorkInActivity(Model model, MessageCommand command,
+			HttpServletResponse response,
+			@PathVariable("activityId") int activityId,
+			@PathVariable("workId") int workId) {
+		Designer designer = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		if (designer != null) {
+			Comment comment = new Comment();
+			comment.setUserId(designer.getId());
+			comment.setContent(command.getMessage());
+			comment.setReferenceId(workId);
+			comment.setCommentType(CommentType.WORK.ordinal());
+			commentService.insertComment(comment);
+		}
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/activity/"
+					+ activityId + "/works/" + workId + ".html");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

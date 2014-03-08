@@ -13,6 +13,7 @@ import cn.seu.cose.entity.Activity;
 import cn.seu.cose.entity.Designer;
 import cn.seu.cose.entity.Work;
 import cn.seu.cose.entity.WorkPojo;
+import cn.seu.cose.view.util.ViewUtil;
 
 @Service
 public class WorkService {
@@ -69,5 +70,20 @@ public class WorkService {
 
 	public void updateWork(int id) {
 		workDAOImpl.updateVote(id);
+	}
+
+	public String workUrl(int id) {
+		StringBuilder url = new StringBuilder();
+		Work work = workDAOImpl.getWorkById(id);
+		if (work.getUserId() == -1) {
+			url.append(ViewUtil.getContextPath()).append("/activity/")
+					.append(work.getActivityId()).append("/work/")
+					.append(work.getId());
+		} else {
+			url.append(ViewUtil.getContextPath()).append("/designer/")
+					.append(work.getUserId()).append("/work/")
+					.append(work.getId());
+		}
+		return url.toString();
 	}
 }

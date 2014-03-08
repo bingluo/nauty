@@ -1,5 +1,5 @@
     <!-- avatar, profile -->
-	<div class="four columns">
+	<div class="four columns" style="min-height:600px;">
     	<div>
         	<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}"><img src="$!{viewUtil.getContextPath()}/static/avatar/#if($designer.avatar)$!{designer.avatar}#else default.png#end" alt="" style="width:220px;height:240px;"></a>
         	<div class="team-name tooltips"><h5><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}" style="color:#333">$!{designer.userName}</a> #if($ownCenter==true)<a href="/designer/$!{designer.id}/admin/profile" rel="tooltip" data-original-title="修改个人资料 ">修改个人资料</a>#end</h5> <span>Email: $!{designer.email}</span></div>
