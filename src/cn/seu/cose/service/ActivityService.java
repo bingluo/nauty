@@ -46,6 +46,10 @@ public class ActivityService {
 		return activityDAOImpl.searchActivityByTitle(title);
 	}
 	
+	public void addActivity(Activity activity) {
+		activityDAOImpl.addActivity(activity);
+	}
+	
 	public void updateActivity(Activity activity) {
 		activityDAOImpl.updateActivity(activity);
 	}

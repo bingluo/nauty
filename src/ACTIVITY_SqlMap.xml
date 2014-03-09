@@ -59,9 +59,18 @@
 		]]>
 	</select>
 	
+	<insert id="insertActivity" parameterClass="baseActivity">
+		<![CDATA[
+    		INSERT INTO activity
+    			(title, intro, title_pic, app_begin_time, app_end_time, act_begin_time, act_end_time) 
+    		VALUES
+    			(#title#,#intro#,#titlePic#,#appBeginTime#,#appEndTime#,#actBeginTime#,#actEndTime#)
+		]]>
+	</insert>
+	
 	<update id="updateActivity" parameterClass="baseActivity">
 		<![CDATA[
-    		UPDATE DESIGNER
+    		UPDATE activity
     		SET	title = #title#,
     			intro = #intro#,
     			title_pic = #titlePic#,

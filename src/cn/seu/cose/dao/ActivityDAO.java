@@ -15,6 +15,8 @@ public interface ActivityDAO {
 	
 	Activity getActivityById(int id);
 
+	void addActivity(Activity activity);
+	
 	void updateActivity(Activity activity);
 
 	void deleteActivityById(int id);
