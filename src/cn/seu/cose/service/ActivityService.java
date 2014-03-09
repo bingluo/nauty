@@ -73,6 +73,9 @@ public class ActivityService {
 		return activityNewsDAOImpl.getActivityNewsByActivityId(id);
 	}
 
+	public ActivityNews getActivityNewsById(int id) {
+		return activityNewsDAOImpl.getActivityNewsById(id);
+	}
 	public void addActivityNews(ActivityNews activityNews) {
 		activityNewsDAOImpl.insertActivityNews(activityNews);
 	}

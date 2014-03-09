@@ -6,7 +6,9 @@ import cn.seu.cose.entity.ActivityNews;
 
 public interface ActivityNewsDAO {
 	List<ActivityNews> getActivityNewsByActivityId(int id);
-
+	
+	ActivityNews getActivityNewsById(int id);
+	
 	void insertActivityNews(ActivityNews activityNews);
 
 	void deleteActivityNews(int id);

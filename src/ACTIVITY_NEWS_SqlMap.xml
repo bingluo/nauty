@@ -23,6 +23,15 @@
 		]]>
 	</select>
 	
+	<select id="selectActivityNewsById" resultMap="ActivityNewsResultMap" parameterClass="int">		
+		<![CDATA[
+        	SELECT *
+        	FROM activity_news
+			WHERE id = #value#
+    		ORDER BY update_time desc
+		]]>
+	</select>
+	
 	<insert id="insertActivityNews" parameterClass="baseActivityNews">		
 		<![CDATA[
         	INSERT INTO activity_news
