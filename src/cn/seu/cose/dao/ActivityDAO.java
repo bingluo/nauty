@@ -10,7 +10,9 @@ public interface ActivityDAO {
 	List<Activity> getCurrentActivities();
 
 	List<Activity> getAllActivities();
-
+	
+	List<Activity> searchActivityByTitle(String title);
+	
 	Activity getActivityById(int id);
 
 	void updateActivity(Activity activity);

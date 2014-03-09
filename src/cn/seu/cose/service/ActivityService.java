@@ -36,7 +36,16 @@ public class ActivityService {
 	public Activity getActivityById(int id) {
 		return activityDAOImpl.getActivityById(id);
 	}
-
+	
+	public List<Activity> getAllActivities() {
+		return activityDAOImpl.getAllActivities();
+		
+	}
+	
+	public List<Activity> searchActivityByTitle(String title) {
+		return activityDAOImpl.searchActivityByTitle(title);
+	}
+	
 	public void updateActivity(Activity activity) {
 		activityDAOImpl.updateActivity(activity);
 	}

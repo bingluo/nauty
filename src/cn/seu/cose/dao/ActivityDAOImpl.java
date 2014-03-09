@@ -45,6 +45,12 @@ public class ActivityDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
+	public List<Activity> searchActivityByTitle(String title) {
+		return (List<Activity>) getSqlMapClientTemplate().queryForList(
+				"ACTIVITY.searchActivityByTitle", title);
+	}
+	
+	@Override
 	public void updateActivity(Activity activity) {
 		getSqlMapClientTemplate().update("ACTIVITY.updateActivity", activity);
 	}

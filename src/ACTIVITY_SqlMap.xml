@@ -51,6 +51,14 @@
 		]]>
 	</select>
 	
+	<select id="searchActivityByTitle" resultMap="ActivityResultMap" parameterClass="string">		
+		<![CDATA[
+    		SELECT * 
+    		FROM activity
+			WHERE title LIKE concat('%', #value#, '%'))
+		]]>
+	</select>
+	
 	<update id="updateActivity" parameterClass="baseActivity">
 		<![CDATA[
     		UPDATE DESIGNER
