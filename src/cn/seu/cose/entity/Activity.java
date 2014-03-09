@@ -1,6 +1,6 @@
 package cn.seu.cose.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Activity {
 	private int id;
