@@ -10,7 +10,7 @@ public class ActivityNews {
 	private Date updateTime;
 	// admin id
 	// maybe user also post. todo
-	private int postUserId;
+	private String postUser;
 
 	public int getId() {
 		return id;
@@ -52,11 +52,11 @@ public class ActivityNews {
 		this.updateTime = updateTime;
 	}
 
-	public int getPostUserId() {
-		return postUserId;
+	public String getPostUser() {
+		return postUser;
 	}
 
-	public void setPostUserId(int postUserId) {
-		this.postUserId = postUserId;
+	public void setPostUser(String postUser) {
+		this.postUser = postUser;
 	}
 }

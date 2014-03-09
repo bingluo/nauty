@@ -11,7 +11,7 @@
 		<result property="content" column="CONTENT"/>
 		<result property="activityId" column="ACTIVITY_ID"/>
 		<result property="updateTime" column="UPDATE_TIME"/>
-		<result property="postUserId" column="POST_USER_ID"/>
+		<result property="postUser" column="POST_USER"/>
 	</resultMap>
 	
 	<select id="selectActivityNewsByActivityId" resultMap="ActivityNewsResultMap" parameterClass="int">		
@@ -26,8 +26,8 @@
 	<insert id="insertActivityNews" parameterClass="baseActivityNews">		
 		<![CDATA[
         	INSERT INTO activity_news
-			(title,content,activity_id,update_time,post_user_id)
-    		VALUES (#title#,#content#,#activityId#,current_timestamp(),#postUserId#)
+			(title,content,activity_id,update_time,post_user)
+    		VALUES (#title#,#content#,#activityId#,current_timestamp(),#postUser#)
 		]]>
 	</insert>
 	
@@ -44,7 +44,7 @@
 			content = #content#,
 			activity_id = #activityId#,
 			update_time = current_timestamp(),
-			post_user_id = #postUserId#
+			post_user = #postUser#
 			WHERE id = #id#
 		]]>
 	</update>
