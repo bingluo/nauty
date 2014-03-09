@@ -55,7 +55,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM activity
-			WHERE title LIKE concat('%', #value#, '%'))
+			WHERE title LIKE concat('%', #value#, '%')
 		]]>
 	</select>
 	
