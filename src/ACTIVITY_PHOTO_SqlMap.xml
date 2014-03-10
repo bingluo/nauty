@@ -22,6 +22,14 @@
 		]]>
 	</select>
 	
+	<select id="selectActivityPhotoById" resultMap="ActivityPhotoResultMap" parameterClass="int">		
+		<![CDATA[
+        	SELECT *
+        	FROM activity_photo
+			WHERE id = #value#
+		]]>
+	</select>
+	
 	<insert id="insertActivityPhoto" parameterClass="baseActivityPhoto">		
 		<![CDATA[
         	INSERT INTO activity_photo

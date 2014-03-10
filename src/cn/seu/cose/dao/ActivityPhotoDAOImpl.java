@@ -25,7 +25,14 @@ public class ActivityPhotoDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"ACTIVITY_PHOTO.selectActivityPhotoByActivityId", id);
 	}
-
+	
+	@Override 
+	public ActivityPhoto getActivityPhotoById(int id) {
+		return (ActivityPhoto)getSqlMapClientTemplate().queryForObject(
+				"ACTIVITY_PHOTO.selectActivityPhotoById", id);
+	}
+	
+	
 	@Override
 	public void insertActivityPhoto(ActivityPhoto activityPhoto) {
 		getSqlMapClientTemplate().insert("ACTIVITY_PHOTO.insertActivityPhoto",

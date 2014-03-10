@@ -95,6 +95,10 @@ public class ActivityService {
 	public List<ActivityPhoto> getActivityPhotoByActivityId(int id) {
 		return activityPhotoDAOImpl.getActivityPhotoByActivityId(id);
 	}
+	
+	public ActivityPhoto getActivityPhotoById(int id) {
+		return activityPhotoDAOImpl.getActivityPhotoById(id);
+	}
 
 	/**
 	 * add multi-pictures

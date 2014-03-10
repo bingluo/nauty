@@ -7,6 +7,8 @@ import cn.seu.cose.entity.ActivityPhoto;
 public interface ActivityPhotoDAO {
 	List<ActivityPhoto> getActivityPhotoByActivityId(int id);
 
+	ActivityPhoto getActivityPhotoById(int id);
+	
 	void insertActivityPhoto(ActivityPhoto activityPhoto);
 
 	void deleteActivityPhoto(int id);
