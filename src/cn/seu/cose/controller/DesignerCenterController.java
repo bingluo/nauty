@@ -99,12 +99,21 @@ public class DesignerCenterController extends AbstractController {
 	public String signInPage(Model model, HttpServletResponse response)
 			throws IOException {
 		if (designerService.isSignIn()) {
-			response.sendRedirect("/");
+			response.sendRedirect(ViewUtil.getContextPath() + "/");
 			return "index";
 		} else {
 			basicIssue(model);
 			return "signIn";
 		}
+	}
+
+	@RequestMapping(value = "/sign-in", method = RequestMethod.POST)
+	public void signIn(Model model, HttpServletResponse response,
+			@RequestParam("username") String username,
+			@RequestParam("password") String password) throws IOException {
+		designerService.signIn(username, password);
+		basicIssue(model);
+		response.getWriter().write("1");
 	}
 
 	/**
@@ -116,7 +125,7 @@ public class DesignerCenterController extends AbstractController {
 	public String registerPage(Model model, HttpServletResponse response)
 			throws IOException {
 		if (designerService.isSignIn()) {
-			response.sendRedirect("/");
+			response.sendRedirect(ViewUtil.getContextPath() + "/");
 			return "index";
 		} else {
 			basicIssue(model);
@@ -148,6 +157,16 @@ public class DesignerCenterController extends AbstractController {
 			designer = designerService.getDesignerByName(name);
 			designerService.signIn(name, pswd);
 			out.write("1");
+		}
+	}
+
+	@RequestMapping(value = "/log-off", method = RequestMethod.GET)
+	public void logOff(Model model, HttpServletResponse response) {
+		designerService.logOff();
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

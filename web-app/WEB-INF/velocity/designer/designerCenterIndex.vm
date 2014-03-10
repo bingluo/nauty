@@ -118,7 +118,7 @@
 <script language="JavaScript">
 	$(document).ready(function(){
 		$("#signIn").click(function(){
-			location.href = "/sign-in";
+			location.href = "$!{viewUtil.getContextPath()}/sign-in";
 		});
 		$("#send").click(function(){
 			$message = $.trim($("#messageText").val());
@@ -127,7 +127,7 @@
 				$("#messageText").css('background','#ffffff');
 				$.ajax({
 					type: 'POST',
-					url: "/designer/$!{designer.id}/message",
+					url: "$!{viewUtil.getContextPath()}/designer/$!{designer.id}/message",
 					data: {
 						message: $message
 					},
@@ -135,6 +135,7 @@
             			$(".success-message").css('display','block');
             			$("#notification_1").css('display','block');
 						$("send").css('disabled','disabled');
+						location.href="$!{viewUtil.getContextPath()}";
 					}
 				});
 			}else{

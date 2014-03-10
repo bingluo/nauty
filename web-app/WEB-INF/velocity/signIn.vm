@@ -43,19 +43,19 @@
 			</div>
 		</div>
 		<!-- Form -->
-		<div id="register-form">
-			<form id="registerForm" method="post" action="$!{viewUtil.getContextPath()}/register" />
+		<div id="signIn-form">
+			<form id="signInForm" method="post" action="$!{viewUtil.getContextPath()}/sign-in" />
 				<div class="field">
 					<label>用户名: <span>*</span></label>
-					<input type="text" name="name" class="text" />
+					<input type="text" name="username" class="text" />
 				</div>
 				<div class="field">
 					<label>密码: <span>*</span></label>
-					<input type="password" name="pswd" class="text" />
+					<input type="password" name="password" class="text" />
 				</div>
 				<div class="field">
 					<input type="button" id="signInBtn" value="登录" />
-					<input type="button" id="signInBtn" class="button light" value="忘记密码" />
+					<input type="button" id="forgetPswdBtn" class="button light" value="忘记密码" />
 					<div class="loading"></div>
 				</div>
 			</form>
@@ -115,6 +115,7 @@
 <!-- Footer / End -->
 </body>
 <script language="JavaScript">
-$formAction = $("#registertForm").attr("action");
+$formAction = $("#signInForm").attr("action");
+$contextPath = "$!{viewUtil.getContextPath()}";
 </script>
 </html>

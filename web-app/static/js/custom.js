@@ -399,6 +399,8 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 					// Disable register button
 					$('#registerBtn').attr('disabled',true);
 					
+					location.href=$contextPath+"/";
+					
 				}else if(html==2){
 					$('.loading').fadeOut('slow')
 					alert('抱歉，该用户名已注册。');		
@@ -417,6 +419,91 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 	$('input[name=pswd]').blur(function(){validatePswd($(this));});
 	$('input[name=pswdConfirm]').blur(function(){validatePswdConfirm($(this),$('input[name=pswd]'));});
 	$('input[name=email]').blur(function(){validateEmail($(this),emailReg); });
+	   
+})();
+
+/*----------------------------------------------------*/
+/*	Sign In Form
+/*----------------------------------------------------*/
+(function() {
+	// Validating
+	function validateName(name) {
+		if (name.val()=='') {name.addClass('validation-error'); return false;}
+		else {name.removeClass('validation-error'); return true;}
+	}
+
+	function validatePswd(pswd) {
+		if (pswd.val()=='') {pswd.addClass('validation-error'); return false;}
+		else {pswd.removeClass('validation-error'); return true;}
+	}
+				
+	$('#signInBtn').click(function() {
+	
+		var result=true;
+		
+		var name = $('input[name=username]');
+		var pswd = $('input[name=password]');
+				
+		// Validate
+		if(!validateName(name)) result=false;
+		if(!validatePswd(pswd)) result=false;
+		
+		if(result==false) return false;
+				
+		// Data
+		var data = 'username=' + name.val() + '&password=' + pswd.val();
+		
+		// Disable fields
+		$('.text').attr('disabled','true');
+		
+		// Loading icon
+		$('.loading').show();
+		
+		// Start jQuery
+		$.ajax({
+		
+			// PHP file that processes the data and send mail
+			url: $formAction,	
+			
+			// POST method is used
+			type: "POST",
+
+			// Pass the data			
+			data: data,		
+			
+			//Do not cache the page
+			cache: false,
+			
+			// Success
+			success: function (html) {				
+			
+				if (html==1) {	
+
+					// Loading icon
+					$('.loading').fadeOut('slow');	
+						
+					//show the success message
+					$('.success-message').slideDown('slow');
+											
+					// Disable register button
+					$('#signInBtn').attr('disabled',true);
+					
+					location.href=$contextPath+"/";
+				}else {
+					$('.loading').fadeOut('slow')
+					alert('抱歉，发生未知错误。请稍后重试。');
+					$('.success-message').slideDown('slow');
+					$('#signInBtn').attr('disabled',false);		
+				}
+			}		
+		});
+	
+		return false;
+		
+	});
+		
+	$('input[name=name]').blur(function(){validateName($(this));});
+	$('input[name=pswd]').blur(function(){validatePswd($(this));});
 	   
 })();
 

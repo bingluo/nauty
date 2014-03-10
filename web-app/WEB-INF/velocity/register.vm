@@ -121,5 +121,6 @@
 </body>
 <script language="JavaScript">
 $formAction = $("#registertForm").attr("action");
+$contextPath = "$!{viewUtil.getContextPath()}";
 </script>
 </html>

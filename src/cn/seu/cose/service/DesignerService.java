@@ -58,6 +58,13 @@ public class DesignerService {
 	}
 
 	/**
+	 * designer log off
+	 */
+	public void logOff() {
+		SecurityContextHolder.getSecurityContext().setDesigner(null);
+	}
+
+	/**
 	 * return whether the current user sign in or not
 	 * 
 	 * @return

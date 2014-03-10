@@ -73,6 +73,8 @@ public class SecurityContext {
 	public void setAdmin(Admin admin) {
 		if (httpSession != null && admin != null) {
 			httpSession.setAttribute("adminId", admin.getId());
+		} else if (admin == null) {
+			httpSession.setAttribute("adminId", null);
 		}
 		this.admin = admin;
 	}
@@ -84,6 +86,8 @@ public class SecurityContext {
 	public void setDesigner(Designer designer) {
 		if (httpSession != null && designer != null) {
 			httpSession.setAttribute("designerId", designer.getId());
+		} else if (designer == null) {
+			httpSession.setAttribute("designerId", null);
 		}
 		this.designer = designer;
 	}
