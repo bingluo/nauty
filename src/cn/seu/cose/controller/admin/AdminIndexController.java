@@ -22,6 +22,11 @@ public class AdminIndexController extends AbstractController{
 	@Autowired
 	private AdminService adminService;
 	
+	@RequestMapping("/admin")
+	public void admin(Model model, HttpServletResponse response) {
+		adminIndex(model, response);
+	}
+	
 	@RequestMapping("/admin/index")
 	public void adminIndex(Model model, HttpServletResponse response) {
 		String to = "";
