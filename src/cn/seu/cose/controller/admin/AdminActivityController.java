@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.seu.cose.entity.Activity;
 import cn.seu.cose.entity.ActivityApplication;
 import cn.seu.cose.entity.ActivityNews;
+import cn.seu.cose.entity.ActivityPhoto;
 import cn.seu.cose.service.ActivityService;
 import cn.seu.cose.view.util.ViewUtil;
 
@@ -51,7 +52,7 @@ public class AdminActivityController extends AbstractController {
 	@RequestMapping(value="/admin/add_activity", method=RequestMethod.GET)
 	public String getAddActy(Model model, HttpServletResponse response) {
 		putAdmin(model, response);		
-		return "admin_acty_add";
+		return "admin_actys_add";
 	}
 	
 	@RequestMapping(value="/admin/add_activity", method=RequestMethod.POST)
@@ -91,7 +92,7 @@ public class AdminActivityController extends AbstractController {
 		Activity acty = actyService.getActivityById(id);
 		model.addAttribute("activity", acty);
 		
-		return "admin_acty_alt";
+		return "admin_actys_alt";
 	}
 	
 	@RequestMapping(value="/admin/alt_activity", method=RequestMethod.POST)
@@ -124,7 +125,7 @@ public class AdminActivityController extends AbstractController {
 		List<ActivityApplication> list = actyService.getActivityApplicationsByActivityId(id);
 		model.addAttribute("applications", list);
 		model.addAttribute("activityId", id);
-		return "admin_acty_apps";
+		return "admin_actyapps";
 	}
 	//*********************activity application end*********************//
 	
@@ -136,15 +137,15 @@ public class AdminActivityController extends AbstractController {
 		List<ActivityNews> list = actyService.getActivityNewsByActivityId(id);
 		model.addAttribute("activityId", id);
 		model.addAttribute("news", list);
-		return "admin_acty_news";
+		return "admin_actynews";
 	}
 	
-	@RequestMapping(value="/admin/add_actynews-{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/add_acty-{id}news", method=RequestMethod.GET)
 	public String getAddActyNews(@PathVariable("id") int id, 
 			Model model, HttpServletResponse response) {
 		putAdmin(model, response);
 		model.addAttribute("activityId", id);
-		return "admin_acty_news_add";
+		return "admin_actynews_add";
 	}
 	
 	@RequestMapping(value="/admin/add_actynews", method=RequestMethod.POST)
@@ -159,8 +160,8 @@ public class AdminActivityController extends AbstractController {
 		actyService.addActivityNews(news);
 	}
 	
-	@RequestMapping(value="/admin/del_acty{activityId}news-{id}", method=RequestMethod.POST)
-	public void postDelActyNews(@PathVariable("id")int id, @PathVariable("activityId") int activityId, HttpServletResponse response) {
+	@RequestMapping(value="/admin/del_actynews", method=RequestMethod.POST)
+	public void postDelActyNews(@RequestParam("id")int id, @RequestParam("activityId") int activityId, HttpServletResponse response) {
 		actyService.deleteActivityNews(id);
 		try {
 			response.sendRedirect(ViewUtil.getContextPath() + "/admin/acty-"+ activityId +"news_list");
@@ -174,7 +175,7 @@ public class AdminActivityController extends AbstractController {
 		putAdmin(model, response);
 		ActivityNews news = actyService.getActivityNewsById(id);
 		model.addAttribute("activityNews", news);
-		return "admin_acty_news_alt";
+		return "admin_actynews_alt";
 	}
 	
 	@RequestMapping(value="/admin/alt_actynews", method=RequestMethod.POST)
@@ -191,4 +192,51 @@ public class AdminActivityController extends AbstractController {
 		actyService.updateActivityNews(news);
 	}
 	//*********************activity news end*********************//
+	
+	//*********************activity photo start*********************//
+	@RequestMapping(value="/admin/acty-{id}photos_list", method=RequestMethod.GET)
+	public String getActyPhotosByActyId(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
+		List<ActivityPhoto> list = actyService.getActivityPhotoByActivityId(id);
+		model.addAttribute("activityId", id);
+		model.addAttribute("photos", list);
+		return "admin_actyphotos";
+	}
+	
+	@RequestMapping(value="/admin/add_acty-{id}photo", method=RequestMethod.GET)
+	public String getAddActyPhoto(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
+		model.addAttribute("activityId", id);
+		return "admin_actyphotos_add";
+	}
+	
+	@RequestMapping(value="/admin/add_actyphoto", method=RequestMethod.POST)
+	public void postAddActyPhoto(@RequestParam("picUri") String picUri, @RequestParam("activityId") int activityId,
+			@RequestParam("intro") String intro, HttpServletResponse response) {
+		ActivityPhoto photo = new ActivityPhoto();
+		photo.setPicUri(picUri);
+		photo.setActivityId(activityId);
+		photo.setIntro(intro);
+		actyService.addActivityPhoto(photo);
+	}
+	
+	@RequestMapping(value="/admin/del_actyphoto", method=RequestMethod.POST)
+	public void postDelActyPhoto(@RequestParam("activityId") int activityId, @RequestParam("id") int id, HttpServletResponse response) {
+		actyService.deleteActivityPhoto(id);
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/acty-"+ activityId +"photos_list");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/admin/alt_actyphoto-{id}", method=RequestMethod.GET)
+	public String getAltActyPhoto(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
+		ActivityPhoto photo = actyService.getActivityPhotoById(id);
+		model.addAttribute("photo", photo);
+		return "admin_actyphotos_alt";
+	}
+	
+	//*********************activity photo end*********************//
 }

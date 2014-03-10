@@ -20,4 +20,6 @@ public interface DesignerDAO {
 	void updateDesigner(Designer designer);
 
 	Designer getDesignerByName(String name);
+	
+	void deleteDesigner(int id);
 }
