@@ -1,0 +1,106 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")	
+
+<div id="content">
+	<div id="content-header">
+		<h1>活动管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">添加活动</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-align-justify"></i>									
+						</span>
+						<h5>添加活动</h5>
+					</div>
+					<div class="widget-content padding">
+						<form action="javascript:void(0)" method="post" class="form-horizontal" id="activity_add_form">
+							<div class="control-group">
+								<label class="control-label">活动标题</label>
+								<div class="controls">
+									<input type="text" id="title">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">活动简介</label>
+								<div class="controls">
+									<input type="text" id="intro">
+								</div>
+							</div>
+							<div class="control-group" >
+								<label class="control-label">标题图片</label>
+								<div class="controls">
+									<input type="text" id="picName"></input>
+									<input type="button" id="image3" value="选择图片" />
+							    </div>
+							</div>
+							
+							
+							
+							<div class="control-group" >
+								<div class="controls" style="margin-left:200px;">
+									<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+							    </div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
+</div>
+<script charset="utf-8" src="$!{viewUtil.getContextPath()}/static/editor/kindeditor.js"></script>
+<script charset="utf-8" src="$!{viewUtil.getContextPath()}/static/editor/lang/zh_CN.js"></script>
+<script>
+    KindEditor.ready(function(K) {
+            window.editor = K.create('#editor');
+    });
+</script>
+<script type="text/javascript">
+	$("#sidebar_li_7").siblings().removeClass('active')
+	$("#sidebar_li_7").addClass('active');
+	var context_path = $("#context_path").val();
+	
+	$(document).ready(function(){
+		// yes_add
+		$("#yes_add").bind("click", function(){
+			$("#title").parent().parent().removeClass("error");
+			$("#req_title").remove();
+			$("#intro").parent().parent().removeClass("error");
+			$("#req_intro").remove();
+			
+			editor.sync();
+			var _title = $("#title").val();
+			var _intro= $("#intro").val();
+			if(_title == "") {
+				$("#title").parent().parent().addClass("error");
+				$("#title").parent().append('<span id="req_title" for="required" generated="true" class="help-inline">请填写活动标题</span>');
+			} else if(_intro == "") {
+				$("#intro").parent().parent().addClass("error");
+				$("#intro").parent().append('<span id="req_intro" for="required" generated="true" class="help-inline">请填写活动简介</span>');
+			} else {
+				$.ajax({
+					url: context_path + "/admin/add_activity",
+					type: "post",
+					data: {title:_title, intro:_intro, },
+					dataType: "html",
+					success:function(data){
+						window.location.href = context_path + "/admin/activity_list";
+					},
+					error:function(){
+						window.location.href = context_path + "/admin/activity_list";
+					}
+				});
+			}
+		});
+	});
+</script>
+
+#parse("admin_footer.vm")

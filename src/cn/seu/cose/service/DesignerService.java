@@ -27,8 +27,8 @@ public class DesignerService {
 		return designerDAOImpl.getDesignerById(id);
 	}
 
-	public Designer getDesignerByName(String name) {
-		return designerDAOImpl.getDesignerByName(name);
+	public Designer getDesignerByName(String username) {
+		return designerDAOImpl.getDesignerByName(username);
 	}
 
 	public Designer getDesignerByUsernameAndPswd(String username, String pwd) {
@@ -46,7 +46,11 @@ public class DesignerService {
 	public void updateDesigner(Designer designer) {
 		designerDAOImpl.updateDesigner(designer);
 	}
-
+	
+	public void deleteDesigner(int id) {
+		designerDAOImpl.deleteDesigner(id);
+	}
+	
 	/**
 	 * designer sign in
 	 */

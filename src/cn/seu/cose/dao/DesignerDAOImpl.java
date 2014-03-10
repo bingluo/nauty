@@ -70,4 +70,9 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 		return (Designer) getSqlMapClientTemplate().queryForObject(
 				"DESIGNER.selectDesignerByName", name);
 	}
+	
+	@Override
+	public void deleteDesigner(int id) {
+		getSqlMapClientTemplate().delete("DESIGNER.deleteDesigner", id);
+	}
 }

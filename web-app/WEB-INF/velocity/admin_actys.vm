@@ -72,30 +72,6 @@
 								#end
 							</tbody>
 						</table>
-						<!--<div class="pagination pagination-centered"">
-							<ul>
-								#if ($prePageIndex == 0) 
-									<li class="disabled"><a href="javascript:void(0)">前一页</a></li>
-								#else
-									<li><a href="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${prePageIndex}" >前一页</a></li>
-								#end
-						    	#if ($pageIndex == $pageCount)
-							    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
-						    	#else
-						    		<li><a href="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${nextPageIndex}">后一页</a></li>
-						    	#end
-							</ul>
-							<select style="vertical-align:top; height:inherit; width:80px" onchange="top.location=this.value;">
-								#foreach($i in [1..$pageCount]) 
-									#if ($i == $pageIndex)
-										<option value="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${i}" selected>$i</option>
-									#else
-										<option value="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${i}">$i</option>
-									#end
-									
-								#end
-							</select>
-						</div>-->
 					</div>
 				</div>
 			</div>
