@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +30,7 @@ public class AdminActivityController extends AbstractController {
 
 	@Autowired
 	ActivityService actyService;
-	private DateFormat format = new SimpleDateFormat("yyyyy-MM-dd HH:mm:ss");
+	private DateFormat format = new SimpleDateFormat("yyyyy-MM-dd HH:mm");
 	
 	
 	//*********************activity begin*********************//
@@ -37,7 +38,7 @@ public class AdminActivityController extends AbstractController {
 	public String getActyList(Model model, HttpServletResponse response) {
 		putAdmin(model, response);
 		List<Activity> list = actyService.getAllActivities();
-		model.addAttribute("actyList", list);
+		model.addAttribute("activity_list", list);
 		return "admin_actys";
 	}
 	@RequestMapping(value="/admin/activity_list_search-{searchInput}", method=RequestMethod.GET)
@@ -45,7 +46,7 @@ public class AdminActivityController extends AbstractController {
 			HttpServletResponse response) {
 		putAdmin(model, response);
 		List<Activity> list = actyService.searchActivityByTitle(searchTitle);
-		model.addAttribute("actyList", list);
+		model.addAttribute("activity_list", list);
 		return "admin_actys";
 	}
 	
@@ -65,10 +66,10 @@ public class AdminActivityController extends AbstractController {
 		acty.setIntro(intro);
 		acty.setTitlePic(titlePicPath);
 		try {
-			acty.setAppBeginTime(new java.sql.Date(format.parse(appBeginTime).getTime()));
-			acty.setAppEndTime(new java.sql.Date(format.parse(appEndTime).getTime()));
-			acty.setActBeginTime(new java.sql.Date(format.parse(actBeginTime).getTime()));
-			acty.setActEndTime(new java.sql.Date(format.parse(actEndTime).getTime()));
+			acty.setAppBeginTime(new java.sql.Timestamp(format.parse(appBeginTime).getTime()));
+			acty.setAppEndTime(new java.sql.Timestamp(format.parse(appEndTime).getTime()));
+			acty.setActBeginTime(new java.sql.Timestamp(format.parse(actBeginTime).getTime()));
+			acty.setActEndTime(new java.sql.Timestamp(format.parse(actEndTime).getTime()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -106,10 +107,10 @@ public class AdminActivityController extends AbstractController {
 		acty.setIntro(intro);
 		acty.setTitlePic(titlePicPath);
 		try {
-			acty.setAppBeginTime(new java.sql.Date(format.parse(appBeginTime).getTime()));
-			acty.setAppEndTime(new java.sql.Date(format.parse(appEndTime).getTime()));
-			acty.setActBeginTime(new java.sql.Date(format.parse(actBeginTime).getTime()));
-			acty.setActEndTime(new java.sql.Date(format.parse(actEndTime).getTime()));
+			acty.setAppBeginTime(new java.sql.Timestamp(format.parse(appBeginTime).getTime()));
+			acty.setAppEndTime(new java.sql.Timestamp(format.parse(appEndTime).getTime()));
+			acty.setActBeginTime(new java.sql.Timestamp(format.parse(actBeginTime).getTime()));
+			acty.setActEndTime(new java.sql.Timestamp(format.parse(actEndTime).getTime()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

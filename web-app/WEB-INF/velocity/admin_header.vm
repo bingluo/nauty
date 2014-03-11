@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="$!{viewUtil.getContextPath()}/static/css/uniform.css" />
 		<link rel="stylesheet" href="$!{viewUtil.getContextPath()}/static/css/unicorn.grey.css"/>
 		<link rel="stylesheet" href="$!{viewUtil.getContextPath()}/static/css/chosen.css"/>
+	    <link rel="stylesheet" href="$!{viewUtil.getContextPath()}/static/css/bootstrap-datetimepicker.min.css"/
 	    
 	    <script src="$!{viewUtil.getContextPath()}/static/js/excanvas.min.js"></script>
         <script src="$!{viewUtil.getContextPath()}/static/js/jquery.min.js"></script>
@@ -17,8 +18,8 @@
         <script src="$!{viewUtil.getContextPath()}/static/js/bootstrap.min.js"></script>
         <script src="$!{viewUtil.getContextPath()}/static/js/unicorn.js"></script>
         <script src="$!{viewUtil.getContextPath()}/static/js/jquery.uniform.js"></script>
-        <script src="$!{viewUtil.getContextPath()}/static/js/bootstrap-colorpicker.js"></script>
-        <script src="$!{viewUtil.getContextPath()}/static/js/bootstrap-datepicker.js"></script>
+        <script src="$!{viewUtil.getContextPath()}/static/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="$!{viewUtil.getContextPath()}/static/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
         <script src="$!{viewUtil.getContextPath()}/static/js/jquery.validate.js"></script>
         <style type="text/css">
         	table{

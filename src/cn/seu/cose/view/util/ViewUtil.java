@@ -1,5 +1,6 @@
 package cn.seu.cose.view.util;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,7 +35,14 @@ public class ViewUtil {
 					+ "</a></span></h2>";
 		}
 	}
-
+	
+	
+	public static String fActivityTime(Timestamp time) {
+		SimpleDateFormat sdf = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm");
+		return sdf.format(new Date(time.getTime()));
+	}
+	
 	public static String fTime(String time) {
 		SimpleDateFormat sdf = new SimpleDateFormat(
 				"EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);

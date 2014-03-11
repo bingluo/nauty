@@ -46,27 +46,27 @@
 							<thead>
 								<tr>
 									<th style="width:6%">ID</th>
-									<th>活动标题</th>
-									<th>标题图片</th>
-									<th style="width:15%">报名起止时间</th>
-									<th style="width:15%">活动起止时间</th>
+									<th style="width:10%">活动标题</th>
+									<th style="width:6%">标题图片</th>
+									<th style="width:17%">报名起止时间</th>
+									<th style="width:17%">活动起止时间</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
 								#foreach($activity in $activity_list)
 									<tr>
-										<td>$activity.id</td>
+										<td>$activity.id</td> 
 										<td>$activity.title</td>
-										<td>$activity.titlePic</td>
-										<td>$viewUtil.fTime("$activity.appBeginTime")<br/>$viewUtil.fTime("$activity.appEndTime")</td>
-										<td>$viewUtil.fTime("$activity.actBeginTime")<br/>$viewUtil.fTime("$activity.actBeginTime")</td>
+										<td><img src="$activity.titlePic" /></td>
+										<td>$!{viewUtil.fActivityTime($activity.appBeginTime)} 至 $!{viewUtil.fActivityTime($activity.appEndTime)}</td>
+										<td>$!{viewUtil.fActivityTime($activity.actBeginTime)} 至 $!{viewUtil.fActivityTime($activity.actBeginTime)}</td>
 										<td>
-											<a href="$!{viewUtil.getContextPath()}/admin/acty-{$activity.id}news_list" class="btn btn-info" title="活动新闻" id="news_btn"><i class="icon-tag icon-white"></i></a>
-											<a href="$!{viewUtil.getContextPath()}/admin/applicationsOf-$activity.id" class="btn btn-info" title="参与统计" id="app_btn"><i class="icon-tag icon-white"></i></a>
-											<a href="$!{viewUtil.getContextPath()}/admin/alt_activity-$activity.id" class="btn btn-info" title="活动图片" id="photo_btn"><i class="icon-tag icon-white"></i></a>
-											<a href="$!{viewUtil.getContextPath()}/admin/alt_activity-$activity.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
-											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
+											<a href="$!{viewUtil.getContextPath()}/admin/acty-{$activity.id}news_list" class="btn btn-warning" title="活动新闻" id="news_btn"><i class="icon-bookmark icon-white"></i>活动新闻</a>
+											<a href="$!{viewUtil.getContextPath()}/admin/applicationsOf-$activity.id" class="btn btn-inverse" title="参与统计" id="app_btn"><i class="icon-align-left icon-white"></i>参与统计</a>
+											<a href="$!{viewUtil.getContextPath()}/admin/alt_activity-$activity.id" class="btn btn-success" title="活动图片" id="photo_btn"><i class="icon-picture icon-white"></i>活动图片</a>
+											<a href="$!{viewUtil.getContextPath()}/admin/alt_activity-$activity.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i>修改活动</a>
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除活动</button>
 										</td>
 									</tr>
 								#end

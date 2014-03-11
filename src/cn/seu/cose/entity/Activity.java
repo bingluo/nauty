@@ -1,6 +1,6 @@
 package cn.seu.cose.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Activity {
 	private int id;
@@ -9,13 +9,13 @@ public class Activity {
 	// one title one pic as a logo
 	private String titlePic;
 	// beginning time of applying activity
-	private Date appBeginTime;
+	private Timestamp appBeginTime;
 	// ending time of applying activity
-	private Date appEndTime;
+	private Timestamp appEndTime;
 	// beginning time of activity
-	private Date actBeginTime;
+	private Timestamp actBeginTime;
 	// ending time of activity
-	private Date actEndTime;
+	private Timestamp actEndTime;
 
 	public int getId() {
 		return id;
@@ -49,35 +49,35 @@ public class Activity {
 		this.titlePic = titlePic;
 	}
 
-	public Date getAppBeginTime() {
+	public Timestamp getAppBeginTime() {
 		return appBeginTime;
 	}
 
-	public void setAppBeginTime(Date appBeginTime) {
+	public void setAppBeginTime(Timestamp appBeginTime) {
 		this.appBeginTime = appBeginTime;
 	}
 
-	public Date getAppEndTime() {
+	public Timestamp getAppEndTime() {
 		return appEndTime;
 	}
 
-	public void setAppEndTime(Date appEndTime) {
+	public void setAppEndTime(Timestamp appEndTime) {
 		this.appEndTime = appEndTime;
 	}
 
-	public Date getActBeginTime() {
+	public Timestamp getActBeginTime() {
 		return actBeginTime;
 	}
 
-	public void setActBeginTime(Date actBeginTime) {
+	public void setActBeginTime(Timestamp actBeginTime) {
 		this.actBeginTime = actBeginTime;
 	}
 
-	public Date getActEndTime() {
+	public Timestamp getActEndTime() {
 		return actEndTime;
 	}
 
-	public void setActEndTime(Date actEndTime) {
+	public void setActEndTime(Timestamp actEndTime) {
 		this.actEndTime = actEndTime;
 	}
 }
