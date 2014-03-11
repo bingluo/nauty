@@ -77,7 +77,7 @@
     			app_begin_time = #appBeginTime#,
     			app_end_time = #appEndTime#,
     			act_begin_time = #actBeginTime#,
-    			act_end_time = #actEndTime#,
+    			act_end_time = #actEndTime#
     		WHERE id = #id#
 		]]>
 	</update>
