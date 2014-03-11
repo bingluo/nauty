@@ -79,7 +79,7 @@
 		SET	password = #password#,
 			email = #email#,
 			intro = #intro#,
-			avatar = #avatar#,
+			avatar = #avatar#
 		WHERE id = #id#
 		]]>
 	</update>

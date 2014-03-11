@@ -2,6 +2,7 @@ package cn.seu.cose.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -252,9 +253,38 @@ public class DesignerCenterController extends AbstractController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/designer/{designerId}/admin/profile")
-	public String designerCenterEditProfile() {
+	@RequestMapping(value = "/designer/{designerId}/admin/profile", method = RequestMethod.GET)
+	public String designerCenterEditProfile(Model model,
+			@PathVariable("designerId") int designerId) {
+		basicIssue(model);
+		Designer curUser = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		if (curUser == null || curUser.getId() != designerId) {
+			return "index";
+		}
+		model.addAttribute("designer", curUser);
 		return "designer/editProfile";
+	}
+
+	@RequestMapping(value = "/designer/{designerId}/admin/profile", method = RequestMethod.POST)
+	public void editProfile(HttpServletResponse response, Model model,
+			@RequestParam("email") String email,
+			@RequestParam("intro") String intro,
+			@PathVariable("designerId") int designerId) throws IOException {
+		basicIssue(model);
+		Designer curUser = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		Writer writer = response.getWriter();
+		if (curUser == null || curUser.getId() != designerId) {
+			writer.write("0");
+		} else {
+			curUser.setEmail(email);
+			curUser.setIntro(intro);
+			designerService.updateDesigner(curUser);
+			model.addAttribute("curUser", curUser);
+			model.addAttribute("designer", curUser);
+			writer.write("1");
+		}
 	}
 
 	/**

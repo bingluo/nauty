@@ -508,6 +508,90 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 })();
 
 /*----------------------------------------------------*/
+/*	Profile Form
+/*----------------------------------------------------*/
+(function() {
+var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
+
+	function validateEmail(email,regex) {
+		if (!regex.test(email.val())) {email.addClass('validation-error'); return false;}
+		else {email.removeClass('validation-error'); return true;}
+	}
+	
+	function validateIntro(intro) {
+		if (intro.val()=='') {intro.addClass('validation-error'); return false;}
+		else {intro.removeClass('validation-error'); return true;}
+	}
+				
+	$('#profileBtn').click(function() {
+	
+		var result=true;
+		
+		var email = $('input[name=email]');
+		var intro = $('textarea[name=intro]');
+				
+		// Validate
+		if(!validateEmail(email,emailReg)) result=false;
+		if(!validateIntro(intro)) result=false;
+		
+		if(result==false) return false;
+				
+		// Data
+		var data = 'email=' + email.val() + '&intro=' + intro.val();
+		
+		// Disable fields
+		$('.text').attr('disabled','true');
+		
+		// Loading icon
+		$('.loading').show();
+		
+		// Start jQuery
+		$.ajax({
+		
+			// PHP file that processes the data and send mail
+			url: $formAction,	
+			
+			// POST method is used
+			type: "POST",
+
+			// Pass the data			
+			data: data,		
+			
+			//Do not cache the page
+			cache: false,
+			
+			// Success
+			success: function (html) {				
+			
+				if (html==1) {	
+
+					// Loading icon
+					$('.loading').fadeOut('slow');	
+						
+					//show the success message
+					$('.success-message').slideDown('slow');
+											
+					// Disable register button
+					$('#registerBtn').attr('disabled',true);
+					
+					location.href=$contextPath+"/designer/"+designerId;
+					
+				}else {
+					$('.loading').fadeOut('slow')
+					alert('抱歉，发生未知错误。请稍后重试。');				
+				}
+			}		
+		});
+	
+		return false;
+		
+	});
+		
+	$('input[name=email]').blur(function(){validateEmail($(this),emailReg); });
+	$('textarea[name=intro]').blur(function(){validateIntro($(this));});
+})();
+
+/*----------------------------------------------------*/
 /*	Isotope Portfolio Filter
 /*----------------------------------------------------*/
 
