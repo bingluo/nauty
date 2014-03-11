@@ -9,6 +9,8 @@ public interface ActivityNewsDAO {
 	
 	ActivityNews getActivityNewsById(int id);
 	
+	List<ActivityNews> searchActivityNewsByTitle(String title);
+	
 	void insertActivityNews(ActivityNews activityNews);
 
 	void deleteActivityNews(int id);

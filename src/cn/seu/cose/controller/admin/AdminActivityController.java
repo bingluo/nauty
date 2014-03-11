@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -137,8 +138,18 @@ public class AdminActivityController extends AbstractController {
 		putAdmin(model, response);
 		List<ActivityNews> list = actyService.getActivityNewsByActivityId(id);
 		model.addAttribute("activityId", id);
-		model.addAttribute("news", list);
+		model.addAttribute("news_list", list);
 		return "admin_actynews";
+	}
+	
+	@RequestMapping(value="/admin/acty-{id}news_search-{searchInput}", method=RequestMethod.GET)
+	public String searchActyNews(@PathVariable("id") int id, @PathVariable("searchInput") String searchInput, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
+		List<ActivityNews> list = actyService.searchActivityNewsByTitle(searchInput);
+		model.addAttribute("activityId", id);
+		model.addAttribute("news_list", list);
+		return "admin_actynews";
+		
 	}
 	
 	@RequestMapping(value="/admin/add_acty-{id}news", method=RequestMethod.GET)

@@ -80,6 +80,10 @@ public class ActivityService {
 	public ActivityNews getActivityNewsById(int id) {
 		return activityNewsDAOImpl.getActivityNewsById(id);
 	}
+	
+	public List<ActivityNews> searchActivityNewsByTitle(String title) {
+		return activityNewsDAOImpl.searchActivityNewsByTitle(title);
+	}
 	public void addActivityNews(ActivityNews activityNews) {
 		activityNewsDAOImpl.insertActivityNews(activityNews);
 	}
