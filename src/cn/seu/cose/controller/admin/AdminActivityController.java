@@ -186,7 +186,7 @@ public class AdminActivityController extends AbstractController {
 	public String getAltActyNews(@PathVariable("id") int id, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
 		ActivityNews news = actyService.getActivityNewsById(id);
-		model.addAttribute("activityNews", news);
+		model.addAttribute("news", news);
 		return "admin_actynews_alt";
 	}
 	

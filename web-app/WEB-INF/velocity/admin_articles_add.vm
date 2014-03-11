@@ -120,7 +120,7 @@
 				$("#title").parent().append('<span id="req_title" for="required" generated="true" class="help-inline">请填写标题</span>');
 			} else if(_html == "") {
 				$("#editor").parent().parent().addClass("error");
-				$("#editor").parent().append('<span id="req_content" for="required" generated="true" class="help-inline">请填写正文</span>');
+				$("#editor").parent().append('<span id="req_content" for="required" generated="true" class="help-inline" style="margin-left:180px;">请填写正文</span>');
 			} else {
 				$.ajax({
 					url: context_path + "/admin/add_article",

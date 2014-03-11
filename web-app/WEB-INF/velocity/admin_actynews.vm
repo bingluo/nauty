@@ -3,11 +3,12 @@
 
 <div id="content">
 	<div id="content-header">
-		<h1>活动管理</h1>
+		<h1>活动新闻管理</h1>
 	</div>
 	<div id="breadcrumb">
 		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
-		<a href="#" class="current">活动管理</a>
+		<a href="$!{viewUtil.getContextPath()}/admin/activity_list" title="Go to Home" class="tip-bottom"><i class="icon-headphones"></i>活动管理</a>
+		<a href="#" class="current">活动新闻管理</a>
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -15,9 +16,9 @@
 				<div class="widget-content nopadding">
 					<div class="control-group">
 						<div class="controls">
-							<input style="" type="text" value="$!searchInput" placeHolder="活动检索" id="search_input"/>
+							<input style="" type="text" value="$!searchInput" placeHolder="活动新闻检索" id="search_input"/>
 							&nbsp;
-							<span style="" margin-left:10px; margin-right:20px" class="icon" id="search_activity_btn">
+							<span style="" margin-left:10px; margin-right:20px" class="icon" id="search_news_btn">
 								<a href="javascript:void(0)" class="btn btn-success btn" style="vertical-align:middle; margin-top:-6px;">
 									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
 								</a>
@@ -34,10 +35,10 @@
 						<span class="icon">
 							<i class="icon-th"></i>
 						</span>
-						<h5>活动列表</h5>
+						<h5>活动新闻列表</h5>
 						<span class="icon" id="add_display_btn">
-							<a href="$!{viewUtil.getContextPath()}/admin/add_activity" class="btn btn-primary btn-mini">
-								<i class="icon-plus icon-white"></i>添加活动
+							<a href="$!{viewUtil.getContextPath()}/admin/add_acty-${activityId}news" class="btn btn-primary btn-mini">
+								<i class="icon-plus icon-white"></i>添加活动新闻
 							</a>
 						</span>
 					</div>
@@ -46,27 +47,22 @@
 							<thead>
 								<tr>
 									<th style="width:6%">ID</th>
-									<th style="width:10%">活动标题</th>
-									<th style="width:6%">标题图片</th>
-									<th style="width:17%">报名起止时间</th>
-									<th style="width:17%">活动起止时间</th>
+									<th style="width:20%">新闻标题</th>
+									<th style="width:12%">更新时间</th>
+									<th >发布人</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								#foreach($activity in $activity_list)
+								#foreach($news in $news_list)
 									<tr>
-										<td>$activity.id</td> 
-										<td>$activity.title</td>
-										<td><img src="$activity.titlePic" /></td>
-										<td>$!{viewUtil.fActivityTime($activity.appBeginTime)} 至 $!{viewUtil.fActivityTime($activity.appEndTime)}</td>
-										<td>$!{viewUtil.fActivityTime($activity.actBeginTime)} 至 $!{viewUtil.fActivityTime($activity.actBeginTime)}</td>
+										<td>$news.id</td> 
+										<td>$news.title</td>
+										<td>$viewUtil.fTime("$news.updateTime")</td>
+										<td>$news.postUser</td>
 										<td>
-											<a href="$!{viewUtil.getContextPath()}/admin/acty-${activity.id}news_list" class="btn btn-warning" title="活动新闻" id="news_btn"><i class="icon-bookmark icon-white"></i>活动新闻</a>
-											<a href="$!{viewUtil.getContextPath()}/admin/applicationsOf-$activity.id" class="btn btn-inverse" title="参与统计" id="app_btn"><i class="icon-align-left icon-white"></i>参与统计</a>
-											<a href="$!{viewUtil.getContextPath()}/admin/acty-${activity.id}photos_list" class="btn btn-success" title="活动图片" id="photo_btn"><i class="icon-picture icon-white"></i>活动图片</a>
-											<a href="$!{viewUtil.getContextPath()}/admin/alt_activity-$activity.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i>修改活动</a>
-											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除活动</button>
+											<a href="$!{viewUtil.getContextPath()}/admin/alt_actynews-$news.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i>修改新闻</a>
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除新闻</button>
 										</td>
 									</tr>
 								#end
@@ -96,13 +92,14 @@
 	$("#sidebar_li_7").addClass('active');
 	var context_path = $("#context_path").val();
 
-	var activityId;
-
+	var _activityId = ${activityId};
+	var newsId;
+	
 	$(document).ready(function(){
 		$("#del_dialog").css("display","none");
 		
 		
-		$("#search_activity_btn").bind("click", function(){
+		$("#search_news_btn").bind("click", function(){
 			var search_input = $("#search_input").val().trim();
 			if(search_input == "") {
 				$("#search_input").css("border-color", "red");
@@ -113,14 +110,14 @@
 				$("#search_input").val("");
 				$("#search_input").attr("placeHolder", "搜索内容过长");
 			} else {
-				window.location.href = context_path + "/admin/activity_list_search-" + search_input;
+				window.location.href = context_path + "/admin/acty-"+ _activityId +"news_search-" + search_input;
 			}
 			
 		});
 		
 		// show del_dialog
 		$("button[id='del_btn']").bind("click", function(){
-			activityId = $(this).parents("tr").find("td:first").html().trim();
+			newsId = $(this).parents("tr").find("td:first").html().trim();
 			if(!$.browser.msie) {
 				$("#del_dialog").css("display","block");
 				$("#del_dialog").modal("show");
@@ -128,9 +125,9 @@
 			} else {
 				alert("已删除活动");
 				$.ajax({
-					url: context_path + "/admin/del_activity",
+					url: context_path + "/admin/del_actynews",
 					type: "post",
-					data: {id:activityId},
+					data: {id:newsId, activityId:_activityId},
 					dataType: "html",
 					success:function(data){
 						location.reload();
@@ -145,9 +142,9 @@
 		// yes_del
 		$("#yes_del").bind("click", function(){
 			$.ajax({
-				url: context_path + "/admin/del_activity",
+				url: context_path + "/admin/del_actynews",
 				type: "post",
-				data: {id:activityId},
+				data: {id:newsId, activityId:_activityId},
 				dataType: "html",
 				success:function(data){
 					$("#del_dialog").modal("hide");
