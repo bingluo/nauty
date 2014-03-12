@@ -39,7 +39,7 @@
 		<!-- Success Message -->
 		<div class="success-message">
 			<div class="notification success closeable">
-				<p><span>成功!</span> 注册成功，请刷新页面。</p>
+				<p><span>登陆失败!</span> 用户名或密码错误。</p>
 			</div>
 		</div>
 		<!-- Form -->

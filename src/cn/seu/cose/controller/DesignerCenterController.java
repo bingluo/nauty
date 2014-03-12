@@ -112,9 +112,13 @@ public class DesignerCenterController extends AbstractController {
 	public void signIn(Model model, HttpServletResponse response,
 			@RequestParam("username") String username,
 			@RequestParam("password") String password) throws IOException {
-		designerService.signIn(username, password);
-		basicIssue(model);
-		response.getWriter().write("1");
+		Designer designer = designerService.signIn(username, password);
+		if (designer == null) {
+			response.getWriter().write("0");
+		} else {
+			basicIssue(model);
+			response.getWriter().write("1");
+		}
 	}
 
 	/**

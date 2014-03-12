@@ -44,6 +44,12 @@
 	#parse("designer/profile-left-bar.vm")
     <div class="twelve columns"> 
 		<div class="headline" style="margin-top:0;"><h3>修改个人资料</h3></div>
+		<!-- Success Message -->
+		<div class="success-message">
+			<div class="notification success closeable">
+				<p><span>修改失败!</span> 请登陆后再尝试。</p>
+			</div>
+		</div>
 		<div id="profile-form">
 			<form id="profileForm" method="post" action="$!{viewUtil.getContextPath()}/designer/$!{curUser.id}/admin/profile">
 				<div class="field">

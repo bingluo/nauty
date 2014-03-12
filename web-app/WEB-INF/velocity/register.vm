@@ -39,7 +39,7 @@
 		<!-- Success Message -->
 		<div class="success-message">
 			<div class="notification success closeable">
-				<p><span>成功!</span> 注册成功，请刷新页面。</p>
+				<p><span>抱歉!</span> 该用户名已经注册。</p>
 			</div>
 		</div>
 		<!-- Form -->

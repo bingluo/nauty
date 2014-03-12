@@ -392,21 +392,18 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 
 					// Loading icon
 					$('.loading').fadeOut('slow');	
-						
-					//show the success message
-					$('.success-message').slideDown('slow');
 											
 					// Disable register button
 					$('#registerBtn').attr('disabled',true);
 					
 					location.href=$contextPath+"/";
 					
-				}else if(html==2){
-					$('.loading').fadeOut('slow')
-					alert('抱歉，该用户名已注册。');		
-				}else {
-					$('.loading').fadeOut('slow')
-					alert('抱歉，发生未知错误。请稍后重试。');				
+				}else{
+					$('.loading').fadeOut('slow')				
+					//show the success message
+					$('.success-message').slideDown('slow');
+					// Disable fields
+					$('.text').attr('disabled',false);
 				}
 			}		
 		});
@@ -478,12 +475,8 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 			success: function (html) {				
 			
 				if (html==1) {	
-
 					// Loading icon
 					$('.loading').fadeOut('slow');	
-						
-					//show the success message
-					$('.success-message').slideDown('slow');
 											
 					// Disable register button
 					$('#signInBtn').attr('disabled',true);
@@ -491,9 +484,10 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 					location.href=$contextPath+"/";
 				}else {
 					$('.loading').fadeOut('slow')
-					alert('抱歉，发生未知错误。请稍后重试。');
 					$('.success-message').slideDown('slow');
-					$('#signInBtn').attr('disabled',false);		
+					$('#signInBtn').attr('disabled',false);
+					// Disable fields
+					$('.text').attr('disabled',false);
 				}
 			}		
 		});
@@ -567,9 +561,6 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 
 					// Loading icon
 					$('.loading').fadeOut('slow');	
-						
-					//show the success message
-					$('.success-message').slideDown('slow');
 											
 					// Disable register button
 					$('#registerBtn').attr('disabled',true);
@@ -578,7 +569,9 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 					
 				}else {
 					$('.loading').fadeOut('slow')
-					alert('抱歉，发生未知错误。请稍后重试。');				
+						
+					//show the success message
+					$('.success-message').slideDown('slow');		
 				}
 			}		
 		});
