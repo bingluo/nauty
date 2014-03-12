@@ -571,7 +571,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 					$('.loading').fadeOut('slow')
 						
 					//show the success message
-					$('.success-message').slideDown('slow');		
+					$('.success-message').slideDown('slow');
 				}
 			}		
 		});
@@ -582,6 +582,99 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 		
 	$('input[name=email]').blur(function(){validateEmail($(this),emailReg); });
 	$('textarea[name=intro]').blur(function(){validateIntro($(this));});
+})();
+
+/*----------------------------------------------------*/
+/*	Change Password Form
+/*----------------------------------------------------*/
+(function() {
+	function validateCurrentPswd(currentPswd) {
+		if (currentPswd.val()=='') {currentPswd.addClass('validation-error'); return false;}
+		else {currentPswd.removeClass('validation-error'); return true;}
+	}
+
+	function validateNewPswd(newPswd) {
+		if (newPswd.val()=='') {newPswd.addClass('validation-error'); return false;}
+		else {newPswd.removeClass('validation-error'); return true;}
+	}
+
+	function validateNewPswdConfirm(newPswd,newPswdConfirm) {
+		if (newPswdConfirm.val()=='') {newPswdConfirm.addClass('validation-error'); return false;}
+		else if(newPswd.val()!=newPswdConfirm.val()){newPswdConfirm.addClass('validation-error'); return false;}
+		else {newPswdConfirm.removeClass('validation-error'); return true;}
+	}
+				
+	$('#pswdBtn').click(function() {
+	
+		var result=true;
+		
+		var currentPswd = $('input[name=currentPswd]');
+		var newPswd = $('input[name=newPswd]');
+		var newPswdConfirm = $('input[name=newPswdConfirm]');
+				
+		// Validate
+		if(!validateCurrentPswd(currentPswd)) result=false;
+		if(!validateNewPswd(newPswd)) result=false;
+		if(!validateNewPswdConfirm(newPswd,newPswdConfirm)) result=false;
+		
+		if(result==false) return false;
+				
+		// Data
+		var data = 'currentPswd=' + currentPswd.val() + '&newPswd=' + newPswd.val();
+		
+		// Disable fields
+		$('.text').attr('disabled','true');
+		
+		// Loading icon
+		$('.loading').show();
+		
+		// Start jQuery
+		$.ajax({
+		
+			// PHP file that processes the data and send mail
+			url: $formAction,	
+			
+			// POST method is used
+			type: "POST",
+
+			// Pass the data			
+			data: data,		
+			
+			//Do not cache the page
+			cache: false,
+			
+			// Success
+			success: function (html) {				
+			
+				if (html==1) {	
+
+					// Loading icon
+					$('.loading').fadeOut('slow');	
+											
+					// Disable register button
+					$('#pswdBtn').attr('disabled',true);
+					
+					location.href=$contextPath+"/designer/"+designerId;
+					
+				}else {
+					$('.loading').fadeOut('slow')
+						
+					//show the success message
+					$('.success-message').slideDown('slow');		
+					$('#pswdBtn').attr('disabled',false);
+					// Disable fields
+					$('.text').attr('disabled',false);
+				}
+			}		
+		});
+	
+		return false;
+		
+	});
+		
+	$('input[name=currentPswd]').blur(function(){validateCurrentPswd($(this));});
+	$('input[name=newPswd]').blur(function(){validateNewPswd($(this));});
+	$('input[name=newPswdConfirm]').blur(function(){validateNewPswdConfirm($('input[name=newPswd]'),$(this));});
 })();
 
 /*----------------------------------------------------*/
