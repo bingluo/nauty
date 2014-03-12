@@ -1,10 +1,15 @@
 package cn.seu.cose.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +19,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.seu.cose.command.MessageCommand;
 import cn.seu.cose.entity.Comment;
 import cn.seu.cose.entity.CommentPojo;
 import cn.seu.cose.entity.Designer;
+import cn.seu.cose.entity.Work;
 import cn.seu.cose.entity.WorkPojo;
 import cn.seu.cose.filter.SecurityContextHolder;
 import cn.seu.cose.service.CommentService;
@@ -292,13 +299,109 @@ public class DesignerCenterController extends AbstractController {
 	}
 
 	/**
+	 * change password
+	 */
+	@RequestMapping(value = "/designer/{designerId}/admin/pswd", method = RequestMethod.GET)
+	public String changePswd(Model model, HttpServletResponse response,
+			@PathVariable("designerId") int designerId) {
+		basicIssue(model);
+		Designer designer = designerService.getDesignerById(designerId);
+		model.addAttribute("designer", designer);
+		if (designerService.isTheSignInOne(designerId)) {
+			return "designer/changePswd";
+		} else {
+			return "designer/designerCenterIndex";
+		}
+	}
+
+	/**
+	 * @throws IOException
+	 * 
+	 */
+	@RequestMapping(value = "/designer/{designerId}/admin/pswd", method = RequestMethod.POST)
+	public void changePswdPost(Model model, HttpServletResponse response,
+			@PathVariable("designerId") int designerId,
+			@RequestParam("currentPswd") String currentPswd,
+			@RequestParam("newPswd") String newPswd) throws IOException {
+		Writer writer = response.getWriter();
+		if (designerService.isTheSignInOne(designerId)) {
+			Designer designer = designerService.getCurrentUser();
+			if (designer.getPassword().equals(currentPswd)) {
+				designer.setPassword(newPswd);
+				designerService.updateDesigner(designer);
+				writer.write("1");
+				return;
+			}
+		}
+		writer.write("0");
+		return;
+	}
+
+	/**
 	 * post a new work
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/designer/{designerId}/admin/new-work")
-	public String newWork() {
-		return "designer/newWork";
+	@RequestMapping(value = "/designer/{designerId}/admin/new-work", method = RequestMethod.GET)
+	public String newWorkPage(Model model, HttpServletResponse response,
+			@PathVariable("designerId") int designerId) {
+		basicIssue(model);
+		Designer designer = designerService.getDesignerById(designerId);
+		model.addAttribute("designer", designer);
+		if (designerService.isTheSignInOne(designerId)) {
+			return "designer/newWork";
+		} else {
+			return "designer/designerCenterIndex";
+		}
+
+	}
+
+	@RequestMapping(value = "/designer/{designerId}/admin/new-work", method = RequestMethod.POST)
+	public void postWork(HttpServletRequest request,
+			HttpServletResponse response, Model model,
+			@RequestParam MultipartFile[] file,
+			@RequestParam("title") String title,
+			@RequestParam("intro") String intro,
+			@PathVariable("designerId") int designerId) throws IOException {
+		basicIssue(model);
+		Designer designer = designerService.getDesignerById(designerId);
+		model.addAttribute("designer", designer);
+		if (!designerService.isTheSignInOne(designerId)) {
+			response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+					+ designerId);
+			return;
+		}
+		Work work = new Work();
+		work.setWorkName(title);
+		work.setIntro(intro);
+		work.setUserId(designerId);
+		StringBuilder workPics = new StringBuilder();
+		String path = request.getSession().getServletContext()
+				.getRealPath("static/works");
+		boolean notFirst = false;
+		for (MultipartFile f : file) {
+			DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+			String fileName = format.format(new Date())
+					+ f.getOriginalFilename();
+			File targetFile = new File(path, fileName);
+			if (f.getContentType().equals("image/jpeg") && !targetFile.exists()) {
+				// 保存
+				try {
+					f.transferTo(targetFile);
+					if (notFirst) {
+						workPics.append(";");
+					}
+					workPics.append(fileName);
+					notFirst = true;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		work.setWorkPics(workPics.toString());
+		workService.insertWork(work);
+		response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+				+ designerId);
 	}
 
 	/**

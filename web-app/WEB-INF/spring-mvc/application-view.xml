@@ -43,4 +43,12 @@
         <property name="viewClass"
             value="cn.seu.cose.view.velocity.VelocityLayoutView" />
     </bean>
+	
+	<!-- 支持上传文件 -->  
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <!--设置上传文件的最大尺寸为512KB
+		<property name="maxUploadSize">  
+			<value>524288</value>  
+		</property>--> 
+	</bean> 
 </beans>

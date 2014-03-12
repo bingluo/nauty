@@ -2,16 +2,32 @@
 	<div class="four columns" style="min-height:600px;">
     	<div>
         	<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}"><img src="$!{viewUtil.getContextPath()}/static/avatar/#if($designer.avatar)$!{designer.avatar}#else default.png#end" alt="" style="width:220px;height:240px;"></a>
-        	<div class="team-name tooltips"><h5><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}" style="color:#333">$!{designer.userName}</a>#if($curUser && $curUser.id == $designer.id)<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/profile" rel="tooltip" data-original-title="修改个人资料 " style="float:right;margin-right:10px;">修改个人资料</a>#end</h5> <span>Email: $!{designer.email}</span></div>
-        	<div class="team-about"><h5>个人简介</h5><p>$!{designer.intro}</p>
+        	<div class="team-name">
+				<h5>
+					<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}" style="color:#333">$!{designer.userName}</a>
+				</h5> 
+				<span>Email: $!{designer.email}</span>
+			</div>
+        	<div class="team-about">
+				<h5>个人简介</h5><p>$!{designer.intro}</p>
     		</div>
     	</div>
+		#if($curUser && $curUser.id == $designer.id)
+		<div class="tooltips" style="margin-bottom:20px;">
+			<h5>编辑	</h5>
+			<h5>
+			<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/pswd" rel="tooltip" data-original-title="修改密码 " style="margin-right:10px;">修改密码</a>
+			<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/profile" rel="tooltip" data-original-title="编辑个人资料 " style="margin-right:10px;">个人资料</a>
+			<a href="#" rel="tooltip" data-original-title="编辑头像 " style="margin-right:10px;">头像</a>
+			</h5>
+		</div>
+		#end
     	<div class="clear"></div>
 		#if($curUser && $curUser.id == $designer.id)
     		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/new-work" class="button color medium">发布作品</a>
-    		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/new-blog" class="button color medium" style="float:right;">发表博文</a>
+    		<a href="#" class="button color medium" style="float:right;">发表博文</a>
     	#else
     		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works" class="button color medium">设计作品</a>
-    		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/blogs" class="button color medium" style="float:right;">个人博客</a>
+    		<a href="#" class="button color medium" style="float:right;">个人博客</a>
     	#end
     </div>
