@@ -366,7 +366,8 @@ public class DesignerCenterController extends AbstractController {
 		basicIssue(model);
 		Designer designer = designerService.getDesignerById(designerId);
 		model.addAttribute("designer", designer);
-		if (!designerService.isTheSignInOne(designerId)) {
+		if (!designerService.isTheSignInOne(designerId)
+				|| !designerService.getCurrentUser().isCertificated()) {
 			response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
 					+ designerId);
 			return;

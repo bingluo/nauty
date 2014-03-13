@@ -44,6 +44,7 @@
 	#parse("designer/profile-left-bar.vm")
     <div class="twelve columns"> 
 		<div class="headline" style="margin-top:0;"><h3>发布作品</h3></div>
+		#if($!{curUser.certificated})
 		<!-- Success Message -->
 		<div class="success-message">
 			<div class="notification success closeable">
@@ -70,6 +71,12 @@
 				</div>
 			</form>
 		</div>
+		#else
+			<div class="notification warning" style="margin: 5px 0px 25px; display: block;" id="notification_1">
+				<p>通过认证后才能上传作品！</p>
+			</div>
+			
+		#end
 	</div>
 </div>
 <!-- 960 Container / End -->
