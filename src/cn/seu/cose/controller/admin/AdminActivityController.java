@@ -123,9 +123,10 @@ public class AdminActivityController extends AbstractController {
 			Model model, HttpServletResponse response) {
 		putAdmin(model, response);
 		List<ActivityApplication> list = actyService.getActivityApplicationsByActivityId(id);
-		model.addAttribute("applications", list);
+		model.addAttribute("applications_list", list);
+		model.addAttribute("appCount", list.size());
 		model.addAttribute("activityId", id);
-		model.addAttribute("activityTitle", actyService.getActivityNewsByActivityId(id));
+		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
 		return "admin_actyapps";
 	}
 	//*********************activity application end*********************//
@@ -138,7 +139,7 @@ public class AdminActivityController extends AbstractController {
 		List<ActivityNews> list = actyService.getActivityNewsByActivityId(id);
 		model.addAttribute("activityId", id);
 		model.addAttribute("news_list", list);
-		model.addAttribute("activityTitle", actyService.getActivityNewsByActivityId(id));
+		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
 		return "admin_actynews";
 	}
 	
@@ -148,7 +149,7 @@ public class AdminActivityController extends AbstractController {
 		List<ActivityNews> list = actyService.searchActivityNewsByTitle(searchInput);
 		model.addAttribute("activityId", id);
 		model.addAttribute("news_list", list);
-		model.addAttribute("activityTitle", actyService.getActivityNewsByActivityId(id));
+		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
 		return "admin_actynews";
 		
 	}
@@ -158,7 +159,7 @@ public class AdminActivityController extends AbstractController {
 			Model model, HttpServletResponse response) {
 		putAdmin(model, response);
 		model.addAttribute("activityId", id);
-		model.addAttribute("activityTitle", actyService.getActivityNewsByActivityId(id));
+		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
 		return "admin_actynews_add";
 	}
 	
@@ -189,7 +190,7 @@ public class AdminActivityController extends AbstractController {
 		putAdmin(model, response);
 		ActivityNews news = actyService.getActivityNewsById(id);
 		model.addAttribute("news", news);
-		model.addAttribute("activityTitle", actyService.getActivityNewsByActivityId(news.getActivityId()));
+		model.addAttribute("activityTitle", actyService.getActivityById(news.getActivityId()).getTitle());
 		return "admin_actynews_alt";
 	}
 	
@@ -215,7 +216,7 @@ public class AdminActivityController extends AbstractController {
 		List<ActivityPhoto> list = actyService.getActivityPhotoByActivityId(id);
 		model.addAttribute("activityId", id);
 		model.addAttribute("photos", list);
-		model.addAttribute("activityTitle", actyService.getActivityNewsByActivityId(id));
+		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
 		return "admin_actyphotos";
 	}
 	
@@ -223,7 +224,7 @@ public class AdminActivityController extends AbstractController {
 	public String getAddActyPhoto(@PathVariable("id") int id, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
 		model.addAttribute("activityId", id);
-		model.addAttribute("activityTitle", actyService.getActivityNewsByActivityId(id));
+		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
 		return "admin_actyphotos_add";
 	}
 	
@@ -252,7 +253,7 @@ public class AdminActivityController extends AbstractController {
 		putAdmin(model, response);
 		ActivityPhoto photo = actyService.getActivityPhotoById(id);
 		model.addAttribute("photo", photo);
-		model.addAttribute("activityTitle", actyService.getActivityNewsByActivityId(photo.getActivityId()));
+		model.addAttribute("activityTitle", actyService.getActivityById(photo.getActivityId()).getTitle());
 		return "admin_actyphotos_alt";
 	}
 	
