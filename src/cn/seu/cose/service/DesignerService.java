@@ -23,6 +23,10 @@ public class DesignerService {
 		return designerDAOImpl.getAllCertificatedDesigners();
 	}
 
+	public List<Designer> getAllUncertificatedDesigners() {
+		return designerDAOImpl.getAllUncertificatedDesigners();
+	}
+	
 	public Designer getDesignerById(int id) {
 		return designerDAOImpl.getDesignerById(id);
 	}

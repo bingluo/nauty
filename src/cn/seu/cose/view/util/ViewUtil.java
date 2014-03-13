@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.apache.commons.lang.ObjectUtils.Null;
+
 import cn.seu.cose.core.CategoryCache;
 import cn.seu.cose.entity.CategoryPojo;
 
@@ -44,6 +46,9 @@ public class ViewUtil {
 	}
 	
 	public static String fTime(String time) {
+		if (time == null || time.isEmpty()) {
+			return null;
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(
 				"EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 		try {

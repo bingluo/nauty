@@ -32,6 +32,13 @@
 		]]>
 	</select>
 	
+	<select id="selectAllUnertificatedDesigners" resultMap="DesignerResultMap">		
+		<![CDATA[
+    		SELECT * 
+    		FROM designer
+			WHERE certificated = 0
+		]]>
+	</select>
 	<select id="selectDesignerById" resultMap="DesignerResultMap" parameterClass="int">
 		<![CDATA[
     		SELECT * 

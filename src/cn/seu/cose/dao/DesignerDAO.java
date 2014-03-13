@@ -9,6 +9,8 @@ public interface DesignerDAO {
 
 	List<Designer> getAllCertificatedDesigners();
 
+	List<Designer> getAllUncertificatedDesigners();
+	
 	Designer getDesignerById(int id);
 
 	Designer getDesignerByUsernameAndPswd(String username, String pswd);
