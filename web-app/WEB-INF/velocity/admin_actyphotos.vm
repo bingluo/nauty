@@ -1,0 +1,128 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")	
+
+<div id="content">
+	<div id="content-header">
+		<h1>活动图片管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="$!{viewUtil.getContextPath()}/admin/activity_list" title="Go to Home" class="tip-bottom"><i class="icon-headphones"></i>活动管理</a>
+		<a href="#" class="tip-bottom">活动图片管理</a>
+		<a href="#" class="current">${activityTitle}</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-th"></i>
+						</span>
+						<h5>活动图片列表</h5>
+						<span class="icon" id="add_display_btn">
+							<a href="$!{viewUtil.getContextPath()}/admin/add_acty-${activityId}photo" class="btn btn-primary btn-mini">
+								<i class="icon-plus icon-white"></i>添加活动图片
+							</a>
+						</span>
+					</div>
+					<div class="widget-content padding">
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th style="width:6%">ID</th>
+									<th style="width:20%">活动图片</th>
+									<th style="width:12%">活动介绍</th>
+									<th >发布时间</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								#foreach($photo in $photo_list)
+									<tr>
+										<td>$photo.id</td> 
+										<td><a target="_blank" href="$!{viewUtil.getContextPath()}$photo.picUri"><img src="$!{viewUtil.getContextPath()}$photo.picUri" /></a></td>
+										<td>$photo.intro</td>
+										<td>$viewUtil.fTime("$photo.postTime")</td>
+										<td>
+											<a href="$!{viewUtil.getContextPath()}/admin/alt_actyphoto-$photo.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i>修改图片</a>
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除图片</button>
+										</td>
+									</tr>
+								#end
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
+
+<div style="display:none" id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定删除？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_del">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$("#sidebar_li_7").siblings().removeClass('active')
+	$("#sidebar_li_7").addClass('active');
+	var context_path = $("#context_path").val();
+
+	var _activityId = ${activityId};
+	var photoId;
+	
+	$(document).ready(function(){
+		$("#del_dialog").css("display","none");
+		
+		// show del_dialog
+		$("button[id='del_btn']").bind("click", function(){
+			photoId = $(this).parents("tr").find("td:first").html().trim();
+			if(!$.browser.msie) {
+				$("#del_dialog").css("display","block");
+				$("#del_dialog").modal("show");
+				
+			} else {
+				alert("已删除活动");
+				$.ajax({
+					url: context_path + "/admin/del_actyphoto",
+					type: "post",
+					data: {id:photoId, activityId:_activityId},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("删除错误，请重试！");
+					}
+				});
+			}
+			
+		});
+		// yes_del
+		$("#yes_del").bind("click", function(){
+			$.ajax({
+				url: context_path + "/admin/del_actyphoto",
+				type: "post",
+				data: {id:photoId, activityId:_activityId},
+				dataType: "html",
+				success:function(data){
+					$("#del_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#del_dialog").modal("hide");
+					alert("删除错误，请重试！");
+				}
+			});
+		});
+	});
+</script>
+#parse("admin_footer.vm")

@@ -1,0 +1,113 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")	
+
+<div id="content">
+	<div id="content-header">
+		<h1>活动图片管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="$!{viewUtil.getContextPath()}/admin/activity_list" title="Go to Home" class="tip-bottom"><i class="icon-headphones"></i>活动管理</a>
+		<a href="#" class="tip-bottom">修改活动图片</a>
+		<a href="#" class="current">${activityTitle}</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-align-justify"></i>									
+						</span>
+						<h5>修改活动图片</h5>
+					</div>
+					<div class="widget-content padding">
+						<form action="javascript:void(0)" method="post" class="form-horizontal" id="actyphoto_add_form">
+							<div class="control-group" >
+								<label class="control-label">活动图片</label>
+								<div class="controls">
+									<input type="text" id="picName" value="${photo.picUri}"></input>
+									<input type="button" id="image3" value="选择图片" />
+							    </div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">图片介绍</label>
+								<div class="controls">
+									<input type="text" id="intro" value="${photo.intro}">
+								</div>
+							</div>
+							<div class="control-group" >
+								<div class="controls" style="margin-left:200px;">
+									<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+							    </div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
+</div>
+
+<link rel="stylesheet" href="$!{viewUtil.getContextPath()}/static/editor/themes/default/default.css" />
+<script type="text/javascript">
+	$("#sidebar_li_7").siblings().removeClass('active')
+	$("#sidebar_li_7").addClass('active');
+	var context_path = $("#context_path").val();
+	
+	$(document).ready(function(){
+		$("#yes_add").click(function(check) {
+			$("#intro").parent().parent().removeClass("error");
+			$("#picName").parent().parent().removeClass("error");
+			$("#req_intro").remove();
+			$("#req_pic").remove();
+		
+			var _intro = $("#intro").val();
+			var _picName = $("#picName").val();
+			
+			if(_intro == "") {
+				$("#intro").parent().parent().addClass("error");
+				$("#intro").parent().append('<span id="req_intro" for="required" generated="true" class="help-inline">请填写简介</span>');
+			} else if(_picName == "") { 
+				$("#picName").parent().parent().addClass("error");
+				$("#picName").parent().append('<span id="req_pic" for="required" generated="true" class="help-inline">请选择图片</span>');
+			} else {
+				$.ajax({
+					url: context_path + "/admin/alt_actyphoto",
+					type: "post",
+					data: {id:${photo.id}, activityId:${photo.activityId}, intro:_intro, picUri:_picName},
+					dataType: "html",
+					success: function(data) {
+						window.location.href = context_path + "/admin/acty-${photo.activityId}photos_list";
+					},
+					error: function(data) {
+						window.location.href = context_path + "/admin/acty-${photo.activityId}photos_list";
+					}
+				});
+			}
+		});
+	});
+</script>
+<script charset="utf-8" src="$!{viewUtil.getContextPath()}/static/editor/kindeditor.js"></script>
+<script charset="utf-8" src="$!{viewUtil.getContextPath()}/static/editor/lang/zh_CN.js"></script>
+<script>
+KindEditor.ready(function(K) {
+	var editor = K.editor({
+		allowFileManager : true
+	});
+	K('#image3').click(function() {
+		editor.loadPlugin('image', function() {
+			editor.plugin.imageDialog({
+				showRemote : true,
+				imageUrl : K('#picName').val(),
+				clickFn : function(url, title, width, height, border, align) {
+					K('#picName').val(url);
+					editor.hideDialog();
+				}
+			});
+		});
+	});
+});
+</script>
+#parse("admin_footer.vm")

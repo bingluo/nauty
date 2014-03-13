@@ -34,7 +34,7 @@
 		<![CDATA[
         	INSERT INTO activity_photo
 			(pic_uri,activity_id,intro,post_time)
-    		VALUES (#picUri#,#activityId#,#intro#,#postTime#)
+    		VALUES (#picUri#,#activityId#,#intro#,current_timestamp())
 		]]>
 	</insert>
 	
@@ -50,7 +50,7 @@
 			SET pic_uri = #picUri#,
 			activity_id = #activityId#,
 			intro = #intro#,
-			post_time = #postTime#
+			post_time = current_timestamp()
 			WHERE id = #id#
 		]]>
 	</update>

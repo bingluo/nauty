@@ -215,7 +215,7 @@ public class AdminActivityController extends AbstractController {
 		putAdmin(model, response);
 		List<ActivityPhoto> list = actyService.getActivityPhotoByActivityId(id);
 		model.addAttribute("activityId", id);
-		model.addAttribute("photos", list);
+		model.addAttribute("photo_list", list);
 		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
 		return "admin_actyphotos";
 	}
@@ -257,5 +257,16 @@ public class AdminActivityController extends AbstractController {
 		return "admin_actyphotos_alt";
 	}
 	
+	
+	@RequestMapping(value="/admin/alt_actyphoto", method=RequestMethod.POST)
+	public void postAltActyPhoto(@RequestParam("id") int id, @RequestParam("picUri") String picUri,
+			@RequestParam("activityId") int activityId, @RequestParam("intro") String intro) {
+		ActivityPhoto photo = new ActivityPhoto();
+		photo.setId(id);
+		photo.setActivityId(activityId);
+		photo.setPicUri(picUri);
+		photo.setIntro(intro);
+		actyService.updateActivityPhoto(photo);
+	}
 	//*********************activity photo end*********************//
 }
