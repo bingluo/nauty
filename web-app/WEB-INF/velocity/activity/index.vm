@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+    <!-- 960 Container -->
+    <div class="container ie-dropdown-fix">
+    	<!-- Header -->
+    	#parse("common/header.vm")
+    	<!-- Header / End -->
+    	<!-- Navigation -->
+    	#parse("common/navi.vm")
+    	<!-- Navigation / End -->
+    </div>
+    <!-- 960 Container / End -->
+    <!-- 960 Container -->
+    <div class="container">
+    	<div class="twelve columns">
+			#foreach($activity in $activities)
+			<div class="post">
+        		<div class="title-pic">
+        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}">
+        				<img src="$!{viewUtil.getContextPath()}/$!{activity.titlePic}" alt="$!{activity.title}" />
+        			</a>
+        		</div>
+        		<a href="#" class="post-icon video"></a>
+        		<div class="post-content">
+        			<div class="post-title"><h2><a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}">$!{activity.title}</a></h2></div>
+        			<div class="post-meta">
+						<span><i class="mini-ico-calendar"></i>$!{activity.actBeginTime} - $!{activity.actEndTime}</span>
+					</div>
+        			<div class="post-description">
+        				<p>$!{activity.intro}</p>
+        			</div>
+        			<a class="post-entry" href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}">点击查看详情</a>
+        		</div>
+        	</div>
+			#end
+		</div>
+    </div>
+    <!-- End 960 Container -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+</body>
+<script language="JavaScript">
+$formAction = $("#registertForm").attr("action");
+$contextPath = "$!{viewUtil.getContextPath()}";
+</script>
+</html>

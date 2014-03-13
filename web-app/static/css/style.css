@@ -58,6 +58,12 @@
 #contact-details a {color: #666;}
 #contact-details a:hover {color: #888;}
 
+/* Activity
+====================================*/
+.title-pic img{
+	width: 100%;
+	height: auto;
+}
 
 /* Search Form
 ====================================*/
