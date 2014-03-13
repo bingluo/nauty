@@ -32,7 +32,7 @@
 		]]>
 	</select>
 	
-	<select id="selectAllUnertificatedDesigners" resultMap="DesignerResultMap">		
+	<select id="selectAllUncertificatedDesigners" resultMap="DesignerResultMap">		
 		<![CDATA[
     		SELECT * 
     		FROM designer

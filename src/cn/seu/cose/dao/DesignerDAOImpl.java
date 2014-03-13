@@ -36,7 +36,7 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 
 	public List<Designer> getAllUncertificatedDesigners() {
 		return getSqlMapClientTemplate().queryForList(
-				"DESIGNER.selectAllUnertificatedDesigners");
+				"DESIGNER.selectAllUncertificatedDesigners");
 	}
 	
 	@Override
