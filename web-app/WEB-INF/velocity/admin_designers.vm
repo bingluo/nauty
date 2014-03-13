@@ -16,12 +16,15 @@
 						<div class="controls">
 							<input style="" type="text" value="$!searchInput" placeHolder="设计师检索" id="search_input"/>
 							&nbsp;
-							<span style="" margin-left:10px; margin-right:20px" class="icon" id="search_article_btn">
+							<span style="" margin-left:10px; margin-right:20px" class="icon" id="search_designer_btn">
 								<a href="javascript:void(0)" class="btn btn-success btn" style="vertical-align:middle; margin-top:-6px;">
 									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
 								</a>
 							</span>
 						</div>
+					</div>
+					<div class="control-group">
+						
 					</div>
 				</div>
 			</div>
@@ -34,6 +37,19 @@
 							<i class="icon-th"></i>
 						</span>
 						<h5>设计师列表</h5>
+						<span class="icon">
+							<a href="$!{viewUtil.getContextPath()}/admin/designer_list" class="btn btn-mini">
+								<i class="icon-user"></i> 全部
+							</a>
+							&nbsp;&nbsp;
+							<a href="$!{viewUtil.getContextPath()}/admin/designer_list_certificated" class="btn btn-mini">
+								<i class="icon-ok"></i> 已认证
+							</a>
+							&nbsp;&nbsp;
+							<a href="$!{viewUtil.getContextPath()}/admin/designer_list_uncertificated" class="btn btn-mini">
+								<i class="icon-exclamation-sign"></i> 待认证
+							</a>
+						</span>
 					</div>
 					<div class="widget-content padding">
 						<table class="table table-bordered table-striped">
@@ -45,7 +61,7 @@
 									<th style="width:5%">简介</th>
 									<th style="width:7%">头像</th>
 									<th style="width:15%">注册时间</th>
-									<th style="width:15%">认证时间</th>
+									<th style="width:15%">认证情况</th>
 									<th>操作</th>
 								</tr>
 							</thead>
@@ -55,12 +71,21 @@
 										<td>$designer.id</td>
 										<td>$designer.userName</td>
 										<td>$designer.email</td>
-										<td>$designer.intro</td>
+										<td title="$designer.intro">$!{viewUtil.brief($designer.intro)}</td>
 										<td>$designer.avatar</td>
-										<td>$viewUtil.fTime("$designer.registerTime")</td>
-										<td>$viewUtil.fTime("$designer.certificateTime")</td>
+										<td title="$viewUtil.fTime("$designer.registerTime")">$viewUtil.fTime("$designer.registerTime")</td>
+										
+										#if(!$designer.certificated)
+											<td>
+												<button class="btn btn-info"  title="通过认证" id="cer_btn"><i class="icon-info-sign icon-white"></i> 请认证</button>
+											</td>
+										#else
+											<td title="$!{viewUtil.fTime("$!{designer.certificateTime}")} (已认证)">
+												$!{viewUtil.fTime("$!{designer.certificateTime}")} (已认证)
+											</td>
+										#end
 										<td>
-											<button class="btn btn-danger" title="删除设计师" id="del_btn"><i class=" icon-trash icon-white"></i></button>
+											<button class="btn btn-danger" title="删除设计师" id="del_btn"><i class=" icon-trash icon-white"></i> 删除</button>
 										</td>
 									</tr>
 								#end
@@ -73,14 +98,137 @@
 	</div>
 </div>
 <input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
+<div style="display:none" id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定删除？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_del">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
+	</div>
+</div>
+
+<div style="display:none" id="cer_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定通过认证？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_cer">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_cer">否</button>
+	</div>
+</div>
 
 
 <script language="javascript">
 	$("#sidebar_li_8").siblings().removeClass('active')
 	$("#sidebar_li_8").addClass('active');
 	var context_path = $("#context_path").val();
-
-
+	
+	$("#search_designer_btn").bind("click", function(){
+		var search_input = $("#search_input").val().trim();
+		if(search_input == "") {
+			$("#search_input").css("border-color", "red");
+			$("#search_input").attr("placeHolder", "请输入搜索内容");
+		} else if(search_input.length > 10) {
+			$("#search_input").css("border-color", "red");
+			$("#search_input").css("color", "red");
+			$("#search_input").val("");
+			$("#search_input").attr("placeHolder", "搜索内容过长");
+		} else {
+			window.location.href = context_path + "/admin/designer_list_search-" + search_input;
+		}
+		
+	});
+	
+	
+	var designerId;
+	
+	$(document).ready(function(){
+		// show del_dialog
+		$("button[id='del_btn']").bind("click", function(){
+			designerId = $(this).parents("tr").find("td:first").html().trim();
+			if(!$.browser.msie) {
+				$("#del_dialog").css("display","block");
+				$("#del_dialog").modal("show");
+				
+			} else {
+				alert("已删除设计师");
+				$.ajax({
+					url: context_path + "/admin/del_designer",
+					type: "post",
+					data: {id:designerId},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("删除错误，请重试！");
+					}
+				});
+			}
+			
+		});
+		// yes_del
+		$("#yes_del").bind("click", function(){
+			$.ajax({
+				url: context_path + "/admin/del_designer",
+				type: "post",
+				data: {id:designerId},
+				dataType: "html",
+				success:function(data){
+					$("#del_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#del_dialog").modal("hide");
+					alert("删除错误，请重试！");
+				}
+			});
+		});
+		
+		// show cer_dialog
+		$("button[id='cer_btn']").bind("click", function(){
+			designerId = $(this).parents("tr").find("td:first").html().trim();
+			if(!$.browser.msie) {
+				$("#cer_dialog").css("display","block");
+				$("#cer_dialog").modal("show");
+				
+			} else {
+				alert("已认证完成");
+				$.ajax({
+					url: context_path + "/admin/cer_designer",
+					type: "post",
+					data: {id:designerId},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("认证错误，请重试！");
+					}
+				});
+			}
+			
+		});
+		// yes_cer
+		$("#yes_cer").bind("click", function(){
+			$.ajax({
+				url: context_path + "/admin/cer_designer",
+				type: "post",
+				data: {id:designerId},
+				dataType: "html",
+				success:function(data){
+					$("#cer_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#cer_dialog").modal("hide");
+					alert("认证错误，请重试！");
+				}
+			});
+		});
+		
+	});
 
 </script>
 #parse("admin_footer.vm")

@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.apache.commons.lang.ObjectUtils.Null;
-
 import cn.seu.cose.core.CategoryCache;
 import cn.seu.cose.entity.CategoryPojo;
 
@@ -60,7 +58,15 @@ public class ViewUtil {
 		}
 		return null;
 	}
-
+	
+	
+	public static final int BRIEF_LENGTH = 10;
+	public static String brief(String s) {
+		if(s==null || s.isEmpty() || s.length() <= BRIEF_LENGTH)
+			return s;
+		return s.substring(0, BRIEF_LENGTH);
+	}
+	
 	public static String getParentCatName(int catId) {
 		CategoryPojo curCat = CategoryCache.get(catId);
 		if (curCat.getCatLevel() == 1) {
