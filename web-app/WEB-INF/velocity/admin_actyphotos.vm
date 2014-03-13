@@ -42,8 +42,8 @@
 									<tr>
 										<td>$photo.id</td> 
 										<td><a target="_blank" href="$!{viewUtil.getContextPath()}$photo.picUri"><img src="$!{viewUtil.getContextPath()}$photo.picUri" /></a></td>
-										<td>$photo.intro</td>
-										<td>$viewUtil.fTime("$photo.postTime")</td>
+										<td title="$!{viewUtil.brief($photo.intro)}">$!{viewUtil.brief($photo.intro)}</td>
+										<td title='$viewUtil.fTime("$photo.postTime")'>$viewUtil.fTime("$photo.postTime")</td>
 										<td>
 											<a href="$!{viewUtil.getContextPath()}/admin/alt_actyphoto-$photo.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i>修改图片</a>
 											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除图片</button>

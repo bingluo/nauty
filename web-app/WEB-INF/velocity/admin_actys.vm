@@ -57,10 +57,14 @@
 								#foreach($activity in $activity_list)
 									<tr>
 										<td>$activity.id</td> 
-										<td>$activity.title</td>
+										<td title="$activity.title">$activity.title</td>
 										<td><a target="_blank" href="$viewUtil.getContextPath()$activity.titlePic"><img src="$viewUtil.getContextPath()$activity.titlePic" /></td>
-										<td>$!{viewUtil.fActivityTime($activity.appBeginTime)} 至 $!{viewUtil.fActivityTime($activity.appEndTime)}</td>
-										<td>$!{viewUtil.fActivityTime($activity.actBeginTime)} 至 $!{viewUtil.fActivityTime($activity.actBeginTime)}</td>
+										<td title="$!{viewUtil.fActivityTime($activity.appBeginTime)} 至 $!{viewUtil.fActivityTime($activity.appEndTime)}">
+											$!{viewUtil.fActivityTime($activity.appBeginTime)} 至 $!{viewUtil.fActivityTime($activity.appEndTime)}
+										</td>
+										<td title="$!{viewUtil.fActivityTime($activity.actBeginTime)} 至 $!{viewUtil.fActivityTime($activity.actBeginTime)}">
+											$!{viewUtil.fActivityTime($activity.actBeginTime)} 至 $!{viewUtil.fActivityTime($activity.actBeginTime)}
+										</td>
 										<td>
 											<a href="$!{viewUtil.getContextPath()}/admin/acty-${activity.id}news_list" class="btn btn-warning" title="活动新闻" id="news_btn"><i class="icon-bookmark icon-white"></i>新闻</a>
 											<a href="$!{viewUtil.getContextPath()}/admin/applicationsOf-$activity.id" class="btn btn-inverse" title="参与统计" id="app_btn"><i class="icon-align-left icon-white"></i>报名</a>

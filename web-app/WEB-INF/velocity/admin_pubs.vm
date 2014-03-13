@@ -40,12 +40,12 @@
 								#foreach($pub in $pub_list)
 									<tr>
 										<td>$pub.id</td>
-										<td width="15%">$pub.title</td>
+										<td width="15%" title="$pub.title">$pub.title</td>
 										
 										#if ($pub.intro.length() < 30) 
-											<td width="15%">$pub.intro</td>
+											<td width="15%" title="$pub.intro">$pub.intro</td>
 										#else
-											<td width="15%">$pub.intro.substring(0,29)...</td>
+											<td width="15%" title="$pub.intro">$pub.intro.substring(0,29)...</td>
 										#end
 										
 										<td>
@@ -53,7 +53,7 @@
 												<a target="_blank" href="$!{viewUtil.getContextPath()}$img" /><img src="$!{viewUtil.getContextPath()}$img"/>
 											#end
 										</td>
-										<td>$viewUtil.fTime("$pub.postTime")</td>
+										<td title='$viewUtil.fTime("$pub.postTime")'>$viewUtil.fTime("$pub.postTime")</td>
 										<td>
 											<a href="$!{viewUtil.getContextPath()}/admin/alt_pub-$pub.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i>修改</a>
 											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除</button>
