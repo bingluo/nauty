@@ -53,8 +53,8 @@
 		<div id="header">
 			<h1><a href="#">管理员平台</a></h1>		
 		</div>
-		<div id="search">
-			<i class="icon-white icon-bell"></i><span class="text" style="color:#AAAAAA;">建议使用ie9以上浏览器访问，推荐chrome浏览器、ie9以上浏览器、搜狗浏览器（非兼容模式）</span>
+		<div id="search" style="top:10px;">
+			<i class="icon-white icon-warning-sign"></i><span class="text" style="color:#AAAAAA;">&nbsp;&nbsp;请使用Chrome、Firefox、IE9以上等高级浏览器</span>
 		</div>
 		<div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav btn-group">
