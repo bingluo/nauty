@@ -47,8 +47,8 @@
 										<td><a target="_blank" href="$!{viewUtil.getContextPath()}$slide.picName" /><img src="$!{viewUtil.getContextPath()}$slide.picName"/></td>
 										<td>$viewUtil.fTime("$slide.updateTime")</td>
 										<td>
-											<a href="$!{viewUtil.getContextPath()}/admin/alt_slide-$slide.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i></a>
-											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i></button>
+											<a href="$!{viewUtil.getContextPath()}/admin/alt_slide-$slide.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i>修改</a>
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除</button>
 										</td>
 									</tr>
 								#end

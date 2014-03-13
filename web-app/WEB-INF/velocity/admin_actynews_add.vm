@@ -75,7 +75,6 @@
 			editor.sync();
 			var _title = $("#title").val();
 			var _content= $("#editor").val();
-			alert(_content);
 			if(_title == "") {
 				$("#title").parent().parent().addClass("error");
 				$("#title").parent().append('<span id="req_title" for="required" generated="true" class="help-inline">请填写新闻标题</span>');
