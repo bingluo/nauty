@@ -77,7 +77,7 @@
 										
 										#if(!$designer.certificated)
 											<td>
-												<button class="btn btn-info"  title="通过认证" id="cer_btn"><i class="icon-info-sign icon-white"></i> 请认证</button>
+												<button class="btn btn-info"  title="通过认证" id="cer_btn"><i class="icon-info-sign icon-white"></i> 通过认证</button>
 											</td>
 										#else
 											<td title="$!{viewUtil.fTime("$!{designer.certificateTime}")} (已认证)">
@@ -86,6 +86,9 @@
 										#end
 										<td>
 											<button class="btn btn-danger" title="删除设计师" id="del_btn"><i class=" icon-trash icon-white"></i> 删除</button>
+											#if($designer.certificated)
+												<button class="btn btn-warning" title="撤销认证" id="uncer_btn"><i class="icon-minus-sign icon-white"></i> 撤销认证</button>
+											#end
 										</td>
 									</tr>
 								#end
@@ -118,6 +121,16 @@
 	</div>
 </div>
 
+<div style="display:none" id="uncer_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定撤销认证？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_uncer">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_uncer">否</button>
+	</div>
+</div>
+
 
 <script language="javascript">
 	$("#sidebar_li_8").siblings().removeClass('active')
@@ -140,10 +153,11 @@
 		
 	});
 	
-	
 	var designerId;
 	
 	$(document).ready(function(){
+	
+/**************************删除***************************************/
 		// show del_dialog
 		$("button[id='del_btn']").bind("click", function(){
 			designerId = $(this).parents("tr").find("td:first").html().trim();
@@ -185,7 +199,7 @@
 				}
 			});
 		});
-		
+/**************************认证***************************************/
 		// show cer_dialog
 		$("button[id='cer_btn']").bind("click", function(){
 			designerId = $(this).parents("tr").find("td:first").html().trim();
@@ -224,6 +238,48 @@
 				error:function(){
 					$("#cer_dialog").modal("hide");
 					alert("认证错误，请重试！");
+				}
+			});
+		});
+/**************************撤销认证***************************************/
+		// show uncer_dialog
+		$("button[id='uncer_btn']").bind("click", function(){
+			designerId = $(this).parents("tr").find("td:first").html().trim();
+			if(!$.browser.msie) {
+				$("#uncer_dialog").css("display","block");
+				$("#uncer_dialog").modal("show");
+				
+			} else {
+				alert("已撤销认证");
+				$.ajax({
+					url: context_path + "/admin/uncer_designer",
+					type: "post",
+					data: {id:designerId},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("撤销认证错误，请重试！");
+					}
+				});
+			}
+			
+		});
+		// yes_uncer
+		$("#yes_uncer").bind("click", function(){
+			$.ajax({
+				url: context_path + "/admin/uncer_designer",
+				type: "post",
+				data: {id:designerId},
+				dataType: "html",
+				success:function(data){
+					$("#uncer_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#uncer_dialog").modal("hide");
+					alert("撤销认证错误，请重试！");
 				}
 			});
 		});

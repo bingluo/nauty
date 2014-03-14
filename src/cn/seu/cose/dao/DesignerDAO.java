@@ -18,6 +18,8 @@ public interface DesignerDAO {
 	void insertDesigner(Designer designer);
 
 	void certificateDesignerById(int id);
+	
+	void uncertificateDesignerById(int id);
 
 	void updateDesigner(Designer designer);
 

@@ -66,6 +66,11 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
+	public void uncertificateDesignerById(int id) {
+		getSqlMapClientTemplate().update("DESIGNER.uncertificateDesignerById", id);
+	}
+	
+	@Override
 	public void updateDesigner(Designer designer) {
 		getSqlMapClientTemplate().update("DESIGNER.updateDesigner", designer);
 	}

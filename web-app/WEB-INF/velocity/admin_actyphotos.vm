@@ -41,7 +41,7 @@
 								#foreach($photo in $photo_list)
 									<tr>
 										<td>$photo.id</td> 
-										<td><a target="_blank" href="$!{viewUtil.getContextPath()}$photo.picUri"><img src="$!{viewUtil.getContextPath()}$photo.picUri" /></a></td>
+										<td><a target="_blank" href="$!photo.picUri"><img src="$!photo.picUri" /></a></td>
 										<td title="$!{viewUtil.brief($photo.intro)}">$!{viewUtil.brief($photo.intro)}</td>
 										<td title='$viewUtil.fTime("$photo.postTime")'>$viewUtil.fTime("$photo.postTime")</td>
 										<td>
