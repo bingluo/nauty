@@ -5,12 +5,14 @@ import java.util.List;
 import cn.seu.cose.entity.ActivityNews;
 
 public interface ActivityNewsDAO {
+	List<ActivityNews> getActivityLatestNews();
+
 	List<ActivityNews> getActivityNewsByActivityId(int id);
-	
+
 	ActivityNews getActivityNewsById(int id);
-	
+
 	List<ActivityNews> searchActivityNewsByTitle(String title);
-	
+
 	void insertActivityNews(ActivityNews activityNews);
 
 	void deleteActivityNews(int id);

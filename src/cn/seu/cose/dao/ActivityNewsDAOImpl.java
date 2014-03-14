@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
 
-import com.ibatis.sqlmap.client.SqlMapClient;
-
 import cn.seu.cose.entity.ActivityNews;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
 
 @Component
 @SuppressWarnings("unchecked")
@@ -19,7 +19,13 @@ public class ActivityNewsDAOImpl extends SqlMapClientDaoSupport implements
 	public void setSqlMapClientTemp(SqlMapClient sqlMapClient) {
 		setSqlMapClient(sqlMapClient);
 	}
-	
+
+	@Override
+	public List<ActivityNews> getActivityLatestNews() {
+		return getSqlMapClientTemplate().queryForList(
+				"ACTIVITY_NEWS.selectLatestActivityNews");
+	}
+
 	@Override
 	public List<ActivityNews> getActivityNewsByActivityId(int id) {
 		return getSqlMapClientTemplate().queryForList(
@@ -28,16 +34,16 @@ public class ActivityNewsDAOImpl extends SqlMapClientDaoSupport implements
 
 	@Override
 	public ActivityNews getActivityNewsById(int id) {
-		return (ActivityNews)getSqlMapClientTemplate().queryForObject(
+		return (ActivityNews) getSqlMapClientTemplate().queryForObject(
 				"ACTIVITY_NEWS.selectActivityNewsById", id);
 	}
-	
+
 	@Override
 	public List<ActivityNews> searchActivityNewsByTitle(String title) {
 		return getSqlMapClientTemplate().queryForList(
 				"ACTIVITY_NEWS.selectActivityNewsByTitle", title);
 	}
-	
+
 	@Override
 	public void insertActivityNews(ActivityNews activityNews) {
 		getSqlMapClientTemplate().insert("ACTIVITY_NEWS.insertActivityNews",

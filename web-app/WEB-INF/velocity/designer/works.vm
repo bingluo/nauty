@@ -48,13 +48,13 @@
 	#foreach($work in $works)
 	<div class="four columns">
     	<div class="picture">
-    		<a href="/designer/$!{designer.id}/works/$!{work.id}.html">
-    			<img src="/static/works/$!{work.workPics.get(0)}" alt="$!{work.workName}" style="height:139px">
+    		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html">
+    			<img src="$!{viewUtil.getContextPath()}/static/works/$!{work.workPics.get(0)}" alt="$!{work.workName}" style="height:139px">
     			<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
     		</a>
     	</div>
     	<div class="item-description">
-    		<h5><a href="/designer/$!{designer.id}/works/$!{work.id}.html">$!{work.workName}</a></h5>
+    		<h5><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html">$!{work.workName}</a></h5>
     	</div>
     </div>
 	#end

@@ -11,7 +11,7 @@ import cn.seu.cose.entity.Work;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 @Component
-public class WorkDAOImpl extends SqlMapClientDaoSupport implements WorkDAO{
+public class WorkDAOImpl extends SqlMapClientDaoSupport implements WorkDAO {
 
 	@Autowired(required = true)
 	public void setSqlMapClientTemp(SqlMapClient sqlMapClient) {
@@ -20,12 +20,14 @@ public class WorkDAOImpl extends SqlMapClientDaoSupport implements WorkDAO{
 
 	@Override
 	public Work getWorkById(int id) {
-		return (Work)getSqlMapClientTemplate().queryForObject("WORK.selectWorkById", id);
+		return (Work) getSqlMapClientTemplate().queryForObject(
+				"WORK.selectWorkById", id);
 	}
 
 	@Override
 	public List<Work> getWorksByUserId(int userId) {
-		return (List<Work>)getSqlMapClientTemplate().queryForList("WORK.selectWorksByUserId", userId);
+		return (List<Work>) getSqlMapClientTemplate().queryForList(
+				"WORK.selectWorksByUserId", userId);
 	}
 
 	@Override
@@ -47,6 +49,9 @@ public class WorkDAOImpl extends SqlMapClientDaoSupport implements WorkDAO{
 	public void deleteWork(int id) {
 		getSqlMapClientTemplate().delete("WORK.deleteWork", id);
 	}
-	
-	
+
+	@Override
+	public List<Work> getHotWorks() {
+		return getSqlMapClientTemplate().queryForList("WORK.selectHotWorks");
+	}
 }

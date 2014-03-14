@@ -64,11 +64,11 @@
     			<li>
     				<div class="comments">
     					<div class="avatar">
-							<img src="$!{viewUtil.getContextPath()}/static/avatar/#if($!{comment.designer}&&$!{comment.avatar})$!{comment.avatar}#else default.png#end" alt="" style="width:50px;height:50px;" border="0">
+							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><img src="$!{viewUtil.getContextPath()}/static/avatar/#if($!{comment.designer}&&$!{comment.avatar})$!{comment.avatar}#else default.png#end" alt="" style="width:50px;height:50px;" border="0"></a>
 						</div>
     					<div class="comment-des">
         					<div class="comment-by">
-    							<strong>#if($!{comment.designer})$!{comment.userName}#else 匿名#end</strong>
+    							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><strong>#if($!{comment.designer})$!{comment.userName}#else 匿名#end</strong></a>
     							<span class="date">$!{comment.commentTime}</span>
     						</div>
         					<p>$!{comment.content}</p>
@@ -126,7 +126,7 @@
             			$(".success-message").css('display','block');
             			$("#notification_1").css('display','block');
 						$("send").css('disabled','disabled');
-						location.href="$!{viewUtil.getContextPath()}";
+						location.href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}";
 					}
 				});
 			}else{

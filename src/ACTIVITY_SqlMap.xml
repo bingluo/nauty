@@ -22,7 +22,7 @@
         		SELECT * 
         		FROM activity
     			ORDER BY act_begin_time desc) a
-    		limit 4 
+    		limit 5 
 		]]>
 	</select>
 	
@@ -32,6 +32,22 @@
     		FROM activity
 			WHERE current_timestamp() BETWEEN act_begin_time AND act_end_time
 			ORDER BY act_begin_time desc
+		]]>
+	</select>
+	
+	<select id="selectAdvanceActivities" resultMap="ActivityResultMap">
+		<![CDATA[
+    		SELECT *
+    		FROM activity
+			WHERE current_timestamp() < act_begin_time
+		]]>
+	</select>
+	
+	<select id="selectReviewActivities" resultMap="ActivityResultMap">
+		<![CDATA[
+    		SELECT *
+    		FROM activity
+			WHERE current_timestamp() > act_end_time
 		]]>
 	</select>
 	

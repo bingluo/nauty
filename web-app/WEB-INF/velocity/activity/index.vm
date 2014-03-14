@@ -20,15 +20,22 @@
     <!-- 960 Container / End -->
     <!-- 960 Container -->
     <div class="container">
+		<div class="sixteen columns">
+    		<div id="page-title">
+    			<h2 style="padding: 10px 0 10px 0;"><a href="$!{viewUtil.getContextPath()}/activity" style="color:#333">活动赛事</a>#if($!{activityType})$!{activityType}#end</h2>
+    			<div id="bolded-line"></div>
+    		</div>
+    	</div>
     	<div class="twelve columns">
+		#if($activities.size()>0)
 			#foreach($activity in $activities)
-			<div class="post">
+			<div class="post" style="border-bottom:1px solid #ddd;">
         		<div class="title-pic">
         			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}">
         				<img src="$!{viewUtil.getContextPath()}$!{activity.titlePic}" alt="$!{activity.title}" />
         			</a>
         		</div>
-        		<a href="#" class="post-icon video"></a>
+        		<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" class="post-icon video"></a>
         		<div class="post-content">
         			<div class="post-title"><h2><a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}">$!{activity.title}</a></h2></div>
         			<div class="post-meta">
@@ -41,6 +48,50 @@
         		</div>
         	</div>
 			#end
+		#else
+			<div class="notification warning closeable" id="notification_3" style="display: block;">
+				<p><span>抱歉！</span> 暂无相关活动。</p>
+				<a class="close" href="#"></a>
+			</div>
+		#end
+		</div>
+		<div class="four columns">
+			<div class="widget-alt">
+        		<div class="headline no-margin"><h4>更多活动</h4></div>
+        		<ul class="links-list-alt">
+    				<li><a href="$!{viewUtil.getContextPath()}/activity/current">正在进行</a></li>
+        			<li><a href="$!{viewUtil.getContextPath()}/activity/advance">即将开始</a></li>
+        			<li><a href="$!{viewUtil.getContextPath()}/activity/review">往期回顾</a></li>
+        		</ul>
+			</div>
+            <div class="icon-box widget">
+    			<div class="headline no-margin">
+    				<h4>赛事动态</h4>
+    			</div>
+    			<ul class="circle_list" style="margin-top: 15px;">
+					#foreach($activityNew in $latestNews)
+    				<li>
+    					<div class="latest-post-blog" style="margin-bottom:8px;">
+                           	<a href="/activity-news/$!{activityNew.id}" style="color: rgb(102, 102, 102); text-decoration: none;">$!{activityNew.title}</a>
+    					</div>
+                	</li>
+					#end
+    			</ul>
+            </div>
+    		<div class="widget">
+        		<div class="headline no-margin">
+        			<h4>优秀作品</h4>
+        		</div>
+				#foreach($hotWork in $hotWorks)
+        		<div class="latest-post-blog tooltips" style="min-height: 62px;">
+        			<a href="$!{viewUtil.getContextPath}/activity/$!{hotWork.activityId}/work/$!{hotWork.id}"><img src="$!{viewUtil.getContextPath()}/static/works/$!{hotWork.workPics.get(0)}" alt="$!{hotWork.workName}"></a>
+        			<p>
+						<a href="$!{viewUtil.getContextPath}/activity/$!{hotWork.activityId}/work/$!{hotWork.id}"  style="font-weight:bold;margin-bottom:5px;">$!{hotWork.workName}</a>
+						<a href="$!{viewUtil.getContextPath}/activity/$!{hotWork.activityId}">$!{hotWork.activityTitle}</a>
+					</p>
+        		</div>
+				#end
+    		</div>
 		</div>
     </div>
     <!-- End 960 Container -->

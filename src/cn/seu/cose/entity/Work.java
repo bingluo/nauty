@@ -14,7 +14,7 @@ public class Work {
 	// distinguish multiple pictures with ';'
 	private String workPics;
 	// maybe null, not belong to any activity
-	private int activityId;
+	private int activityId = -1;
 	private String intro;
 	private int voteCount;
 	private Date updateTime;

@@ -13,6 +13,16 @@
 		<result property="updateTime" column="UPDATE_TIME"/>
 		<result property="postUser" column="POST_USER"/>
 	</resultMap>
+		
+	<select id="selectLatestActivityNews" resultMap="ActivityNewsResultMap">		
+		<![CDATA[
+		SELECT * FROM
+        	(SELECT *
+        	FROM activity_news
+    		ORDER BY update_time desc) a
+		limit 5
+		]]>
+	</select>
 	
 	<select id="selectActivityNewsByActivityId" resultMap="ActivityNewsResultMap" parameterClass="int">		
 		<![CDATA[

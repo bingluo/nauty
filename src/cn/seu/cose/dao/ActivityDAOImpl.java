@@ -2,8 +2,6 @@ package cn.seu.cose.dao;
 
 import java.util.List;
 
-import oracle.net.aso.a;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
@@ -51,12 +49,12 @@ public class ActivityDAOImpl extends SqlMapClientDaoSupport implements
 		return (List<Activity>) getSqlMapClientTemplate().queryForList(
 				"ACTIVITY.searchActivityByTitle", title);
 	}
-	
+
 	@Override
 	public void addActivity(Activity activity) {
 		getSqlMapClientTemplate().insert("ACTIVITY.insertActivity", activity);
 	}
-	
+
 	@Override
 	public void updateActivity(Activity activity) {
 		getSqlMapClientTemplate().update("ACTIVITY.updateActivity", activity);
@@ -65,5 +63,17 @@ public class ActivityDAOImpl extends SqlMapClientDaoSupport implements
 	@Override
 	public void deleteActivityById(int id) {
 		getSqlMapClientTemplate().delete("ACTIVITY.deleteActivityById", id);
+	}
+
+	@Override
+	public List<Activity> getAdvanceActivities() {
+		return getSqlMapClientTemplate().queryForList(
+				"ACTIVITY.selectAdvanceActivities");
+	}
+
+	@Override
+	public List<Activity> getReviewActivities() {
+		return getSqlMapClientTemplate().queryForList(
+				"ACTIVITY.selectReviewActivities");
 	}
 }

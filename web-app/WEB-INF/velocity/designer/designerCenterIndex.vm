@@ -43,26 +43,26 @@
 ================================================== -->
 	#parse("designer/profile-left-bar.vm")
 	<div class="twelve columns tooltips">
-		<div class="headline no-margin"><h4>设计作品 <span class="comments-amount">($!{works.size()})</span></h4><a href="/designer/$!{designer.id}/works" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a></div>
+		<div class="headline no-margin"><h4>设计作品 <span class="comments-amount">($!{works.size()})</span></h4><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a></div>
 	</div>
 	<div style="min-height:220px;">
     	#foreach($work in $works)
     	<div class="four columns">
         	<div class="picture">
-        		<a href="/designer/$!{designer.id}/works/$!{work.id}.html">
-        			<img src="/static/works/$!{work.workPics.get(0)}" alt="$!{work.workName}" style="height:139px">
+        		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html">
+        			<img src="$!{viewUtil.getContextPath()}/static/works/$!{work.workPics.get(0)}" alt="$!{work.workName}" style="height:139px">
         			<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
         		</a>
         	</div>
         	<div class="item-description">
-        		<h5><a href="/designer/$!{designer.id}/works/$!{work.id}.html">$!{work.workName}</a></h5>
+        		<h5><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html">$!{work.workName}</a></h5>
         	</div>
         </div>
 		#end
 	</div>
     <div class="twelve columns">
     	<div class="tooltips" style="min-height:250px;">
-    		<div class="headline no-margin"><h4>个人博客 <span class="comments-amount">(0)</span></h4><a href="/designer/$!{designer.id}/blogs" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a></div>
+    		<div class="headline no-margin"><h4>个人博客 <span class="comments-amount">(0)</span></h4><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/blogs" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a></div>
     	</div>
     	<div class="headline no-margin">
 			<h4>空间留言 <span class="comments-amount">($!{comments.size()})</span></h4>
@@ -73,11 +73,11 @@
     			<li>
     				<div class="comments">
     					<div class="avatar">
-							<img src="$!{viewUtil.getContextPath()}/static/avatar/#if($!{comment.designer}&&$!{comment.avatar})$!{comment.avatar}#else default.png#end" alt="" style="width:50px;height:50px;" border="0">
+							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><img src="$!{viewUtil.getContextPath()}/static/avatar/#if($!{comment.designer}&&$!{comment.avatar})$!{comment.avatar}#else default.png#end" alt="" style="width:50px;height:50px;" border="0"></a>
 						</div>
     					<div class="comment-des">
         					<div class="comment-by">
-    							<strong>#if($!{comment.designer})$!{comment.userName}#else 匿名#end</strong>
+    							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><strong>#if($!{comment.designer})$!{comment.userName}#else 匿名#end</strong></a>
     							<span class="date">$!{comment.commentTime}</span>
     						</div>
         					<p>$!{comment.content}</p>
@@ -135,7 +135,7 @@
             			$(".success-message").css('display','block');
             			$("#notification_1").css('display','block');
 						$("send").css('disabled','disabled');
-						location.href="$!{viewUtil.getContextPath()}";
+						location.href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}";
 					}
 				});
 			}else{
