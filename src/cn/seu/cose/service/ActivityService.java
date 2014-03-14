@@ -33,23 +33,31 @@ public class ActivityService {
 		return activityDAOImpl.getCurrentActivities();
 	}
 
+	public List<Activity> getAdvanceActivities() {
+		return activityDAOImpl.getAdvanceActivities();
+	}
+
+	public List<Activity> getReviewActivities() {
+		return activityDAOImpl.getReviewActivities();
+	}
+
 	public Activity getActivityById(int id) {
 		return activityDAOImpl.getActivityById(id);
 	}
-	
+
 	public List<Activity> getAllActivities() {
 		return activityDAOImpl.getAllActivities();
-		
+
 	}
-	
+
 	public List<Activity> searchActivityByTitle(String title) {
 		return activityDAOImpl.searchActivityByTitle(title);
 	}
-	
+
 	public void addActivity(Activity activity) {
 		activityDAOImpl.addActivity(activity);
 	}
-	
+
 	public void updateActivity(Activity activity) {
 		activityDAOImpl.updateActivity(activity);
 	}
@@ -73,6 +81,10 @@ public class ActivityService {
 				.deleteActivityApplication(userId, activityId);
 	}
 
+	public List<ActivityNews> getActivityLatestNews() {
+		return activityNewsDAOImpl.getActivityLatestNews();
+	}
+
 	public List<ActivityNews> getActivityNewsByActivityId(int id) {
 		return activityNewsDAOImpl.getActivityNewsByActivityId(id);
 	}
@@ -80,10 +92,11 @@ public class ActivityService {
 	public ActivityNews getActivityNewsById(int id) {
 		return activityNewsDAOImpl.getActivityNewsById(id);
 	}
-	
+
 	public List<ActivityNews> searchActivityNewsByTitle(String title) {
 		return activityNewsDAOImpl.searchActivityNewsByTitle(title);
 	}
+
 	public void addActivityNews(ActivityNews activityNews) {
 		activityNewsDAOImpl.insertActivityNews(activityNews);
 	}
@@ -99,7 +112,7 @@ public class ActivityService {
 	public List<ActivityPhoto> getActivityPhotoByActivityId(int id) {
 		return activityPhotoDAOImpl.getActivityPhotoByActivityId(id);
 	}
-	
+
 	public ActivityPhoto getActivityPhotoById(int id) {
 		return activityPhotoDAOImpl.getActivityPhotoById(id);
 	}

@@ -86,4 +86,22 @@ public class WorkService {
 		}
 		return url.toString();
 	}
+
+	public List<WorkPojo> getHotWorks() {
+		List<WorkPojo> workPojos = new ArrayList<WorkPojo>();
+		List<Work> works = workDAOImpl.getHotWorks();
+		for (Work work : works) {
+			Designer designer = designerDAOImpl.getDesignerById(work
+					.getUserId());
+			Activity activity = activityDAOImpl.getActivityById(work
+					.getActivityId());
+
+			WorkPojo workPojo = new WorkPojo();
+			workPojo.setWork(work);
+			workPojo.setDesigner(designer);
+			workPojo.setActivity(activity);
+			workPojos.add(workPojo);
+		}
+		return workPojos;
+	}
 }
