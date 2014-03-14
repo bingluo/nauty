@@ -80,4 +80,14 @@ public class AdminDesignerController extends AbstractController{
 		}
 	}
 	
+	@RequestMapping(value="/admin/uncer_designer", method=RequestMethod.POST)
+	public void uncertificateDesigner(@RequestParam("id") int id, HttpServletResponse response) {
+		designerService.uncertificateDesignerById(id);
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/designer_list");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

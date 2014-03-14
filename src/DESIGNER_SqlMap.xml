@@ -80,6 +80,14 @@
 		]]>
 	</update>
 
+	<update id="uncertificateDesignerById" parameterClass="int">
+		<![CDATA[
+		UPDATE designer
+		SET	certificate_time = null,
+			certificated = 0
+		WHERE id = #value#
+		]]>
+	</update>
 	<update id="updateDesigner" parameterClass="baseDesigner">
 		<![CDATA[
 		UPDATE designer

@@ -47,6 +47,10 @@ public class DesignerService {
 		designerDAOImpl.certificateDesignerById(id);
 	}
 
+	public void uncertificateDesignerById(int id) {
+		designerDAOImpl.uncertificateDesignerById(id);
+	}
+	
 	public void updateDesigner(Designer designer) {
 		designerDAOImpl.updateDesigner(designer);
 	}
