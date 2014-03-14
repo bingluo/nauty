@@ -43,7 +43,7 @@
 										<td>$slide.id</td>
 										<td title="$slide.title">$slide.title</td>
 										<td title="$slide.brief">$slide.brief</td>
-										<td title="$slide.articleId"><a href="$!{viewUtil.getContextPath()}/admin/alt_article-$slide.articleId">$slide.articleId</a></td>
+										<td title="$slide.articleId"><a target="_blank" href="$!{viewUtil.getContextPath()}/admin/alt_article-$slide.articleId">$slide.articleId</a></td>
 										<td><a target="_blank" href="$!{viewUtil.getContextPath()}$slide.picName" /><img src="$!{viewUtil.getContextPath()}$slide.picName"/></td>
 										<td title='$viewUtil.fTime("$slide.updateTime")'>$viewUtil.fTime("$slide.updateTime")</td>
 										<td>
