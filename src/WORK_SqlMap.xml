@@ -32,6 +32,17 @@
 		]]>
 	</select>
 	
+	<select id="selectHotWorks" resultMap="WorkResultMap">
+		<![CDATA[
+		SELECT * FROM
+			(SELECT * 
+			FROM WORK
+			WHERE activity_id > 0
+			ORDER BY vote_count DESC) a
+		LIMIT 4
+		]]>
+	</select>
+	
 	<insert id="insertWork" parameterClass="work">
 		<![CDATA[
     		INSERT INTO WORK
