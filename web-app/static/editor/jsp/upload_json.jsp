@@ -1,3 +1,4 @@
+<%@page import="cn.seu.cose.view.util.ViewUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*,java.io.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -19,8 +20,7 @@
 String savePath = pageContext.getServletContext().getRealPath("/") + "static/upload/";
 
 //文件保存目录URL
-String saveUrl  = "/static/upload/";
-
+String saveUrl  = ViewUtil.getContextPath() + "/static/upload/";
 
 //定义允许上传的文件扩展名
 HashMap<String, String> extMap = new HashMap<String, String>();

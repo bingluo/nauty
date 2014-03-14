@@ -40,7 +40,7 @@
 								<tr>
 									<td>$upload.id</td>
 									<td title="$upload.uploadName">$upload.uploadName</td>
-									<td><a target="_blank" href="$!{viewUtil.getContextPath()}$upload.initialName">$upload.initialName</a></td>
+									<td><a target="_blank" href="$!upload.initialName">$!upload.initialName</a></td>
 									<td title='$viewUtil.fTime("$upload.uploadTime")'>$viewUtil.fTime("$upload.uploadTime")</td>
 									<td>
 										<a href="$!{viewUtil.getContextPath()}/admin/alt_upload-$upload.id" class="btn btn-info" title="修改" id="alter_btn"><i class="icon-tag icon-white"></i>修改</a>

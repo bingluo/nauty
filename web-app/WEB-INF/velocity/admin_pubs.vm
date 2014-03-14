@@ -50,7 +50,7 @@
 										
 										<td>
 											#foreach($img in $pub.imgUrls)
-												<a target="_blank" href="$!{viewUtil.getContextPath()}$img" /><img src="$!{viewUtil.getContextPath()}$img"/>
+												<a target="_blank" href="$!img" /><img src="$!img"/>
 											#end
 										</td>
 										<td title='$viewUtil.fTime("$pub.postTime")'>$viewUtil.fTime("$pub.postTime")</td>
