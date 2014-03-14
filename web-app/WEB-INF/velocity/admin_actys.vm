@@ -58,7 +58,7 @@
 									<tr>
 										<td>$activity.id</td> 
 										<td title="$activity.title">$activity.title</td>
-										<td><a target="_blank" href="$!activity.titlePic"><img src="!$activity.titlePic" /></td>
+										<td><a target="_blank" href="$!activity.titlePic"><img src="$!activity.titlePic" /></td>
 										<td title="$!{viewUtil.fActivityTime($activity.appBeginTime)} 至 $!{viewUtil.fActivityTime($activity.appEndTime)}">
 											$!{viewUtil.fActivityTime($activity.appBeginTime)} 至 $!{viewUtil.fActivityTime($activity.appEndTime)}
 										</td>
