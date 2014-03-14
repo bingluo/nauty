@@ -7,6 +7,8 @@ import cn.seu.cose.entity.ActivityNews;
 public interface ActivityNewsDAO {
 	List<ActivityNews> getActivityLatestNews();
 
+	List<ActivityNews> getActivityLatestNewsByActivityId(int activityId);
+
 	List<ActivityNews> getActivityNewsByActivityId(int id);
 
 	ActivityNews getActivityNewsById(int id);

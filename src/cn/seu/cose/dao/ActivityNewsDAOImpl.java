@@ -27,6 +27,13 @@ public class ActivityNewsDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
+	public List<ActivityNews> getActivityLatestNewsByActivityId(int activityId) {
+		return getSqlMapClientTemplate().queryForList(
+				"ACTIVITY_NEWS.selectActivityLatestNewsByActivityId",
+				activityId);
+	}
+
+	@Override
 	public List<ActivityNews> getActivityNewsByActivityId(int id) {
 		return getSqlMapClientTemplate().queryForList(
 				"ACTIVITY_NEWS.selectActivityNewsByActivityId", id);

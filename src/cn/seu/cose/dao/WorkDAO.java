@@ -8,6 +8,8 @@ public interface WorkDAO {
 
 	Work getWorkById(int id);
 
+	List<Work> getRecentWorksByActivityId(int activityId);
+
 	List<Work> getHotWorks();
 
 	List<Work> getWorksByUserId(int userId);

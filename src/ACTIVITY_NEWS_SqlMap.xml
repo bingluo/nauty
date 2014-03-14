@@ -20,7 +20,18 @@
         	(SELECT *
         	FROM activity_news
     		ORDER BY update_time desc) a
-		limit 5
+		LIMIT 5
+		]]>
+	</select>
+	
+	<select id="selectActivityLatestNewsByActivityId" resultMap="ActivityNewsResultMap" parameterClass="int">		
+		<![CDATA[
+		SELECT * FROM
+        	(SELECT *
+        	FROM activity_news
+			WHERE activity_id = #value#
+    		ORDER BY update_time desc) a
+		LIMIT 5
 		]]>
 	</select>
 	

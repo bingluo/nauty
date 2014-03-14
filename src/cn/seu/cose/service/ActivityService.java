@@ -85,6 +85,11 @@ public class ActivityService {
 		return activityNewsDAOImpl.getActivityLatestNews();
 	}
 
+	public List<ActivityNews> getActivityLatestNewsByActivityId(int activityId) {
+		return activityNewsDAOImpl
+				.getActivityLatestNewsByActivityId(activityId);
+	}
+
 	public List<ActivityNews> getActivityNewsByActivityId(int id) {
 		return activityNewsDAOImpl.getActivityNewsByActivityId(id);
 	}
@@ -111,6 +116,10 @@ public class ActivityService {
 
 	public List<ActivityPhoto> getActivityPhotoByActivityId(int id) {
 		return activityPhotoDAOImpl.getActivityPhotoByActivityId(id);
+	}
+
+	public List<ActivityPhoto> getRecentActivityPhotoByActivityId(int id) {
+		return activityPhotoDAOImpl.getRecentActivityPhotoByActivityId(id);
 	}
 
 	public ActivityPhoto getActivityPhotoById(int id) {

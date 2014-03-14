@@ -32,6 +32,16 @@
 		]]>
 	</select>
 	
+	<select id="selectRecentWorksByActivityId" resultMap="WorkResultMap" parameterClass="int">
+		<![CDATA[
+			SELECT * FROM
+        		(SELECT * 
+        		FROM WORK
+        		WHERE activity_id=#value#) a
+			LIMIT 4
+		]]>
+	</select>
+	
 	<select id="selectHotWorks" resultMap="WorkResultMap">
 		<![CDATA[
 		SELECT * FROM

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+    <!-- 960 Container -->
+    <div class="container ie-dropdown-fix">
+    	<!-- Header -->
+    	#parse("common/header.vm")
+    	<!-- Header / End -->
+    	<!-- Navigation -->
+    	#parse("common/navi.vm")
+    	<!-- Navigation / End -->
+    </div>
+    <!-- 960 Container / End -->
+    <!-- 960 Container -->
+    <div class="container">
+		<div class="sixteen columns">
+    		<div id="page-title">
+    			<h2 style="padding: 10px 0 10px 0;">
+					<a href="$!{viewUtil.getContextPath()}/activity" style="color:#333">活动赛事</a>
+					<span> / <a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" style="color:#aaa">$!{activity.title}</a></span>
+				</h2>
+    			<div id="bolded-line"></div>
+    		</div>
+    	</div>
+    	<div class="twelve columns">
+			<div class="post" style="border-bottom:1px solid #ddd;">
+        		<div class="title-pic">
+        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}">
+        				<img src="$!{viewUtil.getContextPath()}$!{activity.titlePic}" alt="$!{activity.title}">
+        			</a>
+        		</div>
+        		<div class="post-content">
+        			<div class="post-title"><h2><a href="/activity/1">吃饭大奖赛现在开始</a></h2></div>
+        			<div class="post-meta">
+						<span><i class="mini-ico-calendar"></i>2014-03-14 15:25:00.0 至 2014-05-06 05:25:00.0</span>
+					</div>
+        			<div class="post-description">
+        				<p>普通读者都知道，有许多人已经对比特币存有疑虑。最近比特币领域的事件，尤其是最大的比特币交易平台Mt. Gox的失败，造成这一加密电子货币的问题进一步恶化。但这些事件奇怪地使一些人欢呼，他们开始认为比特币实际上可能有机会成为一种货币幸存下来。</p>
+        			</div>
+        			<a class="post-entry" href="/activity/1">点击查看详情</a>
+        		</div>
+        	</div>
+		</div>
+		<div class="four columns">
+
+		</div>
+    </div>
+    <!-- End 960 Container -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+</body>
+<script language="JavaScript">
+$formAction = $("#registertForm").attr("action");
+$contextPath = "$!{viewUtil.getContextPath()}";
+</script>
+</html>
