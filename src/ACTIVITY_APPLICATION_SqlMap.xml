@@ -21,6 +21,14 @@
 		]]>
 	</select>
 	
+	<select id="selectActivityApplicationsByUserIdAndActivityId" resultMap="ActivityApplicationResultMap" parameterClass="java.util.Map">		
+		<![CDATA[
+        	SELECT * 
+        	FROM activity_application
+			WHERE activity_id = #activityId# and user_id = #userId#
+		]]>
+	</select>
+	
 	<insert id="insertActivityApplication" parameterClass="java.util.Map">		
 		<![CDATA[
         	INSERT INTO activity_application

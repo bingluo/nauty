@@ -30,26 +30,105 @@
     		</div>
     	</div>
     	<div class="twelve columns">
-			<div class="post" style="border-bottom:1px solid #ddd;">
+			<div class="post">
         		<div class="title-pic">
-        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}">
-        				<img src="$!{viewUtil.getContextPath()}$!{activity.titlePic}" alt="$!{activity.title}">
-        			</a>
+        			<img src="$!{viewUtil.getContextPath()}$!{activity.titlePic}" alt="$!{activity.title}">
         		</div>
-        		<div class="post-content">
-        			<div class="post-title"><h2><a href="/activity/1">吃饭大奖赛现在开始</a></h2></div>
+        		<div class="post-content" style="margin-left:0px;">
+        			<div class="post-title"><h2>$!{viewUtil.getContextPath()}$!{activity.title}</h2></div>
         			<div class="post-meta">
-						<span><i class="mini-ico-calendar"></i>2014-03-14 15:25:00.0 至 2014-05-06 05:25:00.0</span>
+						<span><i class="mini-ico-calendar"></i>$!{activity.actBeginTime} 至 $!{activity.actEndTime}</span>
 					</div>
         			<div class="post-description">
-        				<p>普通读者都知道，有许多人已经对比特币存有疑虑。最近比特币领域的事件，尤其是最大的比特币交易平台Mt. Gox的失败，造成这一加密电子货币的问题进一步恶化。但这些事件奇怪地使一些人欢呼，他们开始认为比特币实际上可能有机会成为一种货币幸存下来。</p>
+        				<p>$!{activity.title}</p>
         			</div>
-        			<a class="post-entry" href="/activity/1">点击查看详情</a>
         		</div>
         	</div>
+            <!-- Headline -->
+            <div class="no-margin icon-box tooltips" style="height: 45px;"><i class="ico-podium" style="margin:-7px 0 0 -10px;"></i>
+            	<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+            	<h3>参赛作品</h3>
+    		</div>
+			#foreach($recentWork in $recentWorks)
+			<div style="width:220px;float:left;#if($velocityCount==1)margin-right:10px;#elseif($velocityCount==3)margin-left:10px;#else margin:0 10px;#end">
+        		<div class="picture">
+        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{recentWork.id}">
+        				<img src="$!{viewUtil.getContextPath()}/static/works/$!{recentWork.workPics.get(0)}" style="height:139px" />
+        				<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
+        			</a>
+        		</div>
+        		<div class="item-description">
+        			<h5><a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{recentWork.id}">$!{recentWork.workName}</a><label>票数：$!{recentWork.voteCount}</label></h5>
+        		</div>
+			</div>
+			#end
+			<div class="clear"></div>
+            <!-- Headline -->
+            <div class="no-margin icon-box tooltips" style="height: 45px;"><i class="ico-magic" style="margin:-7px 0 0 -10px;"></i>
+            	<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/photos" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+            	<h3>活动现场</h3>
+    		</div>
+			#foreach($recentWork in $recentWorks)
+			<div style="width:220px;float:left;#if($velocityCount==1)margin-right:10px;#elseif($velocityCount==3)margin-left:10px;#else margin:0 10px;#end">
+        		<div class="picture">
+        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{recentWork.id}">
+        				<img src="$!{viewUtil.getContextPath()}/static/works/$!{recentWork.workPics.get(0)}" style="height:139px" />
+        				<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
+        			</a>
+        		</div>
+        		<div class="item-description">
+        			<h5><a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{recentWork.id}">$!{recentWork.workName}</a><label>票数：$!{recentWork.voteCount}</label></h5>
+        		</div>
+			</div>
+			#end
 		</div>
 		<div class="four columns">
-
+			<div class="headline no-margin"><h4>报名时间</h4></div>
+        	<!-- Large Notice -->
+        	<div class="large-notice" style="padding:25px;">
+        		<h5>开始：$!{activity.actBeginTime}</h5>
+        		<h5>截止：$!{activity.actEndTime}</h5>
+        		<p></p>
+        		<p>欢迎各位踊跃报名参与！</p>
+				#if($applyStatus==3)
+					<a href="#" class="button medium gray" disabled="true">尚未开始</a>
+				#elseif($activityApplied)
+            		<a href="#" class="button medium light" disabled="true">已报名</a>
+				#elseif($applyStatus==1)
+            		<a href="$viewUtil.getContextPath()/activity/$!{activity.id}/apply" class="button medium color">报名</a>
+				#else
+					<a href="#" class="button medium gray" disabled="true">已结束</a>
+				#end
+        	</div>
+			<div class="headline no-margin" style="margin-top:10px;"><h4>活动时间</h4></div>
+        	<div class="large-notice" style="padding:25px;">
+        		<h5>开始：$!{activity.actBeginTime}</h5>
+        		<h5>开始：$!{activity.actEndTime}</h5>
+        		<p></p>
+				#if($activityStatus==3)
+        		<a href="#" class="button medium gray" disabled="true">尚未开始</a>
+				#elseif($activityStatus==2)
+        		<a href="#" class="button medium gray" disabled="true">已结束</a>
+				#elseif(!$activityApplied)
+        		<a href="#" class="button medium gray" disabled="true">尚未报名</a>
+				#else
+            	<a href="$viewUtil.getContextPath()/activity/$!{activity.id}/apply" class="button medium color">上传作品</a>
+				#end
+        	</div>
+            <div class="icon-box widget tooltips">
+            	<i class="ico-comments" style="margin:-8px 0 0 0px"></i>
+    			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/news" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+            	<h4 style="margin-top: 0px;">活动新闻</h4>
+    			<ul class="circle_list" style="margin-top: 15px;">
+					#foreach($news in $recentNews)
+    				<li>
+    					<div class="latest-post-blog" style="margin-bottom:8px;">
+                           	<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/news/$!{news.id}" style="color: rgb(102, 102, 102); text-decoration: none;">$!{news.title}</a>
+    					</div>
+                	</li>
+					#end
+    			</ul>
+            </div>
 		</div>
     </div>
     <!-- End 960 Container -->

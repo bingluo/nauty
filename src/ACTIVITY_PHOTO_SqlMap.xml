@@ -29,7 +29,7 @@
         	FROM activity_photo
 			WHERE activity_id = #value#
     		ORDER BY post_time desc) a
-		LIMIT 4
+		LIMIT 3
 		]]>
 	</select>
 	

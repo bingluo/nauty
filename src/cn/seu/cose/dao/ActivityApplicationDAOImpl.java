@@ -31,6 +31,17 @@ public class ActivityApplicationDAOImpl extends SqlMapClientDaoSupport
 	}
 
 	@Override
+	public ActivityApplication getActivityApplicationsByUserIdAndActivityId(
+			int userId, int activityId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("activityId", activityId);
+		return (ActivityApplication) getSqlMapClientTemplate()
+				.insert("ACTIVITY_APPLICATION.selectActivityApplicationsByUserIdAndActivityId",
+						map);
+	}
+
+	@Override
 	public void insertActivityApplication(int userId, int activityId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);

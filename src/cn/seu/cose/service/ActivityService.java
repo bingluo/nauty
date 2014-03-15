@@ -71,6 +71,13 @@ public class ActivityService {
 				.getActivityApplicationsByActivityId(id);
 	}
 
+	public ActivityApplication getActivityApplicationsByUserIdAndActivityId(
+			int userId, int activityId) {
+		return activityApplicationDAOImpl
+				.getActivityApplicationsByUserIdAndActivityId(userId,
+						activityId);
+	}
+
 	public void applyActivity(int userId, int activityId) {
 		activityApplicationDAOImpl
 				.insertActivityApplication(userId, activityId);

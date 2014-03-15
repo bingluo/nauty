@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.seu.cose.entity.Activity;
+import cn.seu.cose.entity.ActivityApplication;
 import cn.seu.cose.entity.ActivityNews;
 import cn.seu.cose.entity.ActivityPhoto;
+import cn.seu.cose.entity.Designer;
 import cn.seu.cose.entity.WorkPojo;
 import cn.seu.cose.service.ActivityService;
+import cn.seu.cose.service.DesignerService;
 import cn.seu.cose.service.WorkService;
 import cn.seu.cose.view.util.ViewUtil;
 
@@ -25,6 +28,8 @@ public class ActivityController extends AbstractController {
 	ActivityService activityService;
 	@Autowired
 	WorkService workService;
+	@Autowired
+	DesignerService designerService;
 
 	@RequestMapping(value = "/activity", method = RequestMethod.GET)
 	public String activity(Model model) {
@@ -103,6 +108,15 @@ public class ActivityController extends AbstractController {
 					.getActivityLatestNewsByActivityId(activityId);
 			List<ActivityPhoto> recentActivityPhotos = activityService
 					.getRecentActivityPhotoByActivityId(activityId);
+			Designer designer = designerService.getCurrentUser();
+			if (designer != null) {
+				ActivityApplication activityApplication = activityService
+						.getActivityApplicationsByUserIdAndActivityId(
+								designer.getId(), activityId);
+				if (activityApplication != null) {
+					model.addAttribute("activityApplied", true);
+				}
+			}
 			model.addAttribute("activity", activity);
 			model.addAttribute("recentWorks", recentWorks);
 			model.addAttribute("recentNews", recentActivityNews);
@@ -110,19 +124,19 @@ public class ActivityController extends AbstractController {
 			Timestamp now = new Timestamp(new Date().getTime());
 			if (activity.getActBeginTime().before(now)
 					&& activity.getActEndTime().after(now)) {
-				model.addAttribute("activityStatus", "on");
+				model.addAttribute("activityStatus", 1);// on
 			} else if (activity.getActEndTime().before(now)) {
-				model.addAttribute("activityStatus", "off");
+				model.addAttribute("activityStatus", 2);// off
 			} else {
-				model.addAttribute("activityStatus", "wait");
+				model.addAttribute("activityStatus", 3);// wait
 			}
 			if (activity.getAppBeginTime().before(now)
 					&& activity.getAppEndTime().after(now)) {
-				model.addAttribute("applyStatus", "on");
+				model.addAttribute("applyStatus", 1);// on
 			} else if (activity.getAppEndTime().before(now)) {
-				model.addAttribute("applyStatus", "off");
+				model.addAttribute("applyStatus", 2);// off
 			} else {
-				model.addAttribute("applyStatus", "wait");
+				model.addAttribute("applyStatus", 3);// wait
 			}
 			return "activity/viewActivity";
 		}

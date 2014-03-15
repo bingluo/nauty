@@ -37,8 +37,9 @@
 			SELECT * FROM
         		(SELECT * 
         		FROM WORK
-        		WHERE activity_id=#value#) a
-			LIMIT 4
+        		WHERE activity_id=#value#
+				ORDER BY vote_count DESC) a
+			LIMIT 3
 		]]>
 	</select>
 	
