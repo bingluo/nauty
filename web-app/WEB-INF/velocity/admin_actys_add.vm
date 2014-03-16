@@ -41,17 +41,13 @@
 							    </div>
 							</div>
 							<div class="control-group" >
-								<label class="control-label">报名开始日期</label>
+								<label class="control-label">报名起止日期</label>
 								<div class="controls">
 									<div class="input-append date"  data-date="2014-01-01 00:00" data-date-format="yyyy-mm-dd hh:ii">
 									    <input size="20" type="text" value="" id="app_begin_time"readonly>
 									    <span class="add-on"><i class="icon-th"></i></span>
 									</div>
-								</div>
-							</div>
-							<div class="control-group" >
-								<label class="control-label">报名截止日期</label>
-								<div class="controls">
+									至&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<div class="input-append date" data-date="2014-01-01 00:00" data-date-format="yyyy-mm-dd hh:ii">
 									    <input size="20" type="text" value="" id="app_end_time" readonly >
 									    <span class="add-on"><i class="icon-th"></i></span>
@@ -59,24 +55,19 @@
 								</div>
 							</div>
 							<div class="control-group" >
-								<label class="control-label">活动开始日期</label>
+								<label class="control-label">活动起止日期</label>
 								<div class="controls">
 									<div class="input-append date" data-date="2014-01-01" data-date-format="yyyy-mm-dd hh:ii">
 									    <input size="20" type="text" value="" id="act_begin_time" readonly>
 									    <span class="add-on"><i class="icon-th"></i></span>
 									</div>
-								</div>
-							</div>
-							<div class="control-group" >
-								<label class="control-label">活动截止日期</label>
-								<div class="controls">
+									至&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<div class="input-append date" data-date="2014-01-01 00:00" data-date-format="yyyy-mm-dd hh:ii">
 									    <input size="20" type="text" value=""  id="act_end_time" readonly>
 									    <span class="add-on"><i class="icon-th"></i></span>
 									</div>
 								</div>
 							</div>
-							
 							<div class="control-group" >
 								<div class="controls" style="margin-left:200px;">
 									<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
@@ -100,7 +91,8 @@
 	
 		$('.date').datetimepicker(
 			{autoclose: true,
-        	todayBtn: true}
+        	todayBtn: true,
+        	language: 'zh-CN'}
         );
 		
 		// yes_add
@@ -126,7 +118,6 @@
 			var _act_begin_time = $("#act_begin_time").val();
 			var _act_end_time = $("#act_end_time").val();
 			
-			
 			if(_title == "") {
 				$("#title").parent().parent().addClass("error");
 				$("#title").parent().append('<span id="req_title" for="required" generated="true" class="help-inline">请填写活动标题</span>');
@@ -145,7 +136,23 @@
 			} else if(_act_end_time == "") {
 				$("#act_end_time").parent().parent().parent().addClass("error");
 				$("#act_end_time").parent().parent().append('<span id="req_act_end" for="required" generated="true" class="help-inline">请填写活动结束时间</span>');
-			} 
+			} else if(_app_begin_time > _app_end_time) {
+				$("#app_begin_time").parent().parent().parent().addClass("error");
+				$("#app_begin_time").parent().parent().append('<span id="req_app_begin" for="required" generated="true" class="help-inline">报名开始时间必须早于报名结束时间</span>');
+			} else if(_act_begin_time > _act_end_time) {
+				$("#act_begin_time").parent().parent().parent().addClass("error");
+				$("#act_end_time").parent().parent().append('<span id="req_act_begin" for="required" generated="true" class="help-inline">活动开始时间必须早于活动结束时间</span>');
+			} else if(_app_begin_time > _act_begin_time) {
+				$("#app_begin_time").parent().parent().parent().addClass("error");
+				$("#app_begin_time").parent().parent().append('<span id="req_app_begin" for="required" generated="true" class="help-inline">报名开始时间必须早于活动开始时间</span>');
+				$("#act_begin_time").parent().parent().parent().addClass("error");
+				$("#act_begin_time").parent().parent().append('<span id="req_act_begin" for="required" generated="true" class="help-inline">报名开始时间必须早于活动开始时间</span>');
+			} else if(_app_end_time > _act_end_time) {
+				$("#app_end_time").parent().parent().parent().addClass("error");
+				$("#app_end_time").parent().parent().append('<span id="req_app_end" for="required" generated="true" class="help-inline">报名结束时间必须早于活动结束时间</span>');
+				$("#act_end_time").parent().parent().parent().addClass("error");
+				$("#act_end_time").parent().parent().append('<span id="req_act_end" for="required" generated="true" class="help-inline">报名结束时间必须早于活动结束时间</span>');
+			}
 			else {
 				$.ajax({
 					url: context_path + "/admin/add_activity",
