@@ -83,7 +83,7 @@
 						<table class="table table-bordered table-striped with-check">
 							<thead>
 								<tr>
-									<th></th>
+									<th style="width:4%"><a href="javascript:void(0)"><span class="label label-info" id="check_all">全选</span></a></th>
 									<th style="width:6%">ID</th>
 									<th>文章标题</th>
 									<th>副标题</th>
@@ -97,7 +97,7 @@
 								#foreach($article in $article_list)
 									<tr>
 										<td>
-											<input type="checkbox" />
+											<input type="checkbox" style="margin-left:10px;zoom:150%" class="check_item"/>
 										</td>
 										<td>$article.id</td>
 										<td title="$article.title">$article.title</td>
@@ -133,7 +133,6 @@
 									#else
 										<option value="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${i}">$i</option>
 									#end
-									
 								#end
 							</select>
 						</div>
@@ -269,6 +268,18 @@
 		
 		
 	/***************************批量删除*****************************/
+	
+	$("#check_all").bind("click", function() {
+		if($("input:checked").length == 0) {
+			$("[type='checkbox']").attr("checked",'true');//全选
+			$("#check_all").html("取消");
+		} else {
+			$("[type='checkbox']").removeAttr("checked"); //取消
+			$("#check_all").html("全选");
+		}
+	});
+	
+	
 	var id_array = "";
 	$("#del_multi_btn").bind("click", function(){
 		if($("input:checked").length == 0) {
