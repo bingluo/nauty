@@ -97,7 +97,7 @@
 								#foreach($article in $article_list)
 									<tr>
 										<td>
-											<input type="checkbox" style="margin-left:10px;zoom:150%" class="check_item"/>
+											<input type="checkbox" style="margin-left:13px;width:18px;height:18px;" class="check_item"/>
 										</td>
 										<td>$article.id</td>
 										<td title="$article.title">$article.title</td>
