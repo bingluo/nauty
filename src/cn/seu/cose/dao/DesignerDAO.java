@@ -14,6 +14,8 @@ public interface DesignerDAO {
 	Designer getDesignerById(int id);
 
 	Designer getDesignerByUsernameAndPswd(String username, String pswd);
+	
+	List<Designer> searchDesignerByName(String searchInput);
 
 	void insertDesigner(Designer designer);
 

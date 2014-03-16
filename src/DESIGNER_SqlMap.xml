@@ -63,6 +63,15 @@
 		]]>
 	</select>
 	
+	<select id="searchDesignerByName" resultMap="DesignerResultMap" parameterClass="java.lang.String">
+		<![CDATA[
+    		SELECT * 
+    		FROM designer
+    		WHERE user_name LIKE concat("%", #value#, "%");
+		]]>
+	</select>
+	
+	
 	<insert id="insertDesigner" parameterClass="baseDesigner">
 		<![CDATA[
     		INSERT INTO designer

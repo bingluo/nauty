@@ -54,6 +54,12 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 				"DESIGNER.selectDesignerByUserNameAndPswd", map);
 	}
 
+	@Override 
+	public List<Designer> searchDesignerByName(String searchInput) {
+		return getSqlMapClientTemplate().queryForList(
+				"DESIGNER.searchDesignerByName", searchInput);
+	}
+	
 	@Override
 	public void insertDesigner(Designer designer) {
 		getSqlMapClientTemplate().insert("DESIGNER.insertDesigner", designer);

@@ -39,6 +39,11 @@ public class DesignerService {
 		return designerDAOImpl.getDesignerByUsernameAndPswd(username, pwd);
 	}
 
+	public List<Designer> searchDesignerByName(String searchInput) {
+		return designerDAOImpl.searchDesignerByName(searchInput);
+	}
+	
+	
 	public void insertDesigner(Designer designer) {
 		designerDAOImpl.insertDesigner(designer);
 	}

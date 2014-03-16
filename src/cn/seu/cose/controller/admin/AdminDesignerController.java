@@ -37,9 +37,7 @@ public class AdminDesignerController extends AbstractController{
 	@RequestMapping(value="/admin/designer_list_search-{searchInput}", method=RequestMethod.GET)
 	public String searchDesignerByName(@PathVariable("searchInput") String searchInput, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
-		Designer designer = designerService.getDesignerByName(searchInput);
-		List<Designer> list = new ArrayList<Designer>();
-		list.add(designer);
+		List<Designer> list = designerService.searchDesignerByName(searchInput);
 		model.addAttribute("designer_list", list);
 		return "admin_designers";
 	}
