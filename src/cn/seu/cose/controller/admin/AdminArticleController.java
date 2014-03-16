@@ -162,15 +162,26 @@ public class AdminArticleController extends AbstractController{
 			articleService.deleteArticle(id);
 			response.sendRedirect(ViewUtil.getContextPath() + "/admin/article_list");
 		} catch (Exception e) {
-			JSONObject jo = new JSONObject();
-			jo.put("error", 1);
-			try {
-				response.getWriter().write(jo.toString());
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping(value="/admin/del_articles", method=RequestMethod.POST)
+	public void postDels(@RequestParam("ids") String idsStr, HttpServletResponse response) {
+		if(idsStr == "") {
+				//
+		} else {
+			for (String idStr : idsStr.split("-")) {
+				articleService.deleteArticle(Integer.parseInt(idStr));
+			}
+		}
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/article_list");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	@RequestMapping(value="/admin/alt_article-{id}", method=RequestMethod.GET)
 	public String getAlt(@PathVariable("id") String idStr, Model model, HttpServletResponse response) {

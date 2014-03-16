@@ -1,5 +1,6 @@
 #parse("admin_header.vm")
 #parse("admin_sidebar.vm")	
+<script src="$!{viewUtil.getContextPath()}/static/js/jquery.chosen.js"></script>
 
 <div id="content">
 	<div id="content-header">
@@ -42,7 +43,7 @@
 							</select>
 							&nbsp;
 							<span class="icon" id="fetch_article_btn">
-								<a href="javascript:void(0)" class="btn btn-info btn" style="vertical-align:middle; margin-bottom:3px;">
+								<a href="javascript:void(0)" class="btn btn-info btn" style="vertical-align:middle; margin-bottom:7px;">
 									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
 								</a>
 							</span>
@@ -51,7 +52,7 @@
 							<input style="" type="text" value="$searchInput" placeHolder="文章检索" id="search_input"/>
 							&nbsp;
 							<span style="" margin-left:10px; margin-right:20px" class="icon" id="search_article_btn">
-								<a href="javascript:void(0)" class="btn btn-success btn" style="vertical-align:middle; margin-top:-6px;">
+								<a href="javascript:void(0)" class="btn btn-success btn" style="vertical-align:middle; margin-top:-7px;">
 									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
 								</a>
 							</span>
@@ -72,12 +73,17 @@
 							<a href="$!{viewUtil.getContextPath()}/admin/add_article" class="btn btn-primary btn-mini">
 								<i class="icon-plus icon-white"></i>添加文章
 							</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<a id="del_multi_btn" href="javascript:void(0)" class="btn btn-inverse btn-mini">
+								<i class="icon-remove icon-white"></i>批量删除
+							</a>
 						</span>
 					</div>
 					<div class="widget-content padding">
-						<table class="table table-bordered table-striped">
+						<table class="table table-bordered table-striped with-check">
 							<thead>
 								<tr>
+									<th></th>
 									<th style="width:6%">ID</th>
 									<th>文章标题</th>
 									<th>副标题</th>
@@ -90,6 +96,9 @@
 							<tbody>
 								#foreach($article in $article_list)
 									<tr>
+										<td>
+											<input type="checkbox" />
+										</td>
 										<td>$article.id</td>
 										<td title="$article.title">$article.title</td>
 										<td title="$article.subhead">$article.subhead</td>
@@ -143,6 +152,16 @@
 	<div class="modal-footer">
 		<button class="btn btn-primary" id="yes_del">是</button>
 	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
+	</div>
+</div>
+
+<div style="display:none" id="del_multi_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定批量删除？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_del_multi">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del_multi">否</button>
 	</div>
 </div>
 
@@ -208,7 +227,7 @@
 		
 		// show del_dialog
 		$("button[id='del_btn']").bind("click", function(){
-			articleId = $(this).parents("tr").find("td:first").html().trim();
+			articleId = $(this).parents("tr").find("td:eq(1)").html().trim();
 			if(!$.browser.msie) {
 				$("#del_dialog").css("display","block");
 				$("#del_dialog").modal("show");
@@ -247,6 +266,60 @@
 				}
 			});
 		});
+		
+		
+	/***************************批量删除*****************************/
+	var id_array = "";
+	$("#del_multi_btn").bind("click", function(){
+		if($("input:checked").length == 0) {
+			alert("请选择需要批量删除的文章");
+			return;
+		}
+	
+		$("input:checked").each(function(){
+			var id = $(this).parents("tr").find("td:eq(1)").html().trim();
+			id_array += id + "-";
+		});
+		
+		if(!$.browser.msie) {
+			$("#del_multi_dialog").css("display","block");
+			$("#del_multi_dialog").modal("show");
+			
+		} else {
+			alert("已批量删除文章");
+			$.ajax({
+				url: context_path + "/admin/del_articles",
+				type: "post",
+				data: {ids:id_array},
+				dataType: "html",
+				success:function(data){
+					location.reload();
+				},
+				error:function(){
+					alert("批量删除错误，请重试！");
+				}
+			});
+		}
+		
+	});
+	
+	$("#yes_del_multi").bind("click", function(){
+		$.ajax({
+			url: context_path + "/admin/del_articles",
+			type: "post",
+			data: {ids:id_array},
+			dataType: "html",
+			success:function(data){
+				location.reload();
+			},
+			error:function(){
+				alert("批量删除错误，请重试！");
+			}
+		});
+	});
+	
+	
+	
 	});
 </script>
 #parse("admin_footer.vm")
