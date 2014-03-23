@@ -54,6 +54,25 @@
 		]]>
 	</select>
 	
+	<select id="selectWorksByActivityIdAndBaseAndRange" resultMap="WorkResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM
+			(SELECT * 
+			FROM WORK
+			WHERE activity_id = #activityId#
+			ORDER BY update_time DESC) a
+		LIMIT #base#,#range#
+		]]>
+	</select>
+		
+	<select id="selectWorksCountByActivityId" resultClass="int" parameterClass="int">
+		<![CDATA[
+			SELECT count(id) 
+			FROM WORK
+			WHERE activity_id = #activityId#
+		]]>
+	</select>
+	
 	<insert id="insertWork" parameterClass="work">
 		<![CDATA[
     		INSERT INTO WORK

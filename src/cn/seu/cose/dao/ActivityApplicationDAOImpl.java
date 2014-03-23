@@ -37,7 +37,8 @@ public class ActivityApplicationDAOImpl extends SqlMapClientDaoSupport
 		map.put("userId", userId);
 		map.put("activityId", activityId);
 		return (ActivityApplication) getSqlMapClientTemplate()
-				.insert("ACTIVITY_APPLICATION.selectActivityApplicationsByUserIdAndActivityId",
+				.queryForObject(
+						"ACTIVITY_APPLICATION.selectActivityApplicationsByUserIdAndActivityId",
 						map);
 	}
 

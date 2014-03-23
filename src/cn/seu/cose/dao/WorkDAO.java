@@ -10,6 +10,11 @@ public interface WorkDAO {
 
 	List<Work> getRecentWorksByActivityId(int activityId);
 
+	List<Work> getWorksByActivityIdAndBaseAndRange(int activityId, int base,
+			int range);
+
+	int getWorksCountByActivityId(int activityId);
+
 	List<Work> getHotWorks();
 
 	List<Work> getWorksByUserId(int userId);

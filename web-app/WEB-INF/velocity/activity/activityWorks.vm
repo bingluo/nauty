@@ -30,57 +30,62 @@
     		</div>
     	</div>
     	<div class="twelve columns">
-			<div class="post">
-        		<div class="title-pic">
-        			<img src="$!{viewUtil.getContextPath()}$!{activity.titlePic}" alt="$!{activity.title}">
-        		</div>
-        		<div class="post-content" style="margin-left:0px;">
-        			<div class="post-title"><h2>$!{viewUtil.getContextPath()}$!{activity.title}</h2></div>
-        			<div class="post-meta">
-						<span><i class="mini-ico-calendar"></i>$!{activity.actBeginTime} 至 $!{activity.actEndTime}</span>
-					</div>
-        			<div class="post-description">
-        				<p>$!{activity.title}</p>
-        			</div>
-        		</div>
-        	</div>
             <!-- Headline -->
             <div class="no-margin icon-box tooltips" style="height: 45px;"><i class="ico-podium" style="margin:-7px 0 0 -10px;"></i>
-            	<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
             	<h3>参赛作品</h3>
     		</div>
-			#foreach($recentWork in $recentWorks)
+			#foreach($work in $works)
 			<div style="width:220px;float:left;#if($velocityCount==1)margin-right:10px;#elseif($velocityCount==3)margin-left:10px;#else margin:0 10px;#end">
         		<div class="picture">
-        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{recentWork.id}">
-        				<img src="$!{viewUtil.getContextPath()}/static/works/$!{recentWork.workPics.get(0)}" style="height:139px" />
+        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{work.id}">
+        				<img src="$!{viewUtil.getContextPath()}/static/works/$!{work.workPics.get(0)}" style="height:139px" />
         				<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
         			</a>
         		</div>
-        		<div class="item-description">
-        			<h5><a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{recentWork.id}">$!{recentWork.workName}</a><label>票数：$!{recentWork.voteCount}</label></h5>
-        		</div>
+        		<div class="item-description" style="margin-top:10px;">
+					<div style="display:inline;width:160px;">
+						<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{work.id}" style="font-weight:bold;margin-bottom:10px;">$!{work.workName}</a>
+						<br/>票数：$!{work.voteCount}
+					</div>
+					<div style="display:inline">
+						<label class="button color" style="color:#fff;margin:-15px 0px -10px 0px;float:right;" voteTo="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{work.id}/vote">投票</label>
+					</div>
+				</div>
 			</div>
 			#end
+			
 			<div class="clear"></div>
-            <div class="no-margin icon-box tooltips" style="height: 45px;"><i class="ico-magic" style="margin:-7px 0 0 -10px;"></i>
-            	<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/photos" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
-            	<h3>活动现场</h3>
-    		</div>
-			#foreach($recentPhoto in $recentPhotos)
-			<div style="width:220px;float:left;#if($velocityCount==1)margin-right:10px;#elseif($velocityCount==3)margin-left:10px;#else margin:0 10px;#end">
-        		<div class="picture">
-        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/photos/$!{recentPhoto.id}" >
-        				<img src="$!{recentPhoto.picUri}" style="height:139px" />
-        				<div class="image-overlay-link" style="opacity: 0; display: block;" ></div>
-        			</a>
-        		</div>
-        		<div class="item-description">
-					<h5></h5>
-        			<p>$!{recentPhoto.intro}</p>
-        		</div>
-			</div>
-			#end
+			#if($pageCount>1)
+           	<ul class="pagination">
+        		#if($pageIndex<=5)
+        			#set($base = 1)
+        			#if($pageCount<=10)
+        				#set($high = $pageCount)
+        			#else
+        				#set($high = 10)
+        			#end
+        		#else
+    				<a href="$!{viewUtil.getContextPath()}$!{url}?pn=1"><li>首页</li></a>
+        			#set($base = $pageIndex - 4)
+        			#if($pageCount > $pageIndex + 5)
+        				#set($high = $pageIndex + 5)
+        			#else
+        				#set($high = $pageCount)
+        			#end
+        		#end
+        		#foreach($i in [$base..$high])
+        			#if($pageIndex!=$i)<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works?pn=$i">#end
+        				<li #if($pageIndex==$i)class="current"#end>$i</li>
+        			#if($pageIndex!=$i)</a>#end
+        		#end
+        		#if($pageIndex<$pageCount)
+        			#set($next = $pageIndex + 1)
+           		<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works?pn=$!{next}"><li>下一页></li></a>
+           		<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works?pn=$!{pageCount}"><li>尾页</li></a>
+        		#end
+           	</ul>
+    		#end
+    		<div style="padding-top: 20px;">共 $!{pageCount} 页 $!{workCount} 条</div>
 		</div>
 		<div class="four columns">
 			<div class="headline no-margin"><h4>报名时间</h4></div>

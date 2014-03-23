@@ -1,6 +1,8 @@
 package cn.seu.cose.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
@@ -59,5 +61,22 @@ public class WorkDAOImpl extends SqlMapClientDaoSupport implements WorkDAO {
 	@Override
 	public List<Work> getHotWorks() {
 		return getSqlMapClientTemplate().queryForList("WORK.selectHotWorks");
+	}
+
+	@Override
+	public List<Work> getWorksByActivityIdAndBaseAndRange(int activityId,
+			int base, int range) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("activityId", activityId);
+		map.put("base", base);
+		map.put("range", range);
+		return getSqlMapClientTemplate().queryForList(
+				"WORK.selectWorksByActivityIdAndBaseAndRange", map);
+	}
+
+	@Override
+	public int getWorksCountByActivityId(int activityId) {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"WORK.selectWorksCountByActivityId", activityId);
 	}
 }

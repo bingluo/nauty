@@ -118,4 +118,24 @@ public class WorkService {
 		}
 		return workPojos;
 	}
+
+	public List<WorkPojo> getWorksByActivityIdAndPnAndSize(int activityId,
+			int pn, int pageSize) {
+		List<WorkPojo> workPojos = new ArrayList<WorkPojo>();
+		List<Work> works = workDAOImpl.getWorksByActivityIdAndBaseAndRange(
+				activityId, pageSize * (pn - 1), pageSize);
+		for (Work work : works) {
+			Designer designer = designerDAOImpl.getDesignerById(work
+					.getUserId());
+			WorkPojo workPojo = new WorkPojo();
+			workPojo.setWork(work);
+			workPojo.setDesigner(designer);
+			workPojos.add(workPojo);
+		}
+		return workPojos;
+	}
+
+	public int getWorksCountByActivityId(int activityId) {
+		return workDAOImpl.getWorksCountByActivityId(activityId);
+	}
 }
