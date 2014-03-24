@@ -20,11 +20,14 @@ import cn.seu.cose.entity.Activity;
 import cn.seu.cose.entity.ActivityApplication;
 import cn.seu.cose.entity.ActivityNews;
 import cn.seu.cose.entity.ActivityPhoto;
+import cn.seu.cose.entity.CommentPojo;
 import cn.seu.cose.entity.Designer;
 import cn.seu.cose.entity.WorkPojo;
 import cn.seu.cose.service.ActivityService;
+import cn.seu.cose.service.CommentService;
 import cn.seu.cose.service.DesignerService;
 import cn.seu.cose.service.WorkService;
+import cn.seu.cose.util.Constant.CommentType;
 import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
@@ -35,6 +38,8 @@ public class ActivityController extends AbstractController {
 	WorkService workService;
 	@Autowired
 	DesignerService designerService;
+	@Autowired
+	CommentService commentService;
 
 	@RequestMapping(value = "/activity", method = RequestMethod.GET)
 	public String activity(Model model) {
@@ -207,24 +212,51 @@ public class ActivityController extends AbstractController {
 			Writer writer = response.getWriter();
 			if (designer == null) {
 				writer.write("0");// 未登录
+				writer.flush();
 				return;
 			}
 			Activity activity = activityService.getActivityById(activityId);
 			if (activity == null) {
 				writer.write("1");// 无此活动
+				writer.flush();
 				return;
 			}
 			WorkPojo work = workService.getWorkViaId(workId);
-			if (work == null) {
+			if (work == null || activityId != work.getActivityId()) {
 				writer.write("2");// 无此作品
+				writer.flush();
 				return;
 			} else {
 				workService.updateWork(workId);
 				writer.write("3");// 成功投票
+				writer.flush();
 				return;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/activity/{activityId}/works/{workId}", method = RequestMethod.GET)
+	public String viewActivityWork(@PathVariable("activityId") int activityId,
+			@PathVariable("workId") int workId, Model model) {
+		basicIssue(model);
+		Activity activity = activityService.getActivityById(activityId);
+		if (activity == null) {
+			return "index";
+		} else {
+			activityBasicIssue(model, activity);
+			WorkPojo work = workService.getWorkViaId(workId);
+			if (work == null || work.getActivityId() != activityId) {
+				return "index";
+			} else {
+				List<CommentPojo> comments = commentService
+						.getCommentsByRefAndType(workId,
+								CommentType.WORK.ordinal());
+				model.addAttribute("work", work);
+				model.addAttribute("comments", comments);
+				return "activity/viewActivityWork";
+			}
 		}
 	}
 

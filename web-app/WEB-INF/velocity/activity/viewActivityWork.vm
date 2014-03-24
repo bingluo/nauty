@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+    <!-- Wrapper Start -->
+    <div id="wrapper">
+    <!-- Header
+    ================================================== -->
+        <!-- 960 Container -->
+        <div class="container ie-dropdown-fix">
+        	<!-- Header -->
+        	#parse("common/header.vm")
+        	<!-- Header / End -->
+        	<!-- Navigation -->
+        	#parse("common/navi.vm")
+        	<!-- Navigation / End -->
+        </div>
+        <!-- 960 Container / End -->
+        <!-- 960 Container -->
+        <div class="container">
+    		<div class="sixteen columns">
+        		<div id="page-title">
+        			<h2 style="padding: 10px 0 10px 0;">
+    					<a href="$!{viewUtil.getContextPath()}/activity" style="color:#333">活动赛事</a>
+    					<span> / <a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" style="color:#aaa">$!{activity.title}</a></span>
+    				</h2>
+        			<div id="bolded-line"></div>
+        		</div>
+        	</div>
+        	<div class="twelve columns">
+				<div style="font-size:20px;color:#404040;text-align:center;margin-bottom:10px;">$!{work.workName}</div>
+				<div class="post-meta" style="text-align:center;">
+					<span><i class="mini-ico-user"></i>作者：<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}">$!{work.userName}</a></span>
+					<span><i class="mini-ico-thumbs-up"></i>票数：$!{work.voteCount}</span>
+					<span><i class="mini-ico-comment"></i> $!{comments.size()}条评论</span>
+				</div>
+        		<div class="flexslider home">
+        			<ul class="slides">
+        				#foreach($workPic in $work.workPics)
+        				<li><img src="$!{viewUtil.getContextPath()}/static/works/$!{workPic}" alt="" /></li>
+        				#end
+        			 </ul>
+        		</div>
+        		<p>$!{work.intro}</p>
+        	
+            	<div class="headline no-margin">
+					<h4>作品评论 <span class="comments-amount">($!{comments.size()})</span></h4>
+				</div>
+        		<div class="comments-sec">
+            		<ol class="commentlist">
+        				#foreach($comment in $comments)
+            			<li>
+            				<div class="comments">
+            					<div class="avatar">
+        							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><img src="$!{viewUtil.getContextPath()}/static/avatar/#if($!{comment.designer}&&$!{comment.avatar})$!{comment.avatar}#else default.png#end" alt="" style="width:50px;height:50px;" border="0"></a>
+        						</div>
+            					<div class="comment-des">
+                					<div class="comment-by">
+            							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><strong>#if($!{comment.designer})$!{comment.userName}#else 匿名#end</strong></a>
+            							<span class="date">$!{comment.commentTime}</span>
+            						</div>
+                					<p>$!{comment.content}</p>
+            					</div>
+            				</div>
+            			</li>
+        				#end
+            		</ol>
+        		</div>
+    		</div>
+    		#parse("activity/activityRightBar.vm")
+        </div>
+        <!-- End 960 Container -->
+    </div>
+    <!-- Wrapper / End -->
+    <!-- Footer Start -->
+    #parse("common/footer.vm")
+    <!-- Footer / End -->
+</body>
+<script language="JavaScript">
+    $contextPath = "$!{viewUtil.getContextPath()}";
+    $(document).ready(function(){
+    });
+</script>
+</html>

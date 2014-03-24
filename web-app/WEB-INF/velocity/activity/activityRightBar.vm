@@ -1,0 +1,48 @@
+<div class="four columns">
+			<div class="headline no-margin"><h4>报名时间</h4></div>
+        	<!-- Large Notice -->
+        	<div class="large-notice" style="padding:25px;">
+        		<h5>开始：$!{activity.actBeginTime}</h5>
+        		<h5>截止：$!{activity.actEndTime}</h5>
+        		<p></p>
+        		<p>欢迎各位踊跃报名参与！</p>
+				#if($applyStatus==3)
+					<a href="javascript:void(0)" class="button medium gray">尚未开始</a>
+				#elseif($activityApplied)
+            		<a href="javascript:void(0)" class="button medium light">已报名</a>
+				#elseif($applyStatus==1)
+            		<a href="$viewUtil.getContextPath()/activity/$!{activity.id}/apply" class="button medium color">报名</a>
+				#else
+					<a href="javascript:void(0)" class="button medium gray">已结束</a>
+				#end
+        	</div>
+			<div class="headline no-margin" style="margin-top:10px;"><h4>活动时间</h4></div>
+        	<div class="large-notice" style="padding:25px;">
+        		<h5>开始：$!{activity.actBeginTime}</h5>
+        		<h5>开始：$!{activity.actEndTime}</h5>
+        		<p></p>
+				#if($activityStatus==3)
+        		<a href="javascript:void(0)" class="button medium gray">尚未开始</a>
+				#elseif($activityStatus==2)
+        		<a href="javascript:void(0)" class="button medium gray">已结束</a>
+				#elseif(!$activityApplied)
+        		<a href="javascript:void(0)" class="button medium gray">尚未报名</a>
+				#else
+            	<a href="$viewUtil.getContextPath()/activity/$!{activity.id}/new-work" class="button medium color" disabled="disabled">上传作品</a>
+				#end
+        	</div>
+            <div class="icon-box widget tooltips">
+            	<i class="ico-comments" style="margin:-8px 0 0 0px"></i>
+    			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/news" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+            	<h4 style="margin-top: 0px;">活动新闻</h4>
+    			<ul class="circle_list" style="margin-top: 15px;">
+					#foreach($news in $recentNews)
+    				<li>
+    					<div class="latest-post-blog" style="margin-bottom:8px;">
+                           	<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/news/$!{news.id}" style="color: rgb(102, 102, 102); text-decoration: none;">$!{news.title}</a>
+    					</div>
+                	</li>
+					#end
+    			</ul>
+            </div>
+		</div>
