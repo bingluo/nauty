@@ -40,6 +40,7 @@
     		SELECT *
     		FROM activity
 			WHERE current_timestamp() < act_begin_time
+			ORDER BY act_begin_time asc
 		]]>
 	</select>
 	
@@ -48,6 +49,7 @@
     		SELECT *
     		FROM activity
 			WHERE current_timestamp() > act_end_time
+			ORDER BY act_end_time desc
 		]]>
 	</select>
 	

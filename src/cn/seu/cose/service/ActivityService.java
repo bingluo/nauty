@@ -125,6 +125,13 @@ public class ActivityService {
 		return activityPhotoDAOImpl.getActivityPhotoByActivityId(id);
 	}
 
+	public List<ActivityPhoto> getActivityPhotoByActivityIdAndPnAndSize(int id,
+			int pn, int pageSize) {
+		return activityPhotoDAOImpl
+				.getActivityPhotoByActivityIdAndBaseAndRange(id, (pn - 1)
+						* pageSize, pageSize);
+	}
+
 	public List<ActivityPhoto> getRecentActivityPhotoByActivityId(int id) {
 		return activityPhotoDAOImpl.getRecentActivityPhotoByActivityId(id);
 	}

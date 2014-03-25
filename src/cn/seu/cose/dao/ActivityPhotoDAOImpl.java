@@ -1,6 +1,8 @@
 package cn.seu.cose.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
@@ -55,4 +57,18 @@ public class ActivityPhotoDAOImpl extends SqlMapClientDaoSupport implements
 		getSqlMapClientTemplate().update("ACTIVITY_PHOTO.updateActivityPhoto",
 				activityPhoto);
 	}
+
+	@Override
+	public List<ActivityPhoto> getActivityPhotoByActivityIdAndBaseAndRange(
+			int id, int base, int range) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("activityId", id);
+		map.put("pn", base);
+		map.put("pageSize", range);
+		return getSqlMapClientTemplate()
+				.queryForList(
+						"ACTIVITY_PHOTO.selectActivityPhotoByActivityIdAndBaseAndRange",
+						map);
+	}
+
 }

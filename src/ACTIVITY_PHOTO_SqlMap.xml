@@ -33,6 +33,17 @@
 		]]>
 	</select>
 	
+	<select id="selectActivityPhotoByActivityIdAndPnAndSize" resultMap="ActivityPhotoResultMap" parameterClass="int">		
+		<![CDATA[
+		SELECT * FROM
+        	(SELECT *
+        	FROM activity_photo
+			WHERE activity_id = #activityId#
+    		ORDER BY post_time desc) a
+		LIMIT #base#,#range#
+		]]>
+	</select>
+	
 	<select id="selectActivityPhotoById" resultMap="ActivityPhotoResultMap" parameterClass="int">		
 		<![CDATA[
         	SELECT *
