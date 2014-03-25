@@ -77,7 +77,6 @@
         		</div>
         		<div class="item-description">
 					<h5></h5>
-        			<p>$!{recentPhoto.intro}</p>
         		</div>
 			</div>
 			#end

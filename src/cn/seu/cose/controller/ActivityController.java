@@ -20,6 +20,7 @@ import cn.seu.cose.entity.Activity;
 import cn.seu.cose.entity.ActivityApplication;
 import cn.seu.cose.entity.ActivityNews;
 import cn.seu.cose.entity.ActivityPhoto;
+import cn.seu.cose.entity.Comment;
 import cn.seu.cose.entity.CommentPojo;
 import cn.seu.cose.entity.Designer;
 import cn.seu.cose.entity.WorkPojo;
@@ -166,17 +167,19 @@ public class ActivityController extends AbstractController {
 			return "index";
 		} else {
 			activityBasicIssue(model, activity);
-			if (pn == null || pn <= 0) {
-				pn = 1;
-			}
+			pn = pn == null || pn <= 0 ? 1 : pn;
 			List<WorkPojo> works = workService
 					.getWorksByActivityIdAndPnAndSize(activityId, pn, 12);
-			int workCount = workService.getWorksCountByActivityId(activityId);
+			int totleCount = workService.getWorksCountByActivityId(activityId);
 			model.addAttribute("works", works);
 			model.addAttribute("pageIndex", pn);
 			model.addAttribute("pageCount",
-					(int) Math.ceil((double) workCount / 10));
-			model.addAttribute("workCount", workCount);
+					(int) Math.ceil((double) totleCount / 10));
+			model.addAttribute("totleCount", totleCount);
+			StringBuilder sb = new StringBuilder();
+			sb.append(ViewUtil.getContextPath()).append("/activity/")
+					.append(activityId).append("/works");
+			model.addAttribute("uri", sb.toString());
 			return "activity/activityWorks";
 		}
 	}
@@ -239,7 +242,8 @@ public class ActivityController extends AbstractController {
 
 	@RequestMapping(value = "/activity/{activityId}/works/{workId}", method = RequestMethod.GET)
 	public String viewActivityWork(@PathVariable("activityId") int activityId,
-			@PathVariable("workId") int workId, Model model) {
+			@PathVariable("workId") int workId, Model model,
+			@RequestParam(value = "pn", required = false) Integer pn) {
 		basicIssue(model);
 		Activity activity = activityService.getActivityById(activityId);
 		if (activity == null) {
@@ -250,13 +254,56 @@ public class ActivityController extends AbstractController {
 			if (work == null || work.getActivityId() != activityId) {
 				return "index";
 			} else {
+				pn = pn == null || pn <= 0 ? 1 : pn;
 				List<CommentPojo> comments = commentService
-						.getCommentsByRefAndType(workId,
-								CommentType.WORK.ordinal());
+						.getCommentsByRefAndTypeAndPnAndSize(workId,
+								CommentType.WORK.ordinal(), pn, 10);
 				model.addAttribute("work", work);
 				model.addAttribute("comments", comments);
+
+				int totleCount = commentService.getCommentCountByRefAndType(
+						workId, CommentType.WORK.ordinal());
+				model.addAttribute("pageIndex", pn);
+				model.addAttribute("pageCount",
+						(int) Math.ceil((double) totleCount / 10));
+				model.addAttribute("totleCount", totleCount);
+				StringBuilder sb = new StringBuilder();
+				sb.append(ViewUtil.getContextPath()).append("/activity/")
+						.append(activityId).append("/works/").append(workId);
+				model.addAttribute("uri", sb.toString());
 				return "activity/viewActivityWork";
 			}
+		}
+	}
+
+	@RequestMapping(value = "/activity/{activityId}/works/{workId}/comment", method = RequestMethod.POST)
+	public void commentWork(HttpServletResponse response,
+			@PathVariable("activityId") int activityId,
+			@PathVariable("workId") int workId,
+			@RequestParam("message") String message) {
+
+		try {
+			Activity activity = activityService.getActivityById(activityId);
+			WorkPojo work = workService.getWorkViaId(workId);
+			if (activity == null || work == null
+					|| work.getActivityId() != activityId) {
+				response.getWriter().write("0");// 活动、作品错误
+			} else {
+				Designer designer = designerService.getCurrentUser();
+				if (designer == null) {
+					response.getWriter().write("1");// 未登录
+				} else {
+					Comment comment = new Comment();
+					comment.setCommentType(CommentType.WORK.ordinal());
+					comment.setContent(message);
+					comment.setReferenceId(workId);
+					comment.setUserId(designer.getId());
+					commentService.insertComment(comment);
+					response.getWriter().write("2");// 成功
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -279,6 +326,34 @@ public class ActivityController extends AbstractController {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/activity/{activityId}/photos", method = RequestMethod.GET)
+	public String viewActivityPhotos(Model model,
+			@PathVariable("activityId") int activityId,
+			@RequestParam(value = "pn", required = false) Integer pn) {
+		basicIssue(model);
+		Activity activity = activityService.getActivityById(activityId);
+		if (activity == null) {
+			return "index";
+		} else {
+			activityBasicIssue(model, activity);
+			pn = pn == null || pn <= 0 ? 1 : pn;
+			List<ActivityPhoto> photos = activityService
+					.getActivityPhotoByActivityId(activityId);// 分页
+
+			int totleCount = workService.getWorksCountByActivityId(activityId);
+			model.addAttribute("photos", photos);
+			model.addAttribute("pageIndex", pn);
+			model.addAttribute("pageCount",
+					(int) Math.ceil((double) totleCount / 10));
+			model.addAttribute("totleCount", totleCount);
+			StringBuilder sb = new StringBuilder();
+			sb.append(ViewUtil.getContextPath()).append("/activity/")
+					.append(activityId).append("/photos");
+			model.addAttribute("uri", sb.toString());
+			return "activity/activityPhotos";
 		}
 	}
 }

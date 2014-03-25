@@ -39,6 +39,28 @@ public class CommentService {
 		return commentPojos;
 	}
 
+	public List<CommentPojo> getCommentsByRefAndTypeAndPnAndSize(int refId,
+			int type, int pn, int pageSize) {
+		List<Comment> comments = commentDAOImpl
+				.getCommentViaRefAndTypeAndBaseAndRange(refId, type, pageSize
+						* (pn - 1), pageSize);
+		List<CommentPojo> commentPojos = new ArrayList<CommentPojo>();
+		for (Comment comment : comments) {
+			CommentPojo commentPojo = new CommentPojo();
+			commentPojo.setComment(comment);
+			if (comment.getUserId() != -1) {
+				commentPojo.setDesigner(designerDAOImpl.getDesignerById(comment
+						.getUserId()));
+			}
+			commentPojos.add(commentPojo);
+		}
+		return commentPojos;
+	}
+
+	public int getCommentCountByRefAndType(int refId, int type) {
+		return commentDAOImpl.getCommentCountViaRefAndType(refId, type);
+	}
+
 	public void insertComment(Comment comment) {
 		commentDAOImpl.insertComment(comment);
 	}

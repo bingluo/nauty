@@ -10,6 +10,11 @@ public interface CommentDAO {
 
 	List<Comment> getCommentViaRefAndType(int refId, int type);
 
+	List<Comment> getCommentViaRefAndTypeAndBaseAndRange(int refId, int type,
+			int base, int range);
+
+	int getCommentCountViaRefAndType(int refId, int type);
+
 	void insertComment(Comment comment);
 
 	@Deprecated

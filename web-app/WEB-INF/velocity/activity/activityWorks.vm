@@ -53,39 +53,8 @@
 				</div>
 			</div>
 			#end
-			
 			<div class="clear"></div>
-			#if($pageCount>1)
-           	<ul class="pagination">
-        		#if($pageIndex<=5)
-        			#set($base = 1)
-        			#if($pageCount<=10)
-        				#set($high = $pageCount)
-        			#else
-        				#set($high = 10)
-        			#end
-        		#else
-    				<a href="$!{viewUtil.getContextPath()}$!{url}?pn=1"><li>首页</li></a>
-        			#set($base = $pageIndex - 4)
-        			#if($pageCount > $pageIndex + 5)
-        				#set($high = $pageIndex + 5)
-        			#else
-        				#set($high = $pageCount)
-        			#end
-        		#end
-        		#foreach($i in [$base..$high])
-        			#if($pageIndex!=$i)<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works?pn=$i">#end
-        				<li #if($pageIndex==$i)class="current"#end>$i</li>
-        			#if($pageIndex!=$i)</a>#end
-        		#end
-        		#if($pageIndex<$pageCount)
-        			#set($next = $pageIndex + 1)
-           		<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works?pn=$!{next}"><li>下一页></li></a>
-           		<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works?pn=$!{pageCount}"><li>尾页</li></a>
-        		#end
-           	</ul>
-    		#end
-    		<div style="padding-top: 20px;">共 $!{pageCount} 页 $!{workCount} 条</div>
+			#parse("common/pagination.vm")
 		</div>
 		#parse("activity/activityRightBar.vm")
     </div>

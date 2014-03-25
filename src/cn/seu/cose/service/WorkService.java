@@ -43,9 +43,11 @@ public class WorkService {
 		return workPojo;
 	}
 
-	public List<WorkPojo> getWorkByUser(int userId) {
+	public List<WorkPojo> getWorkByUserAndPnAndSize(int userId, int pn,
+			int pageSize) {
 		List<WorkPojo> workPojos = new ArrayList<WorkPojo>();
-		List<Work> works = workDAOImpl.getWorksByUserId(userId);
+		List<Work> works = workDAOImpl.getWorksByUserIdAndBaseAndRange(userId,
+				pageSize * (pn - 1), pageSize);
 		Designer designer = designerDAOImpl.getDesignerById(userId);
 		for (Work work : works) {
 			WorkPojo workPojo = new WorkPojo();
@@ -137,5 +139,9 @@ public class WorkService {
 
 	public int getWorksCountByActivityId(int activityId) {
 		return workDAOImpl.getWorksCountByActivityId(activityId);
+	}
+
+	public int getWorkCountByUserId(int designerId) {
+		return workDAOImpl.getWorksCountByDesignerId(designerId);
 	}
 }

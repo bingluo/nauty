@@ -57,7 +57,7 @@
 		</div>
 		<p>$!{work.intro}</p>
 	
-    	<div class="headline no-margin"><h4>作品评论 <span class="comments-amount">($!{comments.size()})</span></h4></div>
+    	<div class="headline no-margin"><h4>作品评论 <span class="comments-amount">($!{totleCount})</span></h4></div>
 		<div class="comments-sec">
     		<ol class="commentlist">
 				#foreach($comment in $comments)
@@ -78,7 +78,8 @@
 				#end
     		</ol>
 		</div>
-		
+		<div class="clear"></div>
+		#parse("common/pagination.vm")
 		<div class="form-spacer"></div>
 		<!-- Form -->
 		<div>

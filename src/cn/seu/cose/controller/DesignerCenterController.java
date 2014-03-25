@@ -46,17 +46,33 @@ public class DesignerCenterController extends AbstractController {
 
 	@RequestMapping("/designer/{designerId}")
 	public String designerCenterIndex(Model model,
-			@PathVariable("designerId") int designerId) {
+			@PathVariable("designerId") int designerId,
+			@RequestParam(value = "pn", required = false) Integer pn) {
 		basicIssue(model);
 
+		if (pn == null || pn <= 0) {
+			pn = 1;
+		}
 		Designer designer = designerService.getDesignerById(designerId);
-		List<WorkPojo> works = workService.getWorkByUser(designerId);
-		List<CommentPojo> comments = commentService.getCommentsByRefAndType(
-				designerId, CommentType.DESIGNER.ordinal());
-
+		List<WorkPojo> works = workService.getWorkByUserAndPnAndSize(
+				designerId, 1, 3);
+		List<CommentPojo> comments = commentService
+				.getCommentsByRefAndTypeAndPnAndSize(designerId,
+						CommentType.DESIGNER.ordinal(), pn, 10);
 		model.addAttribute("designer", designer);
 		model.addAttribute("works", works);
 		model.addAttribute("comments", comments);
+
+		int totleCount = commentService.getCommentCountByRefAndType(designerId,
+				CommentType.DESIGNER.ordinal());
+		model.addAttribute("pageIndex", pn);
+		model.addAttribute("pageCount",
+				(int) Math.ceil((double) totleCount / 10));
+		model.addAttribute("totleCount", totleCount);
+		StringBuilder sb = new StringBuilder();
+		sb.append(ViewUtil.getContextPath()).append("/designer/")
+				.append(designerId);
+		model.addAttribute("uri", sb.toString());
 
 		return "designer/designerCenterIndex";
 	}
@@ -68,11 +84,24 @@ public class DesignerCenterController extends AbstractController {
 	 */
 	@RequestMapping("/designer/{designerId}/works")
 	public String designerCenterWorks(Model model,
-			@PathVariable("designerId") int designerId) {
+			@PathVariable("designerId") int designerId,
+			@RequestParam(value = "pn", required = false) Integer pn) {
 		basicIssue(model);
 
 		Designer designer = designerService.getDesignerById(designerId);
-		List<WorkPojo> works = workService.getWorkByUser(designerId);
+		pn = pn == null || pn <= 0 ? 1 : pn;
+		List<WorkPojo> works = workService.getWorkByUserAndPnAndSize(
+				designerId, pn, 9);
+
+		int totleCount = workService.getWorkCountByUserId(designerId);
+		model.addAttribute("pageIndex", pn);
+		model.addAttribute("pageCount",
+				(int) Math.ceil((double) totleCount / 10));
+		model.addAttribute("totleCount", totleCount);
+		StringBuilder sb = new StringBuilder();
+		sb.append(ViewUtil.getContextPath()).append("/designer/")
+				.append(designerId).append("/works");
+		model.addAttribute("uri", sb.toString());
 
 		model.addAttribute("designer", designer);
 		model.addAttribute("works", works);
@@ -88,18 +117,42 @@ public class DesignerCenterController extends AbstractController {
 	@RequestMapping("/designer/{designerId}/works/{workId}.html")
 	public String viewWork(Model model,
 			@PathVariable("designerId") int designerId,
-			@PathVariable("workId") int workId) {
-		basicIssue(model);
+			@PathVariable("workId") int workId,
+			@RequestParam(value = "pn", required = false) Integer pn,
+			HttpServletResponse response) {
+		try {
+			basicIssue(model);
+			Designer designer = designerService.getDesignerById(designerId);
+			WorkPojo work = workService.getWorkViaId(workId);
 
-		Designer designer = designerService.getDesignerById(designerId);
-		WorkPojo work = workService.getWorkViaId(workId);
-		List<CommentPojo> comments = commentService.getCommentsByRefAndType(
-				workId, CommentType.WORK.ordinal());
+			if (designer == null || work == null
+					|| work.getUserId() != designerId) {
+				response.sendRedirect(ViewUtil.getContextPath() + "/");
+				return null;
+			}
+			pn = pn == null || pn <= 0 ? 1 : pn;
+			List<CommentPojo> comments = commentService
+					.getCommentsByRefAndTypeAndPnAndSize(workId,
+							CommentType.WORK.ordinal(), pn, 10);
 
-		model.addAttribute("designer", designer);
-		model.addAttribute("work", work);
-		model.addAttribute("comments", comments);
+			model.addAttribute("designer", designer);
+			model.addAttribute("work", work);
+			model.addAttribute("comments", comments);
 
+			int totleCount = commentService.getCommentCountByRefAndType(workId,
+					CommentType.WORK.ordinal());
+			model.addAttribute("pageIndex", pn);
+			model.addAttribute("pageCount",
+					(int) Math.ceil((double) totleCount / 10));
+			model.addAttribute("totleCount", totleCount);
+			StringBuilder sb = new StringBuilder();
+			sb.append(ViewUtil.getContextPath()).append("/designer/")
+					.append(designerId).append("/works/").append(workId)
+					.append(".html");
+			model.addAttribute("uri", sb.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "designer/viewWork";
 	}
 
@@ -228,32 +281,6 @@ public class DesignerCenterController extends AbstractController {
 		try {
 			response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
 					+ designerId + "/works/" + workId + ".html");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * comment to work in activity
-	 */
-	@RequestMapping(value = "/activity/{activityId}/works/{workId}/comment", method = RequestMethod.POST)
-	public void commentWorkInActivity(Model model, MessageCommand command,
-			HttpServletResponse response,
-			@PathVariable("activityId") int activityId,
-			@PathVariable("workId") int workId) {
-		Designer designer = SecurityContextHolder.getSecurityContext()
-				.getDesigner();
-		if (designer != null) {
-			Comment comment = new Comment();
-			comment.setUserId(designer.getId());
-			comment.setContent(command.getMessage());
-			comment.setReferenceId(workId);
-			comment.setCommentType(CommentType.WORK.ordinal());
-			commentService.insertComment(comment);
-		}
-		try {
-			response.sendRedirect(ViewUtil.getContextPath() + "/activity/"
-					+ activityId + "/works/" + workId + ".html");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

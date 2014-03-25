@@ -31,6 +31,25 @@
 		]]>
 	</select>
 	
+	<select id="selectCommentCountViaRefAndType" resultClass="int" parameterClass="java.util.Map">
+		<![CDATA[
+    		SELECT count(id) 
+    		FROM COMMENT
+    		WHERE reference_id=#referenceId# AND comment_type=#type#
+		]]>
+	</select>
+	
+	<select id="selectCommentViaRefAndTypeAndBaseAndRange" resultMap="CommentResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+    		SELECT * FROM
+        		(SELECT * 
+        		FROM COMMENT
+        		WHERE reference_id=#referenceId# AND comment_type=#type#
+    			ORDER BY comment_time DESC) a
+    		LIMIT #base#,#range#
+		]]>
+	</select>
+	
 	<insert id="insertComment" parameterClass="comment">
 		<![CDATA[
     		INSERT INTO COMMENT

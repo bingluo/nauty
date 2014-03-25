@@ -38,6 +38,27 @@ public class CommentDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
+	public List<Comment> getCommentViaRefAndTypeAndBaseAndRange(int refId,
+			int type, int base, int range) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("referenceId", refId);
+		map.put("type", type);
+		map.put("base", base);
+		map.put("range", range);
+		return (List<Comment>) getSqlMapClientTemplate().queryForList(
+				"COMMENT.selectCommentViaRefAndTypeAndBaseAndRange", map);
+	}
+
+	@Override
+	public int getCommentCountViaRefAndType(int refId, int type) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("referenceId", refId);
+		map.put("type", type);
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"COMMENT.selectCommentCountViaRefAndType", map);
+	}
+
+	@Override
 	public void insertComment(Comment comment) {
 		getSqlMapClientTemplate().insert("COMMENT.insertComment", comment);
 	}
@@ -52,5 +73,4 @@ public class CommentDAOImpl extends SqlMapClientDaoSupport implements
 	public void deleteComment(int id) {
 		getSqlMapClientTemplate().delete("COMMENT.deleteComment", id);
 	}
-
 }

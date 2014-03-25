@@ -45,6 +45,7 @@
 	<div class="twelve columns tooltips">
 		<div class="headline no-margin"><h4>设计作品 <span class="comments-amount">($!{works.size()})</span></h4></div>
 	</div>
+	
 	#foreach($work in $works)
 	<div class="four columns">
     	<div class="picture">
@@ -58,7 +59,8 @@
     	</div>
     </div>
 	#end
-	</div>
+	<div class="clear"></div>
+	#parse("common/pagination.vm")
 </div>
 <!-- 960 Container / End -->
 </div>

@@ -32,6 +32,17 @@
 		]]>
 	</select>
 	
+	<select id="selectWorksByUserIdAndBaseAndRange" resultMap="WorkResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM
+			(SELECT * 
+			FROM WORK
+			WHERE user_id = #userId#
+			ORDER BY update_time DESC) a
+		LIMIT #base#,#range#
+		]]>
+	</select>
+	
 	<select id="selectRecentWorksByActivityId" resultMap="WorkResultMap" parameterClass="int">
 		<![CDATA[
 			SELECT * FROM
@@ -69,7 +80,15 @@
 		<![CDATA[
 			SELECT count(id) 
 			FROM WORK
-			WHERE activity_id = #activityId#
+			WHERE activity_id = #value#
+		]]>
+	</select>
+		
+	<select id="selectWorksCountByDesignerId" resultClass="int" parameterClass="int">
+		<![CDATA[
+			SELECT count(id) 
+			FROM WORK
+			WHERE user_id = #value#
 		]]>
 	</select>
 	

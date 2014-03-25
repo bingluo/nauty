@@ -30,54 +30,25 @@
     		</div>
     	</div>
     	<div class="twelve columns">
-			<div class="post">
-        		<div class="post-content" style="margin-left:0px;">
-        			<div class="post-title"><h2>$!{viewUtil.getContextPath()}$!{activity.title}</h2></div>
-        			<div class="post-meta">
-						<span><i class="mini-ico-calendar"></i>$!{activity.actBeginTime} 至 $!{activity.actEndTime}</span>
-					</div>
-        			<div class="post-description">
-        				<p>$!{activity.title}</p>
-        			</div>
-        		</div>
-        	</div>
             <!-- Headline -->
-            <div class="no-margin icon-box tooltips" style="height: 45px;"><i class="ico-podium" style="margin:-7px 0 0 -10px;"></i>
-            	<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
-            	<h3>参赛作品</h3>
-    		</div>
-			#foreach($recentWork in $recentWorks)
-			<div style="width:220px;float:left;#if($velocityCount==1)margin-right:10px;#elseif($velocityCount==3)margin-left:10px;#else margin:0 10px;#end">
-        		<div class="picture">
-        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{recentWork.id}">
-        				<img src="$!{viewUtil.getContextPath()}/static/works/$!{recentWork.workPics.get(0)}" style="height:139px" />
-        				<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
-        			</a>
-        		</div>
-        		<div class="item-description">
-        			<h5><a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{recentWork.id}">$!{recentWork.workName}</a><label>票数：$!{recentWork.voteCount}</label></h5>
-        		</div>
-			</div>
-			#end
-			<div class="clear"></div>
             <div class="no-margin icon-box tooltips" style="height: 45px;"><i class="ico-magic" style="margin:-7px 0 0 -10px;"></i>
-            	<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/photos" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
             	<h3>活动现场</h3>
     		</div>
-			#foreach($recentPhoto in $recentPhotos)
+			#foreach($photo in $photos)
 			<div style="width:220px;float:left;#if($velocityCount==1)margin-right:10px;#elseif($velocityCount==3)margin-left:10px;#else margin:0 10px;#end">
         		<div class="picture">
-        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/photos/$!{recentPhoto.id}" >
-        				<img src="$!{recentPhoto.picUri}" style="height:139px" />
+        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/photos/$!{photo.id}" >
+        				<img src="$!{photo.picUri}" style="height:139px" />
         				<div class="image-overlay-link" style="opacity: 0; display: block;" ></div>
         			</a>
         		</div>
         		<div class="item-description">
 					<h5></h5>
-        			<p>$!{recentPhoto.intro}</p>
         		</div>
 			</div>
 			#end
+			<div class="clear"></div>
+			#parse("common/pagination.vm")
 		</div>
 		#parse("activity/activityRightBar.vm")
     </div>
@@ -89,7 +60,5 @@
 <!-- Footer / End -->
 </body>
 <script language="JavaScript">
-$formAction = $("#registertForm").attr("action");
-$contextPath = "$!{viewUtil.getContextPath()}";
 </script>
 </html>

@@ -39,6 +39,17 @@ public class WorkDAOImpl extends SqlMapClientDaoSupport implements WorkDAO {
 	}
 
 	@Override
+	public List<Work> getWorksByUserIdAndBaseAndRange(int userId, int base,
+			int range) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("base", base);
+		map.put("range", range);
+		return (List<Work>) getSqlMapClientTemplate().queryForList(
+				"WORK.selectWorksByUserIdAndBaseAndRange", map);
+	}
+
+	@Override
 	public void insertWork(Work work) {
 		getSqlMapClientTemplate().insert("WORK.insertWork", work);
 	}
@@ -78,5 +89,11 @@ public class WorkDAOImpl extends SqlMapClientDaoSupport implements WorkDAO {
 	public int getWorksCountByActivityId(int activityId) {
 		return (Integer) getSqlMapClientTemplate().queryForObject(
 				"WORK.selectWorksCountByActivityId", activityId);
+	}
+
+	@Override
+	public int getWorksCountByDesignerId(int designerId) {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"WORK.selectWorksCountByDesignerId", designerId);
 	}
 }

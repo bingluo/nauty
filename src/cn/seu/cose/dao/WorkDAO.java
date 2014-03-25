@@ -15,9 +15,13 @@ public interface WorkDAO {
 
 	int getWorksCountByActivityId(int activityId);
 
+	int getWorksCountByDesignerId(int designerId);
+
 	List<Work> getHotWorks();
 
 	List<Work> getWorksByUserId(int userId);
+
+	List<Work> getWorksByUserIdAndBaseAndRange(int userId, int base, int range);
 
 	void insertWork(Work work);
 
