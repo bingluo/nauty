@@ -125,6 +125,11 @@ public class ActivityService {
 		return activityPhotoDAOImpl.getActivityPhotoByActivityId(id);
 	}
 
+	public int getActivityPhotosCountByActivityId(int activityId) {
+		return activityPhotoDAOImpl
+				.getActivityPhotosCountByActivityId(activityId);
+	}
+
 	public List<ActivityPhoto> getActivityPhotoByActivityIdAndPnAndSize(int id,
 			int pn, int pageSize) {
 		return activityPhotoDAOImpl

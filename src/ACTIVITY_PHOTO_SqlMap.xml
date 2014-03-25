@@ -44,6 +44,14 @@
 		]]>
 	</select>
 	
+	<select id="selectActivityPhotosCountByActivityId" resultClass="int" parameterClass="int">		
+		<![CDATA[
+        	SELECT count(id)
+        	FROM activity_photo
+			WHERE activity_id = #activityId#
+		]]>
+	</select>
+	
 	<select id="selectActivityPhotoById" resultMap="ActivityPhotoResultMap" parameterClass="int">		
 		<![CDATA[
         	SELECT *

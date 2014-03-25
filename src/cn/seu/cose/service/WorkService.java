@@ -141,7 +141,7 @@ public class WorkService {
 		return workDAOImpl.getWorksCountByActivityId(activityId);
 	}
 
-	public int getWorkCountByUserId(int designerId) {
+	public int getWorksCountByDesignerId(int designerId) {
 		return workDAOImpl.getWorksCountByDesignerId(designerId);
 	}
 }

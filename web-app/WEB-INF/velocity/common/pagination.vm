@@ -28,4 +28,4 @@
         		#end
            	</ul>
     		#end
-    		<div style="padding-top: 20px;">共 $!{pageCount} 页 $!{totleCount} 条</div>
+    		<div style="padding-top: 20px;">共 $!{pageCount} 页 $!{totalCount} 条</div>

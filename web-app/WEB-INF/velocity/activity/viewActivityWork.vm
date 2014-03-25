@@ -30,11 +30,11 @@
         		</div>
         	</div>
         	<div class="twelve columns">
-				<div style="font-size:20px;color:#404040;text-align:center;margin-bottom:10px;">$!{work.workName}</div>
+				<div style="font-size:20px;color:#404040;text-align:center;margin-bottom:10px;">$!{work.workName}<label class="button color vote" style="color:#fff;float:right;" voteTo="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{work.id}/vote">投票</label></div>
 				<div class="post-meta" style="text-align:center;">
 					<span><i class="mini-ico-user"></i>作者：<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}">$!{work.userName}</a></span>
 					<span><i class="mini-ico-thumbs-up"></i>票数：$!{work.voteCount}</span>
-					<span><i class="mini-ico-comment"></i> $!{totleCount}条评论</span>
+					<span><i class="mini-ico-comment"></i> $!{totalCount}条评论</span>
 				</div>
         		<div class="flexslider home">
         			<ul class="slides">
@@ -46,7 +46,7 @@
         		<p>$!{work.intro}</p>
         	
             	<div class="headline no-margin">
-					<h4>作品评论 <span class="comments-amount">($!{totleCount})</span></h4>
+					<h4>作品评论 <span class="comments-amount">($!{totalCount})</span></h4>
 				</div>
         		<div class="comments-sec">
             		<ol class="commentlist">
@@ -99,33 +99,31 @@
     <!-- Footer / End -->
 </body>
 <script language="JavaScript">
-	$(document).ready(function(){
-		$("#signIn").click(function(){
-			location.href = "$!{viewUtil.getContextPath()}/sign-in";
-		});
-		$("#send").click(function(){
-			$message = $.trim($("#messageText").val());
-			if($message!=""){
-				$("#messageText").css('border','1px solid #d8d8d8');
-				$("#messageText").css('background','#ffffff');
-				$.ajax({
-					type: 'POST',
-					url: "$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{work.id}/comment",
-					data: {
-						message: $message
-					},
-					success: function( data ) {
-						$("send").css('disabled','disabled');
-						location.href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{work.id}";
-					}
-				});
-			}else{
-            	$(".success-message").css('display','block');
-            	$("#notification_1").css('display','block');
-				$("#messageText").css('border','1px solid #f2c4c2');
-				$("#messageText").css('background','#ffeceb');
-			}
-		});
-	})
+$contextPath = "$!{viewUtil.getContextPath()}";
+$(document).ready(function(){
+    $(".vote").click(function(){
+    	$url = $(this).attr('voteTo');
+    	jQuery.ajax({
+    		url: $url,
+    		type: "POST",
+    		cache: false,
+    		// Success
+    		success: function (html) {		
+    			if (html==0) {
+    				//未登录
+    				location.href=$contextPath+"/sign-in";
+    			}else if(html==3){
+    				//成功投票
+    				location.reload();
+    			}else{
+    				//无此活动
+    				//无此作品
+    				alert("未知错误");
+    				location.href=$contextPath+"/activity";
+    			}
+    		}
+    	});
+    });
+});
 </script>
 </html>

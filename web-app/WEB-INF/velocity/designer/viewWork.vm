@@ -57,7 +57,7 @@
 		</div>
 		<p>$!{work.intro}</p>
 	
-    	<div class="headline no-margin"><h4>作品评论 <span class="comments-amount">($!{totleCount})</span></h4></div>
+    	<div class="headline no-margin"><h4>作品评论 <span class="comments-amount">($!{totalCount})</span></h4></div>
 		<div class="comments-sec">
     		<ol class="commentlist">
 				#foreach($comment in $comments)
@@ -127,7 +127,7 @@
             			$(".success-message").css('display','block');
             			$("#notification_1").css('display','block');
 						$("send").css('disabled','disabled');
-						location.href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}";
+						location.href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html";
 					}
 				});
 			}else{

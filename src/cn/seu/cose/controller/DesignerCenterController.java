@@ -63,12 +63,12 @@ public class DesignerCenterController extends AbstractController {
 		model.addAttribute("works", works);
 		model.addAttribute("comments", comments);
 
-		int totleCount = commentService.getCommentCountByRefAndType(designerId,
+		int totalCount = commentService.getCommentCountByRefAndType(designerId,
 				CommentType.DESIGNER.ordinal());
 		model.addAttribute("pageIndex", pn);
 		model.addAttribute("pageCount",
-				(int) Math.ceil((double) totleCount / 10));
-		model.addAttribute("totleCount", totleCount);
+				(int) Math.ceil((double) totalCount / 10));
+		model.addAttribute("totalCount", totalCount);
 		StringBuilder sb = new StringBuilder();
 		sb.append(ViewUtil.getContextPath()).append("/designer/")
 				.append(designerId);
@@ -93,11 +93,11 @@ public class DesignerCenterController extends AbstractController {
 		List<WorkPojo> works = workService.getWorkByUserAndPnAndSize(
 				designerId, pn, 9);
 
-		int totleCount = workService.getWorkCountByUserId(designerId);
+		int totalCount = workService.getWorksCountByDesignerId(designerId);
 		model.addAttribute("pageIndex", pn);
 		model.addAttribute("pageCount",
-				(int) Math.ceil((double) totleCount / 10));
-		model.addAttribute("totleCount", totleCount);
+				(int) Math.ceil((double) totalCount / 10));
+		model.addAttribute("totalCount", totalCount);
 		StringBuilder sb = new StringBuilder();
 		sb.append(ViewUtil.getContextPath()).append("/designer/")
 				.append(designerId).append("/works");
@@ -139,12 +139,12 @@ public class DesignerCenterController extends AbstractController {
 			model.addAttribute("work", work);
 			model.addAttribute("comments", comments);
 
-			int totleCount = commentService.getCommentCountByRefAndType(workId,
+			int totalCount = commentService.getCommentCountByRefAndType(workId,
 					CommentType.WORK.ordinal());
 			model.addAttribute("pageIndex", pn);
 			model.addAttribute("pageCount",
-					(int) Math.ceil((double) totleCount / 10));
-			model.addAttribute("totleCount", totleCount);
+					(int) Math.ceil((double) totalCount / 10));
+			model.addAttribute("totalCount", totalCount);
 			StringBuilder sb = new StringBuilder();
 			sb.append(ViewUtil.getContextPath()).append("/designer/")
 					.append(designerId).append("/works/").append(workId)

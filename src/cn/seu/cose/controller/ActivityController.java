@@ -170,12 +170,12 @@ public class ActivityController extends AbstractController {
 			pn = pn == null || pn <= 0 ? 1 : pn;
 			List<WorkPojo> works = workService
 					.getWorksByActivityIdAndPnAndSize(activityId, pn, 12);
-			int totleCount = workService.getWorksCountByActivityId(activityId);
+			int totalCount = workService.getWorksCountByActivityId(activityId);
 			model.addAttribute("works", works);
 			model.addAttribute("pageIndex", pn);
 			model.addAttribute("pageCount",
-					(int) Math.ceil((double) totleCount / 10));
-			model.addAttribute("totleCount", totleCount);
+					(int) Math.ceil((double) totalCount / 10));
+			model.addAttribute("totalCount", totalCount);
 			StringBuilder sb = new StringBuilder();
 			sb.append(ViewUtil.getContextPath()).append("/activity/")
 					.append(activityId).append("/works");
@@ -261,12 +261,12 @@ public class ActivityController extends AbstractController {
 				model.addAttribute("work", work);
 				model.addAttribute("comments", comments);
 
-				int totleCount = commentService.getCommentCountByRefAndType(
+				int totalCount = commentService.getCommentCountByRefAndType(
 						workId, CommentType.WORK.ordinal());
 				model.addAttribute("pageIndex", pn);
 				model.addAttribute("pageCount",
-						(int) Math.ceil((double) totleCount / 10));
-				model.addAttribute("totleCount", totleCount);
+						(int) Math.ceil((double) totalCount / 10));
+				model.addAttribute("totalCount", totalCount);
 				StringBuilder sb = new StringBuilder();
 				sb.append(ViewUtil.getContextPath()).append("/activity/")
 						.append(activityId).append("/works/").append(workId);
@@ -343,17 +343,90 @@ public class ActivityController extends AbstractController {
 			List<ActivityPhoto> photos = activityService
 					.getActivityPhotoByActivityId(activityId);// 分页
 
-			int totleCount = workService.getWorksCountByActivityId(activityId);
+			int totalCount = activityService
+					.getActivityPhotosCountByActivityId(activityId);
 			model.addAttribute("photos", photos);
 			model.addAttribute("pageIndex", pn);
 			model.addAttribute("pageCount",
-					(int) Math.ceil((double) totleCount / 10));
-			model.addAttribute("totleCount", totleCount);
+					(int) Math.ceil((double) totalCount / 10));
+			model.addAttribute("totalCount", totalCount);
 			StringBuilder sb = new StringBuilder();
 			sb.append(ViewUtil.getContextPath()).append("/activity/")
 					.append(activityId).append("/photos");
 			model.addAttribute("uri", sb.toString());
 			return "activity/activityPhotos";
+		}
+	}
+
+	@RequestMapping(value = "/activity/{activityId}/photos/{photoId}", method = RequestMethod.GET)
+	public String viewActivityPhoto(@PathVariable("activityId") int activityId,
+			@PathVariable("photoId") int photoId, Model model,
+			@RequestParam(value = "pn", required = false) Integer pn,
+			HttpServletResponse response) {
+		try {
+			basicIssue(model);
+			Activity activity = activityService.getActivityById(activityId);
+			ActivityPhoto photo = activityService.getActivityPhotoById(photoId);
+			if (activity == null || photo == null
+					|| photo.getActivityId() != activityId) {
+				response.sendRedirect(ViewUtil.getContextPath() + "/activity");
+				return null;
+			} else {
+				activityBasicIssue(model, activity);
+				pn = pn == null || pn <= 0 ? 1 : pn;
+				List<CommentPojo> comments = commentService
+						.getCommentsByRefAndTypeAndPnAndSize(photoId,
+								CommentType.ACTIVITY_PHOTO.ordinal(), pn, 10);
+				model.addAttribute("activity", activity);
+				model.addAttribute("photo", photo);
+				model.addAttribute("comments", comments);
+
+				int totalCount = commentService.getCommentCountByRefAndType(
+						photoId, CommentType.ACTIVITY_PHOTO.ordinal());
+				model.addAttribute("pageIndex", pn);
+				model.addAttribute("pageCount",
+						(int) Math.ceil((double) totalCount / 10));
+				model.addAttribute("totalCount", totalCount);
+				StringBuilder sb = new StringBuilder();
+				sb.append(ViewUtil.getContextPath()).append("/activity/")
+						.append(activityId).append("/photos/").append(photoId);
+				model.addAttribute("uri", sb.toString());
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "activity/viewActivityPhoto";
+	}
+
+	@RequestMapping(value = "/activity/{activityId}/photos/{photoId}/comment", method = RequestMethod.POST)
+	public void commentPhoto(HttpServletResponse response,
+			@PathVariable("activityId") int activityId,
+			@PathVariable("photoId") int photoId,
+			@RequestParam("message") String message) {
+
+		try {
+			Activity activity = activityService.getActivityById(activityId);
+			ActivityPhoto photo = activityService.getActivityPhotoById(photoId);
+			if (activity == null || photo == null
+					|| photo.getActivityId() != activityId) {
+				response.getWriter().write("0");// 活动、照片错误
+			} else {
+				Designer designer = designerService.getCurrentUser();
+				if (designer == null) {
+					response.getWriter().write("1");// 未登录
+				} else {
+					Comment comment = new Comment();
+					comment.setCommentType(CommentType.ACTIVITY_PHOTO.ordinal());
+					comment.setContent(message);
+					comment.setReferenceId(photoId);
+					comment.setUserId(designer.getId());
+					commentService.insertComment(comment);
+					response.getWriter().write("2");// 成功
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

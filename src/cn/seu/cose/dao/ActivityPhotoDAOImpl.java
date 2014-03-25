@@ -71,4 +71,11 @@ public class ActivityPhotoDAOImpl extends SqlMapClientDaoSupport implements
 						map);
 	}
 
+	@Override
+	public int getActivityPhotosCountByActivityId(int activityId) {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"ACTIVITY_PHOTO.selectActivityPhotosCountByActivityId",
+				activityId);
+	}
+
 }

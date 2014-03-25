@@ -10,6 +10,8 @@ public interface ActivityPhotoDAO {
 	List<ActivityPhoto> getActivityPhotoByActivityIdAndBaseAndRange(int id,
 			int base, int range);
 
+	int getActivityPhotosCountByActivityId(int activityId);
+
 	List<ActivityPhoto> getRecentActivityPhotoByActivityId(int id);
 
 	ActivityPhoto getActivityPhotoById(int id);
