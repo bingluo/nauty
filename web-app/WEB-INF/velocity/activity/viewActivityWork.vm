@@ -59,7 +59,7 @@
             					<div class="comment-des">
                 					<div class="comment-by">
             							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><strong>#if($!{comment.designer})$!{comment.userName}#else 匿名#end</strong></a>
-            							<span class="date">$!{comment.commentTime}</span>
+            							<span class="date">$viewUtil.fTime("$!{comment.commentTime}")</span>
             						</div>
                 					<p>$!{comment.content}</p>
             					</div>

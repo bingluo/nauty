@@ -45,7 +45,7 @@
     <div class="twelve columns">
 		<div style="font-size:20px;color:#404040;text-align:center;margin-bottom:10px;">$!{work.workName}</div>
 		<div class="post-meta" style="text-align:center;">
-			<span><i class="mini-ico-calendar"></i>$!{work.updateTime}</span>
+			<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{work.updateTime}")</span>
 			<span><i class="mini-ico-comment"></i>评论 $!{comments.size()}</span>
 		</div>
 		<div class="flexslider home">
@@ -69,7 +69,7 @@
     					<div class="comment-des">
         					<div class="comment-by">
     							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><strong>#if($!{comment.designer})$!{comment.userName}#else 匿名#end</strong></a>
-    							<span class="date">$!{comment.commentTime}</span>
+    							<span class="date">$viewUtil.fTime("$!{comment.commentTime}")</span>
     						</div>
         					<p>$!{comment.content}</p>
     					</div>
