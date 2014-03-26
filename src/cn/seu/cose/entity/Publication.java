@@ -7,6 +7,7 @@ public class Publication {
 	private String title;
 	private String intro;
 	private String images;
+	private String linkUrl;
 	private int clickCounts;
 	private Date postTime;
 
@@ -40,6 +41,14 @@ public class Publication {
 
 	public void setImages(String images) {
 		this.images = images;
+	}
+
+	public String getLinkUrl() {
+		return linkUrl;
+	}
+
+	public void setLinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
 	}
 
 	public int getClickCounts() {

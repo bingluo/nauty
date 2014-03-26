@@ -82,13 +82,29 @@
 	#foreach($publication in $recentPublications)
 	<div class="four columns">
 		<div class="picture">
-			<a href="$!{viewUtil.getContextPath()}/publication/$!{publication.id}.html">
-				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+    		#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
+    		<a href="$!{publication.linkUrl}">
+    		#else
+    		<a href="$viewUtil.getContextPath()/publication/$!{publication.id}.html">
+    		#end
+    			#if($!{publication.coverUrl}&&$!{publication.coverUrl}!="")
+    			<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+    			#else
+    			<img src="$viewUtil.getContextPath()/static/images/portfolio/portoflio-09.jpg" alt="$!{publication.title}" style="height:139px"/>
+    			#end
 				<div class="image-overlay-link"></div>
 			</a>
 		</div>
 		<div class="item-description">
-			<h5><a href="$!{viewUtil.getContextPath()}/publication/${publication.id}.html">$!{publication.title}</a></h5>
+			<h5>
+    			#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
+    			<a href="$!{publication.linkUrl}">
+    			#else
+    			<a href="$viewUtil.getContextPath()/publication/$!{publication.id}.html">
+    			#end
+					$!{publication.title}
+				</a>
+			</h5>
 			<p>$!{publication.brief}</p>
 		</div>
 	</div>
