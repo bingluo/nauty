@@ -54,7 +54,7 @@
 			<h1><a href="#">管理员平台</a></h1>		
 		</div>
 		<div id="search" style="top:10px;">
-			<i class="icon-white icon-warning-sign"></i><span class="text" style="color:#AAAAAA;">&nbsp;&nbsp;请使用Chrome、Firefox、搜狗非兼容模式、IE9以上等高级浏览器</span>
+			<i class="icon-white icon-warning-sign"></i><span class="text" style="color:#AAAAAA;">&nbsp;&nbsp;请使用Chrome、Firefox、搜狗高速模式、IE9以上等高级浏览器</span>
 		</div>
 		<div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav btn-group">
