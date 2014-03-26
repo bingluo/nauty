@@ -58,11 +58,20 @@
 #contact-details a {color: #666;}
 #contact-details a:hover {color: #888;}
 
+
 /* Activity
 ====================================*/
 .title-pic img{
 	width: 100%;
 	height: auto;
+}
+.activity-block{
+	border:1px solid #ddd;
+	padding:4px;
+	width:290px;
+}
+.activity-block:hover{
+	border:1px solid #72b626;
 }
 
 /* Search Form
@@ -1808,6 +1817,8 @@ blockquote {
 #social a img{
 	border: none;
 }
+
+
 
 /* Icon List */
 .renren{background: url(../images/icons/social/renren.png) no-repeat;}
@@ -4189,3 +4200,4 @@ table.standard-table tr:hover td {background-color: #fafafa;}
 	}
 	
 }
+

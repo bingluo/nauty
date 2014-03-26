@@ -7,6 +7,8 @@ import cn.seu.cose.entity.ActivityApplication;
 public interface ActivityApplicationDAO {
 	List<ActivityApplication> getActivityApplicationsByActivityId(int id);
 
+	int getActivityApplicationCountByActivityId(int id);
+
 	ActivityApplication getActivityApplicationsByUserIdAndActivityId(
 			int userId, int activityId);
 

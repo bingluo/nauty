@@ -59,4 +59,12 @@ public class ActivityApplicationDAOImpl extends SqlMapClientDaoSupport
 		getSqlMapClientTemplate().delete(
 				"ACTIVITY_APPLICATION.deleteActivityApplication", map);
 	}
+
+	@Override
+	public int getActivityApplicationCountByActivityId(int id) {
+		return (Integer) getSqlMapClientTemplate()
+				.queryForObject(
+						"ACTIVITY_APPLICATION.selectActivityEnrollmentCountByActivityId",
+						id);
+	}
 }

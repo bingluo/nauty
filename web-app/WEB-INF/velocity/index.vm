@@ -42,12 +42,50 @@
 </div>
 <!-- 960 Container / End -->
 <!-- 960 Container -->
-<div class="container" style="margin-top:30px">
+<div class="container">
+	<!-- Icon Boxes -->
+	<div class="activity-index" style="margin-top:20px;">
+		<!-- Icon Box Start -->
+		<div class="one-third column intro-block">
+			<div class="icon-box">
+				<i class="ico-cup" style="margin-left: -10px;"></i>
+				<h3>活动赛事</h3>
+				<p>最新活动赛事新闻，活动在线报名参与，现场照片视频速递，设计作品投票评选……<a class="post-entry" href="$!{viewUtil.getContextPath}/activity">点击查看详情</a></p>
+			</div>
+		</div>
+		<!-- Icon Box End -->
+		#foreach($activity in $activities)
+		<div class="one-third column activity-block" style="width:290px;">
+			<div class="post-meta" style="display:inline;float:left;margin-left:10px;max-width:90px;">
+				<label>
+					<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" style="color: #404040;font-weight:bold;font-size:14px;">$!{activity.title}</a>
+				</label>
+				<ul>
+    				<li><span><i class="mini-ico-edit"></i>$!{activity.applyCount} 人报名</span></li>
+    				<li><span><i class="mini-ico-file"></i>$!{activity.workCount} 件作品</span></li>
+				</ul>
+			</div>
+			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;max-width:180px;overflow:hidden;">
+				<ul class="links-list-alt activity-list">
+					#foreach($activityNew in $activity.news)
+					<li><a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/news/$!{activityNew.id}">$!{activityNew.title}</a></li>
+					#end
+				</ul>
+			</div>
+		</div>
+		#end
+	</div>
+	<!-- Icon Boxes / End -->
+</div>
+<!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container" style="margin-top:20px">
 	<div class="sixteen columns" style="height: 45px;">
 		<!-- Headline -->
 		<div class="no-margin icon-box tooltips"><i class="ico-book-open" style="margin-left: -10px;margin-top:-7px;"></i>
 			<a href="$viewUtil.getContextPath()/publication" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
-			<h3>协会刊物</h3></div>
+			<h3>协会刊物</h3>
+		</div>
 	</div>
 	#foreach($publication in $recentPublications)
 	<!-- Project -->

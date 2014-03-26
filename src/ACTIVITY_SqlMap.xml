@@ -35,6 +35,17 @@
 		]]>
 	</select>
 	
+	<select id="selectIndexActivities" resultMap="ActivityResultMap">		
+		<![CDATA[
+    		SELECT * FROM(
+        		SELECT * 
+        		FROM activity
+				WHERE act_begin_time<current_timestamp()
+    			ORDER BY act_begin_time desc) a
+    		limit 2 
+		]]>
+	</select>
+	
 	<select id="selectAdvanceActivities" resultMap="ActivityResultMap">
 		<![CDATA[
     		SELECT *

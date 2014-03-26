@@ -1,5 +1,6 @@
 package cn.seu.cose.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,12 @@ import cn.seu.cose.dao.ActivityApplicationDAO;
 import cn.seu.cose.dao.ActivityDAO;
 import cn.seu.cose.dao.ActivityNewsDAO;
 import cn.seu.cose.dao.ActivityPhotoDAO;
+import cn.seu.cose.dao.WorkDAO;
 import cn.seu.cose.entity.Activity;
 import cn.seu.cose.entity.ActivityApplication;
 import cn.seu.cose.entity.ActivityNews;
 import cn.seu.cose.entity.ActivityPhoto;
+import cn.seu.cose.entity.ActivityPojo;
 
 @Service
 public class ActivityService {
@@ -24,6 +27,8 @@ public class ActivityService {
 	private ActivityNewsDAO activityNewsDAOImpl;
 	@Autowired
 	private ActivityPhotoDAO activityPhotoDAOImpl;
+	@Autowired
+	private WorkDAO workDAOImpl;
 
 	public List<Activity> getRecentActivities() {
 		return activityDAOImpl.getRecentActivities();
@@ -160,5 +165,25 @@ public class ActivityService {
 
 	public void updateActivityPhoto(ActivityPhoto activityPhoto) {
 		activityPhotoDAOImpl.updateActivityPhoto(activityPhoto);
+	}
+
+	public List<ActivityPojo> getIndexActivities() {
+		List<ActivityPojo> activities = new ArrayList<ActivityPojo>();
+		List<Activity> indexActivities = activityDAOImpl.getIndexActivities();
+		for (Activity activity : indexActivities) {
+			ActivityPojo activityPojo = new ActivityPojo();
+			activityPojo.setActivity(activity);
+			int applyCount = activityApplicationDAOImpl
+					.getActivityApplicationCountByActivityId(activity.getId());
+			activityPojo.setApplyCount(applyCount);
+			int worksCount = workDAOImpl.getWorksCountByActivityId(activity
+					.getId());
+			activityPojo.setWorkCount(worksCount);
+			List<ActivityNews> news = getActivityLatestNewsByActivityId(activity
+					.getId());
+			activityPojo.setNews(news);
+			activities.add(activityPojo);
+		}
+		return activities;
 	}
 }

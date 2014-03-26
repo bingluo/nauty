@@ -239,3 +239,18 @@
       width: 0;
       height: 0;
     }
+
+	
+	
+
+/* Activity
+====================================*/
+.title-pic img{
+	width: 100%;
+	height: auto;
+}
+.activity-block{
+	border:1px solid #ddd;
+	padding:4px;
+	width:290px;
+}

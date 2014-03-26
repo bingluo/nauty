@@ -9,6 +9,8 @@ public interface ActivityDAO {
 
 	List<Activity> getCurrentActivities();
 
+	List<Activity> getIndexActivities();
+
 	List<Activity> getAllActivities();
 
 	List<Activity> searchActivityByTitle(String title);

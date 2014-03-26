@@ -76,4 +76,10 @@ public class ActivityDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"ACTIVITY.selectReviewActivities");
 	}
+
+	@Override
+	public List<Activity> getIndexActivities() {
+		return getSqlMapClientTemplate().queryForList(
+				"ACTIVITY.selectIndexActivities");
+	}
 }

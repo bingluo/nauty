@@ -1,14 +1,14 @@
 	<!-- Header -->
 	<div id="header">
 		<!-- Logo -->
-		<div class="ten columns">
-			<div id="logo" style="margin:0 auto 22px 10px">
-				<a href="$!{viewUtil.getContextPath()}/"><img src="$!{viewUtil.getContextPath()}/static/images/jida-logo.jpg" alt="logo" /></a>
+		<div class="eight columns">
+			<div id="logo" style="margin:0 auto 10px 10px">
+				<a href="$!{viewUtil.getContextPath()}/"><img src="$!{viewUtil.getContextPath()}/static/images/new-logo.jpg" alt="logo" /></a>
 				<div class="clear"></div>
 			</div>
 		</div>
 		<!-- Social / Contact -->
-		<div class="six columns">
+		<div class="eight columns">
 			<div class="tooltips">
 				<div class="tags" style="text-align:right;font-size:14px;font-weight:bold;">
 				#if($!{curUser})
@@ -21,7 +21,7 @@
 				#end
 				</div>
 				<!-- Social Icons -->
-    			<ul class="social-icons" style="margin-top:50px;">
+    			<ul class="social-icons" style="margin-top:20px;">
 					#foreach($social in $socials)
     				<li class="$!{social.parameterKey}"><a href="$!{social.parameterValue}">$!{social.parameterName}</a></li>
 					#end
