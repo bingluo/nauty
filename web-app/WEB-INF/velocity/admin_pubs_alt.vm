@@ -35,6 +35,12 @@
 									<input type="text" id="intro" name="intro" value="$pub.intro">
 								</div>
 							</div>
+							<div class="control-group">
+								<label class="control-label">刊物链接</label>
+								<div class="controls">
+									<input type="text" id="linkUrl" name="linkUrl" value="$pub.linkUrl" placeHolder="默认为空，非外链杂志不填">
+								</div>
+							</div>
 							<div class="control-group" >
 								<label class="control-label">刊物图片</label>
 								<div class="controls">
@@ -73,6 +79,7 @@
 			var _title = $("#title").val();
 			var _intro = $("#intro").val();
 			var _picName = $("#picName").val();
+			var _linkUrl = $("#linkUrl").val();
 			
 			if(_title == "") {
 				$("#title").parent().parent().addClass("error");
@@ -87,7 +94,7 @@
 				$.ajax({
 					url: context_path + "/admin/alt_pub",
 					type: "post",
-					data: {id:_id, title:_title, intro:_intro, images:_picName},
+					data: {id:_id, title:_title, intro:_intro, images:_picName, linkUrl:_linkUrl},
 					dataType: "html",
 					success: function(data) {
 						window.location.href = context_path + "/admin/pub_list";

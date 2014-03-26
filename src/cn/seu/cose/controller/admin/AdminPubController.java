@@ -41,11 +41,12 @@ public class AdminPubController extends AbstractController{
 	
 	@RequestMapping(value="/admin/add_pub", method=RequestMethod.POST)
 	public void postAdd(@RequestParam("title")String title, @RequestParam("intro") String intro, 
-			@RequestParam("images")String images, Model model, HttpServletResponse response) {
+			@RequestParam("images")String images, @RequestParam("linkUrl") String linkUrl, Model model, HttpServletResponse response) {
 		
 		PublicationPojo pub = new PublicationPojo();
 		pub.setTitle(title);
 		pub.setIntro(intro);
+		pub.setLinkUrl(linkUrl);
 		pub.setImages(images);
 		pub.setPostTime(new Date());
 		pubService.addPublication(pub);
@@ -78,11 +79,12 @@ public class AdminPubController extends AbstractController{
 	
 	@RequestMapping(value="/admin/alt_pub", method=RequestMethod.POST)
 	public void postAlt(@RequestParam("id") String idStr, @RequestParam("title")String title, @RequestParam("intro") String intro, 
-			@RequestParam("images")String images, Model model, HttpServletResponse response) {
+			@RequestParam("images")String images, @RequestParam("linkUrl") String linkUrl, Model model, HttpServletResponse response) {
 		PublicationPojo pub = new PublicationPojo();
 		pub.setId(Integer.parseInt(idStr));
 		pub.setTitle(title);
 		pub.setIntro(intro);
+		pub.setLinkUrl(linkUrl);
 		pub.setImages(images);
 		pub.setPostTime(new Date());
 		pubService.updatePublication(pub);
