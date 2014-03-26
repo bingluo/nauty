@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cn.seu.cose.entity.ActivityPojo;
 import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.SlidePojo;
+import cn.seu.cose.entity.WorkPojo;
 import cn.seu.cose.service.ActivityService;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.SlideService;
+import cn.seu.cose.service.WorkService;
 
 @Controller
 public class IndexController extends AbstractController {
@@ -28,15 +30,19 @@ public class IndexController extends AbstractController {
 	private SlideService slideService;
 	@Autowired
 	private ActivityService activityService;
+	@Autowired
+	private WorkService workService;
 
 	@RequestMapping("/")
 	public String index(Model model) {
 		List<SlidePojo> slides = slideService.getSlides();
 		List<ArticlePojo> news = articleService.newCenterInIndex();
 		List<ActivityPojo> activities = activityService.getIndexActivities();
+		List<WorkPojo> works = workService.getRecentWorks(6);
 		model.addAttribute("slides", slides);
 		model.addAttribute("news", news);
 		model.addAttribute("activities", activities);
+		model.addAttribute("works", works);
 		basicIssue(model);
 		return "index";
 	}

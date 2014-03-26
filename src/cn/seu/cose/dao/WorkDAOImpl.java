@@ -96,4 +96,10 @@ public class WorkDAOImpl extends SqlMapClientDaoSupport implements WorkDAO {
 		return (Integer) getSqlMapClientTemplate().queryForObject(
 				"WORK.selectWorksCountByDesignerId", designerId);
 	}
+
+	@Override
+	public List<Work> getRecentWorks(int count) {
+		return getSqlMapClientTemplate().queryForList("WORK.selectRecentWorks",
+				count);
+	}
 }

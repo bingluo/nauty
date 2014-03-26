@@ -71,7 +71,14 @@
 	width:290px;
 }
 .activity-block:hover{
-	border:1px solid #72b626;
+	border:1px solid #bbb;
+	box-shadow: 3px 3px 2px #888888;
+}
+
+.activity-list a:hover{
+	font-weight:bold;
+	font-color:#bbb;
+	color:#bbb;
 }
 
 /* Search Form

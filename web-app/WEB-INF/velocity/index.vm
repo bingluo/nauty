@@ -42,7 +42,7 @@
 </div>
 <!-- 960 Container / End -->
 <!-- 960 Container -->
-<div class="container">
+<div class="container" style="margin-bottom:10px;">
 	<!-- Icon Boxes -->
 	<div class="activity-index" style="margin-top:20px;">
 		<!-- Icon Box Start -->
@@ -50,14 +50,14 @@
 			<div class="icon-box">
 				<i class="ico-cup" style="margin-left: -10px;"></i>
 				<h3>活动赛事</h3>
-				<p>最新活动赛事新闻，活动在线报名参与，现场照片视频速递，设计作品投票评选……<a class="post-entry" href="$!{viewUtil.getContextPath}/activity">点击查看详情</a></p>
+				<p>最新活动赛事新闻，活动在线报名参与，现场照片视频速递，设计作品投票评选……<br/><a class="post-entry" href="$!{viewUtil.getContextPath}/activity">点击查看详情</a></p>
 			</div>
 		</div>
 		<!-- Icon Box End -->
 		#foreach($activity in $activities)
 		<div class="one-third column activity-block" style="width:290px;">
 			<div class="post-meta" style="display:inline;float:left;margin-left:10px;max-width:90px;">
-				<label>
+				<label class="activity-title">
 					<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" style="color: #404040;font-weight:bold;font-size:14px;">$!{activity.title}</a>
 				</label>
 				<ul>
@@ -65,12 +65,45 @@
     				<li><span><i class="mini-ico-file"></i>$!{activity.workCount} 件作品</span></li>
 				</ul>
 			</div>
-			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;max-width:180px;overflow:hidden;">
+			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;width:180px;">
 				<ul class="links-list-alt activity-list">
 					#foreach($activityNew in $activity.news)
-					<li><a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/news/$!{activityNew.id}">$!{activityNew.title}</a></li>
+					<li><a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/news/$!{activityNew.id}"  style="color:#5ca20d;width:170px;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;" title="$!{activityNew.title}">$!{activityNew.title}</a></li>
 					#end
 				</ul>
+			</div>
+		</div>
+		#end
+	</div>
+	<!-- Icon Boxes / End -->
+</div>
+<!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container">
+	<!-- Icon Boxes -->
+	<div class="activity-index" style="padding-top:10px;border-top:1px solid #ddd;">
+		<!-- Icon Box Start -->
+		<div class="four columns intro-block">
+			<div class="icon-box">
+				<i class="ico-group" style="margin-left: -10px;"></i>
+				<h3>设计师之家</h3>
+				<p>这里有最优秀设计师，我们集结智慧，分享创意，在这里可以找到绝佳的设计作品。在这里，“伯乐识马”一直在发生。<br/><a class="post-entry" href="$!{viewUtil.getContextPath}/designer">点击查看详情</a></p>
+			</div>
+		</div>
+		<!-- Icon Box End -->
+		#foreach($work in $works)
+		<div class="four columns column ">
+			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;overflow:hidden;">
+				<div class="latest-post-blog">
+        			<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}/works/$!{work.id}.html">
+						<img src="$!{viewUtil.getContextPaht()}/static/works/$!{work.workPics.get(0)}" alt="">
+					</a>
+        			<p>
+						<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}/works/$!{work.id}.html" style="font-weight:bold;color:#5ca20d">$!{work.workName}</a>
+						<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}">设计师：$!{work.userName}</a>
+						<span>$viewUtil.fTime("$!{work.updateTime}")</span>
+					</p>
+        		</div>
 			</div>
 		</div>
 		#end

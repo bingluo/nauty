@@ -65,6 +65,16 @@
 		]]>
 	</select>
 	
+	<select id="selectRecentWorks" resultMap="WorkResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM
+			(SELECT * 
+			FROM WORK
+			ORDER BY update_time DESC) a
+		LIMIT #value#
+		]]>
+	</select>
+	
 	<select id="selectWorksByActivityIdAndBaseAndRange" resultMap="WorkResultMap" parameterClass="java.util.Map">
 		<![CDATA[
 		SELECT * FROM

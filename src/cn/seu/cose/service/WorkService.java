@@ -107,6 +107,24 @@ public class WorkService {
 		return workPojos;
 	}
 
+	public List<WorkPojo> getRecentWorks(int count) {
+		List<WorkPojo> workPojos = new ArrayList<WorkPojo>();
+		List<Work> works = workDAOImpl.getRecentWorks(count);
+		for (Work work : works) {
+			Designer designer = designerDAOImpl.getDesignerById(work
+					.getUserId());
+			Activity activity = activityDAOImpl.getActivityById(work
+					.getActivityId());
+
+			WorkPojo workPojo = new WorkPojo();
+			workPojo.setWork(work);
+			workPojo.setDesigner(designer);
+			workPojo.setActivity(activity);
+			workPojos.add(workPojo);
+		}
+		return workPojos;
+	}
+
 	public List<WorkPojo> getRecentWorksByActivityId(int activityId) {
 		List<WorkPojo> workPojos = new ArrayList<WorkPojo>();
 		List<Work> works = workDAOImpl.getRecentWorksByActivityId(activityId);

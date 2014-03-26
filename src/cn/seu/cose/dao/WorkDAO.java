@@ -19,6 +19,8 @@ public interface WorkDAO {
 
 	List<Work> getHotWorks();
 
+	List<Work> getRecentWorks(int count);
+
 	List<Work> getWorksByUserId(int userId);
 
 	List<Work> getWorksByUserIdAndBaseAndRange(int userId, int base, int range);
