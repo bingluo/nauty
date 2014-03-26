@@ -58,7 +58,7 @@
 		<div class="flexslider home">
 			<ul class="slides">
 				#foreach($imgUrl in $publication.imgUrls)
-				<li><img src="$!{viewUtil.getContextPath()}$!{imgUrl}" alt="" /></li>
+				<li><img src="$!{imgUrl}" alt="" /></li>
 				#end
 			 </ul>
 		</div>
@@ -83,7 +83,7 @@
 	<div class="four columns">
 		<div class="picture">
 			<a href="$!{viewUtil.getContextPath()}/publication/$!{publication.id}.html">
-				<img src="$!{viewUtil.getContextPath()}$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
 				<div class="image-overlay-link"></div>
 			</a>
 		</div>

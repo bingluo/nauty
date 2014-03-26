@@ -5,7 +5,7 @@
 				#foreach($slide in $slides)
 				<li>
 					<a href="$!{viewUtil.getContextPath()}$!{slide.articleUri}">
-						<img src="$!{viewUtil.getContextPath()}$!{slide.imgUri}" alt="$!{slide.title}" style="width:610px;height:343px"/>
+						<img src="$!{viewUtil.getContextPath()}$!{slide.picName}" alt="$!{slide.title}" style="width:610px;height:343px"/>
 					</a>
 					<div class="slide-caption n">
 						<a href="$!{viewUtil.getContextPath()}$!{slide.articleUri}">

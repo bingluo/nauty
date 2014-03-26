@@ -53,7 +53,7 @@
 		<div class="four columns portfolio-item #if(${publication.isHot()})hot#end $!{publication.year}">
 			<div class="picture">
 				<a href="$!{viewUtil.getContextPath()}/publication/$!{publication.id}.html">
-					<img src="$!{viewUtil.getContextPath()}$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+					<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
 					<div class="image-overlay-link"></div>
 				</a>
 			</div>

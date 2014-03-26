@@ -19,7 +19,6 @@ public class SlideService {
 		List<SlidePojo> slides = slideDAOImpl.getSlides();
 		for (SlidePojo slidePojo : slides) {
 			slidePojo.setArticleUri(LinkTool.article(slidePojo.getArticleId()));
-			slidePojo.setImgUri(LinkTool.image(slidePojo.getPicName()));
 		}
 		return slides;
 	}
