@@ -50,7 +50,7 @@
 			<div class="icon-box">
 				<i class="ico-cup" style="margin-left: -10px;"></i>
 				<h3>活动赛事</h3>
-				<p>最新活动赛事新闻，活动在线报名参与，现场照片视频速递，设计作品投票评选……<br/><a class="post-entry" href="$!{viewUtil.getContextPath}/activity">点击查看详情</a></p>
+				<p>最新活动赛事新闻，活动在线报名参与，现场照片视频速递，设计作品投票评选……<br/><a class="post-entry" href="$!{viewUtil.getContextPath()}/activity">点击查看详情</a></p>
 			</div>
 		</div>
 		<!-- Icon Box End -->
@@ -87,7 +87,7 @@
 			<div class="icon-box">
 				<i class="ico-group" style="margin-left: -10px;"></i>
 				<h3>设计师之家</h3>
-				<p>这里有最优秀设计师，我们集结智慧，分享创意，在这里可以找到绝佳的设计作品。在这里，“伯乐识马”一直在发生。<br/><a class="post-entry" href="$!{viewUtil.getContextPath}/designer">点击查看详情</a></p>
+				<p>这里有最优秀设计师，我们集结智慧，分享创意，在这里可以找到绝佳的设计作品。在这里，“伯乐识马”一直在发生。<br/><a class="post-entry" href="#">点击查看详情</a></p>
 			</div>
 		</div>
 		<!-- Icon Box End -->
@@ -96,7 +96,7 @@
 			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;overflow:hidden;">
 				<div class="latest-post-blog">
         			<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}/works/$!{work.id}.html">
-						<img src="$!{viewUtil.getContextPaht()}/static/works/$!{work.workPics.get(0)}" alt="">
+						<img src="$!{viewUtil.getContextPath()}/static/works/$!{work.workPics.get(0)}" alt="">
 					</a>
         			<p>
 						<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}/works/$!{work.id}.html" style="font-weight:bold;color:#5ca20d">$!{work.workName}</a>

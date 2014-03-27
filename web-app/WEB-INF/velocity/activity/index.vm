@@ -32,7 +32,7 @@
 			<div class="post" style="border-bottom:1px solid #ddd;">
         		<div class="title-pic">
         			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}">
-        				<img src="$!{viewUtil.getContextPath()}$!{activity.titlePic}" alt="$!{activity.title}" />
+        				<img src="$!{activity.titlePic}" alt="$!{activity.title}" />
         			</a>
         		</div>
         		<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" class="post-icon video"></a>

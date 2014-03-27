@@ -32,10 +32,10 @@
     	<div class="twelve columns">
 			<div class="post">
         		<div class="title-pic">
-        			<img src="$!{viewUtil.getContextPath()}$!{activity.titlePic}" alt="$!{activity.title}">
+        			<img src="$!{activity.titlePic}" alt="$!{activity.title}">
         		</div>
         		<div class="post-content" style="margin-left:0px;">
-        			<div class="post-title"><h2>$!{viewUtil.getContextPath()}$!{activity.title}</h2></div>
+        			<div class="post-title"><h2>$!{activity.title}</h2></div>
         			<div class="post-meta">
 						<span><i class="mini-ico-calendar"></i>$!{activity.actBeginTime} 至 $!{activity.actEndTime}</span>
 					</div>
