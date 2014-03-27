@@ -1,11 +1,15 @@
 package cn.seu.cose.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.seu.cose.entity.Activity;
 import cn.seu.cose.entity.ActivityApplication;
@@ -23,6 +28,7 @@ import cn.seu.cose.entity.ActivityPhoto;
 import cn.seu.cose.entity.Comment;
 import cn.seu.cose.entity.CommentPojo;
 import cn.seu.cose.entity.Designer;
+import cn.seu.cose.entity.Work;
 import cn.seu.cose.entity.WorkPojo;
 import cn.seu.cose.service.ActivityService;
 import cn.seu.cose.service.CommentService;
@@ -308,25 +314,87 @@ public class ActivityController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/activity/{activityId}/new-work", method = RequestMethod.GET)
-	public void newWork(HttpServletResponse response,
-			@PathVariable("activityId") int activityId) {
+	public String newWork(HttpServletResponse response,
+			@PathVariable("activityId") int activityId, Model model) {
 		try {
 			Designer designer = designerService.getCurrentUser();
 			if (designer == null) {
 				response.sendRedirect(ViewUtil.getContextPath() + "/sign-in");
+				return null;
 			} else {
+				Activity activity = activityService.getActivityById(activityId);
+				if (activity == null) {
+					response.sendRedirect(ViewUtil.getContextPath()
+							+ "/activity");
+					return null;
+				}
 				ActivityApplication app = activityService
 						.getActivityApplicationsByUserIdAndActivityId(
 								designer.getId(), activityId);
 				if (app == null) {
-					activityService.applyActivity(designer.getId(), activityId);
+					response.sendRedirect(ViewUtil.getContextPath()
+							+ "/activity/" + activityId);
+					return null;
 				}
-				response.sendRedirect(ViewUtil.getContextPath() + "/activity/"
-						+ activityId);
+				basicIssue(model);
+				activityBasicIssue(model, activity);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return "activity/newWork";
+	}
+
+	@RequestMapping(value = "/activity/{activityId}/new-work", method = RequestMethod.POST)
+	public void postWork(HttpServletRequest request,
+			HttpServletResponse response, Model model,
+			@RequestParam MultipartFile[] file,
+			@RequestParam("title") String title,
+			@RequestParam("intro") String intro,
+			@PathVariable("activityId") int activityId) throws IOException {
+		basicIssue(model);
+		Designer designer = designerService.getCurrentUser();
+		if (designer == null) {
+			response.sendRedirect(ViewUtil.getContextPath() + "/sign-in");
+			return;
+		}
+		Activity activity = activityService.getActivityById(activityId);
+		if (!designer.isCertificated() || activity == null) {
+			response.sendRedirect(ViewUtil.getContextPath() + "/activity");
+			return;
+		}
+		Work work = new Work();
+		work.setWorkName(title);
+		work.setIntro(intro);
+		work.setUserId(designer.getId());
+		work.setActivityId(activityId);
+		StringBuilder workPics = new StringBuilder();
+		String path = request.getSession().getServletContext()
+				.getRealPath("static/works");
+		boolean notFirst = false;
+		for (MultipartFile f : file) {
+			DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+			String fileName = format.format(new Date())
+					+ f.getOriginalFilename();
+			File targetFile = new File(path, fileName);
+			if (f.getContentType().equals("image/jpeg") && !targetFile.exists()) {
+				// 保存
+				try {
+					f.transferTo(targetFile);
+					if (notFirst) {
+						workPics.append(";");
+					}
+					workPics.append(fileName);
+					notFirst = true;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		work.setWorkPics(workPics.toString());
+		workService.insertWork(work);
+		response.sendRedirect(ViewUtil.getContextPath() + "/activity/"
+				+ activityId + "/works");
 	}
 
 	@RequestMapping(value = "/activity/{activityId}/photos", method = RequestMethod.GET)
@@ -377,7 +445,6 @@ public class ActivityController extends AbstractController {
 				List<CommentPojo> comments = commentService
 						.getCommentsByRefAndTypeAndPnAndSize(photoId,
 								CommentType.ACTIVITY_PHOTO.ordinal(), pn, 10);
-				model.addAttribute("activity", activity);
 				model.addAttribute("photo", photo);
 				model.addAttribute("comments", comments);
 
@@ -447,6 +514,7 @@ public class ActivityController extends AbstractController {
 				List<ActivityNews> activityNews = activityService
 						.getActivityNewsByIdAndPnAndSize(activityId, pn,
 								pageSize);
+				model.addAttribute("activityNews", activityNews);
 
 				int totalCount = activityService
 						.getActivityNewsCountByActivityId(activityId);
@@ -458,11 +526,84 @@ public class ActivityController extends AbstractController {
 				sb.append(ViewUtil.getContextPath()).append("/activity/")
 						.append(activityId).append("/news");
 				model.addAttribute("uri", sb.toString());
-				// new 分页 未完成 tbc...
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return "activity/activityNews";
+	}
+
+	@RequestMapping(value = "/activity/{activityId}/news/{newsId}", method = RequestMethod.GET)
+	public String viewActivityNews(Model model, HttpServletResponse response,
+			@PathVariable("activityId") int activityId,
+			@PathVariable("newsId") int newsId,
+			@RequestParam(value = "pn", required = false) Integer pn) {
+		try {
+			basicIssue(model);
+			Activity activity = activityService.getActivityById(activityId);
+			ActivityNews activityNews = activityService
+					.getActivityNewsById(newsId);
+			if (activity == null || activityNews == null
+					|| activityNews.getActivityId() != activityId) {
+				response.sendRedirect(ViewUtil.getContextPath() + "/activity");
+				return null;
+			} else {
+				activityBasicIssue(model, activity);
+				pn = pn == null || pn <= 0 ? 1 : pn;
+				int pageSize = 10;
+				List<CommentPojo> comments = commentService
+						.getCommentsByRefAndTypeAndPnAndSize(newsId,
+								CommentType.ACTIVITY_NEWS.ordinal(), pn,
+								pageSize);
+				model.addAttribute("activityNews", activityNews);
+				model.addAttribute("comments", comments);
+
+				int totalCount = commentService.getCommentCountByRefAndType(
+						newsId, CommentType.ACTIVITY_NEWS.ordinal());
+				model.addAttribute("pageIndex", pn);
+				model.addAttribute("pageCount",
+						(int) Math.ceil((double) totalCount / pageSize));
+				model.addAttribute("totalCount", totalCount);
+				StringBuilder sb = new StringBuilder();
+				sb.append(ViewUtil.getContextPath()).append("/activity/")
+						.append(activityId).append("/news/").append(newsId);
+				model.addAttribute("uri", sb.toString());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "activity/viewActivityNews";
+	}
+
+	@RequestMapping(value = "/activity/{activityId}/news/{newsId}/comment", method = RequestMethod.POST)
+	public void commentNews(HttpServletResponse response,
+			@PathVariable("activityId") int activityId,
+			@PathVariable("newsId") int newsId,
+			@RequestParam("message") String message) {
+
+		try {
+			Activity activity = activityService.getActivityById(activityId);
+			ActivityNews activityNews = activityService
+					.getActivityNewsById(newsId);
+			if (activity == null || activityNews == null
+					|| activityNews.getActivityId() != activityId) {
+				response.getWriter().write("0");// 活动、新闻错误
+			} else {
+				Designer designer = designerService.getCurrentUser();
+				if (designer == null) {
+					response.getWriter().write("1");// 未登录
+				} else {
+					Comment comment = new Comment();
+					comment.setCommentType(CommentType.ACTIVITY_NEWS.ordinal());
+					comment.setContent(message);
+					comment.setReferenceId(newsId);
+					comment.setUserId(designer.getId());
+					commentService.insertComment(comment);
+					response.getWriter().write("2");// 成功
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

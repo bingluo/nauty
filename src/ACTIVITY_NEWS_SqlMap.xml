@@ -40,7 +40,7 @@
 		SELECT * FROM
         	(SELECT *
         	FROM activity_news
-			WHERE activity_id = #value#
+			WHERE activity_id = #activityId#
     		ORDER BY update_time desc) a
 		LIMIT #base#,#range#
 		]]>

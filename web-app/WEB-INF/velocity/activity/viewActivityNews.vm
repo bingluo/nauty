@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+    <!-- Wrapper Start -->
+    <div id="wrapper">
+    <!-- Header
+    ================================================== -->
+        <!-- 960 Container -->
+        <div class="container ie-dropdown-fix">
+        	<!-- Header -->
+        	#parse("common/header.vm")
+        	<!-- Header / End -->
+        	<!-- Navigation -->
+        	#parse("common/navi.vm")
+        	<!-- Navigation / End -->
+        </div>
+        <!-- 960 Container / End -->
+        <!-- 960 Container -->
+        <div class="container">
+    		<div class="sixteen columns">
+        		<div id="page-title">
+        			<h2 style="padding: 10px 0 10px 0;">
+    					<a href="$!{viewUtil.getContextPath()}/activity" style="color:#333">活动赛事</a>
+    					<span> / <a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" style="color:#aaa">$!{activity.title}</a></span>
+    				</h2>
+        			<div id="bolded-line"></div>
+        		</div>
+        	</div>
+        	<div class="twelve columns">
+            	<div class="post post-page">
+            	<!-- Post -->
+                	<div class="post-content" style="margin:0px;">
+                		#if($!{activityNews})
+                		<div class="post-title" style="text-align: center;"><h2>$!{activityNews.title}</h2></div>
+                		<div class="post-meta" style="text-align: center;"><span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{activityNews.updateTime}")</span> <span><i class="mini-ico-user"></i>来自  $!{activityNews.postUser}</span> </div>
+                		<div class="post-description">
+                				$!{activityNews.content}
+                		</div>
+                		#end
+                	</div>
+            	</div>
+            	<div class="headline no-margin">
+					<h4>新闻评论 <span class="comments-amount">($!{totalCount})</span></h4>
+				</div>
+        		<div class="comments-sec">
+            		<ol class="commentlist">
+        				#foreach($comment in $comments)
+            			<li>
+            				<div class="comments">
+            					<div class="avatar">
+        							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><img src="$!{viewUtil.getContextPath()}/static/avatar/#if($!{comment.designer}&&$!{comment.avatar})$!{comment.avatar}#else default.png#end" alt="" style="width:50px;height:50px;" border="0"></a>
+        						</div>
+            					<div class="comment-des">
+                					<div class="comment-by">
+            							<a href="$!{viewUtil.getContextPath()}/designer/$!{comment.userId}"><strong>#if($!{comment.designer})$!{comment.userName}#else 匿名#end</strong></a>
+            							<span class="date">$viewUtil.fTime("$!{comment.commentTime}")</span>
+            						</div>
+                					<p>$!{comment.content}</p>
+            					</div>
+            				</div>
+            			</li>
+        				#end
+            		</ol>
+        		</div>
+				<div class="clear"></div>
+				#parse("common/pagination.vm")
+        		<div class="form-spacer"></div>
+        		<!-- Form -->
+        		<div>
+        			<label>内容: </label>
+        			<textarea name="message" id="messageText" style="max-width: 97%;min-width: 97%;height: 150px;margin: 5px 0 15px 0;" #if(!$!{curUser})disabled="disabled"#end>#if(!$!{curUser})请先登录#end</textarea>
+        			<div class="field">
+        				#if(!$!{curUser})
+        					<input type="button" id="signIn" value="登录">
+        				#else
+        					<input type="button" id="send" value="发送留言">
+        				#end
+        				<div class="success-message">
+        					<div class="notification error four column" id="notification_1" style="display: block;">
+        						<p><span>提交失败！</span> 请填写评论内容。</p>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+    		</div>
+    		#parse("activity/activityRightBar.vm")
+        </div>
+        <!-- End 960 Container -->
+    </div>
+    <!-- Wrapper / End -->
+    <!-- Footer Start -->
+    #parse("common/footer.vm")
+    <!-- Footer / End -->
+</body>
+<script language="JavaScript">
+	$(document).ready(function(){
+		$("#signIn").click(function(){
+			location.href = "$!{viewUtil.getContextPath()}/sign-in";
+		});
+		$("#send").click(function(){
+			$message = $.trim($("#messageText").val());
+			if($message!=""){
+				$("#messageText").css('border','1px solid #d8d8d8');
+				$("#messageText").css('background','#ffffff');
+				$.ajax({
+					type: 'POST',
+					url: "$!{viewUtil.getContextPath()}/activity/$!{activity.id}/news/$!{activityNews.id}/comment",
+					data: {
+						message: $message
+					},
+					success: function( data ) {
+						$("send").css('disabled','disabled');
+						location.href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/news/$!{activityNews.id}";
+					}
+				});
+			}else{
+            	$(".success-message").css('display','block');
+            	$("#notification_1").css('display','block');
+				$("#messageText").css('border','1px solid #f2c4c2');
+				$("#messageText").css('background','#ffeceb');
+			}
+		});
+	})
+</script>
+</html>

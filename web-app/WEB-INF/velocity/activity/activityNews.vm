@@ -31,22 +31,23 @@
     	</div>
     	<div class="twelve columns">
             <!-- Headline -->
-            <div class="no-margin icon-box tooltips" style="height: 45px;"><i class="ico-magic" style="margin:-7px 0 0 -10px;"></i>
-            	<h3>活动现场</h3>
+            <div class="no-margin icon-box tooltips" style="height: 45px;"><i class="ico-comments" style="margin:-7px 0 0 -10px;"></i>
+            	<h3>活动新闻</h3>
     		</div>
-			#foreach($photo in $photos)
-			<div style="width:220px;float:left;#if($velocityCount==1)margin-right:10px;#elseif($velocityCount==3)margin-left:10px;#else margin:0 10px;#end">
-        		<div class="picture">
-        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/photos/$!{photo.id}" >
-        				<img src="$!{photo.picUri}" style="height:139px" />
-        				<div class="image-overlay-link" style="opacity: 0; display: block;" ></div>
-        			</a>
-        		</div>
-        		<div class="item-description">
-					<h5></h5>
-        		</div>
-			</div>
-			#end
+        	#foreach($activityNew in $activityNews)
+           	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
+           		<div class="post-content"  style="margin:0px;">
+           			<div class="post-title" style="font-weight:bold;font-size:15px;">
+        				<a href="$!{viewUtil.getContextPath()}/activity/$!{activityNew.activityId}/news/$!{activityNew.id}">$!{activityNew.title}</a>
+        			</div>
+           			<div class="post-meta">
+    					<span><i class="mini-ico-calendar"></i>$!viewUtil.fTime("$!{activityNew.updateTime}")</span>
+    					<span><i class="mini-ico-user"></i>来自 $!{activityNew.postUser}</span>
+    				</div>
+        			<a class="post-entry" href="$!{viewUtil.getContextPath()}/activity/$!{activityNew.activityId}/news/$!{activityNew.id}">详细内容</a>
+           		</div>
+           	</div>
+        	#end
 			<div class="clear"></div>
 			#parse("common/pagination.vm")
 		</div>

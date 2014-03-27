@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+    <!-- Wrapper Start -->
+    <div id="wrapper">
+    <!-- Header
+    ================================================== -->
+        <!-- 960 Container -->
+        <div class="container ie-dropdown-fix">
+        	<!-- Header -->
+        	#parse("common/header.vm")
+        	<!-- Header / End -->
+        	<!-- Navigation -->
+        	#parse("common/navi.vm")
+        	<!-- Navigation / End -->
+        </div>
+        <!-- 960 Container / End -->
+        <!-- 960 Container -->
+        <div class="container">
+    		<div class="sixteen columns">
+        		<div id="page-title">
+        			<h2 style="padding: 10px 0 10px 0;">
+    					<a href="$!{viewUtil.getContextPath()}/activity" style="color:#333">活动赛事</a>
+    					<span> / <a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" style="color:#aaa">$!{activity.title}</a></span>
+    				</h2>
+        			<div id="bolded-line"></div>
+        		</div>
+        	</div>
+        	<div class="twelve columns">
+        		<div class="headline" style="margin-top:0;"><h3>发布作品</h3></div>
+        		#if($!{curUser.certificated})
+        		<!-- Success Message -->
+        		<div class="success-message">
+        			<div class="notification success closeable">
+        				<p><span>上传失败!</span> 请登陆后再尝试。</p>
+        			</div>
+        		</div>
+        		<div id="postWork-form">
+        			<form id="postWorkForm" method="post" action="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/new-work" enctype="multipart/form-data" method="post">
+        				<div class="field">
+        					<label>作品标题: <span>*</span></label>
+        					<input type="text" name="title" class="text"/>
+        				</div>	
+        				<div class="field">
+        					<label>作品图片: <span>*</span></label>
+        					<input type="file" name="file" class="text"/>
+        				</div>				
+        				<div class="field">
+        					<label>作品简介: <span>*</span></label>
+        					<textarea name="intro" class="text textarea"></textarea>
+        				</div>
+        				<div class="field">
+        					<input type="submit" id="postWorkBtn" value="上传" />
+        					<div class="loading"></div>
+        				</div>
+        			</form>
+        		</div>
+        		#else
+        			<div class="notification warning" style="margin: 5px 0px 25px; display: block;" id="notification_1">
+        				<p>通过认证后才能上传作品！</p>
+        			</div>
+        			
+        		#end
+    		</div>
+    		#parse("activity/activityRightBar.vm")
+        </div>
+        <!-- End 960 Container -->
+    </div>
+    <!-- Wrapper / End -->
+    <!-- Footer Start -->
+    #parse("common/footer.vm")
+    <!-- Footer / End -->
+</body>
+<script language="JavaScript">
+	$(document).ready(function(){
+		$("#postWorkForm").submit(function(){
+			if($('input[name=title]').val()==''){
+				return false;
+			}else{
+				return true;
+			}
+		});
+	});
+</script>
+</html>
