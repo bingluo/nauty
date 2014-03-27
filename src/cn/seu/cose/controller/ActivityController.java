@@ -429,4 +429,40 @@ public class ActivityController extends AbstractController {
 			e.printStackTrace();
 		}
 	}
+
+	@RequestMapping(value = "/activity/{activityId}/news")
+	public String activityNews(Model model, HttpServletResponse response,
+			@PathVariable("activityId") int activityId,
+			@RequestParam(value = "pn", required = false) Integer pn) {
+		try {
+			basicIssue(model);
+			Activity activity = activityService.getActivityById(activityId);
+			if (activity == null) {
+				response.sendRedirect(ViewUtil.getContextPath() + "/activity");
+				return null;
+			} else {
+				activityBasicIssue(model, activity);
+				pn = pn == null || pn <= 0 ? 1 : pn;
+				int pageSize = 10;
+				List<ActivityNews> activityNews = activityService
+						.getActivityNewsByIdAndPnAndSize(activityId, pn,
+								pageSize);
+
+				int totalCount = activityService
+						.getActivityNewsCountByActivityId(activityId);
+				model.addAttribute("pageIndex", pn);
+				model.addAttribute("pageCount",
+						(int) Math.ceil((double) totalCount / pageSize));
+				model.addAttribute("totalCount", totalCount);
+				StringBuilder sb = new StringBuilder();
+				sb.append(ViewUtil.getContextPath()).append("/activity/")
+						.append(activityId).append("/news");
+				model.addAttribute("uri", sb.toString());
+				// new 分页 未完成 tbc...
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "activity/activityNews";
+	}
 }

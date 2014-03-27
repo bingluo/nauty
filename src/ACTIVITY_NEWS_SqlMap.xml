@@ -35,6 +35,25 @@
 		]]>
 	</select>
 	
+	<select id="selectActivityNewsByActivityIdAndBaseAndRange" resultMap="ActivityNewsResultMap" parameterClass="java.util.Map">		
+		<![CDATA[
+		SELECT * FROM
+        	(SELECT *
+        	FROM activity_news
+			WHERE activity_id = #value#
+    		ORDER BY update_time desc) a
+		LIMIT #base#,#range#
+		]]>
+	</select>
+	
+	<select id="selectActivityNewsCountByActivityId" resultClass="int" parameterClass="int">		
+		<![CDATA[
+        	SELECT count(id)
+        	FROM activity_news
+			WHERE activity_id = #value#
+		]]>
+	</select>
+	
 	<select id="selectActivityNewsByActivityId" resultMap="ActivityNewsResultMap" parameterClass="int">		
 		<![CDATA[
         	SELECT *

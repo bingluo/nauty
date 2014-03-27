@@ -72,7 +72,7 @@
 					#foreach($activityNew in $latestNews)
     				<li>
     					<div class="latest-post-blog" style="margin-bottom:8px;">
-                           	<a href="/activity-news/$!{activityNew.id}" style="color: rgb(102, 102, 102); text-decoration: none;">$!{activityNew.title}</a>
+                           	<a href="$!{viewUtil.getContextPath()}/activity/$!{activityNew.activityId}/news/$!{activityNew.id}" style="color: rgb(102, 102, 102); text-decoration: none;">$!{activityNew.title}</a>
     					</div>
                 	</li>
 					#end

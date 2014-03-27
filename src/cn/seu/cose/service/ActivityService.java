@@ -97,6 +97,16 @@ public class ActivityService {
 		return activityNewsDAOImpl.getActivityLatestNews();
 	}
 
+	public List<ActivityNews> getActivityNewsByIdAndPnAndSize(int id, int pn,
+			int pageSize) {
+		return activityNewsDAOImpl.getActivityNewsByActivityIdAndBaseAndRange(
+				id, pageSize * (pn - 1), pageSize);
+	}
+
+	public int getActivityNewsCountByActivityId(int activityId) {
+		return activityNewsDAOImpl.getActivityNewsCountByActivityId(activityId);
+	}
+
 	public List<ActivityNews> getActivityLatestNewsByActivityId(int activityId) {
 		return activityNewsDAOImpl
 				.getActivityLatestNewsByActivityId(activityId);

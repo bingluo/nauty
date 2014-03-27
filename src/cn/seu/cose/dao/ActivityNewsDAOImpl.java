@@ -1,6 +1,8 @@
 package cn.seu.cose.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
@@ -67,5 +69,25 @@ public class ActivityNewsDAOImpl extends SqlMapClientDaoSupport implements
 	public void updateActivityNews(ActivityNews activityNews) {
 		getSqlMapClientTemplate().update("ACTIVITY_NEWS.updateActivityNews",
 				activityNews);
+	}
+
+	@Override
+	public List<ActivityNews> getActivityNewsByActivityIdAndBaseAndRange(
+			int activityId, int base, int range) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("activityId", activityId);
+		map.put("base", base);
+		map.put("range", range);
+		return getSqlMapClientTemplate().queryForList(
+				"ACTIVITY_NEWS.selectActivityNewsByActivityIdAndBaseAndRange",
+				map);
+	}
+
+	@Override
+	public int getActivityNewsCountByActivityId(int activityId) {
+		return (Integer) getSqlMapClientTemplate()
+				.queryForObject(
+						"ACTIVITY_NEWS.selectActivityNewsCountByActivityId",
+						activityId);
 	}
 }
