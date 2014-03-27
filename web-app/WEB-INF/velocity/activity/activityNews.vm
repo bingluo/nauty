@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+    <!-- 960 Container -->
+    <div class="container ie-dropdown-fix">
+    	<!-- Header -->
+    	#parse("common/header.vm")
+    	<!-- Header / End -->
+    	<!-- Navigation -->
+    	#parse("common/navi.vm")
+    	<!-- Navigation / End -->
+    </div>
+    <!-- 960 Container / End -->
+    <!-- 960 Container -->
+    <div class="container">
+		<div class="sixteen columns">
+    		<div id="page-title">
+    			<h2 style="padding: 10px 0 10px 0;">
+					<a href="$!{viewUtil.getContextPath()}/activity" style="color:#333">活动赛事</a>
+					<span> / <a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" style="color:#aaa">$!{activity.title}</a></span>
+				</h2>
+    			<div id="bolded-line"></div>
+    		</div>
+    	</div>
+    	<div class="twelve columns">
+            <!-- Headline -->
+            <div class="no-margin icon-box tooltips" style="height: 45px;"><i class="ico-magic" style="margin:-7px 0 0 -10px;"></i>
+            	<h3>活动现场</h3>
+    		</div>
+			#foreach($photo in $photos)
+			<div style="width:220px;float:left;#if($velocityCount==1)margin-right:10px;#elseif($velocityCount==3)margin-left:10px;#else margin:0 10px;#end">
+        		<div class="picture">
+        			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/photos/$!{photo.id}" >
+        				<img src="$!{photo.picUri}" style="height:139px" />
+        				<div class="image-overlay-link" style="opacity: 0; display: block;" ></div>
+        			</a>
+        		</div>
+        		<div class="item-description">
+					<h5></h5>
+        		</div>
+			</div>
+			#end
+			<div class="clear"></div>
+			#parse("common/pagination.vm")
+		</div>
+		#parse("activity/activityRightBar.vm")
+    </div>
+    <!-- End 960 Container -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+</body>
+<script language="JavaScript">
+</script>
+</html>
