@@ -1,5 +1,6 @@
 package cn.seu.cose.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,5 +120,65 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	public ArticlePojo getNextArticle(ArticlePojo article) {
 		return (ArticlePojo) getSqlMapClientTemplate().queryForObject(
 				"ARTICLE.selectNextArticle", article);
+	}
+
+	@Override
+	public List<ArticlePojo> getContributeArticlesList(int reporterId) {
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectContributeArticlesListOfReporter", reporterId);
+	}
+
+	@Override
+	public List<ArticlePojo> getAcceptArticlesList(int reporterId) {
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectAcceptArticlesListOfReporter", reporterId);
+	}
+
+	@Override
+	public List<ArticlePojo> getRejectArticlesList(int reporterId) {
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectRejectArticlesListOfReporter", reporterId);
+	}
+
+	@Override
+	public void contributeArticle(ArticlePojo article) {
+		getSqlMapClientTemplate().insert(
+				"ARTICLE.contributeArticle", article);
+	}
+
+	@Override
+	public List<ArticlePojo> getContributedArticlesList(Date s, Date e) {
+		HashMap<String, Date> map = new HashMap<String, Date>();
+		map.put("startTime", s);
+		map.put("endTime", e);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectContributeArticlesListToAdmin", map);
+	}
+
+	@Override
+	public List<ArticlePojo> getContributedArticlesListByReporter(
+			String username) {
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectContributedArticlesListByReporter", username);
+	}
+
+	@Override
+	public void rejectArticle(int id) {
+		getSqlMapClientTemplate().update(
+				"ARTICLE.rejectArticle", id);
+	}
+
+	// 通讯员修改自己提交的文章，但是已经被acc的文章不能被通讯员再次修改，只能由管理员修改
+	@Override
+	public void updateContributeArticle(int reporterId, ArticlePojo article) {
+		getSqlMapClientTemplate().update(
+				"ARTICLE.updateContributeArticle", article);
+	}
+
+	// 管理员在采纳文章时，可以对文章进行少量的修改。 Acc之后的文章会显示到主页的对应板块中
+	@Override
+	public void acceptArticle(ArticlePojo article) {
+		getSqlMapClientTemplate().update(
+				"ARTICLE.acceptArticle", article);
 	}
 }

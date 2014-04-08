@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import cn.seu.cose.entity.Admin;
 import cn.seu.cose.entity.Designer;
+import cn.seu.cose.entity.Reporter;
 
 public class SecurityContext {
 	private HttpServletRequest httpRequest;
@@ -13,7 +14,8 @@ public class SecurityContext {
 	private HttpServletResponse httpResponse;
 	private Admin admin;
 	private Designer designer;
-
+	private Reporter reporter;
+	
 	/**
 	 * @return the httpRequest
 	 */
@@ -78,7 +80,7 @@ public class SecurityContext {
 		}
 		this.admin = admin;
 	}
-
+	
 	public Designer getDesigner() {
 		return designer;
 	}
@@ -90,5 +92,21 @@ public class SecurityContext {
 			httpSession.setAttribute("designerId", null);
 		}
 		this.designer = designer;
+	}
+	
+	/*
+	 * get and set reporter(通讯员)
+	 */
+	public Reporter getReporter() {
+		return reporter;
+	}
+	
+	public void setReporter(Reporter reporter) {
+		if(httpSession != null && reporter != null) {
+			httpSession.setAttribute("reporterId", reporter.getId());
+		} else if (reporter == null) {
+			httpSession.setAttribute("reporterId", null);
+		} 
+		this.reporter = reporter;
 	}
 }

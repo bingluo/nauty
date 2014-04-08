@@ -21,6 +21,11 @@ public class Article {
 
 	private Date postTime;
 
+	// 通讯员上传的文章
+	private int contributedFrom=0;
+	private int status=1;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -91,5 +96,21 @@ public class Article {
 
 	public void setPostTime(Date postTime) {
 		this.postTime = postTime;
+	}
+
+	public int getContributedFrom() {
+		return contributedFrom;
+	}
+
+	public void setContributedFrom(int contributedFrom) {
+		this.contributedFrom = contributedFrom;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 }

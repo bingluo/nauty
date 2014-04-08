@@ -26,4 +26,6 @@
 	<sqlMap resource="COMMENT_SqlMap.xml" />
 	<sqlMap resource="DESIGNER_SqlMap.xml" />
 	<sqlMap resource="WORK_SqlMap.xml" />
+	
+	<sqlMap resource="REPORTER_SqlMap.xml" />
 </sqlMapConfig>

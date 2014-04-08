@@ -13,6 +13,8 @@
 		<result property="rootCatId" column="ROOT_CAT_ID"/>
 		<result property="from" column="FROM" nullValue="未知"/>
 		<result property="postTime" column="POST_TIME"/>
+		<result property="contributedFrom" column="CONTRIBUTED_FROM" nullValue="0"/>
+		<result property="status" column="STATUS" nullValue="1"/>
 		<result property="rootCatUri" column="URI_NAME"/>
 	</resultMap>
 	<resultMap id="ArticleResultMap" class="article">
@@ -25,31 +27,33 @@
 		<result property="pureText" column="PURE_TEXT" nullValue=""/>
 		<result property="from" column="FROM" nullValue="未知"/>
 		<result property="postTime" column="POST_TIME"/>
+		<result property="contributedFrom" column="CONTRIBUTED_FROM" nullValue="0"/>
+		<result property="status" column="STATUS" nullValue="1"/>
 		<result property="rootCatUri" column="URI_NAME"/>
 	</resultMap>
 	
 	<select id="selectArticleByIdBrief" resultMap="BriefArticleResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
 		FROM ARTICLE a,category b
-		WHERE a.id=#value# AND a.root_cat_id=b.id
+		WHERE a.id=#value# AND a.root_cat_id=b.id AND status = 1
 		]]>
 	</select>
 	
 	<select id="selectArticleById" resultMap="ArticleResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
 		FROM ARTICLE a,category b
-		WHERE a.id=#value# AND a.root_cat_id=b.id
+		WHERE a.id=#value# AND a.root_cat_id=b.id AND status = 1
 		]]>
 	</select>
 	
 	<select id="selectArticleByCatIdAndBaseAndRangeBrief" resultMap="BriefArticleResultMap" parameterClass="java.util.Map">
 		<![CDATA[
 		SELECT * FROM
-			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
 			 FROM ARTICLE a,category b
-			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id
+			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id AND status = 1
 			 ORDER BY a.post_time DESC) c
 		limit #base#,#range#
 		]]>
@@ -58,9 +62,9 @@
 	<select id="selectArticleByCatIdAndBaseAndRange" resultMap="ArticleResultMap" parameterClass="java.util.Map">
 		<![CDATA[
 		SELECT * FROM
-			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
 			 FROM ARTICLE a,category b
-			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id
+			 WHERE (a.cat_id = #catId# OR a.root_cat_id = #catId#) AND a.root_cat_id = b.id AND a.status = 1
 			 ORDER BY a.post_time DESC) c
 		limit #base#,#range#
 		]]>
@@ -68,31 +72,31 @@
 	
 	<select id="selectArticleBySubCatId" resultMap="ArticleResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time, b.uri_name
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time, b.uri_name, a.contributed_from, a.status
 		FROM ARTICLE a,category b
-		WHERE a.cat_id=#value# AND a.root_cat_id=b.id
+		WHERE a.cat_id=#value# AND a.root_cat_id=b.id AND status = 1
 		]]>
 	</select>
 	
 	
 	<select id="selectCountByCatId" resultClass="int" parameterClass="int">
 		<![CDATA[
-		SELECT count(id) FROM ARTICLE WHERE cat_id=#value#
+		SELECT count(id) FROM ARTICLE WHERE cat_id=#value# AND status = 1
 		]]>
 	</select>
 
 	<select id="selectCountByRootCatId" resultClass="int" parameterClass="int">
 		<![CDATA[
-		SELECT count(id) FROM ARTICLE WHERE root_cat_id=#value#
+		SELECT count(id) FROM ARTICLE WHERE root_cat_id=#value# AND status = 1
 		]]>
 	</select>
 	
 	
 	<select id="searchAtrticle" resultMap="ArticleResultMap" parameterClass="string">
 		<![CDATA[
-		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time, b.uri_name
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time, b.uri_name, a.contributed_from, a.status
 		FROM ARTICLE a,category b
-		WHERE (a.title LIKE concat('%', #value#, '%') OR a.subhead LIKE concat('%', #value#, '%')) AND a.root_cat_id = b.id
+		WHERE (a.title LIKE concat('%', #value#, '%') OR a.subhead LIKE concat('%', #value#, '%')) AND a.root_cat_id = b.id AND status = 1
 		]]>
 	</select>
 	
@@ -127,18 +131,18 @@
 	
 	<select id="selectExclusiveArticleByCatId" resultMap="ArticleResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
 		from ARTICLE a,category b
-		WHERE cat_id = #catId# AND a.root_cat_id=b.id limit 0,1 
+		WHERE cat_id = #catId# AND a.root_cat_id=b.id AND status = 1 LIMIT 0,1  
 		]]>
     </select>
 	
 	<select id="selectNextArticle" resultMap="BriefArticleResultMap" parameterClass="article">
 		<![CDATA[
 		SELECT * FROM 
-			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
     		FROM article a,category b
-    		WHERE a.cat_id=#catId# AND a.root_cat_id = b.id AND a.post_time < #postTime# 
+    		WHERE a.cat_id=#catId# AND a.root_cat_id = b.id AND a.post_time < #postTime# AND status = 1 
     		ORDER BY a.post_time DESC) c
 		limit 0,1
 		]]>
@@ -147,11 +151,97 @@
 	<select id="selectPreviousArticle" resultMap="BriefArticleResultMap" parameterClass="article">
 		<![CDATA[
 		SELECT * FROM 
-			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name
+			(SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
     		FROM article a,category b
-    		WHERE a.cat_id=#catId# AND a.root_cat_id = b.id AND a.post_time > #postTime# 
+    		WHERE a.cat_id=#catId# AND a.root_cat_id = b.id AND a.post_time > #postTime# AND status = 1
     		ORDER BY a.post_time ASC) c
 		limit 0,1
 		]]>
 	</select>
+	
+	<select id="selectContributeArticlesListOfReporter" resultMap="ArticleResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM ARTICLE 
+		WHERE contributed_from = #value#
+		]]>
+	</select>
+	
+	<select id="selectAcceptArticlesListOfReporter" resultMap="ArticleResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM ARTICLE 
+		WHERE contributed_from = #value# AND status = 1
+		]]>
+	</select>
+	
+	<select id="selectRejectArticlesListOfReporter" resultMap="ArticleResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT * FROM ARTICLE 
+		WHERE contributed_from = #value# AND status = -1
+		]]>
+	</select>
+	
+	<insert id="contributeArticle" parameterClass="article">
+		<![CDATA[
+		INSERT INTO ARTICLE
+		(title,subhead,cat_Id,root_cat_id,content,post_time, pure_text, contributed_from, status)
+		VALUES (#title#,#subhead#,#catId#,#rootCatId#,#content#,current_timestamp(), #pureText#, #contributedFrom#, 0)
+		]]>
+	</insert>
+	
+	
+	<update id="updateContributeArticle" parameterClass="article">
+		<![CDATA[
+		UPDATE ARTICLE
+		SET	title = #title#,
+			subhead = #subhead#,
+			content = #content#,
+			pure_text = #pureText#,
+			cat_id = #catId#,
+			root_cat_id = #rootCatId#,
+			`from` = #from#,
+			post_time = current_timestamp(),
+			status = 0
+		WHERE id = #id# AND (status=0 OR status=-1)
+		]]>
+	</update>
+	
+	<select id="selectContributeArticlesListToAdmin" resultMap="ArticleResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM ARTICLE 
+		WHERE status = 1 AND post_time >= #startTime# AND post_time <= #endTime#
+		]]>
+	</select>
+	
+	<select id="selectContributedArticlesListByReporter" resultMap="ArticleResultMap" parameterClass="string">
+		<![CDATA[
+		SELECT * FROM ARTICLE 
+		WHERE conrtibuted_from = 
+			(SELECT id FROM REPORTER WHERE username = #username# LIMIT 1)
+		]]>
+	</select>
+	
+	<update id="acceptArticle" parameterClass="article">
+		<![CDATA[
+		UPDATE ARTICLE
+		SET	title = #title#,
+			subhead = #subhead#,
+			content = #content#,
+			pure_text = #pureText#,
+			cat_id = #catId#,
+			root_cat_id = #rootCatId#,
+			`from` = #from#,
+			post_time = current_timestamp(),
+			status = 1
+		WHERE id = #id# AND (status=0 OR status=-1)
+		]]>
+	</update>
+	
+	<update id="rejectArticle" parameterClass="article">
+		<![CDATA[
+		UPDATE ARTICLE
+		SET status = -1
+		WHERE id = #id# AND (status=0 OR status=1)
+		]]>
+	</update>
+	
 </sqlMap>
