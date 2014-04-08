@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="REPORTER">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="reporter" type="cn.seu.cose.entity.Reporter" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="ReporterResultMap" class="reporter">
+		<result property="id" column="ID"/>
+		<result property="username" column="USERNAME"/>
+		<result property="password" column="PASSWORD"/>
+		<result property="name" column="NAME"/>
+		<result property="email" column="EMAIL"/>
+		<result property="phone" column="PHONE"/>
+		<result property="contributeCount" column="CONTRIBUTE_COUNT"/>
+		<result property="acceptCount" column="ACCEPT_COUNT"/>
+		<result property="certificated" column="CERTIFICATED"/>
+	</resultMap>
+
+	<select id="selectAllReportersList" resultMap="ReporterResultMap">
+		<![CDATA[
+    		SELECT * 
+    		FROM REPORTER
+		]]>
+	</select>
+	
+	<select id="selectCertificatedReportersList" resultMap="ReporterResultMap">
+		<![CDATA[
+    		SELECT * 
+    		FROM REPORTER
+    		WHERE certificated=1
+		]]>
+	</select>
+	
+	<select id="selectUncertificatedReportersList" resultMap="ReporterResultMap">
+		<![CDATA[
+    		SELECT * 
+    		FROM REPORTER
+    		WHERE certificated=0
+		]]>
+	</select>
+
+	<select id="selectTopKReportersByContribution" resultMap="ReporterResultMap" parameterClass="int">
+		<![CDATA[
+    		SELECT * 
+    		FROM REPORTER
+    		ORDER BY contributeCount LIMIT #value#
+		]]>
+	</select>
+	
+	<select id="selectTopKReportersByAccept" resultMap="ReporterResultMap" parameterClass="int">
+		<![CDATA[
+    		SELECT * 
+    		FROM REPORTER
+    		ORDER BY acceptCount LIMIT #value#
+		]]>
+	</select>
+	
+	<select id="selectReporterById" resultMap="ReporterResultMap" parameterClass="int">
+		<![CDATA[
+    		SELECT * 
+    		FROM REPORTER
+    		WHERE id=#value#
+		]]>
+	</select>
+	
+	<select id="selectReporter" resultMap="ReporterResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+    		SELECT * 
+    		FROM REPORTER
+    		WHERE username=#username# AND password=#password#
+		]]>
+	</select>
+	
+	<update id="certificate" parameterClass="int">
+		<![CDATA[
+		UPDATE REPORTER
+		SET	certificated = 1
+		WHERE id = #value#
+		]]>
+	</update>
+	
+	<update id="uncertificate" parameterClass="int">
+		<![CDATA[
+		UPDATE REPORTER
+		SET	certificated = 0
+		WHERE id = #value#
+		]]>
+	</update>
+	
+	<insert id="insertReporter" parameterClass="reporter">
+		<![CDATA[
+		INSERT INTO REPORTER
+		(username, password, name, email, phone)
+		VALUES (#username#, #password#, #name#, #email#, #phone#)
+		]]>
+	</insert>
+	
+	<update id="updateReporter" parameterClass="reporter">
+		<![CDATA[
+		UPDATE REPORTER
+		SET username = #username#,
+			password = #password#,
+			name = #name#,
+			email = #email#,
+			phone = #phone#
+		]]>
+	</update>
+	
+	<delete id="deleteReporter" parameterClass="int">
+		<![CDATA[
+		DELETE FROM REPORTER WHERE id = #value#
+		]]>
+	</delete>
+	
+	<update id="increaseAccept" parameterClass="int">
+		<![CDATA[
+		UPDATE REPORTER 
+		SET acceptCount = acceptCount + 1
+		]]>
+	</update>
+	
+	<update id="increaseContribute" parameterClass="int">
+		<![CDATA[
+		UPDATE REPORTER 
+		SET contributeCount = contributeCount + 1
+		]]>
+	</update>
+	
+</sqlMap>
