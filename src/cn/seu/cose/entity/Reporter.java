@@ -1,5 +1,7 @@
 package cn.seu.cose.entity;
 
+import java.util.Date;
+
 public class Reporter {
 	
 	private int id;
@@ -14,8 +16,9 @@ public class Reporter {
 	// accepted article counts
 	private int acceptCount;
 	// whether is authorized
+	private Date registerTime;
 	private boolean certificated;
-	
+	private Date certificateTime;
 	
 	public int getId() {
 		return id;
@@ -70,5 +73,17 @@ public class Reporter {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Date getRegisterTime() {
+		return registerTime;
+	}
+	public void setRegisterTime(Date registerTime) {
+		this.registerTime = registerTime;
+	}
+	public Date getCertificate_time() {
+		return certificateTime;
+	}
+	public void setCertificate_time(Date certificateTime) {
+		this.certificateTime = certificateTime;
 	}
 }

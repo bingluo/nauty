@@ -14,7 +14,9 @@
 		<result property="phone" column="PHONE"/>
 		<result property="contributeCount" column="CONTRIBUTE_COUNT"/>
 		<result property="acceptCount" column="ACCEPT_COUNT"/>
+		<result property="registerTime" column="REGISTER_TIME"/>
 		<result property="certificated" column="CERTIFICATED"/>
+		<result property="certificateTime" column="CERTIFICATE_TIME"/>
 	</resultMap>
 
 	<select id="selectAllReportersList" resultMap="ReporterResultMap">
@@ -75,7 +77,7 @@
 	<update id="certificate" parameterClass="int">
 		<![CDATA[
 		UPDATE REPORTER
-		SET	certificated = 1
+		SET	certificated = 1, certificate_time = current_timestamp()
 		WHERE id = #value#
 		]]>
 	</update>
@@ -83,7 +85,7 @@
 	<update id="uncertificate" parameterClass="int">
 		<![CDATA[
 		UPDATE REPORTER
-		SET	certificated = 0
+		SET	certificated = 0, certificate_time = null
 		WHERE id = #value#
 		]]>
 	</update>
@@ -91,8 +93,8 @@
 	<insert id="insertReporter" parameterClass="reporter">
 		<![CDATA[
 		INSERT INTO REPORTER
-		(username, password, name, email, phone)
-		VALUES (#username#, #password#, #name#, #email#, #phone#)
+		(username, password, name, email, phone, register_time)
+		VALUES (#username#, #password#, #name#, #email#, #phone#， current_timestamp())
 		]]>
 	</insert>
 	
