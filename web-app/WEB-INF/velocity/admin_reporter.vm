@@ -1,0 +1,282 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")	
+
+<div id="content">
+	<div id="content-header">
+		<h1>通讯员管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">通讯员管理</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-content nopadding">
+					<div class="control-group">
+						<div class="controls">
+							<input style="" type="text" value="$!{searchInput}" placeHolder="通讯员检索" id="search_input"/>
+							&nbsp;
+							<span style="" margin-left:10px; margin-right:20px" class="icon" id="search_btn">
+								<a href="javascript:void(0)" class="btn btn-success btn" style="vertical-align:middle; margin-top:-7px;">
+									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
+								</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-th"></i>
+						</span>
+						<h5>通讯员列表</h5>
+						<span class="icon">
+							<a href="$!{viewUtil.getContextPath()}/admin/reporter_list" class="btn btn-mini">
+								<i class="icon-user"></i> 全部
+							</a>
+							&nbsp;&nbsp;
+							<a href="$!{viewUtil.getContextPath()}/admin/reporter_list_certificated" class="btn btn-mini">
+								<i class="icon-ok"></i> 已认证
+							</a>
+							&nbsp;&nbsp;
+							<a href="$!{viewUtil.getContextPath()}/admin/reporter_list_uncertificated" class="btn btn-mini">
+								<i class="icon-exclamation-sign"></i> 待认证
+							</a>
+						</span>
+					</div>
+					<div class="widget-content padding">
+						<table class="table table-bordered table-striped with-check">
+							<thead>
+								<tr>
+									<th style="width:6%">ID</th>
+									<th>用户名</th>
+									<th style="width:7%">姓名</th>
+									<th>Email</th>
+									<th>电话</th>
+									<th style="width:10%">提交文章</th>
+									<th style="width:10%">采纳文章</th>
+									<th>认证情况</th>
+									<th style="width:20%">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								#foreach($el in $el_list)
+									<tr>
+										<td>$el.id</td>
+										<td title="$el.username">$el.username</td>
+										<td title="$el.name">$el.name</td>
+										<td title="$el.email">$el.email</td>
+										<td>$el.phone</td>
+										<td><a href="#">${el.contributeCount}篇</a></td>
+										<td><a href="#">${el.acceptCount}篇</td>
+										#if(!$el.certificated)
+											<td>
+												<button class="btn btn-info"  title="通过认证" id="cer_btn"><i class="icon-info-sign icon-white"></i> 通过认证</button>
+											</td>
+										#else
+											<td title="$!{viewUtil.fTime("$!{el.certificateTime}")} (已认证)">
+												$!{viewUtil.fTime("$!{el.certificateTime}")} (已认证)
+											</td>
+										#end
+										<td>
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除</button>
+											#if($el.certificated)
+												<button class="btn btn-warning" title="撤销认证" id="uncer_btn"><i class="icon-minus-sign icon-white"></i> 撤销认证</button>
+											#end
+										</td>
+									</tr>
+								#end
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
+
+<div style="display:none" id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定删除？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_del">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
+	</div>
+</div>
+<div style="display:none" id="cer_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定通过认证？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_cer">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_cer">否</button>
+	</div>
+</div>
+
+<div style="display:none" id="uncer_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定撤销认证？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_uncer">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_uncer">否</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$("#sidebar_li_9").siblings().removeClass('active')
+	$("#sidebar_li_9").addClass('active');
+	var context_path = $("#context_path").val();
+	
+	$(document).ready(function(){
+		$("#del_dialog").css("display","none");
+		
+		$("#search_btn").bind("click", function(){
+			var search_input = $("#search_input").val().trim();
+			if(search_input == "") {
+				$("#search_input").css("border-color", "red");
+				$("#search_input").attr("placeHolder", "请输入用户名");
+			} else {
+				window.location.href = context_path + "/admin/reporter_list_search-" + search_input;
+			}
+			
+		});
+		
+		// show del_dialog
+		$("button[id='del_btn']").bind("click", function(){
+			var _del_id = $(this).parents("tr").find("td:eq(0)").html().trim();
+			if(!$.browser.msie) {
+				$("#del_dialog").css("display","block");
+				$("#del_dialog").modal("show");
+				
+			} else {
+				alert("已删除通讯员");
+				$.ajax({
+					url: context_path + "/admin/del_reporter",
+					type: "post",
+					data: {id:_del_id},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("删除错误，请重试！");
+					}
+				});
+			}
+			
+		});
+		// yes_del
+		$("#yes_del").bind("click", function(){
+			$.ajax({
+				url: context_path + "/admin/del_reporter",
+				type: "post",
+				data: {id:_del_id},
+				dataType: "html",
+				success:function(data){
+					$("#del_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#del_dialog").modal("hide");
+					alert("删除错误，请重试！");
+				}
+			});
+		});
+		
+/**************************认证***************************************/
+		// show cer_dialog
+		$("button[id='cer_btn']").bind("click", function(){
+			_id = $(this).parents("tr").find("td:first").html().trim();
+			if(!$.browser.msie) {
+				$("#cer_dialog").css("display","block");
+				$("#cer_dialog").modal("show");
+				
+			} else {
+				alert("已认证完成");
+				$.ajax({
+					url: context_path + "/admin/cer_reporter",
+					type: "post",
+					data: {id:_id},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("认证错误，请重试！");
+					}
+				});
+			}
+			
+		});
+		// yes_cer
+		$("#yes_cer").bind("click", function(){
+			$.ajax({
+				url: context_path + "/admin/cer_reporter",
+				type: "post",
+				data: {id:_id},
+				dataType: "html",
+				success:function(data){
+					$("#cer_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#cer_dialog").modal("hide");
+					alert("认证错误，请重试！");
+				}
+			});
+		});
+/**************************撤销认证***************************************/
+		// show uncer_dialog
+		$("button[id='uncer_btn']").bind("click", function(){
+			_id = $(this).parents("tr").find("td:first").html().trim();
+			if(!$.browser.msie) {
+				$("#uncer_dialog").css("display","block");
+				$("#uncer_dialog").modal("show");
+				
+			} else {
+				alert("已撤销认证");
+				$.ajax({
+					url: context_path + "/admin/uncer_reporter",
+					type: "post",
+					data: {id:_id},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("撤销认证错误，请重试！");
+					}
+				});
+			}
+			
+		});
+		// yes_uncer
+		$("#yes_uncer").bind("click", function(){
+			$.ajax({
+				url: context_path + "/admin/uncer_reporter",
+				type: "post",
+				data: {id:_id},
+				dataType: "html",
+				success:function(data){
+					$("#uncer_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#uncer_dialog").modal("hide");
+					alert("撤销认证错误，请重试！");
+				}
+			});
+		});
+		
+	});
+
+</script>
+#parse("admin_footer.vm")

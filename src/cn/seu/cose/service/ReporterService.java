@@ -37,6 +37,10 @@ public class ReporterService {
 		reporterDAOImpl.deleteReporter(id);
 	}
 	
+	public List<Reporter> searchReporter(String searchInput) {
+		return reporterDAOImpl.search(searchInput);
+	}
+	
 	// get一个通讯员
 	public Reporter getReporterById(int id) {
 		return reporterDAOImpl.getReporterById(id);

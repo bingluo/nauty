@@ -20,6 +20,8 @@ public interface ReporterDAO {
 	
 	public Reporter getReporter(String username, String password);
 	
+	public List<Reporter> search(String searchInput);
+	
 	public void certificate(int id);
 	
 	public void uncertificate(int id);

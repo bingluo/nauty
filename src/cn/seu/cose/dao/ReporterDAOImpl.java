@@ -65,15 +65,21 @@ public class ReporterDAOImpl extends SqlMapClientDaoSupport implements ReporterD
 	}
 
 	@Override
+	public List<Reporter> search(String searchInput) {
+		return getSqlMapClientTemplate().queryForList(
+				"REPORTER.searchReporter", searchInput);
+	}
+	
+	@Override
 	public void certificate(int id) {
 		getSqlMapClientTemplate().update(
-				"REPORETR.certificate", id);
+				"REPORTER.certificate", id);
 	}
 
 	@Override
 	public void uncertificate(int id) {
 		getSqlMapClientTemplate().update(
-				"REPORETR.uncertificate", id);
+				"REPORTER.uncertificate", id);
 	}
 
 	@Override
@@ -85,7 +91,7 @@ public class ReporterDAOImpl extends SqlMapClientDaoSupport implements ReporterD
 	@Override
 	public void updateReporter(Reporter reporter) {
 		getSqlMapClientTemplate().update(
-				"REPORETR.updateReporter", reporter);
+				"REPORTER.updateReporter", reporter);
 	}
 
 	@Override
