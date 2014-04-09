@@ -33,7 +33,7 @@
 		]]>
 	</select>
 	
-	<select id="selectActivityPhotoByActivityIdAndPnAndSize" resultMap="ActivityPhotoResultMap" parameterClass="int">		
+	<select id="selectActivityPhotoByActivityIdAndBaseAndRange" resultMap="ActivityPhotoResultMap" parameterClass="java.util.Map">		
 		<![CDATA[
 		SELECT * FROM
         	(SELECT *

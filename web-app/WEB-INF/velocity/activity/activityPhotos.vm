@@ -35,7 +35,8 @@
             	<h3>活动现场</h3>
     		</div>
 			#foreach($photo in $photos)
-			<div style="width:220px;float:left;#if($velocityCount==1)margin-right:10px;#elseif($velocityCount==3)margin-left:10px;#else margin:0 10px;#end">
+			#set($c = $velocityCount % 3)
+			<div style="width:220px;float:left;#if($c==1)margin-right:10px;#elseif($c==0)margin-left:10px;#else margin:0 10px;#end">
         		<div class="picture">
         			<a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/photos/$!{photo.id}" >
         				<img src="$!{photo.picUri}" style="height:139px" />

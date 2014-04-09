@@ -174,13 +174,14 @@ public class ActivityController extends AbstractController {
 		} else {
 			activityBasicIssue(model, activity);
 			pn = pn == null || pn <= 0 ? 1 : pn;
+			int pageSize = 9;
 			List<WorkPojo> works = workService
-					.getWorksByActivityIdAndPnAndSize(activityId, pn, 12);
+					.getWorksByActivityIdAndPnAndSize(activityId, pn, pageSize);
 			int totalCount = workService.getWorksCountByActivityId(activityId);
 			model.addAttribute("works", works);
 			model.addAttribute("pageIndex", pn);
 			model.addAttribute("pageCount",
-					(int) Math.ceil((double) totalCount / 10));
+					(int) Math.ceil((double) totalCount / pageSize));
 			model.addAttribute("totalCount", totalCount);
 			StringBuilder sb = new StringBuilder();
 			sb.append(ViewUtil.getContextPath()).append("/activity/")
@@ -377,7 +378,12 @@ public class ActivityController extends AbstractController {
 			String fileName = format.format(new Date())
 					+ f.getOriginalFilename();
 			File targetFile = new File(path, fileName);
-			if (f.getContentType().equals("image/jpeg") && !targetFile.exists()) {
+			String contentType = f.getContentType();
+			if (contentType.equals("image/jpeg")
+					|| contentType.equals("image/jpg")
+					|| contentType.equals("image/bmp")
+					|| contentType.equals("image/png")
+					|| contentType.equals("image/gif") && !targetFile.exists()) {
 				// 保存
 				try {
 					f.transferTo(targetFile);
@@ -408,15 +414,17 @@ public class ActivityController extends AbstractController {
 		} else {
 			activityBasicIssue(model, activity);
 			pn = pn == null || pn <= 0 ? 1 : pn;
+			int pageSize = 9;
 			List<ActivityPhoto> photos = activityService
-					.getActivityPhotoByActivityId(activityId);// 分页
+					.getActivityPhotoByActivityIdAndPnAndSize(activityId, pn,
+							pageSize);// 分页
 
 			int totalCount = activityService
 					.getActivityPhotosCountByActivityId(activityId);
 			model.addAttribute("photos", photos);
 			model.addAttribute("pageIndex", pn);
 			model.addAttribute("pageCount",
-					(int) Math.ceil((double) totalCount / 10));
+					(int) Math.ceil((double) totalCount / pageSize));
 			model.addAttribute("totalCount", totalCount);
 			StringBuilder sb = new StringBuilder();
 			sb.append(ViewUtil.getContextPath()).append("/activity/")
@@ -442,9 +450,11 @@ public class ActivityController extends AbstractController {
 			} else {
 				activityBasicIssue(model, activity);
 				pn = pn == null || pn <= 0 ? 1 : pn;
+				int pageSize = 10;
 				List<CommentPojo> comments = commentService
 						.getCommentsByRefAndTypeAndPnAndSize(photoId,
-								CommentType.ACTIVITY_PHOTO.ordinal(), pn, 10);
+								CommentType.ACTIVITY_PHOTO.ordinal(), pn,
+								pageSize);
 				model.addAttribute("photo", photo);
 				model.addAttribute("comments", comments);
 
@@ -452,7 +462,7 @@ public class ActivityController extends AbstractController {
 						photoId, CommentType.ACTIVITY_PHOTO.ordinal());
 				model.addAttribute("pageIndex", pn);
 				model.addAttribute("pageCount",
-						(int) Math.ceil((double) totalCount / 10));
+						(int) Math.ceil((double) totalCount / pageSize));
 				model.addAttribute("totalCount", totalCount);
 				StringBuilder sb = new StringBuilder();
 				sb.append(ViewUtil.getContextPath()).append("/activity/")

@@ -124,6 +124,33 @@ $(document).ready(function(){
     		}
     	});
     });
+	
+	$("#signIn").click(function(){
+		location.href = "$!{viewUtil.getContextPath()}/sign-in";
+	});
+	$("#send").click(function(){
+		$message = $.trim($("#messageText").val());
+		if($message!=""){
+			$("#messageText").css('border','1px solid #d8d8d8');
+			$("#messageText").css('background','#ffffff');
+			$.ajax({
+				type: 'POST',
+				url: "$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{work.id}/comment",
+				data: {
+					message: $message
+				},
+				success: function( data ) {
+					$("send").css('disabled','disabled');
+					location.href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}/works/$!{work.id}";
+				}
+			});
+		}else{
+            $(".success-message").css('display','block');
+            $("#notification_1").css('display','block');
+			$("#messageText").css('border','1px solid #f2c4c2');
+			$("#messageText").css('background','#ffeceb');
+		}
+	});
 });
 </script>
 </html>

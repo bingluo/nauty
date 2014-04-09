@@ -63,8 +63,8 @@ public class ActivityPhotoDAOImpl extends SqlMapClientDaoSupport implements
 			int id, int base, int range) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("activityId", id);
-		map.put("pn", base);
-		map.put("pageSize", range);
+		map.put("base", base);
+		map.put("range", range);
 		return getSqlMapClientTemplate()
 				.queryForList(
 						"ACTIVITY_PHOTO.selectActivityPhotoByActivityIdAndBaseAndRange",
