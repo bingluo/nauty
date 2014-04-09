@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+
+<!-- Content
+================================================== -->
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+
+<!-- 960 Container -->
+<div class="container ie-dropdown-fix">
+
+	<!-- Header -->
+	#parse("common/header.vm")
+	<!-- Header / End -->
+	
+	<!-- Navigation -->
+	#parse("common/navi.vm")
+	<!-- Navigation / End -->
+	<div class="sixteen columns">
+	
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2>设计师 <span>/ <a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}" style="color:#aaa">$!{designer.userName}</a></span></h2>
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+
+	</div>
+</div>
+<!-- 960 Container / End -->
+
+<!-- Blog Posts
+================================================== -->
+<!-- 960 Container -->
+<div class="container">
+<!-- Widget
+================================================== -->
+	#parse("designer/profile-left-bar.vm")
+    <div class="twelve columns"> 
+		<div class="headline" style="margin-top:0;"><h3>上传头像</h3></div>
+		<!-- Success Message -->
+		<div id="editAvatar-form">
+			<form id="editAvatarForm" method="post" action="$!{viewUtil.getContextPath()}/designer/$!{curUser.id}/admin/edit-avatar" enctype="multipart/form-data" method="post">
+				<div class="field">
+					<label>头像: <span>*</span> (建议大小220px × 240px，或近似比例图片)</label>
+					<input type="file" name="avatar" accept="image/gif,image/jpeg,image/png,image/bmp" class="text"/>
+				</div>				
+				<div class="field">
+					<input type="submit" id="editAvatarBtn" value="上传" style="width:auto;"/>
+					<div class="loading"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- 960 Container / End -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+<script language="JavaScript">
+	$(document).ready(function(){
+	});
+</script>
+</body>
+</html>

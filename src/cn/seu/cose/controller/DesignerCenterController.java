@@ -383,6 +383,61 @@ public class DesignerCenterController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/designer/{designerId}/admin/edit-avatar", method = RequestMethod.GET)
+	public String editAvatar(Model model, HttpServletResponse response,
+			@PathVariable("designerId") int designerId) {
+		basicIssue(model);
+		Designer designer = designerService.getDesignerById(designerId);
+		model.addAttribute("designer", designer);
+		if (designerService.isTheSignInOne(designerId)) {
+			return "designer/editAvatar";
+		} else {
+			return "designer/designerCenterIndex";
+		}
+
+	}
+
+	@RequestMapping(value = "/designer/{designerId}/admin/edit-avatar", method = RequestMethod.POST)
+	public void editAvatar(HttpServletRequest request,
+			HttpServletResponse response, Model model,
+			@RequestParam MultipartFile avatar,
+			@PathVariable("designerId") int designerId) throws IOException {
+		basicIssue(model);
+		Designer designer = designerService.getDesignerById(designerId);
+		model.addAttribute("designer", designer);
+		if (!designerService.isTheSignInOne(designerId)
+				|| !designerService.getCurrentUser().isCertificated()) {
+			response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+					+ designerId);
+			return;
+		}
+		String path = request.getSession().getServletContext()
+				.getRealPath("static/avatar");
+		String fileName = "";
+		if (avatar != null) {
+			DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+			fileName = format.format(new Date()) + avatar.getOriginalFilename();
+			File targetFile = new File(path, fileName);
+			String contentType = avatar.getContentType();
+			if (contentType.equals("image/jpeg")
+					|| contentType.equals("image/jpg")
+					|| contentType.equals("image/bmp")
+					|| contentType.equals("image/png")
+					|| contentType.equals("image/gif") && !targetFile.exists()) {
+				// 保存
+				try {
+					avatar.transferTo(targetFile);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		designer.setAvatar(fileName);
+		designerService.updateDesigner(designer);
+		response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+				+ designerId);
+	}
+
 	@RequestMapping(value = "/designer/{designerId}/admin/new-work", method = RequestMethod.POST)
 	public void postWork(HttpServletRequest request,
 			HttpServletResponse response, Model model,

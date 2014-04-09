@@ -18,7 +18,7 @@
 			<h5>
 			<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/pswd" rel="tooltip" data-original-title="修改密码 " style="margin-right:10px;">修改密码</a>
 			<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/profile" rel="tooltip" data-original-title="编辑个人资料 " style="margin-right:10px;">个人资料</a>
-			<a href="#" rel="tooltip" data-original-title="编辑头像 " style="margin-right:10px;">头像</a>
+			<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/edit-avatar" rel="tooltip" data-original-title="编辑头像 " style="margin-right:10px;">头像</a>
 			</h5>
 		</div>
 		#end
