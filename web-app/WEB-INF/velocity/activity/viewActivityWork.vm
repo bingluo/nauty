@@ -23,8 +23,8 @@
     		<div class="sixteen columns">
         		<div id="page-title">
         			<h2 style="padding: 10px 0 10px 0;">
-    					<a href="$!{viewUtil.getContextPath()}/activity" style="color:#333">活动赛事</a>
-    					<span> / <a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" style="color:#aaa">$!{activity.title}</a></span>
+						<a href="$!{viewUtil.getContextPath()}/activity" style="color:#333;font-weight:bold;">活动赛事</a>
+						<span> / <a href="$!{viewUtil.getContextPath()}/activity/$!{activity.id}" style="color:#aaa">$!{activity.title}</a></span>
     				</h2>
         			<div id="bolded-line"></div>
         		</div>

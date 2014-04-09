@@ -26,11 +26,10 @@
 	
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2>设计师 <span>/ <a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}" style="color:#aaa">$!{designer.userName}</a></span></h2>
+			<h2 style="padding: 10px 0 10px 0;"><a href="$!{viewUtil.getContextPath()}/designer" style="color:#333;font-weight:bold;">设计师 </a><span> / <a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}" style="color:#aaa">$!{designer.userName}</a></span></h2>
 			<div id="bolded-line"></div>
 		</div>
 		<!-- Page Title / End -->
-
 	</div>
 </div>
 <!-- 960 Container / End -->

@@ -21,13 +21,13 @@ public class ViewUtil {
 		if (curCat.getCatLevel() == 1) {
 			return "<h2 style='padding: 10px 0 10px 0;'><a href='"
 					+ CONTEXT_PATH + "/" + curCat.getUriName()
-					+ "' style='color:#333'>" + curCat.getCatName()
-					+ "</a></h2>";
+					+ "' style='color:#333;font-weight:bold;'>"
+					+ curCat.getCatName() + "</a></h2>";
 		} else {
 			CategoryPojo parent = CategoryCache.get(curCat.getParentCatId());
 			return "<h2 style='padding: 10px 0 10px 0;'><a href='"
 					+ CONTEXT_PATH + "/" + parent.getUriName()
-					+ "' style='color:#333'>"
+					+ "' style='color:#333;font-weight:bold;'>"
 					+ CategoryCache.get(curCat.getParentCatId()).getCatName()
 					+ "</a><span> / <a href='" + CONTEXT_PATH + "/"
 					+ parent.getUriName() + "/cat-" + catId
@@ -35,14 +35,12 @@ public class ViewUtil {
 					+ "</a></span></h2>";
 		}
 	}
-	
-	
+
 	public static String fActivityTime(Timestamp time) {
-		SimpleDateFormat sdf = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return sdf.format(new Date(time.getTime()));
 	}
-	
+
 	public static String fTime(String time) {
 		if (time == null || time.isEmpty()) {
 			return null;
@@ -58,15 +56,15 @@ public class ViewUtil {
 		}
 		return null;
 	}
-	
-	
+
 	public static final int BRIEF_LENGTH = 10;
+
 	public static String brief(String s) {
-		if(s==null || s.isEmpty() || s.length() <= BRIEF_LENGTH)
+		if (s == null || s.isEmpty() || s.length() <= BRIEF_LENGTH)
 			return s;
 		return s.substring(0, BRIEF_LENGTH);
 	}
-	
+
 	public static String getParentCatName(int catId) {
 		CategoryPojo curCat = CategoryCache.get(catId);
 		if (curCat.getCatLevel() == 1) {

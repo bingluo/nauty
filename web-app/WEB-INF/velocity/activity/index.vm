@@ -22,7 +22,7 @@
     <div class="container">
 		<div class="sixteen columns">
     		<div id="page-title">
-    			<h2 style="padding: 10px 0 10px 0;"><a href="$!{viewUtil.getContextPath()}/activity" style="color:#333">活动赛事</a>#if($!{activityType})$!{activityType}#end</h2>
+    			<h2 style="padding: 10px 0 10px 0;"><a href="$!{viewUtil.getContextPath()}/activity" style="color:#333;font-weight:bold;">活动赛事</a>#if($!{activityType})$!{activityType}#end</h2>
     			<div id="bolded-line"></div>
     		</div>
     	</div>

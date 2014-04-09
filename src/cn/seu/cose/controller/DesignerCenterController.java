@@ -467,7 +467,12 @@ public class DesignerCenterController extends AbstractController {
 			String fileName = format.format(new Date())
 					+ f.getOriginalFilename();
 			File targetFile = new File(path, fileName);
-			if (f.getContentType().equals("image/jpeg") && !targetFile.exists()) {
+			String contentType = f.getContentType();
+			if (contentType.equals("image/jpeg")
+					|| contentType.equals("image/jpg")
+					|| contentType.equals("image/bmp")
+					|| contentType.equals("image/png")
+					|| contentType.equals("image/gif") && !targetFile.exists()) {
 				// 保存
 				try {
 					f.transferTo(targetFile);

@@ -27,8 +27,7 @@
 		<!-- Page Title -->
 		<div id="page-title">
 			<h2 style='padding: 10px 0 10px 0;'>
-				<a href='$!{viewUtil.getContextPath()}/download.html' style='color:#333'>下载中心</a>
-				<span>/ <a href='$!{viewUtil.getContextPath()}/download.html' style='color:#aaa'>下载中心</a></span>
+				<a href='$!{viewUtil.getContextPath()}/download.html' style='color:#333;font-weight:bold;'>下载中心</a>
 			</h2>
 			<div id="bolded-line"></div>
 		</div>

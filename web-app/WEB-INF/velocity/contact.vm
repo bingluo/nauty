@@ -25,7 +25,7 @@
 	<div class="sixteen columns">
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2>联系我们</h2>
+			<h2 style="font-weight:bold;">联系我们</h2>
 			<div id="bolded-line"></div>
 		</div>
 		<!-- Page Title / End -->

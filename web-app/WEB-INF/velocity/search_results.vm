@@ -19,7 +19,7 @@
 	<div class="sixteen columns">
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2 style='padding: 10px 0 10px 0;'>文章搜索 <span>: $!{keyword}</span></h2>
+			<h2 style='padding: 10px 0 10px 0;font-weight:bold;'>文章搜索 <span>: $!{keyword}</span></h2>
 			<div id="bolded-line"></div>
 		</div>
 		<!-- Page Title / End -->
