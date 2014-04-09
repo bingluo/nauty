@@ -438,7 +438,25 @@ public class DesignerCenterController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/designer/{designerId}/admin/new-blog")
-	public String newBlog() {
+	public String newBlog(Model model,
+			@PathVariable("designerId") int designerId,
+			HttpServletResponse response) {
+		try {
+			basicIssue(model);
+			if (designerService.isTheSignInOne(designerId)) {
+				Designer designer = designerService.getCurrentUser();
+				model.addAttribute("designer", designer);
+			} else if (designerService.getCurrentUser() == null) {
+				response.sendRedirect(ViewUtil.getContextPath() + "/sign-in");
+				return null;
+			} else {
+				response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+						+ designerId);
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "designer/newBlog";
 	}
 }

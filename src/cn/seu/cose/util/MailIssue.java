@@ -37,7 +37,7 @@ public class MailIssue {
 			// 设置标题
 			message.setSubject(title);
 			// 设置信件内容
-			message.setContent(content, "text/html;charset=utf8");
+			message.setContent(content, "text/html;charset=utf-8");
 			// 设置发信时间
 			message.setSentDate(new Date());
 			// 存储邮件信息

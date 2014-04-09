@@ -25,12 +25,16 @@ public class AbstractController {
 
 	protected void basicIssue(Model model) {
 		List<CategoryPojo> cats = CategoryCache.getRootsWithChildren();
+		String location = parameterService.getParameterByKey(
+				Constant.PARAMETER_KEY_LOCATION).getParameterValue();
 		Parameter emailParameter = parameterService
 				.getParameterByKey(Constant.PARAMETER_KEY_EMAIL);
 		Parameter phoneParameter = parameterService
 				.getParameterByKey(Constant.PARAMETER_KEY_PHONE);
 		String contactIntro = parameterService.getParameterByKey(
 				Constant.PARAMETER_KEY_CONTACT).getParameterValue();
+		String gpslocation = parameterService.getParameterByKey(
+				Constant.PARAMETER_KEY_GPS_LOCATION).getParameterValue();
 
 		List<Parameter> socialParameters = new ArrayList<Parameter>();
 		for (String socialName : Constant.PARAMETER_KEY_SOCIALS) {
@@ -45,9 +49,11 @@ public class AbstractController {
 		List<PublicationPojo> recentPublications = publicationService
 				.getRecentPublications();
 
+		model.addAttribute("location", location);
 		model.addAttribute("socials", socialParameters);
 		model.addAttribute("email", emailParameter.getParameterValue());
 		model.addAttribute("phone", phoneParameter.getParameterValue());
+		model.addAttribute("gpslocation", gpslocation);
 		model.addAttribute("cats", cats);
 		model.addAttribute("contactIntro", contactIntro);
 		model.addAttribute("recentPublications", recentPublications);

@@ -25,9 +25,9 @@
     	<div class="clear"></div>
 		#if($curUser && $curUser.id == $designer.id)
     		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/new-work" class="button color medium">发布作品</a>
-    		<a href="#" class="button color medium" style="float:right;">发表博文</a>
+    		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/admin/new-blog" class="button color medium" style="float:right;">发表博文</a>
     	#else
     		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works" class="button color medium">设计作品</a>
-    		<a href="#" class="button color medium" style="float:right;">个人博客</a>
+    		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/blogs" class="button color medium" style="float:right;">个人博客</a>
     	#end
     </div>
