@@ -181,4 +181,13 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 		getSqlMapClientTemplate().update(
 				"ARTICLE.acceptArticle", article);
 	}
+	
+	@Override
+	public List<ArticlePojo> searchArticleOfReporter(int reporterId, String searchInput) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("id", Integer.toString(reporterId));
+		map.put("searchInput", searchInput);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.searchArticleOfReporter", map);
+	}
 }

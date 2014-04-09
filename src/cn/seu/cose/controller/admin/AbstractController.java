@@ -4,19 +4,17 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import cn.seu.cose.entity.Admin;
-import cn.seu.cose.service.AdminService;
+import cn.seu.cose.entity.Reporter;
+import cn.seu.cose.filter.SecurityContextHolder;
 import cn.seu.cose.view.util.ViewUtil;
 
 public class AbstractController {
-	@Autowired
-	private AdminService adminService;
 	
 	protected void putAdmin(Model model,HttpServletResponse response) {
-		Admin admin = adminService.getAdmin();
+		Admin admin = SecurityContextHolder.getSecurityContext().getAdmin();
 		if (admin != null) {
 			model.addAttribute("login_admin", admin.getUsername());
 		} else {
@@ -27,5 +25,20 @@ public class AbstractController {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	protected void putReporter(Model model,HttpServletResponse response) {
+		Reporter reporter = SecurityContextHolder.getSecurityContext().getReporter();
+		if(reporter != null) {
+			model.addAttribute("login_reporter", reporter.getUsername());
+			model.addAttribute("login_reporter_id", reporter.getId());
+		} else {
+			try {
+				response.sendRedirect(ViewUtil.getContextPath() + "/reporter/login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

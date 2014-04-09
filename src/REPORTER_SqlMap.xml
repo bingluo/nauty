@@ -102,7 +102,7 @@
 		<![CDATA[
 		INSERT INTO REPORTER
 		(username, password, name, email, phone, register_time)
-		VALUES (#username#, #password#, #name#, #email#, #phone#， current_timestamp())
+		VALUES (#username#, #password#, #name#, #email#, #phone#, current_timestamp())
 		]]>
 	</insert>
 	

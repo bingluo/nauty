@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.seu.cose.entity.Reporter;
+import cn.seu.cose.filter.SecurityContextHolder;
 import cn.seu.cose.service.ReporterService;
 import cn.seu.cose.view.util.ViewUtil;
 
@@ -23,6 +24,90 @@ public class AdminReporterController extends AbstractController{
 	
 	@Autowired ReporterService reporterService;
 	
+	@RequestMapping(value="/reporter/index", method=RequestMethod.GET)
+	public String index() {
+		return "reporter/login";
+	}
+	
+	@RequestMapping(value="/reporter/login", method=RequestMethod.GET)
+	public String login() {
+		return "reporter/login";
+	}
+	
+	@RequestMapping(value="/reporter/login", method=RequestMethod.POST) 
+	public void login(@RequestParam("username") String username, @RequestParam("password") String password,
+			Model model, HttpServletResponse response) {
+		Reporter reporter = reporterService.logon(username, password);
+		String to = ViewUtil.getContextPath() + "/reporter/login";
+		if (reporter != null) {
+			to = ViewUtil.getContextPath() + "/reporter/article_list-" + reporter.getId();
+		}
+		try {
+			response.sendRedirect(to);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/reporter/register", method=RequestMethod.GET) 
+	public String register() {
+		return "reporter/register";
+	}
+	@RequestMapping(value="/reporter/register", method=RequestMethod.POST)
+	public void register(@RequestParam("username") String username, @RequestParam("password") String password,
+			@RequestParam("name") String name, @RequestParam("email") String email, 
+			@RequestParam("phone") String phone, Model model, HttpServletResponse response) {
+		Reporter reporter = new Reporter();
+		reporter.setUsername(username);
+		reporter.setPassword(password);
+		reporter.setName(name);
+		reporter.setEmail(email);
+		reporter.setPhone(phone);
+		reporterService.register(reporter);
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/reporter/login");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/reporter/changeinfo-{id}", method=RequestMethod.GET)
+	public String changeInfo(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+		Reporter reporter = reporterService.getReporterById(id);
+		putReporter(model, response);
+		return "/reporter/change_info";
+	}
+	@RequestMapping(value="/reporter/changeinfo", method=RequestMethod.POST)
+	public void changeInfo(@RequestParam("username") String username, @RequestParam("password") String password,
+			@RequestParam("email") String email, @RequestParam("phone") String phone, Model model, HttpServletResponse response) {
+		// ！真名无法修改
+		Reporter reporter = new Reporter();
+		reporter.setUsername(username);
+		reporter.setPassword(password);
+		reporter.setEmail(email);
+		reporter.setPhone(phone);
+		reporterService.modifyInfo(reporter);
+		SecurityContextHolder.getSecurityContext().setReporter(null);
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/reporter/login");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/reporter/logout", method=RequestMethod.GET)
+	public void logout(Model model, HttpServletResponse response) {
+		SecurityContextHolder.getSecurityContext().setReporter(null);
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/reporter/login");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+//***********************管理员使用的函数 down below************************************//
 	@RequestMapping("/admin/reporter_list")
 	public String reporterList(Model model, HttpServletResponse response) {
 		putAdmin(model, response);

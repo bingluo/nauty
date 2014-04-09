@@ -241,4 +241,90 @@ public class AdminArticleController extends AbstractController{
 		return pure;
 	}
 	
+//***************************通讯员相关的文章操作*******************************//
+	@RequestMapping(value="/reporter/article_list-{id}")
+	public String getArticleListOfMe(@PathVariable("id") int reporterId, Model model, HttpServletResponse response) {
+		model.addAttribute("searchInput", "");
+		putReporter(model,response);
+		
+		//List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(2, 1, PAGE_SIZE); // init
+		List<ArticlePojo> list = articleService.getContributedArticlesOfReporter(reporterId);
+		model.addAttribute("el_list", list);
+		
+//		model.addAttribute("pageIndex", 1);
+//		model.addAttribute("nextPageIndex", 2);
+//		model.addAttribute("prePageIndex", 0);
+//		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(2, 0)));
+		return "reporter/article_list";
+	}
+	
+	@RequestMapping(value="/reporter/reporter-{id}articles_search-{searchInput}")
+	public String searchArticleListOfMe(@PathVariable("id") int reporterId, @PathVariable("searchInput") String searchInput,
+			Model model, HttpServletResponse response) {
+		model.addAttribute("searchInput", searchInput);
+		putReporter(model,response);
+		List<ArticlePojo> list = articleService.searchArticleOfReporter(reporterId, searchInput);
+		model.addAttribute("el_list", list);
+		return "reporter/article_list";
+	}
+	
+	
+	@RequestMapping(value="/reporter/contribute", method=RequestMethod.GET)
+	public String getContribute(Model model, HttpServletResponse response) {
+		putReporter(model, response);
+		return "reporter/contribute_article";
+	}
+	@RequestMapping(value="/reporter/contribute", method=RequestMethod.POST)
+	public void postContribute(@RequestParam("title") String title, @RequestParam("subhead") String subhead,
+			@RequestParam("content") String content, @RequestParam("pure") String pure, @RequestParam("contributed_from") int reporterId,
+			HttpServletResponse response) {
+		
+		int catId = 16;
+		int rootCatId = 2;
+		
+		ArticlePojo article = new ArticlePojo();
+		article.setTitle(title);
+		article.setSubhead(subhead);
+		article.setCatId(catId);
+		article.setRootCatId(rootCatId);
+		article.setContent(content);
+		article.setPostTime(new Date());
+		pure = wrapPure(pure);
+		int briefLength = pure.length() > 100 ? 100 : pure.length();
+		article.setPureText(pure.substring(0, briefLength) + "……");
+		article.setContributedFrom(reporterId);	// reporter贡献的文章
+		articleService.contributeArticle(article);
+	}
+	
+	@RequestMapping(value="/reporter/alt_contribute-{id}", method=RequestMethod.GET)
+	public String getAlt(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+		putReporter(model, response);
+		ArticlePojo article = articleService.getArticleById(id);
+		model.addAttribute("el", article);
+		return "/reporter/alt_article";
+	}
+	@RequestMapping(value="/reporter/alt_contribute", method=RequestMethod.POST)
+	public void postAlt(@RequestParam("id") int id, @RequestParam("title") String title, @RequestParam("subhead") String subhead,
+			@RequestParam("content") String content, @RequestParam("pure") String pure, @RequestParam("contributed_from") int reporterId,
+			HttpServletResponse response) {
+		
+		int catId = 17;
+		int rootCatId = 2;
+		
+		ArticlePojo article = new ArticlePojo();
+		article.setId(id);
+		article.setTitle(title);
+		article.setSubhead(subhead);
+		article.setCatId(catId);
+		article.setRootCatId(rootCatId);
+		article.setContent(content);
+		article.setPostTime(new Date());
+		pure = wrapPure(pure);
+		int briefLength = pure.length() > 100 ? 100 : pure.length();
+		article.setPureText(pure.substring(0, briefLength) + "……");
+		article.setContributedFrom(reporterId);	// reporter贡献的文章
+		articleService.updateContributedArticle(article);
+	}
+	
+	
 }

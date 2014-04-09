@@ -44,7 +44,7 @@
 		<![CDATA[
 		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
 		FROM ARTICLE a,category b
-		WHERE a.id=#value# AND a.root_cat_id=b.id AND status = 1
+		WHERE a.id=#value# AND a.root_cat_id=b.id
 		]]>
 	</select>
 	
@@ -97,6 +97,14 @@
 		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time, b.uri_name, a.contributed_from, a.status
 		FROM ARTICLE a,category b
 		WHERE (a.title LIKE concat('%', #value#, '%') OR a.subhead LIKE concat('%', #value#, '%')) AND a.root_cat_id = b.id AND status = 1
+		]]>
+	</select>
+	
+	<select id="searchArticleOfReporter" resultMap="ArticleResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time, b.uri_name, a.contributed_from, a.status
+		FROM ARTICLE a,category b
+		WHERE a.contributed_from = #id# AND a.title LIKE concat('%', #searchInput#, '%') AND a.root_cat_id = b.id
 		]]>
 	</select>
 	
@@ -161,22 +169,28 @@
 	
 	<select id="selectContributeArticlesListOfReporter" resultMap="ArticleResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT * FROM ARTICLE 
-		WHERE contributed_from = #value#
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
+		FROM ARTICLE a,category b
+		WHERE a.root_cat_id=b.id AND contributed_from = #value#
+		ORDER BY a.post_time DESC
 		]]>
 	</select>
 	
 	<select id="selectAcceptArticlesListOfReporter" resultMap="ArticleResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT * FROM ARTICLE 
-		WHERE contributed_from = #value# AND status = 1
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
+		FROM ARTICLE a,category b
+		WHERE a.root_cat_id=b.id AND contributed_from = #value# AND status = 1
+		ORDER BY a.post_time DESC
 		]]>
 	</select>
 	
 	<select id="selectRejectArticlesListOfReporter" resultMap="ArticleResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT * FROM ARTICLE 
-		WHERE contributed_from = #value# AND status = -1
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
+		FROM ARTICLE a,category b
+		WHERE a.root_cat_id=b.id AND contributed_from = #value# AND status = -1
+		ORDER BY a.post_time DESC
 		]]>
 	</select>
 	
@@ -207,16 +221,20 @@
 	
 	<select id="selectContributeArticlesListToAdmin" resultMap="ArticleResultMap" parameterClass="java.util.Map">
 		<![CDATA[
-		SELECT * FROM ARTICLE 
-		WHERE status = 1 AND post_time >= #startTime# AND post_time <= #endTime#
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
+		FROM ARTICLE a,category b
+		WHERE a.root_cat_id=b.id AND status = 1 AND post_time >= #startTime# AND post_time <= #endTime#
+		ORDER BY a.post_time DESC
 		]]>
 	</select>
 	
 	<select id="selectContributedArticlesListByReporter" resultMap="ArticleResultMap" parameterClass="string">
 		<![CDATA[
-		SELECT * FROM ARTICLE 
-		WHERE conrtibuted_from = 
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
+		FROM ARTICLE a,category b
+		WHERE a.root_cat_id=b.id AND conrtibuted_from = 
 			(SELECT id FROM REPORTER WHERE username = #username# LIMIT 1)
+		ORDER BY a.post_time DESC
 		]]>
 	</select>
 	
@@ -243,5 +261,7 @@
 		WHERE id = #id# AND (status=0 OR status=1)
 		]]>
 	</update>
+	
+	
 	
 </sqlMap>

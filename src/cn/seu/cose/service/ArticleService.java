@@ -1,5 +1,6 @@
 package cn.seu.cose.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,5 +162,43 @@ public class ArticleService {
 							+ "</span>"));
 		}
 		return articles;
+	}
+	
+//**************************通讯员相关文章操作**************************//
+	public List<ArticlePojo> getContributedArticlesOfReporter(int reporterId) {
+		return articleDAOImpl.getContributeArticlesList(reporterId);
+	}
+	
+	public List<ArticlePojo> getAcceptArticlesOfReporter(int reporterId) {
+		return articleDAOImpl.getAcceptArticlesList(reporterId);
+	}
+	
+	public List<ArticlePojo> getRejectArticlesOfReporter(int reporterId) {
+		return articleDAOImpl.getRejectArticlesList(reporterId);
+	}
+	
+	public void contributeArticle(ArticlePojo article) {
+		articleDAOImpl.contributeArticle(article);
+	}
+	
+	public void updateContributedArticle(ArticlePojo article) {
+		articleDAOImpl.updateContributeArticle(article.getContributedFrom(), article);
+	}
+	
+	public List<ArticlePojo> searchArticleOfReporter(int reporterId, String searchInput) {
+		return articleDAOImpl.searchArticleOfReporter(reporterId, searchInput);
+	}
+	
+//************************管理员对提交的文章的相应操作********************//
+	public List<ArticlePojo> getContributedArticles(Date s, Date e) {
+		return articleDAOImpl.getContributedArticlesList(s, e);
+	}
+	
+	public void acceptArticle(ArticlePojo article) {
+		articleDAOImpl.acceptArticle(article);
+	} 
+	
+	public void rejectArticle(int id) {
+		articleDAOImpl.rejectArticle(id);
 	}
 }

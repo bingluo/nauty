@@ -61,7 +61,7 @@ public class ReporterDAOImpl extends SqlMapClientDaoSupport implements ReporterD
 		map.put("username", username);
 		map.put("password", password);
 		return (Reporter)getSqlMapClientTemplate().queryForObject(
-				"REPORTER.selectReporterById", map);
+				"REPORTER.selectReporter", map);
 	}
 
 	@Override
