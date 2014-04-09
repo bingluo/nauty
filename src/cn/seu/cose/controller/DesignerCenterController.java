@@ -65,6 +65,9 @@ public class DesignerCenterController extends AbstractController {
 
 		int totalCount = commentService.getCommentCountByRefAndType(designerId,
 				CommentType.DESIGNER.ordinal());
+
+		int worksCount = workService.getWorksCountByDesignerId(designerId);
+		model.addAttribute("worksCount", worksCount);
 		model.addAttribute("pageIndex", pn);
 		model.addAttribute("pageCount",
 				(int) Math.ceil((double) totalCount / 10));
@@ -90,13 +93,14 @@ public class DesignerCenterController extends AbstractController {
 
 		Designer designer = designerService.getDesignerById(designerId);
 		pn = pn == null || pn <= 0 ? 1 : pn;
+		int pageSize = 9;
 		List<WorkPojo> works = workService.getWorkByUserAndPnAndSize(
-				designerId, pn, 9);
+				designerId, pn, pageSize);
 
 		int totalCount = workService.getWorksCountByDesignerId(designerId);
 		model.addAttribute("pageIndex", pn);
 		model.addAttribute("pageCount",
-				(int) Math.ceil((double) totalCount / 10));
+				(int) Math.ceil((double) totalCount / pageSize));
 		model.addAttribute("totalCount", totalCount);
 		StringBuilder sb = new StringBuilder();
 		sb.append(ViewUtil.getContextPath()).append("/designer/")

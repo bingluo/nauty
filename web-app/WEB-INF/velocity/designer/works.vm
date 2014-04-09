@@ -43,24 +43,24 @@
 ================================================== -->
 	#parse("designer/profile-left-bar.vm")
 	<div class="twelve columns tooltips">
-		<div class="headline no-margin"><h4>设计作品 <span class="comments-amount">($!{works.size()})</span></h4></div>
+		<div class="headline no-margin"><h4>设计作品 <span class="comments-amount">($!{totalCount})</span></h4></div>
 	</div>
-	
-	#foreach($work in $works)
-	<div class="four columns">
-    	<div class="picture">
-    		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html">
-    			<img src="$!{viewUtil.getContextPath()}/static/works/$!{work.workPics.get(0)}" alt="$!{work.workName}" style="height:139px">
-    			<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
-    		</a>
-    	</div>
-    	<div class="item-description">
-    		<h5><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html">$!{work.workName}</a></h5>
-    	</div>
-    </div>
-	#end
-	<div class="clear"></div>
-	#parse("common/pagination.vm")
+    	#foreach($work in $works)
+    	<div class="four columns">
+        	<div class="picture">
+        		<a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html">
+        			<img src="$!{viewUtil.getContextPath()}/static/works/$!{work.workPics.get(0)}" alt="$!{work.workName}" style="height:139px">
+        			<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
+        		</a>
+        	</div>
+        	<div class="item-description">
+        		<h5><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html">$!{work.workName}</a></h5>
+        	</div>
+        </div>
+		#end
+		<div class="twelve columns" style="float:right;">
+			#parse("common/pagination.vm")
+		</div>
 </div>
 <!-- 960 Container / End -->
 </div>

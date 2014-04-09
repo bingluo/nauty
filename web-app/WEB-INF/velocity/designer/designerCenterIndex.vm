@@ -43,7 +43,7 @@
 ================================================== -->
 	#parse("designer/profile-left-bar.vm")
 	<div class="twelve columns tooltips">
-		<div class="headline no-margin"><h4>设计作品 <span class="comments-amount">($!{works.size()})</span></h4><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a></div>
+		<div class="headline no-margin"><h4>设计作品 <span class="comments-amount">($!{worksCount})</span></h4><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a></div>
 	</div>
 	<div style="min-height:220px;">
     	#foreach($work in $works)
