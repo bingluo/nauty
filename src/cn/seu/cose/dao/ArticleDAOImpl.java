@@ -129,6 +129,12 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
+	public List<ArticlePojo> getWaitArticlesOfReporter(int reporterId) {
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectWaitArticlesListOfReporter", reporterId);
+	}
+	
+	@Override
 	public List<ArticlePojo> getAcceptArticlesList(int reporterId) {
 		return getSqlMapClientTemplate().queryForList(
 				"ARTICLE.selectAcceptArticlesListOfReporter", reporterId);

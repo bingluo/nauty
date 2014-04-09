@@ -40,6 +40,8 @@ public interface ArticleDAO {
 	// 通讯员相关的文章操作
 	List<ArticlePojo> getContributeArticlesList(int reporterId);
 	
+	List<ArticlePojo> getWaitArticlesOfReporter(int reporterId);
+	
 	List<ArticlePojo> getAcceptArticlesList(int reporterId);
 	
 	List<ArticlePojo> getRejectArticlesList(int reporterId);

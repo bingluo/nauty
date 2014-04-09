@@ -176,6 +176,15 @@
 		]]>
 	</select>
 	
+	<select id="selectWaitArticlesListOfReporter" resultMap="ArticleResultMap" parameterClass="int">
+		<![CDATA[
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
+		FROM ARTICLE a,category b
+		WHERE a.root_cat_id=b.id AND contributed_from = #value# AND status = 0
+		ORDER BY a.post_time DESC
+		]]>
+	</select>
+	
 	<select id="selectAcceptArticlesListOfReporter" resultMap="ArticleResultMap" parameterClass="int">
 		<![CDATA[
 		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status

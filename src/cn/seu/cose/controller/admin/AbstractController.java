@@ -32,6 +32,7 @@ public class AbstractController {
 		if(reporter != null) {
 			model.addAttribute("login_reporter", reporter.getUsername());
 			model.addAttribute("login_reporter_id", reporter.getId());
+			model.addAttribute("reporter", reporter);
 		} else {
 			try {
 				response.sendRedirect(ViewUtil.getContextPath() + "/reporter/login");

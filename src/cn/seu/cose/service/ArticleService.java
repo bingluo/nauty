@@ -169,6 +169,10 @@ public class ArticleService {
 		return articleDAOImpl.getContributeArticlesList(reporterId);
 	}
 	
+	public List<ArticlePojo> getWaitArticlesOfReporter(int reporterId) {
+		return articleDAOImpl.getWaitArticlesOfReporter(reporterId);
+	}
+	
 	public List<ArticlePojo> getAcceptArticlesOfReporter(int reporterId) {
 		return articleDAOImpl.getAcceptArticlesList(reporterId);
 	}

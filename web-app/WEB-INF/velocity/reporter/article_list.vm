@@ -105,6 +105,24 @@
 							<i class="icon-th"></i>
 						</span>
 						<h5>文章列表</h5>
+						<span class="icon">
+							<a href="$!{viewUtil.getContextPath()}/reporter/article_list-${login_reporter_id}" class="btn btn-mini">
+								<i class="icon-user"></i> 全部 ($!{reporter.contributeCount})
+							</a>
+							&nbsp;&nbsp;
+							<a href="$!{viewUtil.getContextPath()}/reporter/article_list_acc-${login_reporter_id}" class="btn btn-mini">
+								<i class="icon-ok"></i> 已采用($!{reporter.acceptCount})
+							</a>
+							&nbsp;&nbsp;
+							<a href="$!{viewUtil.getContextPath()}/reporter/article_list_waiting-${login_reporter_id}" class="btn btn-mini">
+								<i class="icon-forward"></i> 待审核
+							</a>
+							&nbsp;&nbsp;
+							<a href="$!{viewUtil.getContextPath()}/reporter/article_list_rej-${login_reporter_id}" class="btn btn-mini">
+								<i class="icon-remove-sign"></i> 未通过
+							</a>
+							
+						</span>
 					</div>
 					<div class="widget-content padding">
 						<table class="table table-bordered table-striped with-check">

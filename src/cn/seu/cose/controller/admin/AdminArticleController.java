@@ -1,6 +1,5 @@
 package cn.seu.cose.controller.admin;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -9,7 +8,6 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +21,7 @@ import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
+import cn.seu.cose.service.ReporterService;
 import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
@@ -31,6 +30,9 @@ public class AdminArticleController extends AbstractController{
 	private ArticleService articleService; 
 	@Autowired
 	private CategoryService catService;
+	@Autowired
+	private ReporterService reporterService;
+	
 	
 	public static final int PAGE_SIZE = 10;
 	
@@ -257,6 +259,51 @@ public class AdminArticleController extends AbstractController{
 //		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(2, 0)));
 		return "reporter/article_list";
 	}
+	@RequestMapping(value="/reporter/article_list_acc-{id}")
+	public String getAccArticleListOfMe(@PathVariable("id") int reporterId, Model model, HttpServletResponse response) {
+		model.addAttribute("searchInput", "");
+		putReporter(model,response);
+		
+		//List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(2, 1, PAGE_SIZE); // init
+		List<ArticlePojo> list = articleService.getAcceptArticlesOfReporter(reporterId);
+		model.addAttribute("el_list", list);
+		
+//		model.addAttribute("pageIndex", 1);
+//		model.addAttribute("nextPageIndex", 2);
+//		model.addAttribute("prePageIndex", 0);
+//		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(2, 0)));
+		return "reporter/article_list";
+	}
+	@RequestMapping(value="/reporter/article_list_waiting-{id}")
+	public String getWaitArticleListOfMe(@PathVariable("id") int reporterId, Model model, HttpServletResponse response) {
+		model.addAttribute("searchInput", "");
+		putReporter(model,response);
+		
+		//List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(2, 1, PAGE_SIZE); // init
+		List<ArticlePojo> list = articleService.getWaitArticlesOfReporter(reporterId);
+		model.addAttribute("el_list", list);
+		
+//		model.addAttribute("pageIndex", 1);
+//		model.addAttribute("nextPageIndex", 2);
+//		model.addAttribute("prePageIndex", 0);
+//		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(2, 0)));
+		return "reporter/article_list";
+	}
+	@RequestMapping(value="/reporter/article_list_rej-{id}")
+	public String getRejArticleListOfMe(@PathVariable("id") int reporterId, Model model, HttpServletResponse response) {
+		model.addAttribute("searchInput", "");
+		putReporter(model,response);
+		
+		//List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(2, 1, PAGE_SIZE); // init
+		List<ArticlePojo> list = articleService.getRejectArticlesOfReporter(reporterId);
+		model.addAttribute("el_list", list);
+		
+//		model.addAttribute("pageIndex", 1);
+//		model.addAttribute("nextPageIndex", 2);
+//		model.addAttribute("prePageIndex", 0);
+//		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(2, 0)));
+		return "reporter/article_list";
+	}
 	
 	@RequestMapping(value="/reporter/reporter-{id}articles_search-{searchInput}")
 	public String searchArticleListOfMe(@PathVariable("id") int reporterId, @PathVariable("searchInput") String searchInput,
@@ -294,6 +341,9 @@ public class AdminArticleController extends AbstractController{
 		article.setPureText(pure.substring(0, briefLength) + "……");
 		article.setContributedFrom(reporterId);	// reporter贡献的文章
 		articleService.contributeArticle(article);
+		
+		// 增加reporter的贡献率
+		reporterService.incrContribute(reporterId);
 	}
 	
 	@RequestMapping(value="/reporter/alt_contribute-{id}", method=RequestMethod.GET)

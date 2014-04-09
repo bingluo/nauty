@@ -103,13 +103,13 @@ public class ReporterDAOImpl extends SqlMapClientDaoSupport implements ReporterD
 	@Override
 	public void increaseAccept(int id) {
 		getSqlMapClientTemplate().update(
-				"REPOTER.increaseAccept", id);
+				"REPORTER.increaseAccept", id);
 	}
 
 	@Override
 	public void increaseContribute(int id) {
 		getSqlMapClientTemplate().update(
-				"REPOTER.increaseContribute", id);
+				"REPORTER.increaseContribute", id);
 	}
 
 }

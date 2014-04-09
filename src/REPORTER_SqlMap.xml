@@ -126,14 +126,14 @@
 	<update id="increaseAccept" parameterClass="int">
 		<![CDATA[
 		UPDATE REPORTER 
-		SET acceptCount = acceptCount + 1
+		SET accept_count = accept_count + 1
 		]]>
 	</update>
 	
 	<update id="increaseContribute" parameterClass="int">
 		<![CDATA[
 		UPDATE REPORTER 
-		SET contributeCount = contributeCount + 1
+		SET contribute_count = contribute_count + 1
 		]]>
 	</update>
 	
