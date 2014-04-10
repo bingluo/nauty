@@ -11,19 +11,15 @@
 <div id="wrapper">
 <!-- Header
 ================================================== -->
-
 <!-- 960 Container -->
 <div class="container ie-dropdown-fix">
-
 	<!-- Header -->
 	#parse("common/header.vm")
 	<!-- Header / End -->
-	
 	<!-- Navigation -->
 	#parse("common/navi.vm")
 	<!-- Navigation / End -->
 	<div class="sixteen columns">
-	
 		<!-- Page Title -->
 		<div id="page-title">
 			<h2 style="padding: 10px 0 10px 0;"><a href="$!{viewUtil.getContextPath()}/designer" style="color:#333;font-weight:bold;">设计师 </a><span> / <a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}" style="color:#aaa">$!{designer.userName}</a></span></h2>
@@ -33,7 +29,6 @@
 	</div>
 </div>
 <!-- 960 Container / End -->
-
 <!-- Blog Posts
 ================================================== -->
 <!-- 960 Container -->
@@ -42,21 +37,14 @@
 ================================================== -->
 	#parse("designer/profile-left-bar.vm")
     <div class="twelve columns">
-		<div style="font-size:20px;color:#404040;text-align:center;margin-bottom:10px;">$!{work.workName}</div>
+		<div style="font-size:20px;color:#404040;text-align:center;margin-bottom:10px;">$!{blog.title}</div>
 		<div class="post-meta" style="text-align:center;">
-			<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{work.updateTime}")</span>
-			<span><i class="mini-ico-comment"></i>评论 $!{totalCount}</span>
+			<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{blog.updateTime}")</span>
+			<span><i class="mini-ico-comment"></i>评论（$!{totalCount}）</span>
+			<span><i class="mini-ico-comment"></i>阅读（$!{blog.clickCount}）</span>
 		</div>
-		<div class="flexslider home">
-			<ul class="slides">
-				#foreach($workPic in $work.workPics)
-				<li><img src="$!{viewUtil.getContextPath()}/static/works/$!{workPic}" alt="" /></li>
-				#end
-			 </ul>
-		</div>
-		<p>$!{work.intro}</p>
-	
-    	<div class="headline no-margin"><h4>作品评论 <span class="comments-amount">($!{totalCount})</span></h4></div>
+		<div>$!{blog.content}</div>
+    	<div class="headline no-margin"><h4>博文评论 <span class="comments-amount">($!{totalCount})</span></h4></div>
 		<div class="comments-sec">
     		<ol class="commentlist">
 				#foreach($comment in $comments)
@@ -88,7 +76,7 @@
 				#if(!$!{curUser})
 					<input type="button" id="signIn" value="登录">
 				#else
-					<input type="button" id="send" value="发送留言">
+					<input type="button" id="send" value="发送评论">
 				#end
 				<div class="success-message">
 					<div class="notification success closeable four column" id="notification_1" style="display: block;">
@@ -118,7 +106,7 @@
 				$("#messageText").css('background','#ffffff');
 				$.ajax({
 					type: 'POST',
-					url: "$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}/comment",
+					url: "$!{viewUtil.getContextPath()}/designer/$!{designer.id}/blogs/$!{blog.id}/comment",
 					data: {
 						message: $message
 					},
@@ -126,7 +114,7 @@
             			$(".success-message").css('display','block');
             			$("#notification_1").css('display','block');
 						$("send").css('disabled','disabled');
-						location.href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}.html";
+						location.href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/blogs/$!{blog.id}";
 					}
 				});
 			}else{

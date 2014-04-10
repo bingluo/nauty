@@ -22,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.seu.cose.command.MessageCommand;
+import cn.seu.cose.entity.Blog;
 import cn.seu.cose.entity.Comment;
 import cn.seu.cose.entity.CommentPojo;
 import cn.seu.cose.entity.Designer;
 import cn.seu.cose.entity.Work;
 import cn.seu.cose.entity.WorkPojo;
 import cn.seu.cose.filter.SecurityContextHolder;
+import cn.seu.cose.service.BlogService;
 import cn.seu.cose.service.CommentService;
 import cn.seu.cose.service.DesignerService;
 import cn.seu.cose.service.WorkService;
@@ -43,6 +45,8 @@ public class DesignerCenterController extends AbstractController {
 	WorkService workService;
 	@Autowired
 	CommentService commentService;
+	@Autowired
+	BlogService blogService;
 
 	@RequestMapping("/designer/{designerId}")
 	public String designerCenterIndex(Model model,
@@ -501,7 +505,7 @@ public class DesignerCenterController extends AbstractController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/designer/{designerId}/admin/new-blog")
+	@RequestMapping(value = "/designer/{designerId}/admin/new-blog", method = RequestMethod.GET)
 	public String newBlog(Model model,
 			@PathVariable("designerId") int designerId,
 			HttpServletResponse response) {
@@ -522,5 +526,90 @@ public class DesignerCenterController extends AbstractController {
 			e.printStackTrace();
 		}
 		return "designer/newBlog";
+	}
+
+	@RequestMapping(value = "/designer/{designerId}/admin/new-blog", method = RequestMethod.POST)
+	public void newBlogPost(Model model,
+			@PathVariable("designerId") int designerId,
+			@RequestParam("title") String title,
+			@RequestParam("content") String content,
+			@RequestParam("pureText") String pureText,
+			HttpServletResponse response) {
+		try {
+			if (designerService.isTheSignInOne(designerId)) {
+				blogService.newBlog(title, pureText, content, designerId);
+				response.getWriter().write("1");
+			} else {
+				response.getWriter().write("0");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/designer/{designerId}/blogs/{blogId}", method = RequestMethod.GET)
+	public String viewBlog(Model model,
+			@PathVariable("designerId") int designerId,
+			@PathVariable("blogId") int blogId, HttpServletResponse response,
+			@RequestParam(value = "pn", required = false) Integer pn) {
+		try {
+			Blog blog = blogService.getBlogById(blogId);
+			if (blog == null || designerId != blog.getDesignerId()) {
+				response.sendRedirect(ViewUtil.getContextPath() + "/designer");
+				return null;
+			} else {
+				basicIssue(model);
+				model.addAttribute("blog", blog);
+				Designer designer = designerService.getDesignerById(designerId);
+				model.addAttribute("designer", designer);
+
+				pn = pn == null || pn <= 0 ? 1 : pn;
+				int pageSize = 10;
+				List<CommentPojo> comments = commentService
+						.getCommentsByRefAndTypeAndPnAndSize(blogId,
+								CommentType.BLOG.ordinal(), pn, pageSize);
+
+				model.addAttribute("comments", comments);
+				int totalCount = commentService.getCommentCountByRefAndType(
+						blogId, CommentType.BLOG.ordinal());
+				model.addAttribute("pageIndex", pn);
+				model.addAttribute("pageCount",
+						(int) Math.ceil((double) totalCount / pageSize));
+				model.addAttribute("totalCount", totalCount);
+				StringBuilder sb = new StringBuilder();
+				sb.append(ViewUtil.getContextPath()).append("/designer/")
+						.append(designerId).append("/blogs/").append(blogId);
+				model.addAttribute("uri", sb.toString());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "designer/viewBlog";
+	}
+
+	/**
+	 * comment to work in designer center
+	 */
+	@RequestMapping(value = "/designer/{designerId}/blogs/{blogId}/comment", method = RequestMethod.POST)
+	public void commentBlog(Model model, MessageCommand command,
+			HttpServletResponse response,
+			@PathVariable("designerId") int designerId,
+			@PathVariable("blogId") int blogId) {
+		Designer designer = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		if (designer != null) {
+			Comment comment = new Comment();
+			comment.setUserId(designer.getId());
+			comment.setContent(command.getMessage());
+			comment.setReferenceId(blogId);
+			comment.setCommentType(CommentType.BLOG.ordinal());
+			commentService.insertComment(comment);
+		}
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+					+ designerId + "/blogs/" + blogId);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -4,6 +4,12 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
 #parse("common/head.vm")
 <!-- 配置文件 -->
+<script type="text/javascript">
+	window.UEDITOR_HOME_URL = "$viewUtil.getContextPath()/static/ueditor/";
+</script>
+<script type="text/javascript" src="$viewUtil.getContextPath()/static/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="$viewUtil.getContextPath()/static/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" src="$viewUtil.getContextPath()/static/ueditor/lang/zh-cn/zh-cn.js"></script>
 <body>
 <!-- Content
 ================================================== -->
@@ -37,7 +43,30 @@
 ================================================== -->
 	#parse("designer/profile-left-bar.vm")
     <div class="twelve columns">
-		<textarea id="editor" name="content" style="width:700px;height:400px;"></textarea>
+		<div class="headline" style="margin-top:0;"><h3>上传博文</h3></div>
+		<!-- Success Message -->
+		<div class="success-message">
+			<div class="notification success closeable">
+				<p><span>上传失败!</span> 请登陆后再尝试。</p>
+			</div>
+		</div>
+		<div id="blog-form">
+			<form id="blogForm" method="post" action="$!{viewUtil.getContextPath()}/designer/$!{curUser.id}/admin/new-blog">
+				<div class="field">
+					<label>博文标题: <span>*</span></label>
+					<input type="text" name="title" class="text"/>
+				</div>
+				<div class="field">
+					<label>博文内容: <span>*</span></label>
+					<textarea id="container" name="content" class="text textarea"></textarea>
+				</div>
+				<div class="field">
+					<input type="button" id="blogBtn" value="上传" />
+					<div class="loading"></div>
+				</div>
+			</form>
+		</div>
+
 	</div>
 </div>
 <!-- 960 Container / End -->
@@ -48,18 +77,12 @@
 <!-- Footer / End -->
 
 <script language="JavaScript">
-$formAction = $("#pswdForm").attr("action");
+$formAction = $("#blogForm").attr("action");
 $contextPath = "$!{viewUtil.getContextPath()}";
 var designerId = "$!{designer.id}";
+var editor = UE.getEditor('container')
 </script>
 <style>
-	.ke-container{
-		margin-left: 0px;
-	}
-	.ke-photo img{
-		width:80px;
-		height:80px;
-	}
 </style>
 </body>
 </html>

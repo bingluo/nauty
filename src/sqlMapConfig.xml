@@ -28,4 +28,5 @@
 	<sqlMap resource="WORK_SqlMap.xml" />
 	
 	<sqlMap resource="REPORTER_SqlMap.xml" />
+	<sqlMap resource="BLOG_SqlMap.xml" />
 </sqlMapConfig>

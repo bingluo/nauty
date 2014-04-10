@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="BLOG">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="blog" type="cn.seu.cose.entity.Blog" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="BlogResultMap" class="blog">
+		<result property="id" column="ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="pureContent" column="PURE_CONTENT"/>
+		<result property="content" column="CONTENT"/>
+		<result property="designerId" column="DESIGNER_ID"/>
+		<result property="updateTime" column="UPDATE_TIME"/>
+		<result property="clickCount" column="CLICK_COUNT"/>
+		<result property="archived" column="ARCHIVED"/>
+	</resultMap>
+
+	<select id="selectBlogByBlogId" resultMap="BlogResultMap" parameterClass="int">		
+		<![CDATA[
+        	SELECT *
+        	FROM blog
+			WHERE id = #value#
+		]]>
+	</select>
+
+	<insert id="insertBlog" parameterClass="blog">		
+		<![CDATA[
+        	INSERT INTO blog
+			(title,pure_content,content,designer_id,update_time)
+    		VALUES (#title#,#pureContent#,#content#,#designerId#,current_timestamp())
+		]]>
+	</insert>
+	
+	<update id="archiveBlog" parameterClass="int">
+		<![CDATA[
+			UPDATE blog
+			SET archived = 1,
+			WHERE id = #id#
+		]]>
+	</update>
+	
+	<update id="updateBlog" parameterClass="blog">
+		<![CDATA[
+			UPDATE blog
+			SET title = #title#,
+			pure_content = #pureContent#,
+			content = #content#,
+			update_time = current_timestamp(),
+			WHERE id = #id#
+		]]>
+	</update>
+	
+	<update id="addClickCount" parameterClass="int">
+		<![CDATA[
+			UPDATE blog
+			SET click_count = #clickCount#+1,
+			WHERE id = #id#
+		]]>
+	</update>
+</sqlMap>

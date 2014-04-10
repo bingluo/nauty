@@ -678,6 +678,85 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 })();
 
 /*----------------------------------------------------*/
+/*	Profile Form
+/*----------------------------------------------------*/
+(function() {
+	function validateTitle(title) {
+		if (title.val()=='') {title.addClass('validation-error'); return false;}
+		else {title.removeClass('validation-error'); return true;}
+	}
+	function validateContent(content) {
+		if (content.val()=='') {content.addClass('validation-error'); return false;}
+		else {content.removeClass('validation-error'); return true;}
+	}
+				
+	$('#blogBtn').click(function() {
+	
+		var result=true;
+		
+		var title = $('input[name=title]');
+		var content = $('textarea[name=content]');
+				
+		// Validate
+		if(!validateTitle(title)) result=false;
+		if(!validateContent(content)) result=false;
+		
+		if(result==false) return false;
+				
+		// Data
+		var data = 'title=' + title.val() + '&content=' + content.val()+'&pureText='+editor.getContentTxt();
+		
+		// Disable fields
+		$('.text').attr('disabled','true');
+		
+		// Loading icon
+		$('.loading').show();
+		
+		// Start jQuery
+		$.ajax({
+		
+			// PHP file that processes the data and send mail
+			url: $formAction,	
+			
+			// POST method is used
+			type: "POST",
+
+			// Pass the data			
+			data: data,		
+			
+			//Do not cache the page
+			cache: false,
+			
+			// Success
+			success: function (html) {				
+			
+				if (html==1) {	
+
+					// Loading icon
+					$('.loading').fadeOut('slow');	
+											
+					// Disable register button
+					$('#blogBtn').attr('disabled',true);
+					
+					location.href=$contextPath+"/designer/"+designerId+"/blogs";
+					
+				}else {
+					$('.loading').fadeOut('slow')
+						
+					//show the success message
+					$('.success-message').slideDown('slow');
+				}
+			}		
+		});
+	
+		return false;
+		
+	});
+		
+	$('input[name=title]').blur(function(){validateTitle($(this)); });
+	$('textarea[name=content]').blur(function(){validateContent($(this));});
+})();
+/*----------------------------------------------------*/
 /*	Isotope Portfolio Filter
 /*----------------------------------------------------*/
 

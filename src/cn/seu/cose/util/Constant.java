@@ -15,6 +15,6 @@ public class Constant {
 	public static final String mailServer = "smtp.163.com";
 
 	public enum CommentType {
-		ARTICLE, ACTIVITY_NEWS, ACTIVITY_PHOTO, WORK, DESIGNER;
+		ARTICLE, ACTIVITY_NEWS, ACTIVITY_PHOTO, WORK, DESIGNER, BLOG;
 	}
 }
