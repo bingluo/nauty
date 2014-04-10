@@ -128,7 +128,7 @@
 						<table class="table table-bordered table-striped with-check">
 							<thead>
 								<tr>
-									<th style="width:6%">ID</th>
+									<th style="width:6%">编号</th>
 									<th style="width:40%">文章标题</th>
 									<th style="width:25%">提交/采纳时间</th>
 									<th style="width:10%">状态</th>

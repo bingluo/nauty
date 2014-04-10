@@ -232,7 +232,25 @@
 		<![CDATA[
 		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
 		FROM ARTICLE a,category b
-		WHERE a.root_cat_id=b.id AND status = 1 AND post_time >= #startTime# AND post_time <= #endTime#
+		WHERE a.root_cat_id=b.id AND post_time >= #startTime# AND post_time <= #endTime#
+		ORDER BY a.post_time DESC
+		]]>
+	</select>
+	
+	<select id="selectAcceptArticlesListToAdmin" resultMap="ArticleResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
+		FROM ARTICLE a,category b
+		WHERE a.root_cat_id=b.id AND post_time >= #startTime# AND post_time <= #endTime#
+		ORDER BY a.post_time DESC
+		]]>
+	</select>
+	
+	<select id="selectWaitingArticlesListToAdmin" resultMap="ArticleResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT a.id,a.title,a.subhead,a.cat_id,a.root_cat_id,a.content,a.pure_text,a.from,a.post_time,b.uri_name, a.contributed_from, a.status
+		FROM ARTICLE a,category b
+		WHERE a.root_cat_id=b.id AND status = 0 AND post_time >= #startTime# AND post_time <= #endTime#
 		ORDER BY a.post_time DESC
 		]]>
 	</select>

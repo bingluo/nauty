@@ -198,6 +198,14 @@ public class ArticleService {
 		return articleDAOImpl.getContributedArticlesList(s, e);
 	}
 	
+	public List<ArticlePojo> getWaitingArticles(Date s, Date e) {
+		return articleDAOImpl.getWaitingArticlesList(s, e);
+	}
+	
+	public List<ArticlePojo> getAcceptArticles(Date s, Date e) {
+		return articleDAOImpl.getAcceptArticlesList(s, e);
+	}
+	
 	public void acceptArticle(ArticlePojo article) {
 		articleDAOImpl.acceptArticle(article);
 	} 

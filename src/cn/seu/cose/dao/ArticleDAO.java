@@ -56,6 +56,10 @@ public interface ArticleDAO {
 	// 管理员对通讯员contribute的文章的相关操作
 	List<ArticlePojo> getContributedArticlesList(Date s, Date e);
 	
+	List<ArticlePojo> getWaitingArticlesList(Date s, Date e);
+	
+	List<ArticlePojo> getAcceptArticlesList(Date s, Date e);
+	
 	List<ArticlePojo> getContributedArticlesListByReporter(String username);
 	
 		// 管理员可以在accept的时候对文章做少量修改

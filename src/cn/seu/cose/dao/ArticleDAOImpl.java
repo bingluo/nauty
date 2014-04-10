@@ -160,6 +160,22 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"ARTICLE.selectContributeArticlesListToAdmin", map);
 	}
+	@Override
+	public List<ArticlePojo> getWaitingArticlesList(Date s, Date e) {
+		HashMap<String, Date> map = new HashMap<String, Date>();
+		map.put("startTime", s);
+		map.put("endTime", e);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectWaitingArticlesListToAdmin", map);
+	}
+	@Override
+	public List<ArticlePojo> getAcceptArticlesList(Date s, Date e) {
+		HashMap<String, Date> map = new HashMap<String, Date>();
+		map.put("startTime", s);
+		map.put("endTime", e);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectAcceptArticlesListToAdmin", map);
+	}
 
 	@Override
 	public List<ArticlePojo> getContributedArticlesListByReporter(
@@ -167,7 +183,7 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"ARTICLE.selectContributedArticlesListByReporter", username);
 	}
-
+	
 	@Override
 	public void rejectArticle(int id) {
 		getSqlMapClientTemplate().update(

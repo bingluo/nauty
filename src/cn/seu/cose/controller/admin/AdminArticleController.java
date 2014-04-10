@@ -377,4 +377,36 @@ public class AdminArticleController extends AbstractController{
 	}
 	
 	
+//***************************管理员对通讯员的相关的文章操作*******************************//	
+	@RequestMapping(value="/admin/articles_list_{type}-{start}-{end}")
+	public String getWaitingList(@PathVariable("type") String type, @PathVariable("start") Date start, @PathVariable("end") Date end, Model model, HttpServletResponse response) {
+		List<ArticlePojo> list = null;
+		if (type.equals("waiting")) {
+			list = articleService.getWaitingArticles(start, end);
+		} else if (type.equals("contribute")) {
+			list = articleService.getContributedArticles(start, end);
+		} else if (type.equals("accept")) {
+			list = articleService.getAcceptArticles(start, end);
+		}
+		putAdmin(model, response);
+		model.addAttribute("el_list", list);
+		return "admin_articles_waiting";
+	}
+	
+	
+	@RequestMapping(value="/admin/preview-{id}", method=RequestMethod.GET)
+	public String previewContributedArticle() {
+		
+		return "admin_articles_preview";
+	}
+	@RequestMapping(value="/admin/accept", method=RequestMethod.POST)
+	public void acceptArticle() {
+		
+	}
+	@RequestMapping(value="/admin/reject", method=RequestMethod.POST)
+	public void rejectArticle() {
+		
+	}
+	
+	
 }
