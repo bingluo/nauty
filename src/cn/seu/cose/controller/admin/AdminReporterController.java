@@ -1,6 +1,7 @@
 package cn.seu.cose.controller.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import cn.seu.cose.entity.Reporter;
 import cn.seu.cose.filter.SecurityContextHolder;
@@ -78,10 +81,11 @@ public class AdminReporterController extends AbstractController{
 		return "/reporter/change_info";
 	}
 	@RequestMapping(value="/reporter/changeinfo", method=RequestMethod.POST)
-	public void changeInfo(@RequestParam("username") String username, @RequestParam("password") String password,
+	public void changeInfo(@RequestParam("id") int id, @RequestParam("username") String username, @RequestParam("password") String password,
 			@RequestParam("email") String email, @RequestParam("phone") String phone, Model model, HttpServletResponse response) {
 		// ！真名无法修改
 		Reporter reporter = new Reporter();
+		reporter.setId(id);
 		reporter.setUsername(username);
 		reporter.setPassword(password);
 		reporter.setEmail(email);
@@ -175,5 +179,20 @@ public class AdminReporterController extends AbstractController{
 	public String about(Model model, HttpServletResponse response) {
 		putReporter(model, response);
 		return "reporter/about";
+	}
+	
+	@RequestMapping("reporter/checkUsername")
+	public void checkUsername(@RequestParam("username") String username, Model model, HttpServletResponse response) {
+		Reporter reporter = reporterService.getReporterByUsername(username);
+		int occupied = 1;
+		if (reporter == null) {
+			occupied = 0;
+		} 
+		try {
+			PrintWriter out = response.getWriter();
+			out.print("{\"occupied\":\"" + occupied + "\"}");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

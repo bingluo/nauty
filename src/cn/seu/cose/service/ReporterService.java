@@ -45,6 +45,9 @@ public class ReporterService {
 	public Reporter getReporterById(int id) {
 		return reporterDAOImpl.getReporterById(id);
 	}
+	public Reporter getReporterByUsername(String username) {
+		return reporterDAOImpl.getReporterByUsername(username);
+	}
 	
 	// get所有通讯员
 	public List<Reporter> getAllReportersList() {

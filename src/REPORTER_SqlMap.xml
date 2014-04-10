@@ -70,7 +70,15 @@
 		<![CDATA[
     		SELECT * 
     		FROM REPORTER
-    		WHERE username=#username# AND password=#password#
+    		WHERE username=#username# AND password=#password# LIMIT 1
+		]]>
+	</select>
+	
+	<select id="selectReporterByUsername" resultMap="ReporterResultMap" parameterClass="string">
+		<![CDATA[
+    		SELECT * 
+    		FROM REPORTER
+    		WHERE username=#value# LIMIT 1
 		]]>
 	</select>
 	
@@ -111,9 +119,9 @@
 		UPDATE REPORTER
 		SET username = #username#,
 			password = #password#,
-			name = #name#,
 			email = #email#,
 			phone = #phone#
+		WHERE id = #id#
 		]]>
 	</update>
 	

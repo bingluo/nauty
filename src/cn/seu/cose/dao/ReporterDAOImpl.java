@@ -54,6 +54,12 @@ public class ReporterDAOImpl extends SqlMapClientDaoSupport implements ReporterD
 		return (Reporter)getSqlMapClientTemplate().queryForObject(
 				"REPORTER.selectReporterById", id);
 	}
+	
+	@Override
+	public Reporter getReporterByUsername(String username) {
+		return (Reporter) getSqlMapClientTemplate().queryForObject(
+				"REPORTER.selectReporterByUsername", username);
+	}
 
 	@Override
 	public Reporter getReporter(String username, String password) {

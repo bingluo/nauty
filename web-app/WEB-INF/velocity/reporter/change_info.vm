@@ -75,7 +75,7 @@
 									<div class="control-group">
 										<label class="control-label">确认密码</label>
 										<div class="controls">
-											<input id="password2" type="password" name="password2" />
+											<input id="password2" type="password" name="password2" value="$!{reporter.password}"/>
 										</div>
 									</div>
 									<div class="control-group">
@@ -110,18 +110,19 @@
     
  <script type="text/javascript">
  	$(document).ready(function() {
-		$("#username").parent().parent().removeClass("error");
-		$("#req_username").remove();
-		$("#password").parent().parent().removeClass("error");
-		$("#req_password").remove();
-		$("#password2").parent().parent().removeClass("error");
-		$("#req_password2").remove();
-		$("#email").parent().parent().removeClass("error");
-		$("#req_email").remove();
-		$("#phone").parent().parent().removeClass("error");
-		$("#req_phone").remove();
 
 		$("#register_btn").bind("click", function() {
+			$("#username").parent().parent().removeClass("error");
+			$("#req_username").remove();
+			$("#password").parent().parent().removeClass("error");
+			$("#req_password").remove();
+			$("#password2").parent().parent().removeClass("error");
+			$("#req_password2").remove();
+			$("#email").parent().parent().removeClass("error");
+			$("#req_email").remove();
+			$("#phone").parent().parent().removeClass("error");
+			$("#req_phone").remove();
+		
 			var _username = $("#username").val();
 			var _password = $("#password").val();
 			var _password2 = $("#password2").val();
@@ -151,7 +152,7 @@
 				$.ajax({
 					url: "$!{viewUtil.getContextPath()}/reporter/changeinfo",
 					type: "post",
-					data: {username:_username, password:_password, email:_email, phone:_phone},
+					data: {id:${login_reporter_id}, username:_username, password:_password, email:_email, phone:_phone},
 					dataType: "html",
 					success:function(data){
 						window.location.href = "$!{viewUtil.getContextPath()}/reporter/login";

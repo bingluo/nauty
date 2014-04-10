@@ -91,20 +91,21 @@
     
  <script type="text/javascript">
  	$(document).ready(function() {
- 			$("#username").parent().parent().removeClass("error");
-			$("#req_username").remove();
-			$("#password").parent().parent().removeClass("error");
-			$("#req_password").remove();
-			$("#password2").parent().parent().removeClass("error");
-			$("#req_password2").remove();
-			$("#name").parent().parent().removeClass("error");
-			$("#req_name").remove();
-			$("#email").parent().parent().removeClass("error");
-			$("#req_email").remove();
-			$("#phone").parent().parent().removeClass("error");
-			$("#req_phone").remove();
- 	
  			$("#register_btn").bind("click", function() {
+	 			$("#username").parent().parent().removeClass("error");
+				$("#req_username").remove();
+				$("#password").parent().parent().removeClass("error");
+				$("#req_password").remove();
+				$("#password2").parent().parent().removeClass("error");
+				$("#req_password2").remove();
+				$("#name").parent().parent().removeClass("error");
+				$("#req_name").remove();
+				$("#email").parent().parent().removeClass("error");
+				$("#req_email").remove();
+				$("#phone").parent().parent().removeClass("error");
+				$("#req_phone").remove();
+ 				
+ 				
  				var _username = $("#username").val();
  				var _password = $("#password").val();
  				var _password2 = $("#password2").val();
@@ -135,18 +136,36 @@
 					$("#password2").parent().parent().addClass("error");
 					$("#password2").parent().append('<span id="req_password2" for="required" generated="true" class="help-inline">两次密码输入不一致</span>');
  				} else {
+ 					var occupied = 1;
  					$.ajax({
-						url: "$!{viewUtil.getContextPath()}/reporter/register",
-						type: "post",
-						data: {username:_username, password:_password, name:_name, email:_email, phone:_phone},
-						dataType: "html",
-						success:function(data){
-							window.location.href = "$!{viewUtil.getContextPath()}/reporter/login";
-						},
-						error:function(){
-							window.location.href = "$!{viewUtil.getContextPath()}/reporter/register";
-						}
-					});
+ 						url: "$!{viewUtil.getContextPath()}/reporter/checkUsername",
+ 						type: "post",
+ 						data: {username: _username},
+ 						dataType: "json",
+ 						success:function(data) {
+ 							occupied = data.occupied;	// 判断用户名是否已经存在，如果存在提示更改注册用户名
+ 							if(occupied == 0) {
+	 							$.ajax({
+									url: "$!{viewUtil.getContextPath()}/reporter/register",
+									type: "post",
+									data: {username:_username, password:_password, name:_name, email:_email, phone:_phone},
+									dataType: "html",
+									success:function(data){
+										window.location.href = "$!{viewUtil.getContextPath()}/reporter/login";
+									},
+									error:function(){
+										window.location.href = "$!{viewUtil.getContextPath()}/reporter/register";
+									}
+								});
+ 							} else {
+ 								$("#username").parent().parent().addClass("error");
+								$("#username").parent().append('<span id="req_username" for="required" generated="true" class="help-inline">用户名被占用,换一个试试^_^</span>');		
+ 							}
+ 						},
+ 						error:function(data){
+ 							window.location.href = "$!{viewUtil.getContextPath()}/reporter/register";
+ 						}
+ 					});
  				}
  				
  			});
