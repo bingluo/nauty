@@ -1,0 +1,250 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")	
+<script src="$!{viewUtil.getContextPath()}/static/js/jquery.chosen.js"></script>
+
+<div id="content">
+	<div id="content-header">
+		<h1>稿件管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">稿件管理</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-content nopadding">
+					<div class="control-group">
+						<div class="controls">
+							<input style="" type="text" value="$!searchInput" placeHolder="稿件检索" id="search_input"/>
+							&nbsp;
+							<span style="" margin-left:10px; margin-right:20px" class="icon" id="search_article_btn">
+								<a href="javascript:void(0)" class="btn btn-success btn" style="vertical-align:middle; margin-top:-7px;">
+									&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
+								</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-th"></i>
+						</span>
+						<h5>稿件列表</h5>
+						<span class="icon" id="add_display_btn">
+							<a id="del_multi_btn" href="javascript:void(0)" class="btn btn-inverse btn-mini">
+								<i class="icon-remove icon-white"></i>批量删除
+							</a>
+						</span>
+					</div>
+					<div class="widget-content padding">
+						<table class="table table-bordered table-striped with-check">
+							<thead>
+								<tr>
+									<th style="width:4%"><a href="javascript:void(0)"><span class="label label-info" id="check_all">全选</span></a></th>
+									<th style="width:6%">ID</th>
+									<th>文章标题</th>
+									<th>发稿人</th>
+									<th style="width:15%">提交时间</th>
+									<th>状态</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								#foreach($el in $el_list)
+									<tr>
+										<td>
+											<input type="checkbox" style="margin-left:13px;width:18px;height:18px;" class="check_item"/>
+										</td>
+										<td>$el.id</td>
+										<td title="$el.title">$el.title</td>
+										<td>$el.contributedFrom</td>
+										#if($el.status == 0)
+											<td title='$viewUtil.fTime("$el.postTime")'>$viewUtil.fTime("$el.postTime")（提交）</td>
+											<td><span class="label label-info"><i class="icon-forward icon-white"></i> 待审核<span></td>
+										#elseif($el.status == -1)
+											<td title='$viewUtil.fTime("$el.postTime")'>$viewUtil.fTime("$el.postTime")（提交）</td>
+											<td><span class="label label-inverse"><i class="icon-remove-sign icon-white"></i> 未通过<span></td>
+										#elseif ($el.status == 1)
+											<td title='$viewUtil.fTime("$el.postTime")'>$viewUtil.fTime("$el.postTime")（通过）</td>
+											<td><span class="label label-success"><i class="icon-ok-sign icon-white"></i> 已采用<span></td>
+										#end
+										<td>
+											<a href="$!{viewUtil.getContextPath()}/admin/preview-${el.id}" class="btn btn-info" title="查看" id="alter_btn"><i class="icon-tag icon-white"></i>查看</a>
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除</button>
+										</td>
+									</tr>
+								#end
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
+
+<div style="display:none" id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定删除？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_del">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
+	</div>
+</div>
+
+<div style="display:none" id="del_multi_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定批量删除？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_del_multi">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del_multi">否</button>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$("#sidebar_li_10").siblings().removeClass('active')
+	$("#sidebar_li_10").addClass('active');
+	var context_path = $("#context_path").val();
+	
+	$(document).ready(function(){
+		$("#del_dialog").css("display","none");
+		
+		// global
+		var articleId = -1; 
+	
+		$("#search_article_btn").bind("click", function(){
+			var search_input = $("#search_input").val().trim();
+			if(search_input == "") {
+				$("#search_input").css("border-color", "red");
+				$("#search_input").attr("placeHolder", "请输入搜索内容");
+			} else if(search_input.length > 10) {
+				$("#search_input").css("border-color", "red");
+				$("#search_input").css("color", "red");
+				$("#search_input").val("");
+				$("#search_input").attr("placeHolder", "搜索内容过长");
+			} else {
+				window.location.href = context_path + "/admin/article_list_search-" + search_input;
+			}
+			
+		});
+		
+		// show del_dialog
+		$("button[id='del_btn']").bind("click", function(){
+			articleId = $(this).parents("tr").find("td:eq(1)").html().trim();
+			if(!$.browser.msie) {
+				$("#del_dialog").css("display","block");
+				$("#del_dialog").modal("show");
+				
+			} else {
+				alert("已删除文章");
+				$.ajax({
+					url: context_path + "/admin/del_article",
+					type: "post",
+					data: {id:articleId},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("删除错误，请重试！");
+					}
+				});
+			}
+			
+		});
+		// yes_del
+		$("#yes_del").bind("click", function(){
+			$.ajax({
+				url: context_path + "/admin/del_article",
+				type: "post",
+				data: {id:articleId},
+				dataType: "html",
+				success:function(data){
+					$("#del_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#del_dialog").modal("hide");
+					alert("删除错误，请重试！");
+				}
+			});
+		});
+		
+		
+	/***************************批量删除*****************************/
+	
+	$("#check_all").bind("click", function() {
+		if($("input:checked").length == 0) {
+			$("[type='checkbox']").attr("checked",'true');//全选
+			$("#check_all").html("取消");
+		} else {
+			$("[type='checkbox']").removeAttr("checked"); //取消
+			$("#check_all").html("全选");
+		}
+	});
+	
+	
+	var id_array = "";
+	$("#del_multi_btn").bind("click", function(){
+		if($("input:checked").length == 0) {
+			alert("请选择需要批量删除的文章");
+			return;
+		}
+	
+		$("input:checked").each(function(){
+			var id = $(this).parents("tr").find("td:eq(1)").html().trim();
+			id_array += id + "-";
+		});
+		
+		if(!$.browser.msie) {
+			$("#del_multi_dialog").css("display","block");
+			$("#del_multi_dialog").modal("show");
+			
+		} else {
+			alert("已批量删除文章");
+			$.ajax({
+				url: context_path + "/admin/del_articles",
+				type: "post",
+				data: {ids:id_array},
+				dataType: "html",
+				success:function(data){
+					location.reload();
+				},
+				error:function(){
+					alert("批量删除错误，请重试！");
+				}
+			});
+		}
+		
+	});
+	
+	$("#yes_del_multi").bind("click", function(){
+		$.ajax({
+			url: context_path + "/admin/del_articles",
+			type: "post",
+			data: {ids:id_array},
+			dataType: "html",
+			success:function(data){
+				location.reload();
+			},
+			error:function(){
+				alert("批量删除错误，请重试！");
+			}
+		});
+	});
+	
+	
+	
+	});
+</script>
+#parse("admin_footer.vm")

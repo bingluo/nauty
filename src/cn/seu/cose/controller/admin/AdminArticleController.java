@@ -1,15 +1,18 @@
 package cn.seu.cose.controller.admin;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +26,7 @@ import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
+import cn.seu.cose.service.ReporterService;
 import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
@@ -31,6 +35,9 @@ public class AdminArticleController extends AbstractController{
 	private ArticleService articleService; 
 	@Autowired
 	private CategoryService catService;
+	@Autowired
+	private ReporterService reporterService;
+	
 	
 	public static final int PAGE_SIZE = 10;
 	
@@ -52,7 +59,7 @@ public class AdminArticleController extends AbstractController{
 		
 		int catId = subCatId<=0 ? topCatId : subCatId;
 		int index = pageIndex<=0 ? 1 : pageIndex;
-		List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(catId, index, PAGE_SIZE);
+		List<ArticlePojo> list = articleService.getAdminArticleByCatIdAndPageIndexAndPageSize(catId, index, PAGE_SIZE);
 		model.addAttribute("article_list", list);
 		
 		model.addAttribute("topCatId", topCatId);
@@ -240,5 +247,220 @@ public class AdminArticleController extends AbstractController{
 		}
 		return pure;
 	}
+	
+//***************************通讯员相关的文章操作*******************************//
+	@RequestMapping(value="/reporter/article_list-{id}")
+	public String getArticleListOfMe(@PathVariable("id") int reporterId, Model model, HttpServletResponse response) {
+		model.addAttribute("searchInput", "");
+		putReporter(model,response);
+		
+		//List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(2, 1, PAGE_SIZE); // init
+		List<ArticlePojo> list = articleService.getContributedArticlesOfReporter(reporterId);
+		model.addAttribute("el_list", list);
+		
+//		model.addAttribute("pageIndex", 1);
+//		model.addAttribute("nextPageIndex", 2);
+//		model.addAttribute("prePageIndex", 0);
+//		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(2, 0)));
+		return "reporter/article_list";
+	}
+	@RequestMapping(value="/reporter/article_list_{type}-{id}")
+	public String getAccArticleListOfMe(@PathVariable("type") String type, @PathVariable("id") int reporterId, Model model, HttpServletResponse response) {
+		model.addAttribute("searchInput", "");
+		putReporter(model,response);
+		
+		//List<ArticlePojo> list = articleService.getArticleByCatIdAndPageIndexAndPageSize(2, 1, PAGE_SIZE); // init
+		List<ArticlePojo> list= null;
+		if (type.equals("acc")) {
+			list = articleService.getAcceptArticlesOfReporter(reporterId);
+		} else if (type.equals("waiting")) {
+			list = articleService.getWaitArticlesOfReporter(reporterId);
+		} else if (type.equals("rej")) {
+			list = articleService.getRejectArticlesOfReporter(reporterId);
+		}
+		
+		model.addAttribute("el_list", list);
+		
+//		model.addAttribute("pageIndex", 1);
+//		model.addAttribute("nextPageIndex", 2);
+//		model.addAttribute("prePageIndex", 0);
+//		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(2, 0)));
+		return "reporter/article_list";
+	}
+	
+	@RequestMapping(value="/reporter/reporter-{id}articles_search-{searchInput}")
+	public String searchArticleListOfMe(@PathVariable("id") int reporterId, @PathVariable("searchInput") String searchInput,
+			Model model, HttpServletResponse response) {
+		model.addAttribute("searchInput", searchInput);
+		putReporter(model,response);
+		List<ArticlePojo> list = articleService.searchArticleOfReporter(reporterId, searchInput);
+		model.addAttribute("el_list", list);
+		return "reporter/article_list";
+	}
+	
+	
+	@RequestMapping(value="/reporter/contribute", method=RequestMethod.GET)
+	public String getContribute(Model model, HttpServletResponse response) {
+		putReporter(model, response);
+		return "reporter/contribute_article";
+	}
+	@RequestMapping(value="/reporter/contribute", method=RequestMethod.POST)
+	public void postContribute(@RequestParam("title") String title, @RequestParam("subhead") String subhead,
+			@RequestParam("content") String content, @RequestParam("pure") String pure, @RequestParam("contributed_from") int reporterId,
+			HttpServletResponse response) {
+		
+		int catId = 16;
+		int rootCatId = 2;
+		
+		ArticlePojo article = new ArticlePojo();
+		article.setTitle(title);
+		article.setSubhead(subhead);
+		article.setCatId(catId);
+		article.setRootCatId(rootCatId);
+		article.setContent(content);
+		article.setPostTime(new Date());
+		pure = wrapPure(pure);
+		int briefLength = pure.length() > 100 ? 100 : pure.length();
+		article.setPureText(pure.substring(0, briefLength) + "……");
+		article.setContributedFrom(reporterId);	// reporter贡献的文章
+		articleService.contributeArticle(article);
+		
+		// 增加reporter的贡献率
+		reporterService.incrContribute(reporterId);
+	}
+	
+	@RequestMapping(value="/reporter/alt_contribute-{id}", method=RequestMethod.GET)
+	public String getAlt(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+		putReporter(model, response);
+		ArticlePojo article = articleService.getArticleById(id);
+		model.addAttribute("el", article);
+		return "/reporter/alt_article";
+	}
+	@RequestMapping(value="/reporter/alt_contribute", method=RequestMethod.POST)
+	public void postAlt(@RequestParam("id") int id, @RequestParam("title") String title, @RequestParam("subhead") String subhead,
+			@RequestParam("content") String content, @RequestParam("pure") String pure, @RequestParam("contributed_from") int reporterId,
+			HttpServletResponse response) {
+		
+		int catId = 17;
+		int rootCatId = 2;
+		
+		ArticlePojo article = new ArticlePojo();
+		article.setId(id);
+		article.setTitle(title);
+		article.setSubhead(subhead);
+		article.setCatId(catId);
+		article.setRootCatId(rootCatId);
+		article.setContent(content);
+		article.setPostTime(new Date());
+		pure = wrapPure(pure);
+		int briefLength = pure.length() > 100 ? 100 : pure.length();
+		article.setPureText(pure.substring(0, briefLength) + "……");
+		article.setContributedFrom(reporterId);	// reporter贡献的文章
+		articleService.updateContributedArticle(article);
+	}
+	
+	
+//***************************管理员对通讯员的相关的文章操作*******************************//	
+	@RequestMapping(value="/admin/contribute_list_{type}_{start}_{end}")
+	public String getContributeList(@PathVariable("type") String type, @PathVariable("start") String s, @PathVariable("end") String e, Model model, HttpServletResponse response) {
+		List<ArticlePojo> list = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		Date start = null;
+		Date end = null;
+		try {
+			start = sdf.parse(s);
+			end = sdf.parse(e);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if (type.equals("waiting")) {
+			list = articleService.getWaitingArticles(start, end);
+		} else if (type.equals("all")) {
+			list = articleService.getContributedArticles(start, end);
+		} else if (type.equals("accept")) {
+			list = articleService.getAcceptArticles(start, end);
+		}
+		putAdmin(model, response);
+		model.addAttribute("el_list", list);
+		return "admin_articles_fromreporter";
+	}
+	
+	@RequestMapping(value="/admin/{id}_contribute_list_{type}")
+	public String getReporterContributeList(@PathVariable("type") String type, @PathVariable("id") int reporterId,
+			Model model, HttpServletResponse response) {
+		List<ArticlePojo> list = null;
+		if (type.equals("waiting")) {
+			list = articleService.getWaitArticlesOfReporter(reporterId);
+		} else if (type.equals("all")) {
+			list = articleService.getContributedArticlesOfReporter(reporterId);
+		} else if (type.equals("accept")) {
+			list = articleService.getAcceptArticlesOfReporter(reporterId);
+		}
+		putAdmin(model, response);
+		model.addAttribute("el_list", list);
+		return "admin_articles_fromreporter";
+	}
+	
+	@RequestMapping("/admin/contribute_list")
+	public void defaultContributeDirect(Model model, HttpServletResponse response) {
+		Calendar cal = Calendar.getInstance(Locale.CHINA);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String end = sdf.format(cal.getTime());
+		cal.add(Calendar.DATE, -7);
+		String start = sdf.format(cal.getTime());
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/contribute_list_waiting_" + start + "_" + end);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@RequestMapping(value="/admin/preview-{id}", method=RequestMethod.GET)
+	public String previewContributedArticle(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
+		ArticlePojo article = articleService.getArticleById(id);
+		model.addAttribute("el", article);
+		
+		/* get cats */
+		List<CategoryPojo> categories = catService.getRootCategories();
+		model.addAttribute("top_cat_list", categories);
+		categories = catService.getCategoriesByParentId(article.getRootCatId());
+		model.addAttribute("init_sub_cat_list" ,categories);
+		return "admin_articles_preview";
+	}
+	
+	@RequestMapping(value="/admin/accept", method=RequestMethod.POST)
+	public void acceptArticle(@RequestParam("id") String idStr, @RequestParam("title") String title, @RequestParam("subhead") String subhead,
+			@RequestParam("catId") String catIdStr, @RequestParam("rootCatId") String rootCatIdStr,
+			@RequestParam("content") String content, @RequestParam("from") String from, @RequestParam("pure") String pure, @RequestParam("contributedFrom") int contributedFrom,
+			HttpServletResponse response) {
+		ArticlePojo article = new ArticlePojo();
+		article.setId(Integer.parseInt(idStr));
+		article.setTitle(title);
+		article.setSubhead(subhead);
+		article.setCatId(Integer.parseInt(catIdStr));
+		article.setRootCatId(Integer.parseInt(rootCatIdStr));
+		article.setContent(content);
+		article.setFrom(from);
+		article.setPostTime(new Date());
+		article.setContributedFrom(contributedFrom); // no use in SQL
+		pure = wrapPure(pure);
+		int briefLength = pure.length() > 100 ? 100 : pure.length();
+		article.setPureText(pure.substring(0, briefLength) + "……");
+		articleService.acceptArticle(article);
+		reporterService.incrAccept(contributedFrom);
+	}
+	@RequestMapping(value="/admin/reject-{id}", method=RequestMethod.GET)
+	public void rejectArticle(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+		articleService.rejectArticle(id);
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/contribute_list");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 }

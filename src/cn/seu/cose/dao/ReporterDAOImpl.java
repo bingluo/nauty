@@ -54,6 +54,12 @@ public class ReporterDAOImpl extends SqlMapClientDaoSupport implements ReporterD
 		return (Reporter)getSqlMapClientTemplate().queryForObject(
 				"REPORTER.selectReporterById", id);
 	}
+	
+	@Override
+	public Reporter getReporterByUsername(String username) {
+		return (Reporter) getSqlMapClientTemplate().queryForObject(
+				"REPORTER.selectReporterByUsername", username);
+	}
 
 	@Override
 	public Reporter getReporter(String username, String password) {
@@ -61,7 +67,7 @@ public class ReporterDAOImpl extends SqlMapClientDaoSupport implements ReporterD
 		map.put("username", username);
 		map.put("password", password);
 		return (Reporter)getSqlMapClientTemplate().queryForObject(
-				"REPORTER.selectReporterById", map);
+				"REPORTER.selectReporter", map);
 	}
 
 	@Override
@@ -103,13 +109,13 @@ public class ReporterDAOImpl extends SqlMapClientDaoSupport implements ReporterD
 	@Override
 	public void increaseAccept(int id) {
 		getSqlMapClientTemplate().update(
-				"REPOTER.increaseAccept", id);
+				"REPORTER.increaseAccept", id);
 	}
 
 	@Override
 	public void increaseContribute(int id) {
 		getSqlMapClientTemplate().update(
-				"REPOTER.increaseContribute", id);
+				"REPORTER.increaseContribute", id);
 	}
 
 }

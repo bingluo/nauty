@@ -129,6 +129,12 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
+	public List<ArticlePojo> getWaitArticlesOfReporter(int reporterId) {
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectWaitArticlesListOfReporter", reporterId);
+	}
+	
+	@Override
 	public List<ArticlePojo> getAcceptArticlesList(int reporterId) {
 		return getSqlMapClientTemplate().queryForList(
 				"ARTICLE.selectAcceptArticlesListOfReporter", reporterId);
@@ -154,6 +160,22 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"ARTICLE.selectContributeArticlesListToAdmin", map);
 	}
+	@Override
+	public List<ArticlePojo> getWaitingArticlesList(Date s, Date e) {
+		HashMap<String, Date> map = new HashMap<String, Date>();
+		map.put("startTime", s);
+		map.put("endTime", e);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectWaitingArticlesListToAdmin", map);
+	}
+	@Override
+	public List<ArticlePojo> getAcceptArticlesList(Date s, Date e) {
+		HashMap<String, Date> map = new HashMap<String, Date>();
+		map.put("startTime", s);
+		map.put("endTime", e);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.selectAcceptArticlesListToAdmin", map);
+	}
 
 	@Override
 	public List<ArticlePojo> getContributedArticlesListByReporter(
@@ -161,7 +183,7 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"ARTICLE.selectContributedArticlesListByReporter", username);
 	}
-
+	
 	@Override
 	public void rejectArticle(int id) {
 		getSqlMapClientTemplate().update(
@@ -180,5 +202,14 @@ public class ArticleDAOImpl extends SqlMapClientDaoSupport implements
 	public void acceptArticle(ArticlePojo article) {
 		getSqlMapClientTemplate().update(
 				"ARTICLE.acceptArticle", article);
+	}
+	
+	@Override
+	public List<ArticlePojo> searchArticleOfReporter(int reporterId, String searchInput) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("id", Integer.toString(reporterId));
+		map.put("searchInput", searchInput);
+		return getSqlMapClientTemplate().queryForList(
+				"ARTICLE.searchArticleOfReporter", map);
 	}
 }

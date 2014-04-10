@@ -40,6 +40,8 @@ public interface ArticleDAO {
 	// 通讯员相关的文章操作
 	List<ArticlePojo> getContributeArticlesList(int reporterId);
 	
+	List<ArticlePojo> getWaitArticlesOfReporter(int reporterId);
+	
 	List<ArticlePojo> getAcceptArticlesList(int reporterId);
 	
 	List<ArticlePojo> getRejectArticlesList(int reporterId);
@@ -48,9 +50,15 @@ public interface ArticleDAO {
 	
 	void updateContributeArticle(int reporterId, ArticlePojo article);
 	
+	List<ArticlePojo> searchArticleOfReporter(int reporterId, String searchInput);
+	
 	
 	// 管理员对通讯员contribute的文章的相关操作
 	List<ArticlePojo> getContributedArticlesList(Date s, Date e);
+	
+	List<ArticlePojo> getWaitingArticlesList(Date s, Date e);
+	
+	List<ArticlePojo> getAcceptArticlesList(Date s, Date e);
 	
 	List<ArticlePojo> getContributedArticlesListByReporter(String username);
 	

@@ -3,11 +3,14 @@ package cn.seu.cose.view.util;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import cn.seu.cose.core.CategoryCache;
 import cn.seu.cose.entity.CategoryPojo;
+import cn.seu.cose.entity.Reporter;
+import cn.seu.cose.service.ReporterService;
 
 public class ViewUtil {
 	public static String CONTEXT_PATH = "";
@@ -72,5 +75,26 @@ public class ViewUtil {
 		} else {
 			return CategoryCache.get(curCat.getParentCatId()).getCatName();
 		}
+	}
+	
+	// 时间
+	public static String today() {
+		Calendar today = Calendar.getInstance(Locale.CHINA);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		return sdf.format(today.getTime());
+	}
+	
+	public static String weekBefore() {
+		Calendar today = Calendar.getInstance();
+		today.add(Calendar.DATE, -7);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		return sdf.format(today.getTime());
+	}
+	
+	public static String reporterName(int id) {
+		ReporterService reporterService = new ReporterService();
+		Reporter reporter = reporterService.getReporterById(id);
+		System.out.println("aaa");
+		return reporter.getUsername();
 	}
 }

@@ -72,8 +72,8 @@
 										<td title="$el.name">$el.name</td>
 										<td title="$el.email">$el.email</td>
 										<td>$el.phone</td>
-										<td><a href="#">${el.contributeCount}篇</a></td>
-										<td><a href="#">${el.acceptCount}篇</td>
+										<td><a target="_blank" href="${viewUtil.getContextPath()}/admin/${el.id}_contribute_list_all">${el.contributeCount}篇</a></td>
+										<td><a target="_blank" href="${viewUtil.getContextPath()}/admin/${el.id}_contribute_list_accept">${el.acceptCount}篇</td>
 										#if(!$el.certificated)
 											<td>
 												<button class="btn btn-info"  title="通过认证" id="cer_btn"><i class="icon-info-sign icon-white"></i> 通过认证</button>

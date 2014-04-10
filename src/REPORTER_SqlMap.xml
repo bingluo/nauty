@@ -70,7 +70,15 @@
 		<![CDATA[
     		SELECT * 
     		FROM REPORTER
-    		WHERE username=#username# AND password=#password#
+    		WHERE username=#username# AND password=#password# LIMIT 1
+		]]>
+	</select>
+	
+	<select id="selectReporterByUsername" resultMap="ReporterResultMap" parameterClass="string">
+		<![CDATA[
+    		SELECT * 
+    		FROM REPORTER
+    		WHERE username=#value# LIMIT 1
 		]]>
 	</select>
 	
@@ -102,7 +110,7 @@
 		<![CDATA[
 		INSERT INTO REPORTER
 		(username, password, name, email, phone, register_time)
-		VALUES (#username#, #password#, #name#, #email#, #phone#， current_timestamp())
+		VALUES (#username#, #password#, #name#, #email#, #phone#, current_timestamp())
 		]]>
 	</insert>
 	
@@ -111,9 +119,9 @@
 		UPDATE REPORTER
 		SET username = #username#,
 			password = #password#,
-			name = #name#,
 			email = #email#,
 			phone = #phone#
+		WHERE id = #id#
 		]]>
 	</update>
 	
@@ -126,14 +134,14 @@
 	<update id="increaseAccept" parameterClass="int">
 		<![CDATA[
 		UPDATE REPORTER 
-		SET acceptCount = acceptCount + 1
+		SET accept_count = accept_count + 1
 		]]>
 	</update>
 	
 	<update id="increaseContribute" parameterClass="int">
 		<![CDATA[
 		UPDATE REPORTER 
-		SET contributeCount = contributeCount + 1
+		SET contribute_count = contribute_count + 1
 		]]>
 	</update>
 	
