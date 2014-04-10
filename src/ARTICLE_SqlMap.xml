@@ -277,7 +277,7 @@
 			`from` = #from#,
 			post_time = current_timestamp(),
 			status = 1
-		WHERE id = #id# AND (status=0 OR status=-1)
+		WHERE id = #id#
 		]]>
 	</update>
 	

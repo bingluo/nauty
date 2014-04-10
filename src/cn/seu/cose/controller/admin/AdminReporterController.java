@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
 import cn.seu.cose.entity.Reporter;
 import cn.seu.cose.filter.SecurityContextHolder;
 import cn.seu.cose.service.ReporterService;

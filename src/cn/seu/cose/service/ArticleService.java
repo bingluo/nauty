@@ -47,6 +47,16 @@ public class ArticleService {
 		}
 		return articles;
 	}
+	
+	public List<ArticlePojo> getAdminArticleByCatIdAndPageIndexAndPageSize(
+			int catId, int index, int pageSize) {
+		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
+				catId, pageSize * (index - 1), pageSize);
+		for (ArticlePojo articlePojo : articles) {
+			articlePojo.setUri(LinkTool.article(articlePojo));
+		}
+		return articles;
+	}
 
 	public List<ArticlePojo> searchArticle(String searchInput) {
 		List<ArticlePojo> articles = articleDAOImpl.searchArticle(searchInput);
