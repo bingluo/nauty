@@ -170,8 +170,6 @@
 <input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
 
 <script type="text/javascript">
-	$("#sidebar_li_1").siblings().removeClass('active')
-	$("#sidebar_li_1").addClass('active');
 	var context_path = $("#context_path").val();
 
 	$(document).ready(function(){

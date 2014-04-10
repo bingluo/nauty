@@ -171,4 +171,9 @@ public class AdminReporterController extends AbstractController{
 		}
 	}
 	
+	@RequestMapping("/reporter/about")
+	public String about(Model model, HttpServletResponse response) {
+		putReporter(model, response);
+		return "reporter/about";
+	}
 }
