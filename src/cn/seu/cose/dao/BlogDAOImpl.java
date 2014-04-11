@@ -57,4 +57,10 @@ public class BlogDAOImpl extends SqlMapClientDaoSupport implements BlogDAO {
 		getSqlMapClientTemplate().update("BLOG.addClickCount", id);
 	}
 
+	@Override
+	public int getBlogsCountByDesignerId(int designerId) {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"BLOG.selectBlogCountByDesignerId", designerId);
+	}
+
 }

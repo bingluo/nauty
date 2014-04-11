@@ -74,7 +74,7 @@
         					<span><i class="mini-ico-eye-open"></i>阅读（$blog.clickCount）</span>
 							#if($curUser.id==$designer.id)
 								<span><i class="mini-ico-edit"></i><a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}/edit">编辑</a></span>
-								<span><i class="mini-ico-trash"></i><a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}/archive">删除</a></span>
+								<span><i class="mini-ico-trash"></i><a href="#">删除</a></span>
 							#end
         				</div>
                		</div>

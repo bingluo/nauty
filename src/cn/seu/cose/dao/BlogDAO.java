@@ -5,6 +5,8 @@ import java.util.List;
 import cn.seu.cose.entity.Blog;
 
 public interface BlogDAO {
+	int getBlogsCountByDesignerId(int designerId);
+
 	Blog getBlogById(int id);
 
 	List<Blog> getBlogByDesignerIdAndBaseAndRange(int designerId, int base,
