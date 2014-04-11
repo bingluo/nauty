@@ -13,6 +13,10 @@ public class BlogService {
 	@Autowired
 	private BlogDAO blogDAOImpl;
 
+	public int getBlogCountByDesignerId(int designerId) {
+		return blogDAOImpl.getBlogsCountByDesignerId(designerId);
+	}
+
 	public Blog getBlogById(int id) {
 		return blogDAOImpl.getBlogById(id);
 	}

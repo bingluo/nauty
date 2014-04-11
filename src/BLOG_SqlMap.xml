@@ -16,11 +16,19 @@
 		<result property="archived" column="ARCHIVED"/>
 	</resultMap>
 
+	<select id="selectBlogCountByDesignerId" resultClass="int" parameterClass="int">
+		<![CDATA[
+        	SELECT count(*)
+        	FROM blog
+			WHERE designer_id = #value# AND archived = 0;
+		]]>
+	</select>
+	
 	<select id="selectBlogByBlogId" resultMap="BlogResultMap" parameterClass="int">		
 		<![CDATA[
         	SELECT *
         	FROM blog
-			WHERE id = #value#
+			WHERE id = #value# AND archived = 0
 		]]>
 	</select>
 
@@ -29,7 +37,7 @@
     		SELECT * FROM
             	(SELECT *
             	FROM blog
-    			WHERE designer_id = #designerId#
+    			WHERE designer_id = #designerId# AND archived = 0
     			ORDER BY update_time DESC) a
     		LIMIT #base#,#range#
 		]]>
@@ -66,7 +74,7 @@
 		<![CDATA[
 			UPDATE blog
 			SET click_count = click_count+1
-			WHERE id = #id#
+			WHERE id = #id# AND archived = 0
 		]]>
 	</update>
 </sqlMap>

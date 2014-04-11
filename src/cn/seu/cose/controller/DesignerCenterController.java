@@ -669,4 +669,40 @@ public class DesignerCenterController extends AbstractController {
 			e.printStackTrace();
 		}
 	}
+
+	@RequestMapping(value = "/designer/{designerId}/blogs", method = RequestMethod.GET)
+	public String blogs(Model model,
+			@PathVariable("designerId") int designerId,
+			@RequestParam(value = "pn", required = false) Integer pn,
+			HttpServletResponse response) {
+		try {
+			Designer designer = designerService.getDesignerById(designerId);
+			if (designer == null) {
+				response.sendRedirect(ViewUtil.getContextPath() + "/designer");
+			} else {
+				basicIssue(model);
+				model.addAttribute("designer", designer);
+				pn = pn == null || pn <= 0 ? 1 : pn;
+				int pageSize = 10;
+				List<Blog> blogs = blogService
+						.getBlogsByDesignerIdAndPnAndPageSize(designerId, pn,
+								pageSize);
+				model.addAttribute("blogs", blogs);
+
+				int totalCount = blogService
+						.getBlogCountByDesignerId(designerId);
+				model.addAttribute("pageIndex", pn);
+				model.addAttribute("pageCount",
+						(int) Math.ceil((double) totalCount / pageSize));
+				model.addAttribute("totalCount", totalCount);
+				StringBuilder sb = new StringBuilder();
+				sb.append(ViewUtil.getContextPath()).append("/designer/")
+						.append(designerId).append("/blogs");
+				model.addAttribute("uri", sb.toString());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "designer/blogs";
+	}
 }
