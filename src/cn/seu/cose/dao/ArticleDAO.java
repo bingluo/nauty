@@ -60,6 +60,8 @@ public interface ArticleDAO {
 	
 	List<ArticlePojo> getAcceptArticlesList(Date s, Date e);
 	
+	List<ArticlePojo> getRejectArticlesList(Date s, Date e);
+	
 	List<ArticlePojo> getContributedArticlesListByReporter(String username);
 	
 		// 管理员可以在accept的时候对文章做少量修改
@@ -68,7 +70,7 @@ public interface ArticleDAO {
 	
 	void rejectArticle(int id);
 	
-	
+	List<ArticlePojo> searchContribute(int type, String searchInput);
 	
 	
 }

@@ -216,11 +216,19 @@ public class ArticleService {
 		return articleDAOImpl.getAcceptArticlesList(s, e);
 	}
 	
+	public List<ArticlePojo> getRejectArticles(Date s, Date e) {
+		return articleDAOImpl.getRejectArticlesList(s, e);
+	}
+	
 	public void acceptArticle(ArticlePojo article) {
 		articleDAOImpl.acceptArticle(article);
 	} 
 	
 	public void rejectArticle(int id) {
 		articleDAOImpl.rejectArticle(id);
+	}
+	
+	public List<ArticlePojo> searchContribute(int type, String searchInput) {
+		return articleDAOImpl.searchContribute(type, searchInput);
 	}
 }

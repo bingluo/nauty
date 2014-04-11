@@ -364,7 +364,7 @@ public class AdminArticleController extends AbstractController{
 	@RequestMapping(value="/admin/contribute_list_{type}_{start}_{end}")
 	public String getContributeList(@PathVariable("type") String type, @PathVariable("start") String s, @PathVariable("end") String e, Model model, HttpServletResponse response) {
 		List<ArticlePojo> list = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date start = null;
 		Date end = null;
 		try {
@@ -380,9 +380,15 @@ public class AdminArticleController extends AbstractController{
 			list = articleService.getContributedArticles(start, end);
 		} else if (type.equals("accept")) {
 			list = articleService.getAcceptArticles(start, end);
+		} else if (type.equals("reject")) {
+			list = articleService.getRejectArticles(start, end);
 		}
 		putAdmin(model, response);
 		model.addAttribute("el_list", list);
+		model.addAttribute("type", type);
+		model.addAttribute("start", s);
+		model.addAttribute("end", e);
+		model.addAttribute("fType", "list");	//罗列类型：search、list
 		return "admin_articles_fromreporter";
 	}
 	
@@ -401,6 +407,26 @@ public class AdminArticleController extends AbstractController{
 		model.addAttribute("el_list", list);
 		return "admin_articles_fromreporter";
 	}
+	
+	
+	@RequestMapping("/admin/contribute_list_search-{type}_{searchInput}")
+	public String searchContribute(@PathVariable("type") String t, @PathVariable("searchInput")String searchInput, Model model, HttpServletRequest request, HttpServletResponse response) {
+		putAdmin(model, response);
+		int type = 0;
+		if (t.equals("accept")) {
+			type = 1;
+		} else if (t.equals("reject")) {
+			type= -1;
+		}
+		List<ArticlePojo> list = articleService.searchContribute(type, searchInput);
+		putAdmin(model, response);
+		model.addAttribute("el_list", list);
+		model.addAttribute("type", t);
+		model.addAttribute("fType", "search");	//罗列类型：search、list
+		model.addAttribute("searchInput", searchInput);
+		return "admin_articles_fromreporter";
+	}
+	
 	
 	@RequestMapping("/admin/contribute_list")
 	public void defaultContributeDirect(Model model, HttpServletResponse response) {

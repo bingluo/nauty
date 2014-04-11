@@ -80,21 +80,14 @@ public class ViewUtil {
 	// 时间
 	public static String today() {
 		Calendar today = Calendar.getInstance(Locale.CHINA);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(today.getTime());
 	}
 	
 	public static String weekBefore() {
 		Calendar today = Calendar.getInstance();
 		today.add(Calendar.DATE, -7);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(today.getTime());
-	}
-	
-	public static String reporterName(int id) {
-		ReporterService reporterService = new ReporterService();
-		Reporter reporter = reporterService.getReporterById(id);
-		System.out.println("aaa");
-		return reporter.getUsername();
 	}
 }
