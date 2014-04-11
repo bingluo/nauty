@@ -24,6 +24,17 @@
 		]]>
 	</select>
 
+	<select id="selectBlogByDesignerIdAndBaseAndRange" resultMap="BlogResultMap" parameterClass="java.util.Map">		
+		<![CDATA[
+    		SELECT * FROM
+            	(SELECT *
+            	FROM blog
+    			WHERE designer_id = #designerId#
+    			ORDER BY update_time DESC) a
+    		LIMIT #base#,#range#
+		]]>
+	</select>
+
 	<insert id="insertBlog" parameterClass="blog">		
 		<![CDATA[
         	INSERT INTO blog
@@ -35,7 +46,7 @@
 	<update id="archiveBlog" parameterClass="int">
 		<![CDATA[
 			UPDATE blog
-			SET archived = 1,
+			SET archived = 1
 			WHERE id = #id#
 		]]>
 	</update>
@@ -46,7 +57,7 @@
 			SET title = #title#,
 			pure_content = #pureContent#,
 			content = #content#,
-			update_time = current_timestamp(),
+			update_time = current_timestamp()
 			WHERE id = #id#
 		]]>
 	</update>
@@ -54,7 +65,7 @@
 	<update id="addClickCount" parameterClass="int">
 		<![CDATA[
 			UPDATE blog
-			SET click_count = #clickCount#+1,
+			SET click_count = click_count+1
 			WHERE id = #id#
 		]]>
 	</update>
