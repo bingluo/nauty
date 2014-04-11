@@ -41,7 +41,11 @@
 		<div class="post-meta" style="text-align:center;">
 			<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{blog.updateTime}")</span>
 			<span><i class="mini-ico-comment"></i>评论（$!{totalCount}）</span>
-			<span><i class="mini-ico-comment"></i>阅读（$!{blog.clickCount}）</span>
+			<span><i class="mini-ico-eye-open"></i>阅读（$!{blog.clickCount}）</span>
+			#if($curUser.id==$designer.id)
+				<span><i class="mini-ico-edit"></i><a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}/edit">编辑</a></span>
+				<span><i class="mini-ico-trash"></i><a href="#">删除</a></span>
+			#end
 		</div>
 		<div>$!{blog.content}</div>
     	<div class="headline no-margin"><h4>博文评论 <span class="comments-amount">($!{totalCount})</span></h4></div>

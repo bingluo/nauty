@@ -61,9 +61,26 @@
 		#end
 	</div>
     <div class="twelve columns">
-    	<div class="tooltips" style="min-height:250px;">
+    	<div class="tooltips" style="min-height:260px;">
     		<div class="headline no-margin"><h4>个人博客 <span class="comments-amount">(0)</span></h4><a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/blogs" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a></div>
-    	</div>
+			#foreach($blog in $blogs)
+				<div class="post" style="padding:0px;margin: 0px 0 20px 5px;">
+               		<div class="post-content" style="margin:0px;">
+               			<div class="post-title" style="font-weight:bold;font-size:18px;">
+            				<a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}">$blog.title</a>
+            			</div>
+               			<div class="post-meta">
+        					<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{blog.updateTime}")</span>
+        					<span><i class="mini-ico-eye-open"></i>阅读（$blog.clickCount）</span>
+							#if($curUser.id==$designer.id)
+								<span><i class="mini-ico-edit"></i><a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}/edit">编辑</a></span>
+								<span><i class="mini-ico-trash"></i><a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}/archive">删除</a></span>
+							#end
+        				</div>
+               		</div>
+				</div>
+			#end
+		</div>
     	<div class="headline no-margin">
 			<h4>空间留言 <span class="comments-amount">($!{totalCount})</span></h4>
 		</div>

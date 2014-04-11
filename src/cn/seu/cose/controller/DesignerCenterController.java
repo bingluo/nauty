@@ -60,11 +60,14 @@ public class DesignerCenterController extends AbstractController {
 		Designer designer = designerService.getDesignerById(designerId);
 		List<WorkPojo> works = workService.getWorkByUserAndPnAndSize(
 				designerId, 1, 3);
+		List<Blog> blogs = blogService.getBlogsByDesignerIdAndPnAndPageSize(
+				designerId, 1, 5);
 		List<CommentPojo> comments = commentService
 				.getCommentsByRefAndTypeAndPnAndSize(designerId,
 						CommentType.DESIGNER.ordinal(), pn, 10);
 		model.addAttribute("designer", designer);
 		model.addAttribute("works", works);
+		model.addAttribute("blogs", blogs);
 		model.addAttribute("comments", comments);
 
 		int totalCount = commentService.getCommentCountByRefAndType(designerId,
@@ -558,6 +561,9 @@ public class DesignerCenterController extends AbstractController {
 				response.sendRedirect(ViewUtil.getContextPath() + "/designer");
 				return null;
 			} else {
+				if (!designerService.isTheSignInOne(designerId)) {
+					blogService.addClickCount(blogId);
+				}
 				basicIssue(model);
 				model.addAttribute("blog", blog);
 				Designer designer = designerService.getDesignerById(designerId);
@@ -609,6 +615,57 @@ public class DesignerCenterController extends AbstractController {
 			response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
 					+ designerId + "/blogs/" + blogId);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * comment to work in designer center
+	 */
+	@RequestMapping(value = "/designer/{designerId}/blogs/{blogId}/edit", method = RequestMethod.GET)
+	public String editBlog(Model model, HttpServletResponse response,
+			@PathVariable("designerId") int designerId,
+			@PathVariable("blogId") int blogId) {
+		try {
+			Designer designer = designerService.getDesignerById(designerId);
+			Blog blog = blogService.getBlogById(blogId);
+			if (!designerService.isTheSignInOne(designerId)) {
+				response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+						+ designerId);
+				return null;
+			} else if (blog == null || blog.getDesignerId() != designerId) {
+				response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+						+ designerId);
+				return null;
+			} else {
+				basicIssue(model);
+				model.addAttribute("designer", designer);
+				model.addAttribute("blog", blog);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "designer/editBlog";
+	}
+
+	@RequestMapping(value = "/designer/{designerId}/blogs/{blogId}/edit", method = RequestMethod.POST)
+	public void editBlogPost(Model model,
+			@PathVariable("designerId") int designerId,
+			@PathVariable("blogId") int blogId,
+			@RequestParam("title") String title,
+			@RequestParam("content") String content,
+			@RequestParam("pureText") String pureText,
+			HttpServletResponse response) {
+		try {
+			Blog blog = blogService.getBlogById(blogId);
+			if (designerService.isTheSignInOne(designerId) && blog != null
+					&& blog.getDesignerId() == designerId) {
+				blogService.updateBlog(title, pureText, content, blogId);
+				response.getWriter().write("1");
+			} else {
+				response.getWriter().write("0");
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

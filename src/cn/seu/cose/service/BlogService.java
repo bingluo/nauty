@@ -1,5 +1,7 @@
 package cn.seu.cose.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,12 @@ public class BlogService {
 
 	public Blog getBlogById(int id) {
 		return blogDAOImpl.getBlogById(id);
+	}
+
+	public List<Blog> getBlogsByDesignerIdAndPnAndPageSize(int designerId,
+			int pn, int pageSize) {
+		return blogDAOImpl.getBlogByDesignerIdAndBaseAndRange(designerId,
+				(pn - 1) * pageSize, pageSize);
 	}
 
 	public void newBlog(String title, String pureContent, String content,
