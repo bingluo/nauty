@@ -405,6 +405,8 @@ public class AdminArticleController extends AbstractController{
 		}
 		putAdmin(model, response);
 		model.addAttribute("el_list", list);
+		model.addAttribute("start", ViewUtil.weekBefore());
+		model.addAttribute("end", ViewUtil.today());
 		return "admin_articles_fromreporter";
 	}
 	

@@ -92,7 +92,8 @@
 		$('.date').datetimepicker(
 			{autoclose: true,
         	todayBtn: true,
-        	language: 'zh-CN'}
+        	language: 'zh-CN',
+        	minView: "1"}
         );
 		
 		// yes_add

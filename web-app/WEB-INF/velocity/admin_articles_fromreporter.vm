@@ -201,7 +201,9 @@
 		$('.date').datetimepicker(
 			{autoclose: true,
         	todayBtn: true,
-        	language: 'zh-CN'}
+        	language: 'zh-CN',
+        	minView: "2"
+        	}
         );
         $('.start_time').datetimepicker(
 			"setValue",
