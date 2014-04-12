@@ -407,6 +407,8 @@ public class AdminArticleController extends AbstractController{
 		model.addAttribute("el_list", list);
 		model.addAttribute("start", ViewUtil.weekBefore());
 		model.addAttribute("end", ViewUtil.today());
+		model.addAttribute("type", type);
+		model.addAttribute("fType", "list");	//罗列类型：search、list
 		return "admin_articles_fromreporter";
 	}
 	

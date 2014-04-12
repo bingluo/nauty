@@ -41,13 +41,24 @@ public class AdminReporterController extends AbstractController{
 		Reporter reporter = reporterService.logon(username, password);
 		String to = ViewUtil.getContextPath() + "/reporter/login";
 		if (reporter != null) {
-			to = ViewUtil.getContextPath() + "/reporter/article_list-" + reporter.getId();
-		}
+			if (!reporter.isCertificated()) {
+				to = ViewUtil.getContextPath() + "/reporter/nogranted";
+			} else
+			{
+				to = ViewUtil.getContextPath() + "/reporter/article_list-" + reporter.getId();
+			}
+		} 
 		try {
 			response.sendRedirect(to);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("/reporter/nogranted")
+	public String noGranted(Model model, HttpServletResponse response) {
+		return "reporter/nogrant";
+		
 	}
 	
 	@RequestMapping(value="/reporter/register", method=RequestMethod.GET) 
