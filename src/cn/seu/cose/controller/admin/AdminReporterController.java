@@ -138,16 +138,22 @@ public class AdminReporterController extends AbstractController{
 		return "admin_reporter";
 	}
 	
-	@RequestMapping(value="/admin/reporter_list-{type}top{k}", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/reporter_list-{type}_top{k}", method=RequestMethod.GET)
 	public String topKList(@PathVariable("type") String type, @PathVariable("k") int k, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
 		List<Reporter> list = null;
+		
+		if (k <= 0) {
+			k = 10;
+		}
 		if (type.equals("contribute")) {
 			list = reporterService.getTopKReportersByContribution(k);
 		} else if (type.equals("accept")) {
 			list = reporterService.getTopKReportersByAccept(k);
 		}
 		model.addAttribute("el_list", list);
+		model.addAttribute("topK", k);
+		model.addAttribute("type", type);
 		return "admin_reporter";
 	}
 	

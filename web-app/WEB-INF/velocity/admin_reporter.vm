@@ -13,9 +13,34 @@
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="widget-content nopadding">
+					<div class="controls">
+						通讯员贡献排名：
+						<select id="tSelect">
+							#if($!{type})
+								#if("${type}" == "accept")
+									<option value="contribute" >总提交量</option>
+									<option value="accept" selected>总采用量</option>
+								#else
+									<option value="contribute" selected>总提交量</option>
+									<option value="accept">总采用量</option>
+								#end
+							#else
+								<option value="contribute">总提交量</option>
+								<option value="accept">总采用量</option>
+							#end
+						</select>
+						<input id="topK" type="text" value="$!{topK}" placeHolder="请输入数字,例如10：表示前10位"></input>
+						&nbsp;
+						<span style="" margin-left:10px; margin-right:20px" class="icon" id="topk_btn">
+							<a href="javascript:void(0)" class="btn btn-info btn" style="vertical-align:middle; margin-top:-7px;">
+								&nbsp;&nbsp;<i class="icon-play icon-white"></i>&nbsp;&nbsp;
+							</a>
+						</span>
+					</div>
 					<div class="control-group">
 						<div class="controls">
-							<input style="" type="text" value="$!{searchInput}" placeHolder="通讯员检索" id="search_input"/>
+							通讯员账号检索：
+							<input style="" type="text" value="$!{searchInput}" placeHolder="请输入用户名或姓名" id="search_input"/>
 							&nbsp;
 							<span style="" margin-left:10px; margin-right:20px" class="icon" id="search_btn">
 								<a href="javascript:void(0)" class="btn btn-success btn" style="vertical-align:middle; margin-top:-7px;">
@@ -145,6 +170,18 @@
 				$("#search_input").attr("placeHolder", "请输入用户名");
 			} else {
 				window.location.href = context_path + "/admin/reporter_list_search-" + search_input;
+			}
+			
+		});
+		
+		$("#topk_btn").bind("click", function() {
+			var _type = $("#tSelect option:selected").val();
+			var _topK = $("#topK").val().trim();
+			if(!$.isNumeric(_topK)) {
+				$("#topK").css("border-color", "red");
+				$("#topK").attr("placeHolder", "请输入正确的数字");
+			} else {
+				window.location.href = context_path + "/admin/reporter_list-" + _type + "_top" + _topK;
 			}
 			
 		});

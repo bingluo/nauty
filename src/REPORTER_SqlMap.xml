@@ -46,7 +46,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM REPORTER
-    		ORDER BY contributeCount LIMIT #value#
+    		ORDER BY contribute_count DESC LIMIT #value# 
 		]]>
 	</select>
 	
@@ -54,7 +54,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM REPORTER
-    		ORDER BY acceptCount LIMIT #value#
+    		ORDER BY accept_count DESC LIMIT  #value# 
 		]]>
 	</select>
 	
