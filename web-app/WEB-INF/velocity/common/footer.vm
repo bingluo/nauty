@@ -1,18 +1,19 @@
 <div id="footer">
 	<!-- 960 Container -->
 	<div class="container">
-		<!-- About -->
+		<!-- About 
 		<div class="four columns">
 			<div class="footer-headline"><h4>关于我们</h4></div>
 			<p>$!{contactIntro}</p>
 		</div>
+		-->
 		<!-- Web cats -->
 		<div class="four columns">
 			<div class="footer-headline"><h4>网站目录</h4></div>
 			<ul class="links-list">
 				<li><a href="$!{viewUtil.getContextPath()}/">首页</a></li>
 				#foreach($root in $cats)
-				#if($velocityCount<5)
+				#if($velocityCount<3)
 				<li><a href="$!{viewUtil.getContextPath()}/${root.uriName}#if($root.children.size()==0).html#end">$root.catName</a></li>
 				#end
 				#end
@@ -23,26 +24,30 @@
 			<div class="footer-headline"><h4>网站目录</h4></div>
 			<ul class="links-list">
 				#foreach($root in $cats)
-				#if($velocityCount>4)
+				#if($velocityCount>2&&$velocityCount<6)
 				<li><a href="$!{viewUtil.getContextPath()}/${root.uriName}#if($root.children.size()==0).html#end">$root.catName</a></li>
 				#end
 				#end
-				<li><a href="$!{viewUtil.getContextPath()}/publication">协会刊物</a></li>
 			</ul>
-			<!--
-			<div class="flickr-widget">
-				<div class="clear"></div>
-			</div>
-			-->
 		</div>
-		<!-- publications -->
+		<!-- Web cats -->
 		<div class="four columns">
-			<div class="footer-headline"><h4>最新刊物</h4></div>
+			<div class="footer-headline"><h4>网站目录</h4></div>
 			<ul class="links-list">
-				#foreach($publication in $recentPublications)
-				<li><a href="$viewUtil.getContextPath()/publication/$!{publication.id}.html">$!{publication.title}</a></li>
+				#foreach($root in $cats)
+				#if($velocityCount>5)
+				<li><a href="$!{viewUtil.getContextPath()}/${root.uriName}#if($root.children.size()==0).html#end">$root.catName</a></li>
 				#end
-				<li><a href="$viewUtil.getContextPath()/publication">查看更多>></a></li>
+				#end
+			</ul>
+		</div>
+		<!-- Web cats -->
+		<div class="four columns" style="height:130px;">
+			<div class="footer-headline"><h4>网站目录</h4></div>
+			<ul class="links-list">
+				<li><a href="$!{viewUtil.getContextPath()}/publication">协会刊物</a></li>
+				<li><a href="$!{viewUtil.getContextPath()}/activity">活动赛事中心</a></li>
+				<li><a href="$!{viewUtil.getContextPath()}/designer">设计师之家</a></li>
 			</ul>
 		</div>
 		<!-- Footer / Bottom -->
