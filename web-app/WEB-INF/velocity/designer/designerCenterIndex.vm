@@ -74,7 +74,7 @@
         					<span><i class="mini-ico-eye-open"></i>阅读（$blog.clickCount）</span>
 							#if($curUser.id==$designer.id)
 								<span><i class="mini-ico-edit"></i><a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}/edit">编辑</a></span>
-								<span><i class="mini-ico-trash"></i><a href="#">删除</a></span>
+								<span><i class="mini-ico-trash"></i><a href="#" class="deleteBlogBtn" blogId="$!{blog.id}">删除</a></span>
 							#end
         				</div>
                		</div>
@@ -135,6 +135,19 @@
 <!-- Footer / End -->
 <script language="JavaScript">
 	$(document).ready(function(){
+		$(".deleteBlogBtn").click(function(){
+            var r=confirm("确定要删除博文吗？");
+			var blogId = $(this).attr("blogId");
+            if (r==true){
+				$.ajax({
+					type: 'POST',
+					url: "$!{viewUtil.getContextPath()}/designer/$!{designer.id}/blogs/"+blogId+"/dlt",
+					success: function( data ) {
+						location.href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}";
+					}
+				});
+            }
+		});
 		$("#signIn").click(function(){
 			location.href = "$!{viewUtil.getContextPath()}/sign-in";
 		});

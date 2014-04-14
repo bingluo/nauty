@@ -37,14 +37,14 @@
 ================================================== -->
 	#parse("designer/profile-left-bar.vm")
     <div class="twelve columns">
-		<div style="font-size:20px;color:#404040;text-align:center;margin-bottom:10px;">$!{blog.title}</div>
+		<div style="font-weight:bold;font-size:25px;color:#404040;text-align:center;margin-bottom:10px;">$!{blog.title}</div>
 		<div class="post-meta" style="text-align:center;">
 			<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{blog.updateTime}")</span>
 			<span><i class="mini-ico-comment"></i>评论（$!{totalCount}）</span>
 			<span><i class="mini-ico-eye-open"></i>阅读（$!{blog.clickCount}）</span>
 			#if($curUser.id==$designer.id)
 				<span><i class="mini-ico-edit"></i><a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}/edit">编辑</a></span>
-				<span><i class="mini-ico-trash"></i><a href="#">删除</a></span>
+				<span><i class="mini-ico-trash"></i><a href="#" class="deleteBlogBtn">删除</a></span>
 			#end
 		</div>
 		<div>$!{blog.content}</div>
@@ -100,9 +100,23 @@
 <!-- Footer / End -->
 <script language="JavaScript">
 	$(document).ready(function(){
+		$(".deleteBlogBtn").click(function(){
+            var r=confirm("确定要删除博文吗？");
+            if (r==true){
+				$.ajax({
+					type: 'POST',
+					url: "$!{viewUtil.getContextPath()}/designer/$!{designer.id}/blogs/$!{blog.id}/dlt",
+					success: function( data ) {
+						location.href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/blogs";
+					}
+				});
+            }
+		});
+		
 		$("#signIn").click(function(){
 			location.href = "$!{viewUtil.getContextPath()}/sign-in";
 		});
+		
 		$("#send").click(function(){
 			$message = $.trim($("#messageText").val());
 			if($message!=""){

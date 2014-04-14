@@ -42,7 +42,7 @@
 ================================================== -->
 	#parse("designer/profile-left-bar.vm")
     <div class="twelve columns">
-		<div style="font-size:20px;color:#404040;text-align:center;margin-bottom:10px;">$!{work.workName}</div>
+		<div style="font-weight:bold;font-size:25px;color:#404040;text-align:center;margin-bottom:10px;">$!{work.workName}</div>
 		<div class="post-meta" style="text-align:center;">
 			<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{work.updateTime}")</span>
 			<span><i class="mini-ico-comment"></i>评论 $!{totalCount}</span>

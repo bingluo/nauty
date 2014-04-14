@@ -48,6 +48,12 @@ public class DesignerCenterController extends AbstractController {
 	@Autowired
 	BlogService blogService;
 
+	@RequestMapping("/designer")
+	public String designerCenter(Model model) {
+		basicIssue(model);
+		return "designer/index";
+	}
+
 	@RequestMapping("/designer/{designerId}")
 	public String designerCenterIndex(Model model,
 			@PathVariable("designerId") int designerId,
@@ -422,6 +428,11 @@ public class DesignerCenterController extends AbstractController {
 					+ designerId);
 			return;
 		}
+		if (avatar.getSize() == 0) {
+			response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
+					+ designerId);
+			return;
+		}
 		String path = request.getSession().getServletContext()
 				.getRealPath("static/avatar");
 		String fileName = "";
@@ -438,13 +449,13 @@ public class DesignerCenterController extends AbstractController {
 				// 保存
 				try {
 					avatar.transferTo(targetFile);
+					designer.setAvatar(fileName);
+					designerService.updateDesigner(designer);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		designer.setAvatar(fileName);
-		designerService.updateDesigner(designer);
 		response.sendRedirect(ViewUtil.getContextPath() + "/designer/"
 				+ designerId);
 	}
@@ -704,5 +715,23 @@ public class DesignerCenterController extends AbstractController {
 			e.printStackTrace();
 		}
 		return "designer/blogs";
+	}
+
+	@RequestMapping(value = "/designer/{designerId}/blogs/{blogId}/dlt", method = RequestMethod.POST)
+	public void deleteBlog(Model model,
+			@PathVariable("designerId") int designerId,
+			@PathVariable("blogId") int blogId, HttpServletResponse response) {
+		try {
+			Blog blog = blogService.getBlogById(blogId);
+			if (designerService.isTheSignInOne(designerId) && blog != null
+					&& blog.getDesignerId() == designerId) {
+				blogService.archiveBlog(blogId);
+				response.getWriter().write("1");
+			} else {
+				response.getWriter().write("0");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

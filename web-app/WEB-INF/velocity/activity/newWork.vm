@@ -44,10 +44,11 @@
         					<label>作品标题: <span>*</span></label>
         					<input type="text" name="title" class="text"/>
         				</div>	
-        				<div class="field">
+        				<div class="field workPics">
         					<label>作品图片: <span>*</span></label>
         					<input type="file" name="file" class="text"/>
-        				</div>				
+        				</div>	
+						<a id="addPic" class="button color" style="margin:0px 0 5px 0;padding:5px 5px;">添加图片</a>
         				<div class="field">
         					<label>作品简介: <span>*</span></label>
         					<textarea name="intro" class="text textarea"></textarea>
@@ -62,7 +63,6 @@
         			<div class="notification warning" style="margin: 5px 0px 25px; display: block;" id="notification_1">
         				<p>通过认证后才能上传作品！</p>
         			</div>
-        			
         		#end
     		</div>
     		#parse("activity/activityRightBar.vm")
@@ -75,7 +75,15 @@
     <!-- Footer / End -->
 </body>
 <script language="JavaScript">
+	$('.dltBtn').live('click', function() {
+  		$(this).parent().remove(); 
+	});
+	
 	$(document).ready(function(){
+		$("#addPic").click(function(){
+			$(".workPics").append("<div><input type='file' name='file' accept='image/gif,image/jpeg,image/png,image/bmp' class='text'/><a class='button color dltBtn' style='margin:0px 0 5px 0;padding:5px 5px;' onclick='deleteWorkPic()'>X</a></div>");
+		});
+		
 		$("#postWorkForm").submit(function(){
 			if($('input[name=title]').val()==''){
 				return false;

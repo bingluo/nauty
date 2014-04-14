@@ -4012,6 +4012,22 @@ table.standard-table tr:hover td {background-color: #fafafa;}
 }
 
 
+/*    top designer */
+.top-designer{
+	width:108px;
+	margin-bottom:13px;
+	text-align:center;
+	display:inline-block;
+}
+.top-designer-img{
+	float:left;
+	width:65px;
+	height:65px;
+	margin-left:16px;
+	margin-bottom:5px;
+	border: 1px solid #ddd;
+	padding: 4px;
+}
 /* =================================================================== */
 /* Media Queries
 ====================================================================== */

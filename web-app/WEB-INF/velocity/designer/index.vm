@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+
+<!-- Content
+================================================== -->
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+
+<!-- 960 Container -->
+<div class="container ie-dropdown-fix">
+
+	<!-- Header -->
+	#parse("common/header.vm")
+	<!-- Header / End -->
+	
+	<!-- Navigation -->
+	#parse("common/navi.vm")
+	<!-- Navigation / End -->
+	<div class="sixteen columns">
+	
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2 style="padding: 10px 0 10px 0;"><a href="$!{viewUtil.getContextPath()}/designer" style="color:#333;font-weight:bold;">设计师之家 </a></h2>
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+
+	</div>
+</div>
+<!-- 960 Container / End -->
+
+<!-- Blog Posts
+================================================== -->
+<!-- 960 Container -->
+<div class="container">
+<!-- Widget
+================================================== -->
+    <div class="twelve columns"> 
+		<!-- Headline -->
+		<div class="headline no-margin"><h3>博文专区</h3></div>
+		<!-- Tabs Navigation -->
+		<ul class="tabs-nav" style="font-size:18px;">
+			<li class="active"><a href="#tab1"><i class="mini-ico-exclamation-sign" style="margin-top: 3px;"></i> 最新博文</a></li>
+			<li class=""><a href="#tab2"><i class="mini-ico-star" style="margin-top: 3px;"></i> 热门博文</a></li>
+		</ul>
+		<!-- Tabs Content -->
+		<div class="tabs-container">
+			<div class="tab-content" id="tab1" style="display: block;">1. Lorem ipsum pharetra felis. Aliquam egestas consectetur elementum class aptent taciti sociosqu ad litora torquent perea conubia nostra lorem inceptos orem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+			<div class="tab-content" id="tab2" style="display: none;">2. Lorem ipsum pharetra felis. Aliquam egestas consectetur elementum class aptent taciti sociosqu ad litora torquent perea conubia nostra lorem inceptos orem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+		</div>
+		
+	</div>
+	<div class="four columns">
+		<div class="headline no-margin"><h3>最受欢迎 TOP</h3></div>
+		<div class="top-designer">
+			<img src="/static/works/20140413193202portoflio-01-large.jpg" class="top-designer-img" alt="" style="height:65px;">
+			<div class="clear"></div>
+			<div class="top-designer-name"><a href="#">你妈逼</a></div>
+		</div>
+		<div class="headline no-margin"><h3>最勤奋 TOP</h3></div>
+		<div class="top-designer">
+			<img src="/static/works/20140413193202portoflio-01-large.jpg" class="top-designer-img" alt="" style="height:65px;">
+			<div class="clear"></div>
+			<div class="top-designer-name"><a href="#">你妈逼</a></div>
+		</div>
+	</div>
+</div>
+<!-- 960 Container / End -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+<script language="JavaScript">
+$formAction = $("#profileForm").attr("action");
+$contextPath = "$!{viewUtil.getContextPath()}";
+var designerId = "$!{designer.id}";
+</script>
+</body>
+</html>
