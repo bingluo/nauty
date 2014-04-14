@@ -43,31 +43,76 @@
 ================================================== -->
     <div class="twelve columns"> 
 		<!-- Headline -->
-		<div class="headline no-margin"><h3>博文专区</h3></div>
 		<!-- Tabs Navigation -->
 		<ul class="tabs-nav" style="font-size:18px;">
-			<li class="active"><a href="#tab1"><i class="mini-ico-exclamation-sign" style="margin-top: 3px;"></i> 最新博文</a></li>
-			<li class=""><a href="#tab2"><i class="mini-ico-star" style="margin-top: 3px;"></i> 热门博文</a></li>
+			<li class="active"><a href="#tab1"><i class="mini-ico-exclamation-sign" style="margin-top: 6px;"></i> 最新博文</a></li>
+			<li class=""><a href="#tab2"><i class="mini-ico-star" style="margin-top: 6px;"></i> 热门博文</a></li>
 		</ul>
 		<!-- Tabs Content -->
 		<div class="tabs-container">
-			<div class="tab-content" id="tab1" style="display: block;">1. Lorem ipsum pharetra felis. Aliquam egestas consectetur elementum class aptent taciti sociosqu ad litora torquent perea conubia nostra lorem inceptos orem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-			<div class="tab-content" id="tab2" style="display: none;">2. Lorem ipsum pharetra felis. Aliquam egestas consectetur elementum class aptent taciti sociosqu ad litora torquent perea conubia nostra lorem inceptos orem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+			<div class="tab-content" id="tab1" style="display: block;padding:8px;">
+				<ul style="list-style:none;">
+					#foreach($blog in $recentBlogs)
+						#if($velocityCount>2)
+						<li style="float:left;width:48%;margin:4px 6px;font-size:14px;">
+							<div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+							<a href="$!{viewUtil.contextPath}/designer/$!{blog.designerId}/blogs/$!{blog.id}" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">$!{blog.title}</a>
+							</div>
+						</li>
+						#else
+						<li style="float:left;width:48%;height:80px;margin:4px 6px;font-size:14px;font-weight:bold;">
+							<a href="$!{viewUtil.contextPath}/designer/$!{blog.designerId}">
+								<img src="$!{viewUtil.contextPath}/static/avatar/#if($blog.designerAvatar)$blog.designerAvatar#else default.png#end" style="float:left;width:55px;height:55px;border:1px solid #ddd;padding:4px;margin-top:4px;"/>
+							</a>
+							<p style="margin-left:80px;">
+								<a href="$!{viewUtil.contextPath}/designer/$!{blog.designerId}/blogs/$!{blog.id}" style="display:block;margin-bottom:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">$!{blog.title}</a>
+								<span style="display:block;font-size:12px;line-height: 18px;font-weight:normal;">$!{blog.intro}</span>
+							</p>
+						</li>
+						#end
+					#end
+				</ul>
+			</div>
+			<div class="tab-content" id="tab2" style="display: none;display: block;padding:8px;">
+				<ul style="list-style:none;">
+					#foreach($blog in $hotBlogs)
+						#if($velocityCount>2)
+						<li style="float:left;width:48%;margin:4px 6px;font-size:14px;">
+							<div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+							<a href="$!{viewUtil.contextPath}/designer/$!{blog.designerId}/blogs/$!{blog.id}" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">$!{blog.title}</a>
+							</div>
+						</li>
+						#else
+						<li style="float:left;width:48%;height:80px;margin:4px 6px;font-size:14px;font-weight:bold;">
+							<a href="$!{viewUtil.contextPath}/designer/$!{blog.designerId}">
+								<img src="$!{viewUtil.contextPath}/static/avatar/#if($blog.designerAvatar)$blog.designerAvatar#else default.png#end" style="float:left;width:55px;height:55px;border:1px solid #ddd;padding:4px;margin-top:4px;"/>
+							</a>
+							<p style="margin-left:80px;">
+								<a href="$!{viewUtil.contextPath}/designer/$!{blog.designerId}/blogs/$!{blog.id}" style="display:block;margin-bottom:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">$!{blog.title}</a>
+								<span style="display:block;font-size:12px;line-height: 18px;font-weight:normal;">$!{blog.intro}</span>
+							</p>
+						</li>
+						#end
+					#end
+				</ul>
+			</div>
 		</div>
 		
 	</div>
 	<div class="four columns">
 		<div class="headline no-margin"><h3>最受欢迎 TOP</h3></div>
+		#foreach($designer in $popularDesigners)
 		<div class="top-designer">
-			<img src="/static/works/20140413193202portoflio-01-large.jpg" class="top-designer-img" alt="" style="height:65px;">
+			<a href="$!{viewUtil.contextPath}/designer/$!{designer.id}"><img src="$!{viewUtil.contextPath}/static/avatar/#if($designer.avatar)$designer.avatar#else default.png#end" class="top-designer-img" alt="" style="height:65px;"></a>
 			<div class="clear"></div>
-			<div class="top-designer-name"><a href="#">你妈逼</a></div>
+			<div class="top-designer-name"><a href="$!{viewUtil.contextPath}/designer/$!{designer.id}">$!{designer.userName}</a></div>
 		</div>
+		#end
 		<div class="headline no-margin"><h3>最勤奋 TOP</h3></div>
 		<div class="top-designer">
 			<img src="/static/works/20140413193202portoflio-01-large.jpg" class="top-designer-img" alt="" style="height:65px;">
 			<div class="clear"></div>
-			<div class="top-designer-name"><a href="#">你妈逼</a></div>
+			<div class="top-designer-name"><a href="#">BingLuo</a></div>
 		</div>
 	</div>
 </div>

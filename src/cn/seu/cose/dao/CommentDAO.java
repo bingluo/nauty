@@ -5,6 +5,7 @@ import java.util.List;
 import cn.seu.cose.entity.Comment;
 
 public interface CommentDAO {
+	List<Integer> rankCommentOfDesigner();
 
 	Comment getCommentViaId(int id);
 

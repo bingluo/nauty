@@ -1,10 +1,12 @@
 package cn.seu.cose.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.seu.cose.dao.CommentDAO;
 import cn.seu.cose.dao.DesignerDAO;
 import cn.seu.cose.entity.Designer;
 import cn.seu.cose.filter.SecurityContextHolder;
@@ -14,6 +16,20 @@ public class DesignerService {
 
 	@Autowired
 	DesignerDAO designerDAOImpl;
+	@Autowired
+	CommentDAO commentDAOImpl;
+
+	public List<Designer> getPopularDesigner() {
+		List<Integer> ids = commentDAOImpl.rankCommentOfDesigner();
+		List<Designer> designers = new ArrayList<Designer>();
+		for (int id : ids) {
+			Designer designer = designerDAOImpl.getDesignerById(id);
+			if (designer != null) {
+				designers.add(designer);
+			}
+		}
+		return designers;
+	}
 
 	public List<Designer> getAllDesigners() {
 		return designerDAOImpl.getAllDesigners();
@@ -26,7 +42,7 @@ public class DesignerService {
 	public List<Designer> getAllUncertificatedDesigners() {
 		return designerDAOImpl.getAllUncertificatedDesigners();
 	}
-	
+
 	public Designer getDesignerById(int id) {
 		return designerDAOImpl.getDesignerById(id);
 	}
@@ -42,8 +58,7 @@ public class DesignerService {
 	public List<Designer> searchDesignerByName(String searchInput) {
 		return designerDAOImpl.searchDesignerByName(searchInput);
 	}
-	
-	
+
 	public void insertDesigner(Designer designer) {
 		designerDAOImpl.insertDesigner(designer);
 	}
@@ -55,15 +70,15 @@ public class DesignerService {
 	public void uncertificateDesignerById(int id) {
 		designerDAOImpl.uncertificateDesignerById(id);
 	}
-	
+
 	public void updateDesigner(Designer designer) {
 		designerDAOImpl.updateDesigner(designer);
 	}
-	
+
 	public void deleteDesigner(int id) {
 		designerDAOImpl.deleteDesigner(id);
 	}
-	
+
 	/**
 	 * designer sign in
 	 */

@@ -16,6 +16,28 @@
 		<result property="archived" column="ARCHIVED"/>
 	</resultMap>
 
+	<select id="selectRecentBlogsByBaseAndRange" resultMap="BlogResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+        	SELECT * FROM
+    			(SELECT *
+            	FROM blog
+    			WHERE archived = 0
+    			ORDER BY update_time DESC) a
+			LIMIT #base#,#range#;
+		]]>
+	</select>
+
+	<select id="selectHotBlogsByBaseAndRange" resultMap="BlogResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+        	SELECT * FROM
+    			(SELECT *
+            	FROM blog
+    			WHERE archived = 0
+    			ORDER BY click_count, update_time DESC) a
+			LIMIT #base#,#range#;
+		]]>
+	</select>
+
 	<select id="selectBlogCountByDesignerId" resultClass="int" parameterClass="int">
 		<![CDATA[
         	SELECT count(*)

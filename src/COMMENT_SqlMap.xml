@@ -13,7 +13,18 @@
 		<result property="referenceId" column="REFERENCE_ID"/>
 		<result property="commentType" column="COMMENT_TYPE"/>
 	</resultMap>
-
+	
+	<select id="rankCommentCountOfDesigner" resultClass="int">
+		<![CDATA[
+		SELECT reference_id FROM
+    		(SELECT reference_id, count(id) as ct
+    		FROM COMMENT
+    		WHERE comment_type=4
+			GROUP BY reference_id
+			ORDER BY ct) a
+		LIMIT 6;
+		]]>
+	</select>
 	<select id="selectCommentById" resultMap="CommentResultMap" parameterClass="int">
 		<![CDATA[
     		SELECT * 

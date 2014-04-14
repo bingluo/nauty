@@ -73,4 +73,10 @@ public class CommentDAOImpl extends SqlMapClientDaoSupport implements
 	public void deleteComment(int id) {
 		getSqlMapClientTemplate().delete("COMMENT.deleteComment", id);
 	}
+
+	@Override
+	public List<Integer> rankCommentOfDesigner() {
+		return getSqlMapClientTemplate().queryForList(
+				"COMMENT.rankCommentCountOfDesigner");
+	}
 }

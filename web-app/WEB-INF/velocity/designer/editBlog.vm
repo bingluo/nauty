@@ -58,7 +58,7 @@
 				</div>
 				<div class="field">
 					<label>博文内容: <span>*</span></label>
-					<textarea id="container" name="content" class="text textarea">$!{blog.content}</textarea>
+					<script type="text/plain" id="container" name="content">$!{blog.content}</script>
 				</div>
 				<div class="field">
 					<input type="button" id="blogBtn" value="提交" />
@@ -81,6 +81,8 @@ $formAction = $("#blogForm").attr("action");
 $contextPath = "$!{viewUtil.getContextPath()}";
 var designerId = "$!{designer.id}";
 var editor = UE.getEditor('container')
+$(document).ready(function(){
+});
 </script>
 <style>
 </style>

@@ -15,7 +15,9 @@
 		border: 0;
 		font-size: 100%;
 		font: inherit;
-		vertical-align: baseline; }
+		vertical-align: baseline; 			
+		font-family: 微软雅黑,Verdana,sans-serif,宋体;
+	}
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 		display: block; }
 	body {
@@ -34,7 +36,9 @@
 
 	code {
 		padding: 3px 6px;
-		font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+		
+		
+		font-family: 微软雅黑,Verdana,sans-serif,宋体;
 		background: #fcfcfc;
 		border: 1px solid #e4e4e4;
 		-webkit-border-radius: 3px;
@@ -109,7 +113,7 @@
 ================================================== */
 	h1, h2, h3, h4, h5, h6 {
 		color: #333;
-		font-family: Arial, sans-serif;
+		font-family: 微软雅黑,Verdana,sans-serif,宋体;
 		font-weight: bold;
 	}
 		

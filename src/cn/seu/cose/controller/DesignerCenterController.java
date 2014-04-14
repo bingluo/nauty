@@ -51,6 +51,13 @@ public class DesignerCenterController extends AbstractController {
 	@RequestMapping("/designer")
 	public String designerCenter(Model model) {
 		basicIssue(model);
+		List<Blog> recentBlogs = blogService.getRecentBlogsByPnAndPageSize(1,
+				20);
+		List<Blog> hotBlogs = blogService.getHotBlogsByPnAndPageSize(1, 20);
+		List<Designer> popularDesigners = designerService.getPopularDesigner();
+		model.addAttribute("recentBlogs", recentBlogs);
+		model.addAttribute("hotBlogs", hotBlogs);
+		model.addAttribute("popularDesigners", popularDesigners);
 		return "designer/index";
 	}
 

@@ -58,7 +58,8 @@
 				</div>
 				<div class="field">
 					<label>博文内容: <span>*</span></label>
-					<textarea id="container" name="content" class="text textarea"></textarea>
+					<script type="text/plain" id="container" name="content"></script>
+					<!--<textarea id="container" name="content" class="text textarea"></textarea>-->
 				</div>
 				<div class="field">
 					<input type="button" id="blogBtn" value="上传" />

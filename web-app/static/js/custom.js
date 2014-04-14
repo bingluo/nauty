@@ -704,8 +704,8 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 		if(result==false) return false;
 				
 		// Data
-		var data = 'title=' + title.val() + '&content=' + content.val()+'&pureText='+editor.getContentTxt();
-		
+		var data = 'title=' + title.val() + '&content=' + encodeURIComponent(editor.getContent())+'&pureText='+editor.getContentTxt();
+		alert(editor.getContent());
 		// Disable fields
 		$('.text').attr('disabled','true');
 		

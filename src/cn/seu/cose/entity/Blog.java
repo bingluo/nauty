@@ -12,6 +12,9 @@ public class Blog {
 	private int clickCount = 0;
 	private boolean archived = false;
 
+	private String designerAvatar;
+	private String intro;
+
 	public int getId() {
 		return id;
 	}
@@ -74,5 +77,21 @@ public class Blog {
 
 	public void setArchived(boolean archived) {
 		this.archived = archived;
+	}
+
+	public String getDesignerAvatar() {
+		return designerAvatar;
+	}
+
+	public void setDesignerAvatar(String designerAvatar) {
+		this.designerAvatar = designerAvatar;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
 }
