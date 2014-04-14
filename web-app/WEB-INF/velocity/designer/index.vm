@@ -107,9 +107,9 @@
 			<div class="tab-content" id="tab3" style="display: block;padding:8px;">
 				<ul style="list-style:none;">
 					#foreach($work in $recentWorks)
-					<li style="float:left;width:200px;margin:0px 11px;">
+					<li style="float:left;width:200px;margin:0px 14px;">
 						<div class="picture" style="">
-                    		<a href="$!{viewUtil.contextPath}/designer/$!{work.designerId}/works/$!{work.id}.html" >
+                    		<a href="$!{viewUtil.contextPath}/designer/$!{work.userId}/works/$!{work.id}.html" >
                     			<img src="$!{viewUtil.contextPath}/static/works/$!{work.workPics.get(0)}" alt="$!{work.workName}" style="height:139px">
                     			<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
                     		</a>
@@ -124,15 +124,15 @@
 			<div class="tab-content" id="tab4" style="display:none;display: block;padding:8px;">
 				<ul style="list-style:none;">
 					#foreach($work in $hotWorks)
-					<li style="float:left;width:200px;margin:0px 11px;">
+					<li style="float:left;width:200px;margin:0px 14px;">
 						<div class="picture" style="">
-                    		<a href="$!{viewUtil.contextPath}/designer/$!{work.designerId}/works/$!{work.id}.html" >
+                    		<a href="$!{viewUtil.contextPath}/designer/$!{work.userId}/works/$!{work.id}.html" >
                     			<img src="$!{viewUtil.contextPath}/static/works/$!{work.workPics.get(0)}" alt="$!{work.workName}" style="height:139px">
                     			<div class="image-overlay-link" style="opacity: 0; display: block;"></div>
                     		</a>
                     	</div>
 						<div class="item-description" style="margin-bottom:10px;">
-                    		<h5><a href="$!{viewUtil.contextPath}/designer/$!{work.designerId}/works/$!{work.id}.html">$!{work.workName}</a></h5>
+                    		<h5><a href="$!{viewUtil.contextPath}/designer/$!{work.userId}/works/$!{work.id}.html">$!{work.workName}</a></h5>
                     	</div>
 					</li>
 					#end

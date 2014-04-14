@@ -84,10 +84,10 @@
         		</div>
 				#foreach($hotWork in $hotWorks)
         		<div class="latest-post-blog tooltips" style="min-height: 62px;">
-        			<a href="$!{viewUtil.getContextPath}/activity/$!{hotWork.activityId}/works/$!{hotWork.id}"><img src="$!{viewUtil.getContextPath()}/static/works/$!{hotWork.workPics.get(0)}" alt="$!{hotWork.workName}"></a>
+        			<a href="$!{viewUtil.contextPath}/activity/$!{hotWork.activityId}/works/$!{hotWork.id}"><img src="$!{viewUtil.getContextPath()}/static/works/$!{hotWork.workPics.get(0)}" alt="$!{hotWork.workName}"></a>
         			<p>
-						<a href="$!{viewUtil.getContextPath}/activity/$!{hotWork.activityId}/works/$!{hotWork.id}"  style="font-weight:bold;margin-bottom:5px;">$!{hotWork.workName}</a>
-						<a href="$!{viewUtil.getContextPath}/activity/$!{hotWork.activityId}">$!{hotWork.activityTitle}</a>
+						<a href="$!{viewUtil.contextPath}/activity/$!{hotWork.activityId}/works/$!{hotWork.id}"  style="font-weight:bold;margin-bottom:5px;">$!{hotWork.workName}</a>
+						<a href="$!{viewUtil.contextPath}/activity/$!{hotWork.activityId}">$!{hotWork.activityTitle}</a>
 					</p>
         		</div>
 				#end
