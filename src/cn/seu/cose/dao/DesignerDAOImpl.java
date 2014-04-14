@@ -38,7 +38,7 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().queryForList(
 				"DESIGNER.selectAllUncertificatedDesigners");
 	}
-	
+
 	@Override
 	public Designer getDesignerById(int id) {
 		return (Designer) getSqlMapClientTemplate().queryForObject(
@@ -54,12 +54,12 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 				"DESIGNER.selectDesignerByUserNameAndPswd", map);
 	}
 
-	@Override 
+	@Override
 	public List<Designer> searchDesignerByName(String searchInput) {
 		return getSqlMapClientTemplate().queryForList(
 				"DESIGNER.searchDesignerByName", searchInput);
 	}
-	
+
 	@Override
 	public void insertDesigner(Designer designer) {
 		getSqlMapClientTemplate().insert("DESIGNER.insertDesigner", designer);
@@ -73,9 +73,10 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 
 	@Override
 	public void uncertificateDesignerById(int id) {
-		getSqlMapClientTemplate().update("DESIGNER.uncertificateDesignerById", id);
+		getSqlMapClientTemplate().update("DESIGNER.uncertificateDesignerById",
+				id);
 	}
-	
+
 	@Override
 	public void updateDesigner(Designer designer) {
 		getSqlMapClientTemplate().update("DESIGNER.updateDesigner", designer);
@@ -86,7 +87,7 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 		return (Designer) getSqlMapClientTemplate().queryForObject(
 				"DESIGNER.selectDesignerByName", name);
 	}
-	
+
 	@Override
 	public void deleteDesigner(int id) {
 		getSqlMapClientTemplate().delete("DESIGNER.deleteDesigner", id);

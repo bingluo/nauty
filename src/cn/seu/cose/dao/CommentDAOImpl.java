@@ -75,8 +75,11 @@ public class CommentDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
-	public List<Integer> rankCommentOfDesigner() {
+	public List<Integer> rankCommentCountWithType(int type, int topN) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("topN", topN);
 		return getSqlMapClientTemplate().queryForList(
-				"COMMENT.rankCommentCountOfDesigner");
+				"COMMENT.rankCommentCountWithType", map);
 	}
 }

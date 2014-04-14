@@ -54,14 +54,14 @@
 		]]>
 	</select>
 	
-	<select id="selectHotWorks" resultMap="WorkResultMap">
+	<select id="selectHotWorksWithVoteCount" resultMap="WorkResultMap" parameterClass="int">
 		<![CDATA[
 		SELECT * FROM
 			(SELECT * 
 			FROM WORK
 			WHERE activity_id > 0
 			ORDER BY vote_count DESC) a
-		LIMIT 4
+		LIMIT #value#
 		]]>
 	</select>
 	

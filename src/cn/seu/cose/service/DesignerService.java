@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.seu.cose.dao.BlogDAO;
 import cn.seu.cose.dao.CommentDAO;
 import cn.seu.cose.dao.DesignerDAO;
 import cn.seu.cose.entity.Designer;
 import cn.seu.cose.filter.SecurityContextHolder;
+import cn.seu.cose.util.Constant.CommentType;
 
 @Service
 public class DesignerService {
@@ -18,9 +20,24 @@ public class DesignerService {
 	DesignerDAO designerDAOImpl;
 	@Autowired
 	CommentDAO commentDAOImpl;
+	@Autowired
+	BlogDAO blogDAOImpl;
 
 	public List<Designer> getPopularDesigner() {
-		List<Integer> ids = commentDAOImpl.rankCommentOfDesigner();
+		List<Integer> ids = commentDAOImpl.rankCommentCountWithType(
+				CommentType.DESIGNER.ordinal(), 6);
+		List<Designer> designers = new ArrayList<Designer>();
+		for (int id : ids) {
+			Designer designer = designerDAOImpl.getDesignerById(id);
+			if (designer != null) {
+				designers.add(designer);
+			}
+		}
+		return designers;
+	}
+
+	public List<Designer> getHardWorkingDesigners(int topN) {
+		List<Integer> ids = blogDAOImpl.rankDesignerWithBlogCount(topN);
 		List<Designer> designers = new ArrayList<Designer>();
 		for (int id : ids) {
 			Designer designer = designerDAOImpl.getDesignerById(id);

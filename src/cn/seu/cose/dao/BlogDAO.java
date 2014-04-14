@@ -5,6 +5,8 @@ import java.util.List;
 import cn.seu.cose.entity.Blog;
 
 public interface BlogDAO {
+	List<Integer> rankDesignerWithBlogCount(int topN);
+
 	List<Blog> getRecentBlogsByBaseAndRange(int base, int range);
 
 	List<Blog> getHotBlogsByBaseAndRange(int base, int range);

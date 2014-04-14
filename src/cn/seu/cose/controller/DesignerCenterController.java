@@ -55,9 +55,16 @@ public class DesignerCenterController extends AbstractController {
 				20);
 		List<Blog> hotBlogs = blogService.getHotBlogsByPnAndPageSize(1, 20);
 		List<Designer> popularDesigners = designerService.getPopularDesigner();
+		List<Designer> hardWorkingDesigners = designerService
+				.getHardWorkingDesigners(6);
+		List<WorkPojo> recentWorks = workService.getRecentWorks(9);
+		List<WorkPojo> hotWorks = workService.getHotWorksWithCommentCount(9);
 		model.addAttribute("recentBlogs", recentBlogs);
 		model.addAttribute("hotBlogs", hotBlogs);
 		model.addAttribute("popularDesigners", popularDesigners);
+		model.addAttribute("hardWorkingDesigners", hardWorkingDesigners);
+		model.addAttribute("recentWorks", recentWorks);
+		model.addAttribute("hotWorks", hotWorks);
 		return "designer/index";
 	}
 

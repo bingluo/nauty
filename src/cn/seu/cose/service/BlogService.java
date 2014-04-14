@@ -65,7 +65,7 @@ public class BlogService {
 			blog.setDesignerAvatar(designerDAOImpl.getDesignerById(
 					blog.getDesignerId()).getAvatar());
 			int length = 50 > blog.getPureContent().length() ? blog
-					.getPureContent().length() : 60;
+					.getPureContent().length() : 55;
 			blog.setIntro(blog.getPureContent().substring(0, length) + "...");
 		}
 		return recentBlogs;
@@ -79,7 +79,7 @@ public class BlogService {
 			blog.setDesignerAvatar(designerDAOImpl.getDesignerById(
 					blog.getDesignerId()).getAvatar());
 			int length = 50 > blog.getPureContent().length() ? blog
-					.getPureContent().length() : 60;
+					.getPureContent().length() : 55;
 			blog.setIntro(blog.getPureContent().substring(0, length) + "...");
 		}
 		return hotBlogs;

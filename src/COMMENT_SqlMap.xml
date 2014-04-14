@@ -14,15 +14,15 @@
 		<result property="commentType" column="COMMENT_TYPE"/>
 	</resultMap>
 	
-	<select id="rankCommentCountOfDesigner" resultClass="int">
+	<select id="rankCommentCountWithType" resultClass="int" parameterClass="java.util.Map">
 		<![CDATA[
 		SELECT reference_id FROM
     		(SELECT reference_id, count(id) as ct
     		FROM COMMENT
-    		WHERE comment_type=4
+    		WHERE comment_type=#type#
 			GROUP BY reference_id
-			ORDER BY ct) a
-		LIMIT 6;
+			ORDER BY ct DESC) a
+		LIMIT #topN#;
 		]]>
 	</select>
 	<select id="selectCommentById" resultMap="CommentResultMap" parameterClass="int">

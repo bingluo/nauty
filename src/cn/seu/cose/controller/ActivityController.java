@@ -53,7 +53,7 @@ public class ActivityController extends AbstractController {
 		basicIssue(model);
 		List<Activity> activities = activityService.getRecentActivities();
 		List<ActivityNews> latestNews = activityService.getActivityLatestNews();
-		List<WorkPojo> hotWorks = workService.getHotWorks();
+		List<WorkPojo> hotWorks = workService.getHotWorksWithVoteCount(4);
 		model.addAttribute("hotWorks", hotWorks);
 		model.addAttribute("latestNews", latestNews);
 		model.addAttribute("activities", activities);
@@ -98,7 +98,7 @@ public class ActivityController extends AbstractController {
 		basicIssue(model);
 		List<Activity> activities = activityService.getCurrentActivities();
 		List<ActivityNews> latestNews = activityService.getActivityLatestNews();
-		List<WorkPojo> hotWorks = workService.getHotWorks();
+		List<WorkPojo> hotWorks = workService.getHotWorksWithVoteCount(4);
 		model.addAttribute("hotWorks", hotWorks);
 		model.addAttribute("latestNews", latestNews);
 		model.addAttribute("activities", activities);
@@ -115,7 +115,7 @@ public class ActivityController extends AbstractController {
 		basicIssue(model);
 		List<Activity> activities = activityService.getAdvanceActivities();
 		List<ActivityNews> latestNews = activityService.getActivityLatestNews();
-		List<WorkPojo> hotWorks = workService.getHotWorks();
+		List<WorkPojo> hotWorks = workService.getHotWorksWithVoteCount(4);
 		model.addAttribute("hotWorks", hotWorks);
 		model.addAttribute("latestNews", latestNews);
 		model.addAttribute("activities", activities);
@@ -132,7 +132,7 @@ public class ActivityController extends AbstractController {
 		basicIssue(model);
 		List<Activity> activities = activityService.getReviewActivities();
 		List<ActivityNews> latestNews = activityService.getActivityLatestNews();
-		List<WorkPojo> hotWorks = workService.getHotWorks();
+		List<WorkPojo> hotWorks = workService.getHotWorksWithVoteCount(4);
 		model.addAttribute("hotWorks", hotWorks);
 		model.addAttribute("latestNews", latestNews);
 		model.addAttribute("activities", activities);

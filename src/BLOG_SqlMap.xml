@@ -16,6 +16,18 @@
 		<result property="archived" column="ARCHIVED"/>
 	</resultMap>
 
+	<select id="rankDesignerWithBlogCount" resultClass="int" parameterClass="int">
+		<![CDATA[
+			SELECT designer_id FROM
+				(SELECT designer_id, count(id) as ct
+				FROM blog
+				WHERE archived = 0
+				GROUP BY designer_id
+				ORDER BY ct DESC) a
+			LIMIT #value#
+		]]>
+	</select>
+	
 	<select id="selectRecentBlogsByBaseAndRange" resultMap="BlogResultMap" parameterClass="java.util.Map">
 		<![CDATA[
         	SELECT * FROM
@@ -33,7 +45,7 @@
     			(SELECT *
             	FROM blog
     			WHERE archived = 0
-    			ORDER BY click_count, update_time DESC) a
+    			ORDER BY click_count DESC) a
 			LIMIT #base#,#range#;
 		]]>
 	</select>

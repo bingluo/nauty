@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.seu.cose.dao.ActivityDAO;
+import cn.seu.cose.dao.CommentDAO;
 import cn.seu.cose.dao.DesignerDAO;
 import cn.seu.cose.dao.WorkDAO;
 import cn.seu.cose.entity.Activity;
 import cn.seu.cose.entity.Designer;
 import cn.seu.cose.entity.Work;
 import cn.seu.cose.entity.WorkPojo;
+import cn.seu.cose.util.Constant.CommentType;
 import cn.seu.cose.view.util.ViewUtil;
 
 @Service
@@ -24,6 +26,20 @@ public class WorkService {
 	DesignerDAO designerDAOImpl;
 	@Autowired
 	ActivityDAO activityDAOImpl;
+	@Autowired
+	CommentDAO commentDAOImpl;
+
+	public List<WorkPojo> getHotWorksWithCommentCount(int topN) {
+		List<Integer> ids = commentDAOImpl.rankCommentCountWithType(
+				CommentType.WORK.ordinal(), topN);
+		List<WorkPojo> works = new ArrayList<WorkPojo>();
+		for (Integer id : ids) {
+			WorkPojo work = new WorkPojo();
+			work.setWork(workDAOImpl.getWorkById(id));
+			works.add(work);
+		}
+		return works;
+	}
 
 	public WorkPojo getWorkViaId(int id) {
 		WorkPojo workPojo = new WorkPojo();
@@ -89,9 +105,9 @@ public class WorkService {
 		return url.toString();
 	}
 
-	public List<WorkPojo> getHotWorks() {
+	public List<WorkPojo> getHotWorksWithVoteCount(int topN) {
 		List<WorkPojo> workPojos = new ArrayList<WorkPojo>();
-		List<Work> works = workDAOImpl.getHotWorks();
+		List<Work> works = workDAOImpl.getHotWorksWithVoteCount(topN);
 		for (Work work : works) {
 			Designer designer = designerDAOImpl.getDesignerById(work
 					.getUserId());

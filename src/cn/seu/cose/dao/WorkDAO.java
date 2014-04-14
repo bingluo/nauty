@@ -17,7 +17,7 @@ public interface WorkDAO {
 
 	int getWorksCountByDesignerId(int designerId);
 
-	List<Work> getHotWorks();
+	List<Work> getHotWorksWithVoteCount(int topN);
 
 	List<Work> getRecentWorks(int count);
 

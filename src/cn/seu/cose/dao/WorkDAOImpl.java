@@ -70,8 +70,9 @@ public class WorkDAOImpl extends SqlMapClientDaoSupport implements WorkDAO {
 	}
 
 	@Override
-	public List<Work> getHotWorks() {
-		return getSqlMapClientTemplate().queryForList("WORK.selectHotWorks");
+	public List<Work> getHotWorksWithVoteCount(int topN) {
+		return getSqlMapClientTemplate().queryForList(
+				"WORK.selectHotWorksWithVoteCount", topN);
 	}
 
 	@Override

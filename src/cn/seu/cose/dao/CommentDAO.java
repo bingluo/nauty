@@ -5,7 +5,7 @@ import java.util.List;
 import cn.seu.cose.entity.Comment;
 
 public interface CommentDAO {
-	List<Integer> rankCommentOfDesigner();
+	List<Integer> rankCommentCountWithType(int type, int topN);
 
 	Comment getCommentViaId(int id);
 
