@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ACTIVITY_VIDEO">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="baseActivityVideo" type="cn.seu.cose.entity.ActivityVideo" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="ActivityVideoResultMap" class="baseActivityVideo">
+		<result property="id" column="ID"/>
+		<result property="activityId" column="activity_id"/>
+		<result property="videoUri" column="video_uri"/>
+		<result property="videoTitle" column="video_title"/>
+		<result property="videoDesc" column="video_desc"/>
+		<result property="postTime" column="post_time"/>
+	</resultMap>
+	
+	<select id="selectActivityVideoByActivityId" resultMap="ActivityVideoResultMap" parameterClass="int">		
+		<![CDATA[
+        	SELECT *
+        	FROM activity_video
+			WHERE activity_id = #value#
+    		ORDER BY post_time desc
+		]]>
+	</select>
+	
+	<select id="selectRecentActivityVideoByActivityId" resultMap="ActivityVideoResultMap" parameterClass="int">		
+		<![CDATA[
+		SELECT * FROM
+        	(SELECT *
+        	FROM activity_video
+			WHERE activity_id = #value#
+    		ORDER BY post_time desc) a
+		LIMIT 3
+		]]>
+	</select>
+	
+	<select id="selectActivityVideoByActivityIdAndBaseAndRange" resultMap="ActivityVideoResultMap" parameterClass="java.util.Map">		
+		<![CDATA[
+		SELECT * FROM
+        	(SELECT *
+        	FROM activity_video
+			WHERE activity_id = #activityId#
+    		ORDER BY post_time desc) a
+		LIMIT #base#,#range#
+		]]>
+	</select>
+	
+	<select id="selectActivityVideoCountByActivityId" resultClass="int" parameterClass="int">		
+		<![CDATA[
+        	SELECT count(id)
+        	FROM activity_video
+			WHERE activity_id = #activityId#
+		]]>
+	</select>
+	
+	<select id="selectActivityVideoById" resultMap="ActivityVideoResultMap" parameterClass="int">		
+		<![CDATA[
+        	SELECT *
+        	FROM activity_video
+			WHERE id = #value#
+		]]>
+	</select>
+	
+	<insert id="insertActivityVideo" parameterClass="baseActivityVideo">		
+		<![CDATA[
+        	INSERT INTO activity_video
+			(video_uri,activity_id,video_title,video_desc,post_time)
+    		VALUES (#videoUri#,#activityId#,#videoTitle#,#videoDesc#,current_timestamp())
+		]]>
+	</insert>
+	
+	<delete id="deleteActivityVideo" parameterClass="int">
+		<![CDATA[
+			delete from activity_video where id = #id#
+		]]>
+	</delete>
+	
+	<update id="updateActivityVideo" parameterClass="baseActivityVideo">
+		<![CDATA[
+			UPDATE activity_video
+			SET video_uri = #videoUri#,
+			activity_id = #activityId#,
+			video_title = #videoTitle#,
+			video_desc = #videoDesc#,
+			post_time = current_timestamp()
+			WHERE id = #id#
+		]]>
+	</update>
+</sqlMap>

@@ -20,6 +20,7 @@ import cn.seu.cose.entity.Activity;
 import cn.seu.cose.entity.ActivityApplication;
 import cn.seu.cose.entity.ActivityNews;
 import cn.seu.cose.entity.ActivityPhoto;
+import cn.seu.cose.entity.ActivityVideo;
 import cn.seu.cose.service.ActivityService;
 import cn.seu.cose.view.util.ViewUtil;
 
@@ -269,4 +270,68 @@ public class AdminActivityController extends AbstractController {
 		actyService.updateActivityPhoto(photo);
 	}
 	//*********************activity photo end*********************//
+	
+	
+	//*********************activity video start*********************//
+		@RequestMapping(value="/admin/acty-{id}videos_list", method=RequestMethod.GET)
+		public String getActyVideosByActyId(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+			putAdmin(model, response);
+			List<ActivityVideo> list = actyService.getActivityVideoByActivityId(id);
+			model.addAttribute("activityId", id);
+			model.addAttribute("el_list", list);
+			model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
+			return "admin_actyvideos";
+		}
+		
+		@RequestMapping(value="/admin/add_acty-{id}video", method=RequestMethod.GET)
+		public String getAddActyVideo(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+			putAdmin(model, response);
+			model.addAttribute("activityId", id);
+			model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
+			return "admin_actyvideo_add";
+		}
+		
+		@RequestMapping(value="/admin/add_actyvideo", method=RequestMethod.POST)
+		public void postAddActyPhoto(@RequestParam("videoUri") String videoUri, @RequestParam("activityId") int activityId,
+				@RequestParam("videoTitle") String title,  @RequestParam("videoDesc")String desc, HttpServletResponse response) {
+			ActivityVideo video = new ActivityVideo();
+			video.setVideoUri(videoUri);
+			video.setActivityId(activityId);
+			video.setVideoTitle(title);
+			video.setVideoDesc(desc);
+			actyService.insertActivityVideo(video);
+		}
+		
+		@RequestMapping(value="/admin/del_actyvideo", method=RequestMethod.POST)
+		public void postDelActyVideo(@RequestParam("activityId") int activityId, @RequestParam("id") int id, HttpServletResponse response) {
+			actyService.deleteActivityPhoto(id);
+			try {
+				response.sendRedirect(ViewUtil.getContextPath() + "/admin/acty-"+ activityId +"videos_list");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		@RequestMapping(value="/admin/alt_actyvideo-{id}", method=RequestMethod.GET)
+		public String getAltActyVideo(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+			putAdmin(model, response);
+			ActivityVideo video = actyService.getActivityVideoById(id);
+			model.addAttribute("el", video);
+			model.addAttribute("activityTitle", actyService.getActivityById(video.getActivityId()).getTitle());
+			return "admin_actyvideo_alt";
+		}
+		
+		
+		@RequestMapping(value="/admin/alt_actyvideo", method=RequestMethod.POST)
+		public void postAltActyVideo(@RequestParam("id") int id, @RequestParam("videoUri") String videoUri, @RequestParam("activityId") int activityId,
+				@RequestParam("videoTitle") String title,  @RequestParam("videoDesc")String desc) {
+			ActivityVideo video = new ActivityVideo();
+			video.setId(id);
+			video.setVideoUri(videoUri);
+			video.setActivityId(activityId);
+			video.setVideoTitle(title);
+			video.setVideoDesc(desc);
+			actyService.updateActivityVideo(video);
+		}
+		//*********************activity photo end*********************//
 }

@@ -10,12 +10,14 @@ import cn.seu.cose.dao.ActivityApplicationDAO;
 import cn.seu.cose.dao.ActivityDAO;
 import cn.seu.cose.dao.ActivityNewsDAO;
 import cn.seu.cose.dao.ActivityPhotoDAO;
+import cn.seu.cose.dao.ActivityVideoDAO;
 import cn.seu.cose.dao.WorkDAO;
 import cn.seu.cose.entity.Activity;
 import cn.seu.cose.entity.ActivityApplication;
 import cn.seu.cose.entity.ActivityNews;
 import cn.seu.cose.entity.ActivityPhoto;
 import cn.seu.cose.entity.ActivityPojo;
+import cn.seu.cose.entity.ActivityVideo;
 
 @Service
 public class ActivityService {
@@ -29,6 +31,9 @@ public class ActivityService {
 	private ActivityPhotoDAO activityPhotoDAOImpl;
 	@Autowired
 	private WorkDAO workDAOImpl;
+	@Autowired
+	private ActivityVideoDAO activityVideoDAOImpl;
+	
 
 	public List<Activity> getRecentActivities() {
 		return activityDAOImpl.getRecentActivities();
@@ -196,4 +201,38 @@ public class ActivityService {
 		}
 		return activities;
 	}
+	
+	public List<ActivityVideo> getActivityVideoByActivityId(int activityId) {
+		return activityVideoDAOImpl.getActivityVideoByActivityId(activityId);
+	}
+	public List<ActivityVideo> getActivityVideoByActivityIdAndFromAndTo(
+			int id, int pn, int pageSize){
+		return activityVideoDAOImpl
+				.getActivityVideoByActivityIdAndBaseAndRange(
+						id, (pn-1) * pageSize, pn * pageSize);
+	}
+	public int getActivityVideoCountByActivityId(int activityId) {
+		return activityVideoDAOImpl.getActivityVideoCountByActivityId(activityId);
+	}
+	
+	public List<ActivityVideo> getRecentActivityVideoByActivityId(int id) {
+		return activityVideoDAOImpl.getRecentActivityVideoByActivityId(id);
+	}
+	
+	public ActivityVideo getActivityVideoById(int id) {
+		return activityVideoDAOImpl.getActivityVideoById(id);
+	}
+	
+	public void insertActivityVideo(ActivityVideo video) {
+		activityVideoDAOImpl.insertActivityVideo(video);
+	}
+	
+	public void deleteActivityVideo(int id) {
+		activityVideoDAOImpl.deleteActivityVideo(id);
+	}
+	
+	public void updateActivityVideo(ActivityVideo video) {
+		activityVideoDAOImpl.updateActivityVideo(video);
+	}
+	
 }
