@@ -25,7 +25,7 @@
 	<div class="sixteen columns">
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2 style="font-weight:bold;">登录</h2>
+			<h2 style="font-weight:bold;">找回密码</h2>
 			<div id="bolded-line"></div>
 		</div>
 		<!-- Page Title / End -->
@@ -35,40 +35,8 @@
 <!--  960 Container Start -->
 <div class="container">
 	<!-- Register Form -->
-	<div class="five columns">
-		<!-- Success Message -->
-		<div class="success-message">
-			<div class="notification success closeable">
-				<p><span>登陆失败!</span> 用户名或密码错误。</p>
-			</div>
-		</div>
-		<!-- Form -->
-		<div id="signIn-form">
-			<form id="signInForm" method="post" action="$!{viewUtil.getContextPath()}/sign-in" />
-				<div class="field">
-					<label>用户名: <span>*</span></label>
-					<input type="text" name="username" class="text" />
-				</div>
-				<div class="field">
-					<label>密码: <span>*</span></label>
-					<input type="password" name="password" class="text" />
-				</div>
-				<div class="field">
-					<input type="button" id="signInBtn" value="登录" />
-					<input type="button" id="forgetPswdBtn" class="button light" value="忘记密码" />
-					<div class="loading"></div>
-				</div>
-			</form>
-		</div>
-	</div>
-	<div class="seven columns">
-		<p style="font-weight:bold;font-size:14px;">还没有账户？赶紧来<a href="$!{viewUtil.getContextPath()}/register" style="font-weight:bold;font-size:20px"> 注册 </a>
-		一个吧！
-		</p>
-		<p>登录后您将获得以下权限：</p>
-		<p>LCD应该是字符LCD。</p>
-		<p>Arduino UNO应该用Mega替代。</p>
-		<p>(我用Arduino UNO开启了这个项目，但是因为内存的需要后来改用Arduino Mega继续这个项目。开始的时候，Arduino UNO工作的很好。但是，当代码量增加，我无法将RAM使用量控制在Arduino UNO的容量之内，然后就想你所想的，我最终启用了Arduino Mega，它有8K的SRAM。)</p>
+	<div class="twelve columns">
+		<p>已将密码重置链接发往您注册的邮箱，请前往邮箱查看，进行密码重置。</p>
 	</div>
 	<!-- Contact Details -->
 	<div class="four columns google-map">
@@ -115,12 +83,7 @@
 <!-- Footer / End -->
 </body>
 <script language="JavaScript">
-$formAction = $("#signInForm").attr("action");
+$formAction = $("#registertForm").attr("action");
 $contextPath = "$!{viewUtil.getContextPath()}";
-$(document).ready(function(){
-	$("#forgetPswdBtn").click(function(){
-		location.href= $contextPath+"/forget-pswd";
-	});
-});
 </script>
 </html>

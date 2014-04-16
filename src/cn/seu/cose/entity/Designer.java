@@ -6,12 +6,14 @@ public class Designer {
 	private int id;
 	private String userName;
 	private String password;
-	private String email;
+	private String email = "";
 	private String intro = "无";
 	private String avatar;
 	private Date registerTime;
 	private Date certificateTime;
 	private boolean certificated;
+	private String vEmail;
+	private String vCode;
 
 	public int getId() {
 		return id;
@@ -83,5 +85,21 @@ public class Designer {
 
 	public void setCertificated(boolean certificated) {
 		this.certificated = certificated;
+	}
+
+	public String getvEmail() {
+		return vEmail;
+	}
+
+	public void setvEmail(String vEmail) {
+		this.vEmail = vEmail;
+	}
+
+	public String getvCode() {
+		return vCode;
+	}
+
+	public void setvCode(String vCode) {
+		this.vCode = vCode;
 	}
 }

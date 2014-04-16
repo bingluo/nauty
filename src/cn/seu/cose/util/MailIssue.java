@@ -21,7 +21,7 @@ public class MailIssue {
 			props.put("mail.smtp.auth", "true");
 			// 根据属性新建一个邮件会话
 			Session s = Session.getInstance(props);
-			s.setDebug(true); // 有他会打印一些调试信息。
+			s.setDebug(false); // 有他会打印一些调试信息。
 
 			// 由邮件会话新建一个消息对象
 			MimeMessage message = new MimeMessage(s);

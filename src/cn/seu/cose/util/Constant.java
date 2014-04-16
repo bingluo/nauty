@@ -1,6 +1,7 @@
 package cn.seu.cose.util;
 
 public class Constant {
+	public static final String DOMAIN_ROOT = "http://gw.seu.edu.cn/nauty";
 	public static final String PARAMETER_KEY_EMAIL = "email";
 	public static final String PARAMETER_KEY_PHONE = "phone";
 	public static final String PARAMETER_KEY_LOCATION = "location";

@@ -230,6 +230,23 @@ public class DesignerCenterController extends AbstractController {
 	}
 
 	/**
+	 * go to active page
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/register-finish", method = RequestMethod.GET)
+	public String goToActivePage(Model model, HttpServletResponse response)
+			throws IOException {
+		if (designerService.isSignIn()) {
+			response.sendRedirect(ViewUtil.getContextPath() + "/");
+			return "index";
+		} else {
+			basicIssue(model);
+			return "goToActive";
+		}
+	}
+
+	/**
 	 * register submit
 	 * 
 	 * @throws IOException
@@ -248,8 +265,8 @@ public class DesignerCenterController extends AbstractController {
 			Designer designer = new Designer();
 			designer.setUserName(name);
 			designer.setPassword(pswd);
-			designer.setEmail(email);
-			designerService.insertDesigner(designer);
+			designer.setvEmail(email);
+			designerService.registerDesigner(designer);
 			designer = designerService.getDesignerByName(name);
 			designerService.signIn(name, pswd);
 			out.write("1");
@@ -335,6 +352,24 @@ public class DesignerCenterController extends AbstractController {
 		return "designer/editProfile";
 	}
 
+	/**
+	 * edit designer's profile
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/designer/{designerId}/admin/profile-finish", method = RequestMethod.GET)
+	public String designerCenterProfileFinish(Model model,
+			@PathVariable("designerId") int designerId) {
+		basicIssue(model);
+		Designer curUser = SecurityContextHolder.getSecurityContext()
+				.getDesigner();
+		if (curUser == null || curUser.getId() != designerId) {
+			return "index";
+		}
+		model.addAttribute("designer", curUser);
+		return "designer/profileFinish";
+	}
+
 	@RequestMapping(value = "/designer/{designerId}/admin/profile", method = RequestMethod.POST)
 	public void editProfile(HttpServletResponse response, Model model,
 			@RequestParam("email") String email,
@@ -347,12 +382,17 @@ public class DesignerCenterController extends AbstractController {
 		if (curUser == null || curUser.getId() != designerId) {
 			writer.write("0");
 		} else {
-			curUser.setEmail(email);
 			curUser.setIntro(intro);
+			if (!email.equals(curUser.getEmail())) {
+				curUser.setvEmail(email);
+				designerService.changeEmail(curUser);
+				writer.write("1");
+			} else {
+				writer.write("2");
+			}
 			designerService.updateDesigner(curUser);
 			model.addAttribute("curUser", curUser);
 			model.addAttribute("designer", curUser);
-			writer.write("1");
 		}
 	}
 
@@ -744,6 +784,91 @@ public class DesignerCenterController extends AbstractController {
 			} else {
 				response.getWriter().write("0");
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/designer/active", method = RequestMethod.GET)
+	public void activeDesigner(Model model, @RequestParam("key") String key,
+			HttpServletResponse response) {
+		try {
+			Designer designer = designerService.activeDesigner(key);
+			designerService.signIn(designer.getUserName(),
+					designer.getPassword());
+			response.sendRedirect(ViewUtil.CONTEXT_PATH + "/");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/forget-pswd", method = RequestMethod.GET)
+	public String forgetPswd(Model model, HttpServletResponse response) {
+		try {
+			if (designerService.getCurrentUser() != null) {
+				response.sendRedirect(ViewUtil.CONTEXT_PATH + "/");
+				return null;
+			}
+			basicIssue(model);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "forgetPswd";
+	}
+
+	@RequestMapping(value = "/forget-pswd", method = RequestMethod.POST)
+	public String forgetPswd(Model model, HttpServletResponse response,
+			@RequestParam("username") String username) {
+		try {
+			if (designerService.getCurrentUser() != null) {
+				response.sendRedirect(ViewUtil.CONTEXT_PATH + "/");
+				return null;
+			}
+			basicIssue(model);
+			Designer designer = designerService.getDesignerByName(username);
+			if (designer != null) {
+				designerService.retrievePswd(designer);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "forgetPswdFinish";
+	}
+
+	@RequestMapping(value = "/retrieve-pswd", method = RequestMethod.GET)
+	public String retrievePswd(Model model, HttpServletResponse response,
+			@RequestParam("key") String pswd,
+			@RequestParam("username") String username) {
+		try {
+			Designer designer = designerService.getDesignerByUsernameAndPswd(
+					username, pswd);
+			if (designer == null) {
+				response.sendRedirect(ViewUtil.CONTEXT_PATH + "/");
+				return null;
+			} else {
+				designerService.signIn(username, pswd);
+				basicIssue(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "retrievePswd";
+	}
+
+	@RequestMapping(value = "/retrieve-pswd", method = RequestMethod.POST)
+	public void retrievePswdPost(Model model, HttpServletResponse response,
+			@RequestParam("pswd") String pswd,
+			@RequestParam("pswd2") String pswd2) {
+		try {
+			Designer designer = designerService.getCurrentUser();
+			if (designer == null) {
+				response.sendRedirect(ViewUtil.CONTEXT_PATH + "/");
+				return;
+			}
+			basicIssue(model);
+			designer.setPassword(pswd);
+			designerService.updateDesigner(designer);
+			response.sendRedirect(ViewUtil.CONTEXT_PATH + "/");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -396,7 +396,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 					// Disable register button
 					$('#registerBtn').attr('disabled',true);
 					
-					location.href=$contextPath+"/";
+					location.href=$contextPath+"/register-finish";
 					
 				}else{
 					$('.loading').fadeOut('slow')				
@@ -557,8 +557,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 			// Success
 			success: function (html) {				
 			
-				if (html==1) {	
-
+				if (html==2) {	
 					// Loading icon
 					$('.loading').fadeOut('slow');	
 											
@@ -566,8 +565,15 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 					$('#registerBtn').attr('disabled',true);
 					
 					location.href=$contextPath+"/designer/"+designerId;
+				}else if(html==1){
+					// Loading icon
+					$('.loading').fadeOut('slow');	
+											
+					// Disable register button
+					$('#registerBtn').attr('disabled',true);
 					
-				}else {
+					location.href=$contextPath+"/designer/"+designerId+"/admin/profile-finish";
+				}else{
 					$('.loading').fadeOut('slow')
 						
 					//show the success message

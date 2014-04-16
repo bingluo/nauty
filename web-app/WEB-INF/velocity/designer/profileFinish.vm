@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+
+<!-- Content
+================================================== -->
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+
+<!-- 960 Container -->
+<div class="container ie-dropdown-fix">
+
+	<!-- Header -->
+	#parse("common/header.vm")
+	<!-- Header / End -->
+	
+	<!-- Navigation -->
+	#parse("common/navi.vm")
+	<!-- Navigation / End -->
+	<div class="sixteen columns">
+	
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2 style="padding: 10px 0 10px 0;"><a href="$!{viewUtil.getContextPath()}/designer" style="color:#333;font-weight:bold;">设计师 </a><span> / <a href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}" style="color:#aaa">$!{designer.userName}</a></span></h2>
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+
+	</div>
+</div>
+<!-- 960 Container / End -->
+
+<!-- Blog Posts
+================================================== -->
+<!-- 960 Container -->
+<div class="container">
+<!-- Widget
+================================================== -->
+	#parse("designer/profile-left-bar.vm")
+    <div class="twelve columns"> 
+		<div class="headline" style="margin-top:0;"><h3>修改个人资料</h3></div>
+		<!-- Success Message -->
+		<p>检测到邮箱更改，请前往新邮箱激活账号。</p>
+	</div>
+</div>
+<!-- 960 Container / End -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+<script language="JavaScript">
+$formAction = $("#profileForm").attr("action");
+$contextPath = "$!{viewUtil.getContextPath()}";
+var designerId = "$!{designer.id}";
+</script>
+</body>
+</html>
