@@ -187,9 +187,10 @@
 			
 		});
 		
+		var _del_id;
 		// show del_dialog
 		$("button[id='del_btn']").bind("click", function(){
-			var _del_id = $(this).parents("tr").find("td:eq(0)").html().trim();
+			_del_id = $(this).parents("tr").find("td:eq(0)").html().trim();
 			if(!$.browser.msie) {
 				$("#del_dialog").css("display","block");
 				$("#del_dialog").modal("show");
