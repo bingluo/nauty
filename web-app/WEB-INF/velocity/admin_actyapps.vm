@@ -16,7 +16,7 @@
 			<div class="span4">
 				<ul class="site-stats">
 					<li><i class="icon-user"></i> <strong>${appCount}</strong> <small>已报名</small></li>
-					<li><i class="icon-shopping-cart"></i> <strong>259</strong> <small>已提交</small></li>
+					<!--<li><i class="icon-shopping-cart"></i> <strong>259</strong> <small>已提交</small></li>-->
 				</ul>
 			</div>
 		</div>
@@ -33,7 +33,7 @@
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th style="width:6%">ID</th>
+									<th style="width:6%">编号</th>
 									<th style="width:20%">用户ID</th>
 									<th style="width:12%">报名时间</th>
 							
