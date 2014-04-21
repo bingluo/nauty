@@ -59,7 +59,7 @@
 									<th>设计师</th>
 									<th>Email</th>
 									<th style="width:5%">简介</th>
-									<th style="width:7%">头像</th>
+									
 									<th style="width:15%">注册时间</th>
 									<th style="width:15%">认证情况</th>
 									<th>操作</th>
@@ -72,7 +72,7 @@
 										<td>$designer.userName</td>
 										<td>$designer.email</td>
 										<td title="$designer.intro">$!{viewUtil.brief($designer.intro)}</td>
-										<td><img src="$designer.avatar"/></td>
+										
 										<td title="$viewUtil.fTime("$designer.registerTime")">$viewUtil.fTime("$designer.registerTime")</td>
 										
 										#if(!$designer.certificated)

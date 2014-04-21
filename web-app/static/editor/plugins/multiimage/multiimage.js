@@ -402,7 +402,7 @@ SWFUpload.completeURL = function(url) {
 		path = window.location.pathname.substr(0, indexSlash) + "/";
 	}
 
-	return /*currentURL +*/ path + url;
+	return /*currentURL +*/ url;
 
 };
 
