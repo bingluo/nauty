@@ -25,7 +25,7 @@
 	<div class="sixteen columns">
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2 style="font-weight:bold;">登录</h2>
+			<h2 style="font-weight:bold;">重置密码</h2>
 			<div id="bolded-line"></div>
 		</div>
 		<!-- Page Title / End -->
@@ -36,26 +36,19 @@
 <div class="container">
 	<!-- Register Form -->
 	<div class="five columns">
-		<!-- Success Message -->
-		<div class="success-message">
-			<div class="notification success closeable">
-				<p><span>登陆失败!</span> 用户名或密码错误。</p>
-			</div>
-		</div>
 		<!-- Form -->
-		<div id="signIn-form">
-			<form id="signInForm" method="post" action="$!{viewUtil.getContextPath()}/sign-in" />
-				<div class="field">
-					<label>用户名: <span>*</span></label>
-					<input type="text" name="username" class="text" />
-				</div>
+		<div id="reset-form">
+			<form id="resetForm" method="post" action="$!{viewUtil.getContextPath()}/retrieve-pswd" />
 				<div class="field">
 					<label>密码: <span>*</span></label>
-					<input type="password" name="password" class="text" />
+					<input id="pswd1" type="password" name="pswd" class="password" />
 				</div>
 				<div class="field">
-					<input type="button" id="signInBtn" value="登录" />
-					<input type="button" id="forgetPswdBtn" class="button light" value="忘记密码" />
+					<label>验证密码: <span>*</span></label>
+					<input id="pswd2" type="password" name="pswd2" class="text" />
+				</div>
+				<div class="field">
+					<input type="submit" class="button light" value="重置密码" />
 					<div class="loading"></div>
 				</div>
 			</form>
@@ -118,8 +111,14 @@
 $formAction = $("#signInForm").attr("action");
 $contextPath = "$!{viewUtil.getContextPath()}";
 $(document).ready(function(){
-	$("#forgetPswdBtn").click(function(){
-		location.href= $contextPath+"/forget-pswd";
+	$("#resetForm").submit(function(){
+		var pswd1 = $("#pswd1").val();
+		var pswd2 = $("#pswd2").val();
+		if(pswd1!=pswd2){
+			return false;
+		}else{
+			return true;
+		}
 	});
 });
 </script>

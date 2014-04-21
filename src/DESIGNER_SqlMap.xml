@@ -15,12 +15,23 @@
 		<result property="registerTime" column="REGISTER_TIME"/>
 		<result property="certificateTime" column="CERTIFICATE_TIME"/>
 		<result property="certificated" column="CERTIFICATED"/>
+		<result property="vEmail" column="V_EMAIL"/>
+		<result property="vCode" column="V_CODE"/>
 	</resultMap>
 
 	<select id="selectAllDesigners" resultMap="DesignerResultMap">		
 		<![CDATA[
     		SELECT * 
     		FROM designer
+			WHERE email != ''
+		]]>
+	</select>	
+
+	<select id="selectDesignerByKey" resultMap="DesignerResultMap" parameterClass="java.lang.String">		
+		<![CDATA[
+    		SELECT * 
+    		FROM designer
+			WHERE v_code = #value# AND v_email != ''; 
 		]]>
 	</select>	
 	
@@ -28,7 +39,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-			WHERE certificated = 1
+			WHERE certificated = 1 AND email != ''
 		]]>
 	</select>
 	
@@ -36,7 +47,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-			WHERE certificated = 0
+			WHERE certificated = 0 AND email != ''
 		]]>
 	</select>
 	<select id="selectDesignerById" resultMap="DesignerResultMap" parameterClass="int">
@@ -51,7 +62,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-    		WHERE user_name = #value#
+    		WHERE user_name = #value# AND email != ''
 		]]>
 	</select>
 	
@@ -59,7 +70,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-    		WHERE user_name = #userName# AND password = #password#
+    		WHERE user_name = #userName# AND password = #password# AND email != ''
 		]]>
 	</select>
 	
@@ -67,7 +78,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-    		WHERE user_name LIKE concat("%", #value#, "%");
+    		WHERE user_name LIKE concat("%", #value#, "%") AND email != ''
 		]]>
 	</select>
 	
@@ -75,8 +86,8 @@
 	<insert id="insertDesigner" parameterClass="baseDesigner">
 		<![CDATA[
     		INSERT INTO designer
-    		(user_name,password,email,intro,avatar,register_time)
-    		VALUES (#userName#,#password#,#email#,#intro#,#avatar#,current_timestamp())
+    		(user_name,password,email,intro,avatar,register_time,v_email,v_code)
+    		VALUES (#userName#,#password#,#email#,#intro#,#avatar#,current_timestamp(),#vEmail#,#vCode#)
 		]]>
 	</insert>
 
@@ -103,7 +114,9 @@
 		SET	password = #password#,
 			email = #email#,
 			intro = #intro#,
-			avatar = #avatar#
+			avatar = #avatar#,
+			v_email = #vEmail#,
+			v_code = #vCode#
 		WHERE id = #id#
 		]]>
 	</update>
@@ -112,7 +125,6 @@
 		<![CDATA[
 		DELETE FROM designer
 		WHERE id = #value#
-		
 		]]>
 	</delete>
 </sqlMap>

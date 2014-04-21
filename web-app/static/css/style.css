@@ -1804,8 +1804,8 @@ blockquote {
 	background-repeat: no-repeat;
 	background-position: 0 0;
 	display: block;
-	height: 28px;
-	width: 28px;
+	height: 24px;
+	width: 24px;
 }
 
 .social-icons li:hover {background-position: 0 -38px;}
@@ -1828,11 +1828,11 @@ blockquote {
 
 
 /* Icon List */
-.renren{background: url(../images/icons/social/renren.png) no-repeat;}
-.sina{background: url(../images/icons/social/sina.png) no-repeat;}
-.douban{background: url(../images/icons/social/douban.png) no-repeat;}
-.qzone{background: url(../images/icons/social/qzone.png) no-repeat;}
-.txweibo{background: url(../images/icons/social/txweibo.png) no-repeat;}
+.renren{background: url(../images/icons/social/renren1.png) no-repeat;}
+.sina{background: url(../images/icons/social/sina1.png) no-repeat;}
+.douban{background: url(../images/icons/social/douban1.png) no-repeat;}
+.qzone{background: url(../images/icons/social/qzone1.png) no-repeat;}
+.txweibo{background: url(../images/icons/social/txweibo1.png) no-repeat;}
 .amazon {background: url(../images/icons/social/amazon.png) no-repeat;}
 .behance {background: url(../images/icons/social/behance.png) no-repeat;}
 .blogger {background: url(../images/icons/social/blogger.png) no-repeat;}

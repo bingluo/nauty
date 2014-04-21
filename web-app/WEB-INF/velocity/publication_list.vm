@@ -75,7 +75,7 @@
 						$!{publication.title}
 					</a>
 				</h5>
-				<p>$!{publication.brief}</p>
+				<p style="height:60px;">$!{publication.brief}</p>
 			</div>
 		</div>
 		#end

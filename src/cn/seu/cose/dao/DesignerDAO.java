@@ -29,4 +29,6 @@ public interface DesignerDAO {
 	Designer getDesignerByName(String name);
 
 	void deleteDesigner(int id);
+
+	Designer getDesignerByKey(String key);
 }

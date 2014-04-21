@@ -22,17 +22,17 @@
 				#end
 				</div>
 				<!-- Social Icons -->
-    			<ul class="social-icons" style="margin-top:20px;">
+    			<ul class="social-icons" style="margin-top:29px;">
 					#foreach($social in $socials)
     				<li class="$!{social.parameterKey}"><a href="$!{social.parameterValue}">$!{social.parameterName}</a></li>
 					#end
     			</ul>
     			<div class="clear"></div>
     			<!-- Contact Details -->
-    			<div id="contact-details" style="margin-top:15px">
+    			<div id="contact-details" style="margin-top:7px">
     				<ul>
-    					<li><i class="mini-ico-envelope"></i><a href="$!{viewUtil.getContextPath()}/contact.html" rel="tooltip" data-original-title="给我们留言">${email}</a></li>
-    					<li><i class="mini-ico-user"></i>${phone}</li>
+    					<li><i class="mini-ico-envelope" style="margin-top:2px;"></i><a href="$!{viewUtil.getContextPath()}/contact.html" rel="tooltip" data-original-title="给我们留言">${email}</a></li>
+    					<li><i class="mini-ico-user" style="margin-top:2px;"></i>${phone}</li>
     				</ul>
     			</div>
 			</div>
