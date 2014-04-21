@@ -23,6 +23,7 @@
 	<sqlMap resource="ACTIVITY_APPLICATION_SqlMap.xml" />
 	<sqlMap resource="ACTIVITY_NEWS_SqlMap.xml" />
 	<sqlMap resource="ACTIVITY_PHOTO_SqlMap.xml" />
+	<sqlMap resource="ACTIVITY_VIDEO_SqlMap.xml" />
 	<sqlMap resource="COMMENT_SqlMap.xml" />
 	<sqlMap resource="DESIGNER_SqlMap.xml" />
 	<sqlMap resource="WORK_SqlMap.xml" />
