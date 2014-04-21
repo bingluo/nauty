@@ -109,10 +109,11 @@
 											</td>
 										#end
 										<td>
-											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除</button>
 											#if($el.certificated)
 												<button class="btn btn-warning" title="撤销认证" id="uncer_btn"><i class="icon-minus-sign icon-white"></i> 撤销认证</button>
 											#end
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i>删除</button>
+											
 										</td>
 									</tr>
 								#end

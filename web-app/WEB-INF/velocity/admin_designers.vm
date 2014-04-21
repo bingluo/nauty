@@ -72,7 +72,7 @@
 										<td>$designer.userName</td>
 										<td>$designer.email</td>
 										<td title="$designer.intro">$!{viewUtil.brief($designer.intro)}</td>
-										<td>$designer.avatar</td>
+										<td><img src="$designer.avatar"/></td>
 										<td title="$viewUtil.fTime("$designer.registerTime")">$viewUtil.fTime("$designer.registerTime")</td>
 										
 										#if(!$designer.certificated)
