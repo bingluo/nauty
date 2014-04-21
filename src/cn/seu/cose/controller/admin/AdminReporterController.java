@@ -30,6 +30,11 @@ public class AdminReporterController extends AbstractController{
 		return "reporter/login";
 	}
 	
+	@RequestMapping(value="/reporter", method=RequestMethod.GET)
+	public String index2() {
+		return "reporter/login";
+	}
+	
 	@RequestMapping(value="/reporter/login", method=RequestMethod.GET)
 	public String login() {
 		return "reporter/login";

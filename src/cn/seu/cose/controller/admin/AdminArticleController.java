@@ -370,6 +370,11 @@ public class AdminArticleController extends AbstractController{
 		try {
 			start = sdf.parse(s);
 			end = sdf.parse(e);
+			Calendar calendar = Calendar.getInstance(Locale.CHINA);
+			calendar.setTime(end);
+			calendar.add(Calendar.DATE, 1);
+			end = calendar.getTime();
+			
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
