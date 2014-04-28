@@ -120,7 +120,7 @@
 								#else
 									<li><a href="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${prePageIndex}" >前一页</a></li>
 								#end
-						    	#if ($pageIndex == $pageCount)
+						    	#if ($pageIndex >= $pageCount)
 							    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
 						    	#else
 						    		<li><a href="$!{viewUtil.getContextPath()}/admin/article_list-${topCatId}-${subCatId}-${nextPageIndex}">后一页</a></li>

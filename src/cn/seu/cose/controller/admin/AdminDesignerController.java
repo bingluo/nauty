@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.seu.cose.entity.Blog;
 import cn.seu.cose.entity.Designer;
+import cn.seu.cose.service.BlogService;
 import cn.seu.cose.service.DesignerService;
 import cn.seu.cose.view.util.ViewUtil;
 
@@ -22,8 +24,13 @@ import cn.seu.cose.view.util.ViewUtil;
 @Controller
 public class AdminDesignerController extends AbstractController{
 	
+	public static final int PAGE_SIZE = 10;
+	
 	@Autowired
 	DesignerService designerService;
+	
+	@Autowired
+	BlogService blogService;
 	
 	
 	@RequestMapping(value="/admin/designer_list", method=RequestMethod.GET)
@@ -87,5 +94,52 @@ public class AdminDesignerController extends AbstractController{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	// 管理blog
+	@RequestMapping("/admin/designer/{designerId}/blog_list/p{pageIndex}")
+	public String blogList(@PathVariable(value="designerId") int designerId, @PathVariable(value="pageIndex") int pageIndex, 
+			 Model model, HttpServletResponse response) {
+		putAdmin(model, response);
+		
+		int index = pageIndex<=0 ? 1 : pageIndex;
+		List<Blog> list = blogService.getBlogsByDesignerIdAndPnAndPageSize(designerId, index, PAGE_SIZE);
+		
+		model.addAttribute("el_list", list);
+		model.addAttribute("designerId", designerId);
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("nextPageIndex", pageIndex+1);
+		model.addAttribute("prePageIndex", pageIndex-1);
+		int pageCount = getPageCount(blogService.getBlogCountByDesignerId(designerId));
+		model.addAttribute("pageCount",pageCount);
+		
+		return "admin_blogs";
+	}
+
+	
+	//删除blog
+	@RequestMapping("/admin/designer/del_blog")
+	public void postDelblog(@RequestParam("designerId") int designerId, @RequestParam("blogId") int blogId, Model model, HttpServletResponse response) {
+		putAdmin(model, response);
+		blogService.archiveBlog(blogId);
+		try {
+			response.sendRedirect("/admin/designer/"+ designerId +"/blog_list/p1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private int getPageCount(int count) {
+		if (count <= PAGE_SIZE) {
+			return 1;
+		} else if (count%PAGE_SIZE == 0) {
+			return count/PAGE_SIZE;
+		} else {
+			return count/PAGE_SIZE +1;
+		}
+	}	
+		
+	
+	
 	
 }

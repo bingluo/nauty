@@ -69,7 +69,7 @@
 								#foreach($designer in $designer_list)
 									<tr>
 										<td>$designer.id</td>
-										<td>$designer.userName</td>
+										<td><a href="/admin/designer/${designer.id}/blog_list/p1">$designer.userName</a></td>
 										<td>$designer.email</td>
 										<td title="$designer.intro">$!{viewUtil.brief($designer.intro)}</td>
 										

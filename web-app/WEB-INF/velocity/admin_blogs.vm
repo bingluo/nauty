@@ -1,0 +1,146 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")
+<div id="content">
+	<div id="content-header">
+		<h1>设计师管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">设计师博文管理</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-content nopadding">
+					
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						
+					</div>
+					<div class="widget-content padding">
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th style="width:6%">ID</th>
+									<th>标题</th>
+									<th>更新时间</th>
+									<th>点击量</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								#foreach($el in $el_list)
+									<tr>
+										<td>$el.id</td>
+										<td title="$el.title"><a target="_blank" href="/designer/${designerId}/blogs/${el.id}">$el.title</a></td>
+										<td>$viewUtil.fTime("$el.updateTime")</td>
+										<td title="$el.clickCount">$el.clickCount</td>
+										<td>
+											<button class="btn btn-danger" title="删除" id="del_btn"><i class=" icon-trash icon-white"></i> 删除</button>
+										</td>
+									</tr>
+								#end
+							</tbody>
+						</table>
+						<div class="pagination pagination-centered"">
+							<ul>
+								#if ($prePageIndex == 0) 
+									<li class="disabled"><a href="javascript:void(0)">前一页</a></li>
+								#else
+									<li><a href="$!{viewUtil.getContextPath()}/admin/designer/${designerId}/blog_list/p${prePageIndex}" >前一页</a></li>
+								#end
+						    	#if ($pageIndex >= $pageCount)
+							    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
+						    	#else
+						    		<li><a href="$!{viewUtil.getContextPath()}/admin/designer/${designerId}/blog_list/${nextPageIndex}">后一页</a></li>
+						    	#end
+							</ul>
+							<select style="vertical-align:top; height:inherit; width:80px" onchange="top.location=this.value;">
+								#foreach($i in [1..$pageCount]) 
+									#if ($i == $pageIndex)
+										<option value="$!{viewUtil.getContextPath()}/admin/designer/${designerId}/blog_list/p${i}" selected>$i</option>
+									#else
+										<option value="$!{viewUtil.getContextPath()}/admin/designer/${designerId}/blog_list/p${i}">$i</option>
+									#end
+								#end
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
+<div style="display:none" id="del_dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	    <span>是否确定删除？</span>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" id="yes_del">是</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true" id="no_del">否</button>
+	</div>
+</div>
+
+<script language="javascript">
+	$("#sidebar_li_8").siblings().removeClass('active')
+	$("#sidebar_li_8").addClass('active');
+	var context_path = $("#context_path").val();
+	
+	var _id;
+	var _designer_id = ${designerId};
+	
+	$(document).ready(function(){
+	
+/**************************删除***************************************/
+		// show del_dialog
+		$("button[id='del_btn']").bind("click", function(){
+			_id = $(this).parents("tr").find("td:first").html().trim();
+			if(!$.browser.msie) {
+				$("#del_dialog").css("display","block");
+				$("#del_dialog").modal("show");
+				
+			} else {
+				alert("已删除博文");
+				$.ajax({
+					url: context_path + "/admin/designer/del_blog",
+					type: "post",
+					data: {designerId:_designer_id, blogId:_id},
+					dataType: "html",
+					success:function(data){
+						location.reload();
+					},
+					error:function(){
+						alert("删除错误，请重试！");
+					}
+				});
+			}
+			
+		});
+		// yes_del
+		$("#yes_del").bind("click", function(){
+			$.ajax({
+				url: context_path + "/admin/designer/del_blog",
+				type: "post",
+				data: {designerId:_designer_id, blogId:_id},
+				dataType: "html",
+				success:function(data){
+					$("#del_dialog").modal("hide");
+					location.reload();
+				},
+				error:function(){
+					$("#del_dialog").modal("hide");
+					alert("删除错误，请重试！");
+				}
+			});
+		});
+		
+	});
+
+</script>
+#parse("admin_footer.vm")
