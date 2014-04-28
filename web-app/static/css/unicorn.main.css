@@ -1301,7 +1301,7 @@ form {
 }
 .form-horizontal .control-label {
 	padding-top: 15px;
-	width: 180px;
+	width: 100px;
 	margin-right:20px;
 }
 .form-horizontal .controls {
