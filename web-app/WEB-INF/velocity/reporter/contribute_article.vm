@@ -105,12 +105,12 @@
 							</div>
 							
 							<div class="control-group">
-								<div class="controls" style="max-width:700px;height:400px;margin-left:0px;padding-left:20px;">
-									<textarea id="editor" name="content" style="width:700px;height:400px;"></textarea>
+								<div class="controls" style="margin-left:0px;">
+									<textarea id="editor" name="content" style=""></textarea>
 								</div>
 							</div>
 							<div class="control-group" >
-								<div class="controls" style="margin-left:200px;">
+								<div class="controls" style="">
 									<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
 							    </div>
 							</div>
@@ -126,7 +126,12 @@
 <script charset="utf-8" src="$!{viewUtil.getContextPath()}/static/editor/lang/zh_CN.js"></script>
 <script>
     KindEditor.ready(function(K) {
-            window.editor = K.create('#editor');
+    		var _width = $(".controls").css("width");
+            window.editor = K.create('#editor', {
+            	width : _width,
+            	maxWidth : _width,
+            	minHeight : '400px'
+            });
     });
 </script>
 <script type="text/javascript">
