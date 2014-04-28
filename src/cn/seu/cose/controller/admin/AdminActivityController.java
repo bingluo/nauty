@@ -21,7 +21,9 @@ import cn.seu.cose.entity.ActivityApplication;
 import cn.seu.cose.entity.ActivityNews;
 import cn.seu.cose.entity.ActivityPhoto;
 import cn.seu.cose.entity.ActivityVideo;
+import cn.seu.cose.entity.WorkPojo;
 import cn.seu.cose.service.ActivityService;
+import cn.seu.cose.service.WorkService;
 import cn.seu.cose.view.util.ViewUtil;
 
 
@@ -30,15 +32,39 @@ public class AdminActivityController extends AbstractController {
 
 	@Autowired
 	ActivityService actyService;
+	@Autowired
+	WorkService workService;
 	private DateFormat format = new SimpleDateFormat("yyyyy-MM-dd HH:mm");
+	
+	public static final int PAGE_SIZE = 10;
+	
+	
 	
 	
 	//*********************activity begin*********************//
 	@RequestMapping(value="/admin/activity_list", method=RequestMethod.GET)
-	public String getActyList(Model model, HttpServletResponse response) {
+	public void getActyListDefault(Model model, HttpServletResponse response) {
+		try {
+			response.sendRedirect("/admin/activity_list/p1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/admin/activity_list/p{pageIndex}", method=RequestMethod.GET)
+	public String getActyList(@PathVariable("pageIndex") int pageIndex, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
-		List<Activity> list = actyService.getAllActivities();
+		
+		int index = pageIndex<=0 ? 1 : pageIndex;
+		List<Activity> list = actyService.getActivitiesByBaseAndRange(index, PAGE_SIZE);
 		model.addAttribute("activity_list", list);
+		
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("nextPageIndex", pageIndex+1);
+		model.addAttribute("prePageIndex", pageIndex-1);
+		int pageCount = getPageCount(PAGE_SIZE, actyService.getActivityCount());
+		model.addAttribute("pageCount",pageCount);
+		
 		return "admin_actys";
 	}
 	@RequestMapping(value="/admin/activity_list_search-{searchInput}", method=RequestMethod.GET)
@@ -46,7 +72,15 @@ public class AdminActivityController extends AbstractController {
 			HttpServletResponse response) {
 		putAdmin(model, response);
 		List<Activity> list = actyService.searchActivityByTitle(searchTitle);
+		model.addAttribute("searchInput", searchTitle);
+		
 		model.addAttribute("activity_list", list);
+		
+		model.addAttribute("pageIndex", 1);
+		model.addAttribute("nextPageIndex", 1);
+		model.addAttribute("prePageIndex", 1);
+		model.addAttribute("pageCount",1);
+		
 		return "admin_actys";
 	}
 	
@@ -130,17 +164,39 @@ public class AdminActivityController extends AbstractController {
 		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
 		return "admin_actyapps";
 	}
+	
+	
 	//*********************activity application end*********************//
 	
 	//*********************activity news begin*********************//
+	
 	@RequestMapping(value="/admin/acty-{id}news_list", method=RequestMethod.GET)
-	public String getActyNewsByActyId(@PathVariable("id") int id, 
+	public void getActyNewsByActyIdDefault(@PathVariable("id") int id, 
+			Model model, HttpServletResponse response) {
+		try {
+			response.sendRedirect("/admin/acty-" + id + "news_list/p1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/admin/acty-{id}news_list/p{pageIndex}", method=RequestMethod.GET)
+	public String getActyNewsByActyId(@PathVariable("pageIndex") int pageIndex, @PathVariable("id") int id, 
 			Model model, HttpServletResponse response) {
 		putAdmin(model, response);
-		List<ActivityNews> list = actyService.getActivityNewsByActivityId(id);
+		int index = pageIndex<=0 ? 1 : pageIndex;
+		
+		List<ActivityNews> list = actyService.getActivityNewsByIdAndPnAndSize(id, index, PAGE_SIZE);
 		model.addAttribute("activityId", id);
 		model.addAttribute("news_list", list);
 		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
+		
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("nextPageIndex", pageIndex+1);
+		model.addAttribute("prePageIndex", pageIndex-1);
+		int pageCount = getPageCount(PAGE_SIZE, actyService.getActivityNewsCountByActivityId(id));
+		model.addAttribute("pageCount",pageCount);
+		
 		return "admin_actynews";
 	}
 	
@@ -151,6 +207,12 @@ public class AdminActivityController extends AbstractController {
 		model.addAttribute("activityId", id);
 		model.addAttribute("news_list", list);
 		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
+		
+		model.addAttribute("searchInput", searchInput);
+		model.addAttribute("pageIndex", 1);
+		model.addAttribute("nextPageIndex", 1);
+		model.addAttribute("prePageIndex", 1);
+		model.addAttribute("pageCount",1);
 		return "admin_actynews";
 		
 	}
@@ -212,12 +274,29 @@ public class AdminActivityController extends AbstractController {
 	
 	//*********************activity photo start*********************//
 	@RequestMapping(value="/admin/acty-{id}photos_list", method=RequestMethod.GET)
-	public String getActyPhotosByActyId(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+	public void getActyPhotosByActyIdDefault(@PathVariable("id") int id, Model model, HttpServletResponse response) {
+		try {
+			response.sendRedirect("/admin/acty-" + id + "photos_list/p1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/admin/acty-{id}photos_list/p{pageIndex}", method=RequestMethod.GET)
+	public String getActyPhotosByActyId(@PathVariable("pageIndex")int pageIndex, @PathVariable("id") int id, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
-		List<ActivityPhoto> list = actyService.getActivityPhotoByActivityId(id);
+		int index = pageIndex<=0 ? 1 : pageIndex;
+		
+		List<ActivityPhoto> list = actyService.getActivityPhotoByActivityIdAndPnAndSize(id, index, PAGE_SIZE);
 		model.addAttribute("activityId", id);
 		model.addAttribute("photo_list", list);
 		model.addAttribute("activityTitle", actyService.getActivityById(id).getTitle());
+		
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("nextPageIndex", pageIndex+1);
+		model.addAttribute("prePageIndex", pageIndex-1);
+		int pageCount = getPageCount(PAGE_SIZE, actyService.getActivityPhotosCountByActivityId(id));
+		model.addAttribute("pageCount",pageCount);
 		return "admin_actyphotos";
 	}
 	
@@ -334,4 +413,31 @@ public class AdminActivityController extends AbstractController {
 			actyService.updateActivityVideo(video);
 		}
 		//*********************activity photo end*********************//
+		
+		
+		//参赛作评查看
+		@RequestMapping(value="/admin/acty_{actyId}/work_list/p{pageIndex}", method=RequestMethod.GET)
+		public String workList(@PathVariable("actyId") int actyId, @PathVariable("pageIndex") int pageIndex, 
+				Model model, HttpServletResponse response) {
+			
+			int index = pageIndex<=0 ? 1 : pageIndex;
+			List<WorkPojo> list = workService.getWorksByActivityIdAndPnAndSize(actyId, index, PAGE_SIZE);
+			
+			model.addAttribute("el_list", list);
+			
+			model.addAttribute("pageIndex", pageIndex);
+			model.addAttribute("nextPageIndex", pageIndex+1);
+			model.addAttribute("prePageIndex", pageIndex-1);
+			int tmp = workService.getWorksCountByActivityId(actyId);
+			int pageCount = tmp%PAGE_SIZE==0 ? tmp/PAGE_SIZE : tmp/PAGE_SIZE+1;
+			model.addAttribute("pageCount",pageCount);
+			
+			return "admin_works";
+		}
+		
+		// 作评投票排名
+		
+		
+		
+		
 }

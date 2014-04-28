@@ -12,6 +12,10 @@ public interface ActivityDAO {
 	List<Activity> getIndexActivities();
 
 	List<Activity> getAllActivities();
+	
+	List<Activity> getActivitiesByBaseAndRange(int base, int range);
+	
+	int getActivityCount();
 
 	List<Activity> searchActivityByTitle(String title);
 

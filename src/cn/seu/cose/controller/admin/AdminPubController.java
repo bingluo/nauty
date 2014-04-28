@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,14 +21,34 @@ import cn.seu.cose.view.util.ViewUtil;
 @Controller
 public class AdminPubController extends AbstractController{
 	
+	public static final int PAGE_SIZE = 10;
+	
 	@Autowired
 	PublicationService pubService;
 	
 	@RequestMapping(value="/admin/pub_list", method=RequestMethod.GET)
-	public String pubList(Model model, HttpServletResponse response) {
+	public void pubListDefault(Model model, HttpServletResponse response) {
+		try {
+			response.sendRedirect("/admin/pub_list/p1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/admin/pub_list/p{pageIndex}", method=RequestMethod.GET)
+	public String pubList(@PathVariable("pageIndex") int pageIndex, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
-		List<PublicationPojo> list = pubService.getAllPublications();
+		
+		int index = pageIndex<=0 ? 1 : pageIndex;
+		List<PublicationPojo> list = pubService.getPublicationByIndexAndPageSize(index, PAGE_SIZE);
 		model.addAttribute("pub_list", list);
+		
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("nextPageIndex", pageIndex+1);
+		model.addAttribute("prePageIndex", pageIndex-1);
+		int pageCount = getPageCount(PAGE_SIZE, pubService.getPubCount());
+		model.addAttribute("pageCount",pageCount);
+		
 		return "admin_pubs";
 	}
 	
@@ -58,13 +77,7 @@ public class AdminPubController extends AbstractController{
 			pubService.deletePublication(Integer.parseInt(idStr));
 			response.sendRedirect(ViewUtil.getContextPath() + "/admin/pub_list");
 		} catch (Exception e) {
-			JSONObject jo = new JSONObject();
-			jo.put("error", 1);
-			try {
-				response.getWriter().write(jo.toString());
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			e.printStackTrace();
 		}
 		
 	}

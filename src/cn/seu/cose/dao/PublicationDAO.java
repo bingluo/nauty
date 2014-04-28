@@ -20,4 +20,6 @@ public interface PublicationDAO {
 	void deletePublication(int id);
 
 	void addClickCounts(int id);
+	
+	int getpubCount();
 }

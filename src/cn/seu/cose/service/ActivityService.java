@@ -59,6 +59,14 @@ public class ActivityService {
 		return activityDAOImpl.getAllActivities();
 
 	}
+	
+	public List<Activity> getActivitiesByBaseAndRange(int pn, int pageSize) {
+		return activityDAOImpl.getActivitiesByBaseAndRange((pn-1)*pageSize, pn*pageSize);
+	}
+	
+	public int getActivityCount() {
+		return activityDAOImpl.getActivityCount();
+	}
 
 	public List<Activity> searchActivityByTitle(String title) {
 		return activityDAOImpl.searchActivityByTitle(title);

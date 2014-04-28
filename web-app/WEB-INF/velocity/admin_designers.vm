@@ -73,7 +73,7 @@
 										<td>$designer.email</td>
 										<td title="$designer.intro">$!{viewUtil.brief($designer.intro)}</td>
 										
-										<td title="$viewUtil.fTime("$designer.registerTime")">$viewUtil.fTime("$designer.registerTime")</td>
+										<td title="$viewUtil.fTime("$!designer.registerTime")">$viewUtil.fTime("$!{designer.registerTime}")</td>
 										
 										#if(!$designer.certificated)
 											<td>
@@ -94,6 +94,31 @@
 								#end
 							</tbody>
 						</table>
+						
+						<div class="pagination pagination-centered"">
+							<ul>
+								#if ($prePageIndex == 0) 
+									<li class="disabled"><a href="javascript:void(0)">前一页</a></li>
+								#else
+									<li><a href="$!{viewUtil.getContextPath()}/admin/${prefix}/p${prePageIndex}" >前一页</a></li>
+								#end
+						    	#if ($pageIndex >= $pageCount)
+							    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
+						    	#else
+						    		<li><a href="$!{viewUtil.getContextPath()}/admin/${prefix}/p${nextPageIndex}">后一页</a></li>
+						    	#end
+							</ul>
+							<select style="vertical-align:top; height:inherit; width:80px" onchange="top.location=this.value;">
+								#foreach($i in [1..$pageCount]) 
+									#if ($i == $pageIndex)
+										<option value="$!{viewUtil.getContextPath()}/admin/${prefix}/p${i}" selected>$i</option>
+									#else
+										<option value="$!{viewUtil.getContextPath()}/admin/${prefix}/p${i}">$i</option>
+									#end
+								#end
+							</select>
+						</div>
+						
 					</div>
 				</div>
 			</div>

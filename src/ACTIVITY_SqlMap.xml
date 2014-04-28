@@ -71,6 +71,23 @@
 			ORDER BY act_begin_time desc
 		]]>
 	</select>
+	
+	<select id="selectActivityCount" resultClass="int">	
+		<![CDATA[
+    		SELECT COUNT(id) 
+    		FROM activity
+		]]>
+	</select>
+	
+	<select id="selectActivitiesByBaseAndRange" resultMap="ActivityResultMap" parameterClass="java.util.Map">
+		<![CDATA[
+		SELECT * FROM 
+			(SELECT *
+    		FROM activity a
+    		ORDER BY a.act_begin_time DESC) b
+		limit #base#,#range#
+		]]>
+	</select>
 		
 	<select id="selectActivityById" resultMap="ActivityResultMap" parameterClass="int">		
 		<![CDATA[

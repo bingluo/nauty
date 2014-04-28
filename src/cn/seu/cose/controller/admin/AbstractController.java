@@ -42,4 +42,14 @@ public class AbstractController {
 		}
 		
 	}
+	
+	public int getPageCount(int pagesize, int count) {
+		if (count <= pagesize) {
+			return 1;
+		} else if (count%pagesize == 0) {
+			return count/pagesize;
+		} else {
+			return count/pagesize +1;
+		}
+	}	
 }

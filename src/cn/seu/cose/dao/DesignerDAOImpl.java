@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import oracle.net.aso.a;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
@@ -97,5 +99,37 @@ public class DesignerDAOImpl extends SqlMapClientDaoSupport implements
 	public Designer getDesignerByKey(String key) {
 		return (Designer) getSqlMapClientTemplate().queryForObject(
 				"DESIGNER.selectDesignerByKey", key);
+	}
+
+	@Override
+	public List<Designer> getAllDesignersByBaseAndRange(int base, int range) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("base", base);
+		map.put("range", range);
+		return getSqlMapClientTemplate().queryForList(
+				"DESIGNER.selectAllDesignersByBaseAndRange", map);
+	}
+
+	@Override
+	public int getAllDesignerCount() {
+		return (Integer)getSqlMapClientTemplate().queryForObject(
+				"DESIGNER.selectAllDesignerCount");
+	}
+
+	@Override
+	public List<Designer> getTypeDesignersByBaseAndRange(int type, int base,
+			int range) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("base", base);
+		map.put("range", range);
+		return getSqlMapClientTemplate().queryForList(
+				"DESIGNER.selectTypeDesignersByBaseAndRange", map);
+	}
+
+	@Override
+	public int getTypeDesignerCount(int type) {
+		return (Integer)getSqlMapClientTemplate().queryForObject(
+				"DESIGNER.selectTypeDesignerCount", type);
 	}
 }

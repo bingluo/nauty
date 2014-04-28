@@ -28,6 +28,10 @@ public class PublicationService {
 		}
 		return publications;
 	}
+	
+	public int getPubCount() {
+		return publicationDAOImpl.getpubCount();
+	}
 
 	@Cacheable(value = "publicationCache", key = "'getPublicationById:'+#id")
 	public PublicationPojo getPublicationById(int id) {

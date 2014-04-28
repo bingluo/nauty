@@ -69,4 +69,9 @@ public class PublicationDAOImpl extends SqlMapClientDaoSupport implements
 	public void addClickCounts(int id) {
 		getSqlMapClientTemplate().update("PUBLICATION.clickUp", id);
 	}
+
+	@Override
+	public int getpubCount() {
+		return (Integer)getSqlMapClientTemplate().queryForObject("PUBLICATION.selectPubCount");
+	}
 }

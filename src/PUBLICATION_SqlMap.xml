@@ -30,6 +30,13 @@
 		]]>
 	</select>
 	
+	<select id="selectPubCount" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(a.id)
+    		FROM publication a
+		]]>
+	</select>
+	
 	<select id="selectRecentPublications" resultMap="PublicationResultMap">
 		<![CDATA[
 		SELECT * FROM 

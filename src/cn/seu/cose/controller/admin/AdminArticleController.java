@@ -67,7 +67,7 @@ public class AdminArticleController extends AbstractController{
 		model.addAttribute("pageIndex", pageIndex);
 		model.addAttribute("nextPageIndex", pageIndex+1);
 		model.addAttribute("prePageIndex", pageIndex-1);
-		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(topCatId,subCatId)));
+		model.addAttribute("pageCount", getPageCount(PAGE_SIZE, articleService.getArticleCountByCatId(topCatId,subCatId)));
 		
 		return "admin_articles";
 	}
@@ -87,9 +87,9 @@ public class AdminArticleController extends AbstractController{
 		model.addAttribute("topCatId", 2);
 		model.addAttribute("subCatId", 0);
 		model.addAttribute("pageIndex", 1);
-		model.addAttribute("nextPageIndex", 2);
-		model.addAttribute("prePageIndex", 0);
-		model.addAttribute("pageCount", getPageCount(list.size()));
+		model.addAttribute("nextPageIndex", 1);
+		model.addAttribute("prePageIndex", 1);
+		model.addAttribute("pageCount", 1);
 		return "admin_articles";
 	}
 	
@@ -113,7 +113,7 @@ public class AdminArticleController extends AbstractController{
 		model.addAttribute("pageIndex", 1);
 		model.addAttribute("nextPageIndex", 2);
 		model.addAttribute("prePageIndex", 0);
-		model.addAttribute("pageCount", getPageCount(articleService.getArticleCountByCatId(2, 0)));
+		model.addAttribute("pageCount", getPageCount(PAGE_SIZE, articleService.getArticleCountByCatId(2, 0)));
 		return "admin_articles";
 	}
 	
@@ -223,16 +223,6 @@ public class AdminArticleController extends AbstractController{
 		int briefLength = pure.length() > 100 ? 100 : pure.length();
 		article.setPureText(pure.substring(0, briefLength) + "……");
 		articleService.updateArticle(article);
-	}
-	
-	private int getPageCount(int count) {
-		if (count <= PAGE_SIZE) {
-			return 1;
-		} else if (count%PAGE_SIZE == 0) {
-			return count/PAGE_SIZE;
-		} else {
-			return count/PAGE_SIZE +1;
-		}
 	}
 	
 	private static String wrapPure(String pure) {

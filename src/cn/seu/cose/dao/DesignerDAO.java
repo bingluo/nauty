@@ -31,4 +31,10 @@ public interface DesignerDAO {
 	void deleteDesigner(int id);
 
 	Designer getDesignerByKey(String key);
+	
+	List<Designer> getAllDesignersByBaseAndRange(int base, int range);
+	int getAllDesignerCount();
+	List<Designer> getTypeDesignersByBaseAndRange(int type, int base, int range);
+	int getTypeDesignerCount(int type);
+	
 }

@@ -76,6 +76,30 @@
 								#end
 							</tbody>
 						</table>
+						<div class="pagination pagination-centered"">
+							<ul>
+								#if ($prePageIndex == 0) 
+									<li class="disabled"><a href="javascript:void(0)">前一页</a></li>
+								#else
+									<li><a href="$!{viewUtil.getContextPath()}/admin/activity_list/p${prePageIndex}" >前一页</a></li>
+								#end
+						    	#if ($pageIndex >= $pageCount)
+							    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
+						    	#else
+						    		<li><a href="$!{viewUtil.getContextPath()}/admin/activity_list/p${nextPageIndex}">后一页</a></li>
+						    	#end
+							</ul>
+							<select style="vertical-align:top; height:inherit; width:80px" onchange="top.location=this.value;">
+								#foreach($i in [1..$pageCount]) 
+									#if ($i == $pageIndex)
+										<option value="$!{viewUtil.getContextPath()}/admin/activity_list/p${i}" selected>$i</option>
+									#else
+										<option value="$!{viewUtil.getContextPath()}/admin/activity_list/p${i}">$i</option>
+									#end
+								#end
+							</select>
+						</div>
+						
 					</div>
 				</div>
 			</div>

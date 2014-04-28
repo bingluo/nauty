@@ -202,4 +202,18 @@ public class DesignerService {
 				.getDesigner();
 		return designer;
 	}
+	
+	public List<Designer> getAllDesignersByBaseAndRange(int pn, int pageSize) {
+		return  designerDAOImpl.getAllDesignersByBaseAndRange((pn-1)*pageSize, pn*pageSize);
+	}
+	public int getAllDesignerCount() {
+		return  designerDAOImpl.getAllDesignerCount();
+	}
+	public List<Designer> getTypeDesignersByBaseAndRange(int type, int pn, int pageSize) {
+		return  designerDAOImpl.getTypeDesignersByBaseAndRange(type, (pn-1)*pageSize, pn*pageSize);
+	}
+	public int getTypeDesignerCount(int type) {
+		return  designerDAOImpl.getTypeDesignerCount(type);
+	}
+	
 }

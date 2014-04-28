@@ -1,5 +1,6 @@
 package cn.seu.cose.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +82,20 @@ public class ActivityDAOImpl extends SqlMapClientDaoSupport implements
 	public List<Activity> getIndexActivities() {
 		return getSqlMapClientTemplate().queryForList(
 				"ACTIVITY.selectIndexActivities");
+	}
+
+	@Override
+	public List<Activity> getActivitiesByBaseAndRange(int base, int range) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("base", base);
+		map.put("range", range);
+		return getSqlMapClientTemplate().queryForList(
+				"ACTIVITY.selectActivitiesByBaseAndRange", map);
+	}
+
+	@Override
+	public int getActivityCount() {
+		return (Integer)getSqlMapClientTemplate().queryForObject(
+				"ACTIVITY.selectActivityCount");
 	}
 }

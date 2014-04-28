@@ -34,18 +34,40 @@ public class AdminDesignerController extends AbstractController{
 	
 	
 	@RequestMapping(value="/admin/designer_list", method=RequestMethod.GET)
-	public String getDesigners(Model model, HttpServletResponse response) {
+	public void getDesignersDefault(Model model, HttpServletResponse response) {
+		try {
+			response.sendRedirect("/admin/designer_list/p1");		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value="/admin/designer_list/p{pageIndex}", method=RequestMethod.GET)
+	public String getDesigners(@PathVariable("pageIndex") int pageIndex, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
-		List<Designer> list = designerService.getAllDesigners();
+		
+		int index = pageIndex>0 ? pageIndex : 1;
+		List<Designer> list = designerService.getAllDesignersByBaseAndRange(index, PAGE_SIZE);
 		model.addAttribute("designer_list", list);
+		
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("nextPageIndex", pageIndex+1);
+		model.addAttribute("prePageIndex", pageIndex-1);
+		int pageCount = getPageCount(PAGE_SIZE, designerService.getAllDesignerCount());
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("prefix", "designer_list"); 
 		return "admin_designers";
 	}
+	
+	
 	
 	@RequestMapping(value="/admin/designer_list_search-{searchInput}", method=RequestMethod.GET)
 	public String searchDesignerByName(@PathVariable("searchInput") String searchInput, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
 		List<Designer> list = designerService.searchDesignerByName(searchInput);
 		model.addAttribute("designer_list", list);
+		model.addAttribute("pageIndex", 1);
+		model.addAttribute("nextPageIndex", 1);
+		model.addAttribute("prePageIndex", 1);
+		model.addAttribute("pageCount", 1);
 		return "admin_designers";
 	}
 	
@@ -59,19 +81,54 @@ public class AdminDesignerController extends AbstractController{
 		}
 	}
 	
+	
 	@RequestMapping(value="/admin/designer_list_certificated", method=RequestMethod.GET)
-	public String getCertificatedDesigners(Model model, HttpServletResponse response) {
+	public void getCertificatedDesignersDefault(Model model, HttpServletResponse response) {
+		try {
+			response.sendRedirect("/admin/designer_list_certificated/p1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value="/admin/designer_list_certificated/p{pageIndex}", method=RequestMethod.GET)
+	public String getCertificatedDesigners(@PathVariable("pageIndex") int pageIndex, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
-		List<Designer> list = designerService.getAllCertificatedDesigners();
+		
+		int index = pageIndex>0 ? pageIndex : 1;
+		List<Designer> list = designerService.getTypeDesignersByBaseAndRange(0, index, PAGE_SIZE);
 		model.addAttribute("designer_list", list);
+		
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("nextPageIndex", pageIndex+1);
+		model.addAttribute("prePageIndex", pageIndex-1);
+		int pageCount = getPageCount(PAGE_SIZE, designerService.getTypeDesignerCount(0));
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("prefix", "designer_list_certificated"); 
 		return "admin_designers";
 	}
 	
 	@RequestMapping(value="/admin/designer_list_uncertificated", method=RequestMethod.GET)
-	public String getUncertificatedDesigners(Model model, HttpServletResponse response) {
+	public void getUnCertificatedDesignersDefault(Model model, HttpServletResponse response) {
+		try {
+			response.sendRedirect("/admin/designer_list_uncertificated/p1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value="/admin/designer_list_uncertificated/p{pageIndex}", method=RequestMethod.GET)
+	public String getUncertificatedDesigners(@PathVariable("pageIndex") int pageIndex, Model model, HttpServletResponse response) {
 		putAdmin(model, response);
-		List<Designer> list = designerService.getAllUncertificatedDesigners();
+		
+		int index = pageIndex>0 ? pageIndex : 1;
+		List<Designer> list = designerService.getTypeDesignersByBaseAndRange(1, index, PAGE_SIZE);
 		model.addAttribute("designer_list", list);
+		
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("nextPageIndex", pageIndex+1);
+		model.addAttribute("prePageIndex", pageIndex-1);
+		int pageCount = getPageCount(PAGE_SIZE, designerService.getTypeDesignerCount(1));
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("prefix", "designer_list_uncertificated"); 
 		return "admin_designers";
 	}
 	
@@ -110,7 +167,7 @@ public class AdminDesignerController extends AbstractController{
 		model.addAttribute("pageIndex", pageIndex);
 		model.addAttribute("nextPageIndex", pageIndex+1);
 		model.addAttribute("prePageIndex", pageIndex-1);
-		int pageCount = getPageCount(blogService.getBlogCountByDesignerId(designerId));
+		int pageCount = getPageCount(PAGE_SIZE, blogService.getBlogCountByDesignerId(designerId));
 		model.addAttribute("pageCount",pageCount);
 		
 		return "admin_blogs";
@@ -127,18 +184,7 @@ public class AdminDesignerController extends AbstractController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	private int getPageCount(int count) {
-		if (count <= PAGE_SIZE) {
-			return 1;
-		} else if (count%PAGE_SIZE == 0) {
-			return count/PAGE_SIZE;
-		} else {
-			return count/PAGE_SIZE +1;
-		}
-	}	
-		
+	}		
 	
 	
 	

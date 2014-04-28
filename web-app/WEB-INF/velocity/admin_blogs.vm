@@ -57,7 +57,7 @@
 						    	#if ($pageIndex >= $pageCount)
 							    	<li class="disabled"><a href="javascript:void(0)">后一页</a></li>
 						    	#else
-						    		<li><a href="$!{viewUtil.getContextPath()}/admin/designer/${designerId}/blog_list/${nextPageIndex}">后一页</a></li>
+						    		<li><a href="$!{viewUtil.getContextPath()}/admin/designer/${designerId}/blog_list/p${nextPageIndex}">后一页</a></li>
 						    	#end
 							</ul>
 							<select style="vertical-align:top; height:inherit; width:80px" onchange="top.location=this.value;">

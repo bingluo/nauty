@@ -26,6 +26,47 @@
 			WHERE email != ''
 		]]>
 	</select>	
+	
+	<select id="selectAllDesignersByBaseAndRange" resultMap="DesignerResultMap" parameterClass="java.util.Map">		
+		<![CDATA[
+    		SELECT * FROM 
+    			(SELECT * 
+    			 FROM designer a
+    			 ORDER BY a.certificate_time DESC
+    			) b
+			LIMIT #base#, #range#
+		]]>
+	</select>
+		
+	<select id="selectAllDesignerCount" resultClass="int">		
+		<![CDATA[
+    		SELECT COUNT(*)
+    		FROM designer
+		]]>
+	</select>
+	
+	
+	<select id="selectTypeDesignersByBaseAndRange" resultMap="DesignerResultMap" parameterClass="java.util.Map">		
+		<![CDATA[
+    		SELECT * FROM 
+    			(SELECT * 
+    			 FROM designer a
+    			 WHERE a.certificated = #type#
+    			 ORDER BY a.certificate_time DESC
+    			) b
+			LIMIT #base#, #range#
+		]]>
+	</select>	
+	
+	<select id="selectTypeDesignerCount" resultClass="int" parameterClass="int">		
+		<![CDATA[
+    		SELECT COUNT(*)
+    		FROM designer a
+    		WHERE a.certificated = #value#
+		]]>
+	</select>
+	
+	
 
 	<select id="selectDesignerByKey" resultMap="DesignerResultMap" parameterClass="java.lang.String">		
 		<![CDATA[
