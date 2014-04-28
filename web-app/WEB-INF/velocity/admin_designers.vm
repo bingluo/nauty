@@ -56,12 +56,10 @@
 							<thead>
 								<tr>
 									<th style="width:6%">ID</th>
-									<th>设计师</th>
-									<th>Email</th>
-									<th style="width:5%">简介</th>
-									
-									<th style="width:15%">注册时间</th>
-									<th style="width:15%">认证情况</th>
+									<th style="width:16%">设计师</th>
+									<th >Email</th>
+									<th style="width:15%">注册</th>
+									<th style="width:15%">认证</th>
 									<th>操作</th>
 								</tr>
 							</thead>
@@ -71,7 +69,6 @@
 										<td>$designer.id</td>
 										<td><a href="/admin/designer/${designer.id}/blog_list/p1">$designer.userName</a></td>
 										<td>$designer.email</td>
-										<td title="$designer.intro">$!{viewUtil.brief($designer.intro)}</td>
 										
 										<td title="$viewUtil.fTime("$!designer.registerTime")">$viewUtil.fTime("$!{designer.registerTime}")</td>
 										
