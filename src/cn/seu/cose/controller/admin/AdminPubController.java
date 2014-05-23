@@ -40,7 +40,7 @@ public class AdminPubController extends AbstractController{
 		putAdmin(model, response);
 		
 		int index = pageIndex<=0 ? 1 : pageIndex;
-		List<PublicationPojo> list = pubService.getPublicationByIndexAndPageSize(index, PAGE_SIZE);
+		List<PublicationPojo> list = pubService.getPublicationByIndexAndPageSize4Admin(index, PAGE_SIZE);
 		model.addAttribute("pub_list", list);
 		
 		model.addAttribute("pageIndex", pageIndex);
@@ -60,12 +60,13 @@ public class AdminPubController extends AbstractController{
 	
 	@RequestMapping(value="/admin/add_pub", method=RequestMethod.POST)
 	public void postAdd(@RequestParam("title")String title, @RequestParam("intro") String intro, 
-			@RequestParam("images")String images, @RequestParam("linkUrl") String linkUrl, Model model, HttpServletResponse response) {
+			@RequestParam("images")String images, @RequestParam("linkUrl") String linkUrl, @RequestParam("type") int type, Model model, HttpServletResponse response) {
 		
 		PublicationPojo pub = new PublicationPojo();
 		pub.setTitle(title);
 		pub.setIntro(intro);
 		pub.setLinkUrl(linkUrl);
+		pub.setType(type);
 		pub.setImages(images);
 		pub.setPostTime(new Date());
 		pubService.addPublication(pub);
@@ -92,12 +93,13 @@ public class AdminPubController extends AbstractController{
 	
 	@RequestMapping(value="/admin/alt_pub", method=RequestMethod.POST)
 	public void postAlt(@RequestParam("id") String idStr, @RequestParam("title")String title, @RequestParam("intro") String intro, 
-			@RequestParam("images")String images, @RequestParam("linkUrl") String linkUrl, Model model, HttpServletResponse response) {
+			@RequestParam("images")String images, @RequestParam("linkUrl") String linkUrl, @RequestParam("type") int type, Model model, HttpServletResponse response) {
 		PublicationPojo pub = new PublicationPojo();
 		pub.setId(Integer.parseInt(idStr));
 		pub.setTitle(title);
 		pub.setIntro(intro);
 		pub.setLinkUrl(linkUrl);
+		pub.setType(type);
 		pub.setImages(images);
 		pub.setPostTime(new Date());
 		pubService.updatePublication(pub);

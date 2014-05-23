@@ -11,6 +11,7 @@
 		<result property="intro" column="INTRO" nullValue=""/>
 		<result property="images" column="IMAGES" nullValue=""/>
 		<result property="linkUrl" column="LINK_URL"/>
+		<result property="type" column="TYPE"/>
 		<result property="clickCounts" column="CLICK_COUNTS" />
 		<result property="postTime" column="POST_TIME" nullValue=""/>
 	</resultMap>
@@ -24,7 +25,7 @@
 	
 	<select id="selectPublicationById" resultMap="PublicationResultMap" parameterClass="int">
 		<![CDATA[
-			SELECT a.id,a.title,a.intro,a.images,a.link_url,a.click_counts,a.post_time
+			SELECT a.id,a.title,a.intro,a.images,a.link_url, a.type, a.click_counts,a.post_time
     		FROM publication a
 			WHERE a.id=#id#
 		]]>
@@ -40,7 +41,7 @@
 	<select id="selectRecentPublications" resultMap="PublicationResultMap">
 		<![CDATA[
 		SELECT * FROM 
-			(SELECT a.id,a.title,a.intro,a.images,a.link_url,a.click_counts,a.post_time
+			(SELECT a.id,a.title,a.intro,a.images,a.link_url,a.type, a.click_counts,a.post_time
     		FROM publication a
     		ORDER BY a.post_time DESC) b
 		limit 0,4
@@ -50,7 +51,7 @@
 	<select id="selectPublicationsByBaseAndRange" resultMap="PublicationResultMap" parameterClass="java.util.Map">
 		<![CDATA[
 		SELECT * FROM 
-			(SELECT a.id,a.title,a.intro,a.images,a.link_url,a.click_counts,a.post_time
+			(SELECT a.id,a.title,a.intro,a.images,a.link_url,a.type, a.click_counts,a.post_time
     		FROM publication a
     		ORDER BY a.post_time DESC) b
 		limit #base#,#range#
@@ -68,8 +69,8 @@
 	<insert id="insertPublication" parameterClass="publication">	
 		<![CDATA[
 		INSERT INTO publication
-		(title,intro,images,link_url,post_time)
-		VALUES (#title#,#intro#,#images#,#linkUrl#, current_timestamp())
+		(title,intro,images,link_url,type, post_time)
+		VALUES (#title#,#intro#,#images#,#linkUrl#, #type#, current_timestamp())
 		]]>
 	</insert>
 	
@@ -80,6 +81,7 @@
 			intro = #intro#,
 			images = #images#,
 			link_url = #linkUrl#,
+			type = #type#,
 			post_time = current_timestamp()
 		WHERE id = #id#
 		]]>
