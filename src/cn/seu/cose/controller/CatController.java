@@ -1,8 +1,10 @@
 package cn.seu.cose.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import cn.seu.cose.entity.Upload;
 import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.CategoryService;
 import cn.seu.cose.service.UploadService;
+import cn.seu.cose.view.util.ViewUtil;
 
 @Controller
 public class CatController extends AbstractController {
@@ -47,7 +50,7 @@ public class CatController extends AbstractController {
 	}
 
 	// new
-	@RequestMapping("/new")
+	@RequestMapping("/news")
 	public String viewNewCatIndex(Model model, HttpServletRequest request) {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
@@ -55,7 +58,7 @@ public class CatController extends AbstractController {
 		return view(model, 2, index);
 	}
 
-	@RequestMapping("/new/cat-{catId}")
+	@RequestMapping("/news/cat-{catId}")
 	public String viewNewCat(Model model, @PathVariable("catId") int catId,
 			HttpServletRequest request) {
 		model.addAttribute("url", request.getServletPath());
@@ -65,7 +68,7 @@ public class CatController extends AbstractController {
 	}
 
 	// work
-	@RequestMapping("/work")
+	@RequestMapping("/workshop")
 	public String viewWorkCatIndex(Model model, HttpServletRequest request) {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
@@ -73,7 +76,7 @@ public class CatController extends AbstractController {
 		return view(model, 3, index);
 	}
 
-	@RequestMapping("/work/cat-{catId}")
+	@RequestMapping("/workshop/cat-{catId}")
 	public String viewWorkCat(Model model, @PathVariable("catId") int catId,
 			HttpServletRequest request) {
 		model.addAttribute("url", request.getServletPath());
@@ -82,35 +85,17 @@ public class CatController extends AbstractController {
 		return view(model, catId, index);
 	}
 
-	// policy
-	@RequestMapping("/policy")
-	public String viewPolicyCatIndex(Model model, HttpServletRequest request) {
+	// members
+	@RequestMapping("/members")
+	public String viewMembersCatIndex(Model model, HttpServletRequest request) {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
 		int index = pageIndexResolve(pageIndex);
 		return view(model, 4, index);
 	}
 
-	@RequestMapping("/policy/cat-{catId}")
-	public String viewPolicyCat(Model model, @PathVariable("catId") int catId,
-			HttpServletRequest request) {
-		model.addAttribute("url", request.getServletPath());
-		String pageIndex = (String) request.getParameter("pn");
-		int index = pageIndexResolve(pageIndex);
-		return view(model, catId, index);
-	}
-
-	// train
-	@RequestMapping("/train")
-	public String viewTrainCatIndex(Model model, HttpServletRequest request) {
-		model.addAttribute("url", request.getServletPath());
-		String pageIndex = (String) request.getParameter("pn");
-		int index = pageIndexResolve(pageIndex);
-		return view(model, 28, index);
-	}
-
-	@RequestMapping("/train/cat-{catId}")
-	public String viewTrainCat(Model model, @PathVariable("catId") int catId,
+	@RequestMapping("/members/cat-{catId}")
+	public String viewMembersCat(Model model, @PathVariable("catId") int catId,
 			HttpServletRequest request) {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
@@ -124,7 +109,7 @@ public class CatController extends AbstractController {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
 		int index = pageIndexResolve(pageIndex);
-		return view(model, 6, index);
+		return view(model, 5, index);
 	}
 
 	@RequestMapping("/events/cat-{catId}")
@@ -136,17 +121,90 @@ public class CatController extends AbstractController {
 		return view(model, catId, index);
 	}
 
-	// space
-	@RequestMapping("/space")
-	public String viewSpaceCatIndex(Model model, HttpServletRequest request) {
+	// policy
+	@RequestMapping("/policy")
+	public String viewPolicyCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 6, index);
+	}
+
+	@RequestMapping("/policy/cat-{catId}")
+	public String viewPolicyCat(Model model, @PathVariable("catId") int catId,
+			HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
+	}
+
+	// publication
+	@RequestMapping("/publication-navi")
+	public String viewPublicationCatIndex(Model model,
+			HttpServletRequest request) {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
 		int index = pageIndexResolve(pageIndex);
 		return view(model, 7, index);
 	}
 
-	@RequestMapping("/space/cat-{catId}")
-	public String viewSpaceCat(Model model, @PathVariable("catId") int catId,
+	@RequestMapping("/publication-navi/cat-{catId}")
+	public String viewPublicationCat(Model model,
+			@PathVariable("catId") int catId, HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			if (catId == 37) {
+				response.sendRedirect(ViewUtil.getContextPath()
+						+ "/publication");
+				return null;
+			} else if (catId == 38) {
+				response.sendRedirect(ViewUtil.getContextPath()
+						+ "/publication-com");
+				return null;
+			} else if (catId == 39) {
+				response.sendRedirect(ViewUtil.getContextPath()
+						+ "/publication-cul");
+				return null;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
+	}
+
+	// blogzone
+	@RequestMapping("/blogzone")
+	public String viewBlogzoneCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 8, index);
+	}
+
+	@RequestMapping("/blogzone/cat-{catId}")
+	public String viewBlogzoneCat(Model model,
+			@PathVariable("catId") int catId, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, catId, index);
+	}
+
+	// train
+	@RequestMapping("/train")
+	public String viewTrainCatIndex(Model model, HttpServletRequest request) {
+		model.addAttribute("url", request.getServletPath());
+		String pageIndex = (String) request.getParameter("pn");
+		int index = pageIndexResolve(pageIndex);
+		return view(model, 61, index);
+	}
+
+	@RequestMapping("/train/cat-{catId}")
+	public String viewTrainCat(Model model, @PathVariable("catId") int catId,
 			HttpServletRequest request) {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");

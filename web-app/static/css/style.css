@@ -156,7 +156,7 @@
 	text-decoration: none;
 	font-size: 12px;
 	font-weight: bold;
-	padding: 13px 21px;
+	padding: 13px 16px;
 	background: url(../images/navigation-divider.png) no-repeat right 50%;
 }
 
@@ -186,7 +186,7 @@
 
 #navigation ul ul li a {
 	display: block;
-	width: 150px;
+	width: 100px;
 	margin: 0;
 	padding: 9px 18px;
 	font-family: Arial, sans-serif;

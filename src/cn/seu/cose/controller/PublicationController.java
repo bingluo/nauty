@@ -29,6 +29,30 @@ public class PublicationController extends AbstractController {
 		return "publication_list";
 	}
 
+	@RequestMapping("/publication-com")
+	public String publicationCompanyList(Model model) {
+		basicIssue(model);
+		List<PublicationPojo> publications = publicationService
+				.getAllPublications();
+		List<String> years = publicationService.classify(publications);
+		model.addAttribute("publications", publications);
+		model.addAttribute("years", years);
+
+		return "publication_list";
+	}
+
+	@RequestMapping("/publication-cul")
+	public String publicationCultureList(Model model) {
+		basicIssue(model);
+		List<PublicationPojo> publications = publicationService
+				.getAllPublications();
+		List<String> years = publicationService.classify(publications);
+		model.addAttribute("publications", publications);
+		model.addAttribute("years", years);
+
+		return "publication_list";
+	}
+
 	@RequestMapping("/publication/{id}.html")
 	public String publication(@PathVariable("id") int id, Model model) {
 		basicIssue(model);
