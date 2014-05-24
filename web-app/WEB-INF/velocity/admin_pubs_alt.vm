@@ -29,12 +29,40 @@
 									<input type="text" id="title" name="title" value="$pub.title" />
 								</div>
 							</div>
+							
 							<div class="control-group">
 								<label class="control-label">刊物简介</label>
 								<div class="controls">
 									<input type="text" id="intro" name="intro" value="$pub.intro">
 								</div>
 							</div>
+							
+							<div class="control-group">
+								<label class="control-label">刊物类型</label>
+								<div class="controls">
+									#if($pub.type == 1)
+										<select id="type">
+											<option value="1" selected>协会刊物</option>
+											<option value="2">企业外刊</option>
+											<option value="3">文化交流</option>
+										</select>
+									#elseif($pub.type == 2)
+										<select id="type">
+											<option value="1" >协会刊物</option>
+											<option value="2" selected>企业外刊</option>
+											<option value="3">文化交流</option>
+										</select>
+									#else 
+										<select id="type">
+											<option value="1" >协会刊物</option>
+											<option value="2">企业外刊</option>
+											<option value="3" selected>文化交流</option>
+										</select>
+									#end
+									
+								</div>
+							</div>
+							
 							<div class="control-group">
 								<label class="control-label">刊物链接</label>
 								<div class="controls">
@@ -80,6 +108,8 @@
 			var _intro = $("#intro").val();
 			var _picName = $("#picName").val();
 			var _linkUrl = $("#linkUrl").val();
+			var _type = $("#type option:selected").val();
+			
 			
 			if(_title == "") {
 				$("#title").parent().parent().addClass("error");
@@ -94,7 +124,7 @@
 				$.ajax({
 					url: context_path + "/admin/alt_pub",
 					type: "post",
-					data: {id:_id, title:_title, intro:_intro, images:_picName, linkUrl:_linkUrl},
+					data: {id:_id, title:_title, intro:_intro, images:_picName, linkUrl:_linkUrl, type:_type},
 					dataType: "html",
 					success: function(data) {
 						window.location.href = context_path + "/admin/pub_list";

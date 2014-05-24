@@ -34,6 +34,18 @@
 									<input type="text" id="intro" name="intro">
 								</div>
 							</div>
+							
+							<div class="control-group">
+								<label class="control-label">刊物类型</label>
+								<div class="controls">
+									<select id="type">
+										<option value="1" selected>协会刊物</option>
+										<option value="2">企业外刊</option>
+										<option value="3">文化交流</option>
+									</select>
+								</div>
+							</div>
+							
 							<div class="control-group">
 								<label class="control-label">刊物链接</label>
 								<div class="controls">
@@ -79,6 +91,7 @@
 			var _intro = $("#intro").val();
 			var _picName = $("#picName").val();
 			var _linkUrl = $("#linkUrl").val();
+			var _type = $("#type option:selected").val();
 			
 			if(_title == "") {
 				$("#title").parent().parent().addClass("error");
@@ -93,7 +106,7 @@
 				$.ajax({
 					url: context_path + "/admin/add_pub",
 					type: "post",
-					data: {title:_title, intro:_intro, images:_picName, linkUrl:_linkUrl},
+					data: {title:_title, intro:_intro, images:_picName, linkUrl:_linkUrl, type:_type},
 					dataType: "html",
 					success: function(data) {
 						window.location.href = context_path + "/admin/pub_list";

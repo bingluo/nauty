@@ -63,6 +63,18 @@ public class PublicationService {
 
 		return publications;
 	}
+	
+	public List<PublicationPojo> getPublicationByIndexAndPageSize4Admin(int index,
+			int pageSize) {
+		List<PublicationPojo> publications = publicationDAOImpl
+				.getPublicationsByBaseAndRange((index - 1) * pageSize, pageSize);
+		for (PublicationPojo publication : publications) {
+			resolveImgs(publication);
+			setBrief(publication);
+		}
+
+		return publications;
+	}
 
 	@CacheEvict(value = "publicationCache", allEntries = true)
 	public void addPublication(PublicationPojo publication) {

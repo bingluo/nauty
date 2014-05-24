@@ -8,6 +8,8 @@ public class Publication {
 	private String intro;
 	private String images;
 	private String linkUrl;
+	private int type; // 1:协会刊物，2：企业内刊，3：文化交流
+	
 	private int clickCounts;
 	private Date postTime;
 
@@ -65,5 +67,13 @@ public class Publication {
 
 	public void setPostTime(Date postTime) {
 		this.postTime = postTime;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 }
