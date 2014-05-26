@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="LINK">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="link" type="cn.seu.cose.entity.Link" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="LinkResultMap" class="link">
+		<result property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="url" column="URL"/>
+		<result property="type" column="type"/>
+	</resultMap>
+
+	<select id="selectAllLinks" resultMap="LinkResultMap">		
+		<![CDATA[
+    		SELECT * 
+    		FROM LINK
+		]]>
+	</select>
+
+	<delete id="deleteLink" parameterClass="int">
+		<![CDATA[
+		delete from LINK where ID = #value#
+		]]>
+	</delete>
+</sqlMap>
