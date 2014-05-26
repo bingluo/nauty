@@ -1,0 +1,88 @@
+#parse("admin_header.vm")
+#parse("admin_sidebar.vm")
+
+<div id="content">
+	<div id="content-header">
+		<h1>友情链接管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="$!{viewUtil.getContextPath()}/admin/article_list" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+		<a href="#" class="current">添加链接</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="icon-align-justify"></i>									
+						</span>
+						<h5>添加链接</h5>
+					</div>
+					<div class="widget-content padding">
+						<form action="javascript:void(0)" method="post" class="form-horizontal">
+							<div class="control-group">
+								<label class="control-label">链接名称</label>
+								<div class="controls">
+									<input type="text" id="name" name="name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">链接URL</label>
+								<div class="controls">
+									<input type="text" id="url" name="url">
+								</div>
+							</div>
+							<div class="control-group" >
+								<div class="controls">
+									<button class="btn btn-primary" id="yes_add">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+							    </div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input id="context_path" type="hidden" value="$!{viewUtil.getContextPath()}"/>
+
+<script type="text/javascript">
+	$("#sidebar_li_11").siblings().removeClass('active')
+	$("#sidebar_li_11").addClass('active');
+	var context_path = $("#context_path").val();
+	
+	$(document).ready(function(){
+		$("#yes_add").click(function(check) {
+			$("#name").parent().parent().removeClass("error");
+			$("#url").parent().parent().removeClass("error");
+			$("#req_name").remove();
+			$("#req_url").remove();
+		
+			var _name = $("#name").val();
+			var _url = $("#url").val();
+			
+			if(_name == "") {
+				$("#name").parent().parent().addClass("error");
+				$("#name").parent().append('<span id="req_name" for="required" generated="true" class="help-inline">请填写名称</span>');
+			} else if(_url == "") {
+				$("#url").parent().parent().addClass("error");
+				$("#url").parent().append('<span id="req_url" for="required" generated="true" class="help-inline">请填写URL</span>');
+			} else {
+				$.ajax({
+					url: context_path + "/admin/add_link",
+					type: "post",
+					data: {name:_name, url:_url},
+					dataType: "html",
+					success: function(data) {
+						window.location.href = context_path + "/admin/links_list";
+					},
+					error: function(data) {
+						window.location.href = context_path + "/admin/links_list";
+					}
+				});
+			}
+		});
+	});
+</script>
+#parse("admin_footer.vm")

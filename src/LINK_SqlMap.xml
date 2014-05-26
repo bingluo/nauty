@@ -24,4 +24,11 @@
 		delete from LINK where ID = #value#
 		]]>
 	</delete>
+	
+	<insert id="insertLink" parameterClass="java.util.Map">
+		<![CDATA[
+		insert into LINK(name,url) values(#name#, #url#)
+		]]>
+	</insert>
+	
 </sqlMap>

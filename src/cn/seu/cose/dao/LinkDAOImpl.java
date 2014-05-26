@@ -27,5 +27,10 @@ public class LinkDAOImpl extends SqlMapClientDaoSupport implements LinkDAO{
 	public void deleteLink(int id) {
 		getSqlMapClientTemplate().delete("LINK.deleteLink", id);
 	}
+	
+	@Override
+	public void insertLink(Link link) {
+		getSqlMapClientTemplate().insert("LINK.insertLink", link);
+	}
 
 }

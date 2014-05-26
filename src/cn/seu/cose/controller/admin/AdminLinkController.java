@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.seu.cose.entity.Link;
 import cn.seu.cose.service.LinkService;
 import cn.seu.cose.view.util.ViewUtil;
 
@@ -34,6 +35,22 @@ public class AdminLinkController extends AbstractController{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	@RequestMapping(value="/admin/add_link", method=RequestMethod.GET)
+	public String getAdd(Model model, HttpServletResponse response) {
+		putAdmin(model, response);
+		return "admin_link_add";
+	}
+	
+	@RequestMapping(value="/admin/add_link", method=RequestMethod.POST) 
+	public void postAdd(@RequestParam("name") String name, @RequestParam("url") String url, 
+			Model model, HttpServletResponse response) {
+		Link link = new Link();
+		link.setName(name);
+		link.setUrl(url);
+		linkService.insertLink(link);
 	}
 	
 	

@@ -24,4 +24,8 @@ public class LinkService {
 	}
 	
 	
+	public void insertLink(Link link) {
+		linkDaoImpl.insertLink(link);
+	}
+	
 }

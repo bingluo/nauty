@@ -3,7 +3,7 @@ package cn.seu.cose.entity;
 public class Link {
 	private int id;
 	private String name;
-	private String urlString;
+	private String url;
 	private int type;
 	
 	public int getId() {
@@ -18,11 +18,11 @@ public class Link {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getUrlString() {
-		return urlString;
+	public String getUrl() {
+		return url;
 	}
-	public void setUrlString(String urlString) {
-		this.urlString = urlString;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public int getType() {
 		return type;

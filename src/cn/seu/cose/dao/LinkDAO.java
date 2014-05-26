@@ -10,4 +10,6 @@ public interface LinkDAO {
 	
 	public void deleteLink(int id);
 	
+	public void insertLink(Link link);
+	
 }
