@@ -18,6 +18,8 @@
 	<sqlMap resource="UPLOAD_SqlMap.xml" />
 	<sqlMap resource="PUBLICATION_SqlMap.xml" />
 	<sqlMap resource="PARAMETER_SqlMap.xml" />
+	<sqlMap resource="LINK_SqlMap.xml" />
+	
 	
 	<sqlMap resource="ACTIVITY_SqlMap.xml" />
 	<sqlMap resource="ACTIVITY_APPLICATION_SqlMap.xml" />
