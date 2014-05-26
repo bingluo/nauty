@@ -87,4 +87,20 @@ public class BlogDAOImpl extends SqlMapClientDaoSupport implements BlogDAO {
 				"BLOG.rankDesignerWithBlogCount", topN);
 	}
 
+	@Override
+	public List<Blog> getBlogByTypeAndBaseAndRange(int type, int base, int range) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("base", base);
+		map.put("range", range);
+		return getSqlMapClientTemplate().queryForList(
+				"BLOG.selectBlogByTypeAndBaseAndRange", map);
+	}
+
+	@Override
+	public int getBlogsCountByType(int type) {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"BLOG.selectBlogCountByType", type);
+	}
+
 }

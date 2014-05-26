@@ -47,8 +47,13 @@
 		#foreach($blog in $blogs)
 		<div class="post" style="padding:0px;margin: 0px 0 20px 0px;">
            	<div class="post-content" style="margin:0px;">
-				<div class="post-title" style="font-weight:bold;font-size:18px;">
+				<div class="post-title" style="font-weight:bold;font-size:16px;">
 					<a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}">$blog.title</a>
+					#if(!$blog.isReprinted())
+						<span class="original-icon" title="原创博客">原</span>
+					#else
+						<span class="reprinted-icon" title="转载博客">转</span>
+					#end
 				</div>
           		<div class="post-meta">
         			<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{blog.updateTime}")</span>

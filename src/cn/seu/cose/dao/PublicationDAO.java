@@ -7,6 +7,8 @@ import cn.seu.cose.entity.PublicationPojo;
 public interface PublicationDAO {
 	List<PublicationPojo> getAllPublications();
 
+	List<PublicationPojo> getAllPublicationsByType(int type);
+
 	PublicationPojo getPublicationById(int id);
 
 	List<PublicationPojo> getRecentPublications();
@@ -20,6 +22,6 @@ public interface PublicationDAO {
 	void deletePublication(int id);
 
 	void addClickCounts(int id);
-	
+
 	int getpubCount();
 }

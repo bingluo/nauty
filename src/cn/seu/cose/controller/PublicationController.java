@@ -21,11 +21,12 @@ public class PublicationController extends AbstractController {
 	public String publicationList(Model model) {
 		basicIssue(model);
 		List<PublicationPojo> publications = publicationService
-				.getAllPublications();
+				.getAllPublicationsByType(1);
 		List<String> years = publicationService.classify(publications);
 		model.addAttribute("publications", publications);
 		model.addAttribute("years", years);
-
+		model.addAttribute("publicationTypeUrl", "publication");
+		model.addAttribute("publicationTypeName", "协会刊物");
 		return "publication_list";
 	}
 
@@ -33,10 +34,12 @@ public class PublicationController extends AbstractController {
 	public String publicationCompanyList(Model model) {
 		basicIssue(model);
 		List<PublicationPojo> publications = publicationService
-				.getAllPublications();
+				.getAllPublicationsByType(2);
 		List<String> years = publicationService.classify(publications);
 		model.addAttribute("publications", publications);
 		model.addAttribute("years", years);
+		model.addAttribute("publicationTypeUrl", "publication-com");
+		model.addAttribute("publicationTypeName", "企业内刊");
 
 		return "publication_list";
 	}
@@ -45,10 +48,12 @@ public class PublicationController extends AbstractController {
 	public String publicationCultureList(Model model) {
 		basicIssue(model);
 		List<PublicationPojo> publications = publicationService
-				.getAllPublications();
+				.getAllPublicationsByType(3);
 		List<String> years = publicationService.classify(publications);
 		model.addAttribute("publications", publications);
 		model.addAttribute("years", years);
+		model.addAttribute("publicationTypeUrl", "publication-url");
+		model.addAttribute("publicationTypeName", "文化交流");
 
 		return "publication_list";
 	}
@@ -62,6 +67,36 @@ public class PublicationController extends AbstractController {
 				.getRecentPublications();
 		model.addAttribute("recentPublications", recentPublications);
 		model.addAttribute("publication", publication);
+		model.addAttribute("publicationTypeUrl", "publication");
+		model.addAttribute("publicationTypeName", "协会刊物");
+		return "publication";
+	}
+
+	@RequestMapping("/publication-com/{id}.html")
+	public String publicationCompany(@PathVariable("id") int id, Model model) {
+		basicIssue(model);
+		PublicationPojo publication = publicationService.getPublicationById(id);
+		publicationService.clickUp(id);
+		List<PublicationPojo> recentPublications = publicationService
+				.getRecentPublications();
+		model.addAttribute("recentPublications", recentPublications);
+		model.addAttribute("publication", publication);
+		model.addAttribute("publicationTypeUrl", "publication-com");
+		model.addAttribute("publicationTypeName", "企业内刊");
+		return "publication";
+	}
+
+	@RequestMapping("/publication-cul/{id}.html")
+	public String publicationCulture(@PathVariable("id") int id, Model model) {
+		basicIssue(model);
+		PublicationPojo publication = publicationService.getPublicationById(id);
+		publicationService.clickUp(id);
+		List<PublicationPojo> recentPublications = publicationService
+				.getRecentPublications();
+		model.addAttribute("recentPublications", recentPublications);
+		model.addAttribute("publication", publication);
+		model.addAttribute("publicationTypeUrl", "publication-url");
+		model.addAttribute("publicationTypeName", "文化交流");
 		return "publication";
 	}
 }

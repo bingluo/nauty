@@ -11,9 +11,13 @@ public interface BlogDAO {
 
 	List<Blog> getHotBlogsByBaseAndRange(int base, int range);
 
+	int getBlogsCountByType(int type);
+
 	int getBlogsCountByDesignerId(int designerId);
 
 	Blog getBlogById(int id);
+
+	List<Blog> getBlogByTypeAndBaseAndRange(int type, int base, int range);
 
 	List<Blog> getBlogByDesignerIdAndBaseAndRange(int designerId, int base,
 			int range);

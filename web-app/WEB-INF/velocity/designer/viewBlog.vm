@@ -37,7 +37,14 @@
 ================================================== -->
 	#parse("designer/profile-left-bar.vm")
     <div class="twelve columns">
-		<div style="font-weight:bold;font-size:25px;color:#404040;text-align:center;margin-bottom:10px;">$!{blog.title}</div>
+		<div style="font-weight:bold;font-size:25px;color:#404040;text-align:center;margin-bottom:10px;">
+			#if(!$blog.isReprinted())
+    			<span class="big-original-icon" title="原创博客">原</span>
+    		#else
+    			<span class="big-reprinted-icon" title="转载博客">转</span>
+    		#end
+			$!{blog.title}
+		</div>
 		<div class="post-meta" style="text-align:center;">
 			<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{blog.updateTime}")</span>
 			<span><i class="mini-ico-comment"></i>评论（$!{totalCount}）</span>

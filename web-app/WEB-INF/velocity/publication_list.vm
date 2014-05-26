@@ -25,7 +25,7 @@
 	<div class="sixteen columns">
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2><a href="$!{viewUtil.getContextPath()}/publication" style='color:#333;font-weight:bold;'>协会刊物</a></h2>
+			<h2><a href="$!{viewUtil.getContextPath()}/$!{publicationTypeUrl}" style='color:#333;font-weight:bold;'>$!{publicationTypeName}</a></h2>
 			<!-- Filters -->
 			<div id="filters">
 				<ul class="option-set" data-option-key="filter">
@@ -55,7 +55,7 @@
     			#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
     			<a href="$!{publication.linkUrl}">
     			#else
-    			<a href="$viewUtil.getContextPath()/publication/$!{publication.id}.html">
+    			<a href="$viewUtil.getContextPath()/$!{publicationTypeUrl}/$!{publication.id}.html">
     			#end
     				#if($!{publication.coverUrl}&&$!{publication.coverUrl}!="")
     				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
@@ -70,7 +70,7 @@
         			#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
         			<a href="$!{publication.linkUrl}">
         			#else
-        			<a href="$viewUtil.getContextPath()/publication/$!{publication.id}.html">
+        			<a href="$viewUtil.getContextPath()/$!{publicationTypeUrl}/$!{publication.id}.html">
         			#end
 						$!{publication.title}
 					</a>

@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.seu.cose.core.CategoryCache;
 import cn.seu.cose.entity.ArticlePojo;
+import cn.seu.cose.entity.Blog;
 import cn.seu.cose.entity.CategoryPojo;
 import cn.seu.cose.entity.Upload;
 import cn.seu.cose.service.ArticleService;
+import cn.seu.cose.service.BlogService;
 import cn.seu.cose.service.CategoryService;
 import cn.seu.cose.service.UploadService;
 import cn.seu.cose.view.util.ViewUtil;
@@ -30,6 +32,8 @@ public class CatController extends AbstractController {
 	ArticleService articleService;
 	@Autowired
 	UploadService uploadService;
+	@Autowired
+	BlogService blogService;
 
 	// about
 	@RequestMapping("/about")
@@ -182,7 +186,26 @@ public class CatController extends AbstractController {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
 		int index = pageIndexResolve(pageIndex);
-		return view(model, 8, index);
+
+		basicIssue(model);
+		CategoryPojo categoryPojo = CategoryCache.get(8);
+		model.addAttribute("curCat", categoryPojo);
+
+		List<CategoryPojo> cats = null;
+		int rootCatId;
+		rootCatId = categoryPojo.getId();
+		model.addAttribute("rootCat", categoryPojo);
+		cats = categoryService.getCategoriesByParentId(categoryPojo.getId());
+		model.addAttribute("childrenCats", cats);
+
+		for (CategoryPojo categoryChild : cats) {
+			int type = categoryChild.getId() <= 45 ? categoryChild.getId() - 40
+					: categoryChild.getId() - 62;
+			List<Blog> blogs = blogService.getBlogsByTypeAndPnAndPageSize(type,
+					1, 6);
+			categoryChild.setBlogs(blogs);
+		}
+		return "viewSpecialBlogCat";
 	}
 
 	@RequestMapping("/blogzone/cat-{catId}")
@@ -191,7 +214,42 @@ public class CatController extends AbstractController {
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
 		int index = pageIndexResolve(pageIndex);
-		return view(model, catId, index);
+
+		basicIssue(model);
+		CategoryPojo categoryPojo = CategoryCache.get(catId);
+		model.addAttribute("curCat", categoryPojo);
+
+		List<CategoryPojo> cats = null;
+		int rootCatId;
+		rootCatId = CategoryCache.get(categoryPojo.getParentCatId()).getId();
+		model.addAttribute("rootCat",
+				CategoryCache.get(categoryPojo.getParentCatId()));
+		model.addAttribute("curCat", categoryPojo);
+		cats = categoryService.getCategoriesByParentId(categoryPojo
+				.getParentCatId());
+		model.addAttribute("childrenCats", cats);
+
+		// concerns
+		List<ArticlePojo> concerns = articleService.getConcerns();
+		model.addAttribute("concerns", concerns);
+		// events
+		List<ArticlePojo> events = articleService.getEvents();
+		model.addAttribute("events", events);
+		// trains
+		List<ArticlePojo> trains = articleService.getTrains();
+		model.addAttribute("trains", trains);
+
+		int type = catId <= 45 ? catId - 40 : catId - 62;
+		List<Blog> blogs = blogService.getBlogsByTypeAndPnAndPageSize(type,
+				index, 10);
+		int blogCount = blogService.getBlogCountByType(type);
+		model.addAttribute("blogs", blogs);
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("pageCount",
+				(int) Math.ceil((double) blogCount / 10));
+		model.addAttribute("blogCount", blogCount);
+
+		return "viewBlogCatList";
 	}
 
 	// train
@@ -260,22 +318,35 @@ public class CatController extends AbstractController {
 		List<ArticlePojo> trains = articleService.getTrains();
 		model.addAttribute("trains", trains);
 
-		if (categoryPojo.isExclusiveArticle()) {
-			model.addAttribute("exclusive", true);
-			model.addAttribute("exclusiveArticle",
-					articleService.getExclusiveArticleByCatId(catId));
-		} else {
-			List<ArticlePojo> articles = articleService
-					.getArticleByCatIdAndPageIndexAndPageSize(catId, pageIndex,
-							10);
-			int articleCount = articleService.getArticleCountByCatId(rootCatId,
-					catId);
+		if (categoryPojo.getType() == 1) {
+			if (categoryPojo.isExclusiveArticle()) {
+				model.addAttribute("exclusive", true);
+				model.addAttribute("exclusiveArticle",
+						articleService.getExclusiveArticleByCatId(catId));
+			} else {
+				List<ArticlePojo> articles = articleService
+						.getArticleByCatIdAndPageIndexAndPageSize(catId,
+								pageIndex, 10);
+				int articleCount = articleService.getArticleCountByCatId(
+						rootCatId, catId);
 
-			model.addAttribute("articles", articles);
-			model.addAttribute("pageIndex", pageIndex);
-			model.addAttribute("pageCount",
-					(int) Math.ceil((double) articleCount / 10));
-			model.addAttribute("articleCount", articleCount);
+				model.addAttribute("articles", articles);
+				model.addAttribute("pageIndex", pageIndex);
+				model.addAttribute("pageCount",
+						(int) Math.ceil((double) articleCount / 10));
+				model.addAttribute("articleCount", articleCount);
+			}
+		}
+		if (categoryPojo.getCatLevel() == 1 && categoryPojo.getType() == 2) {
+			for (CategoryPojo categoryChild : cats) {
+				if (!categoryChild.isExclusiveArticle()) {
+					List<ArticlePojo> articles = articleService
+							.getArticleByCatIdAndPageIndexAndPageSize(
+									categoryChild.getId(), 1, 7);
+					categoryChild.setArticles(articles);
+				}
+			}
+			return "viewSpecialCat";
 		}
 		return "viewCat";
 	}

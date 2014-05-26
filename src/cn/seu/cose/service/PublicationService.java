@@ -28,7 +28,17 @@ public class PublicationService {
 		}
 		return publications;
 	}
-	
+
+	public List<PublicationPojo> getAllPublicationsByType(int type) {
+		List<PublicationPojo> publications = publicationDAOImpl
+				.getAllPublicationsByType(type);
+		for (PublicationPojo publication : publications) {
+			resolveImgs(publication);
+			setBrief(publication);
+		}
+		return publications;
+	}
+
 	public int getPubCount() {
 		return publicationDAOImpl.getpubCount();
 	}
@@ -63,9 +73,9 @@ public class PublicationService {
 
 		return publications;
 	}
-	
-	public List<PublicationPojo> getPublicationByIndexAndPageSize4Admin(int index,
-			int pageSize) {
+
+	public List<PublicationPojo> getPublicationByIndexAndPageSize4Admin(
+			int index, int pageSize) {
 		List<PublicationPojo> publications = publicationDAOImpl
 				.getPublicationsByBaseAndRange((index - 1) * pageSize, pageSize);
 		for (PublicationPojo publication : publications) {
@@ -148,7 +158,7 @@ public class PublicationService {
 			}
 		}
 		Collections.sort(sortList, new PublicationComparator());
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4 && i < sortList.size(); i++) {
 			PublicationPojo e = sortList.get(i);
 			if (e != null) {
 				e.setHot(true);

@@ -600,12 +600,16 @@ public class DesignerCenterController extends AbstractController {
 	public void newBlogPost(Model model,
 			@PathVariable("designerId") int designerId,
 			@RequestParam("title") String title,
+			@RequestParam("original") int original,
+			@RequestParam("category") int category,
 			@RequestParam("content") String content,
 			@RequestParam("pureText") String pureText,
 			HttpServletResponse response) {
 		try {
 			if (designerService.isTheSignInOne(designerId)) {
-				blogService.newBlog(title, pureText, content, designerId);
+				boolean reprinted = original == 1 ? false : true;
+				blogService.newBlog(title, reprinted, category, pureText,
+						content, designerId);
 				response.getWriter().write("1");
 			} else {
 				response.getWriter().write("0");
@@ -718,6 +722,8 @@ public class DesignerCenterController extends AbstractController {
 			@PathVariable("designerId") int designerId,
 			@PathVariable("blogId") int blogId,
 			@RequestParam("title") String title,
+			@RequestParam("original") int original,
+			@RequestParam("category") int category,
 			@RequestParam("content") String content,
 			@RequestParam("pureText") String pureText,
 			HttpServletResponse response) {
@@ -725,7 +731,9 @@ public class DesignerCenterController extends AbstractController {
 			Blog blog = blogService.getBlogById(blogId);
 			if (designerService.isTheSignInOne(designerId) && blog != null
 					&& blog.getDesignerId() == designerId) {
-				blogService.updateBlog(title, pureText, content, blogId);
+				boolean reprinted = original == 1 ? false : true;
+				blogService.updateBlog(title, reprinted, category, pureText,
+						content, blogId);
 				response.getWriter().write("1");
 			} else {
 				response.getWriter().write("0");

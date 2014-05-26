@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+
+<!-- Content
+================================================== -->
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+    <!-- 960 Container -->
+    <div class="container ie-dropdown-fix">
+    	<!-- Header -->
+    	#parse("common/header.vm")
+    	<!-- Header / End -->
+    	<!-- Navigation -->
+    	#parse("common/navi.vm")
+    	<!-- Navigation / End -->
+    	<div class="sixteen columns">
+    		<!-- Page Title -->
+    		<div id="page-title">
+    			$viewUtil.getBreadcrumb($curCat.id)
+    			<div id="bolded-line"></div>
+    		</div>
+    		<!-- Page Title / End -->
+    	</div>
+    </div>
+    <!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container">
+<!-- Widget
+================================================== -->
+#foreach($cat in $childrenCats)
+    #if(!$cat.isExclusiveArticle())
+	<div class="special-list-box #if($velocityCount>3)notTop#end">
+		<!-- Categories -->
+        <div class="widget first">
+			<div class="headline no-margin"><h3><a href="$!{viewUtil.getContextPath()}/$rootCat.uriName/cat-$!{cat.id}">$!{cat.catName}</a></h3></div>
+			<ul class="links-list-alt">
+        		#foreach($subArticle in $cat.articles)
+				<li>
+					<div class="special-list-item" >
+						<a href="$!{subArticle.uri}" style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">$!{subArticle.title}</a>
+					</div>
+				</li>
+        		#end
+			</ul>
+		</div>
+	</div>
+    #end
+#end
+</div>
+<!-- 960 Container / End -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+<script language="JavaScript">
+	$(document).ready(function(){
+		$(".circle_list li div a").css("color","#666");
+		$(".circle_list li div a").hover(function(){
+			$(this).css("color","#72b626");
+			$(this).css("text-decoration","underline");
+		},
+		function(){
+			$(this).css("color","#666");
+			$(this).css("text-decoration","none");
+		});
+		
+		$("#searchForm").submit(function(){
+			if($("input[name='keyword']").val()!=""){
+				return true;
+			}else{
+				return false;
+			}
+		});
+		
+		$("#searchBtn").click(function(){
+			$("#searchForm").submit();
+		});
+	});
+</script>
+</body>
+</html>

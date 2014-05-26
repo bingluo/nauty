@@ -13,6 +13,8 @@ public class Category {
 
 	private String uriName;
 
+	private int type;
+
 	public int getId() {
 		return id;
 	}
@@ -59,5 +61,13 @@ public class Category {
 
 	public void setUriName(String uriName) {
 		this.uriName = uriName;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 }

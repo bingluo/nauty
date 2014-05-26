@@ -684,7 +684,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 })();
 
 /*----------------------------------------------------*/
-/*	Profile Form
+/*	Blog Form
 /*----------------------------------------------------*/
 (function() {
 	function validateTitle(title) {
@@ -701,6 +701,8 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 		var result=true;
 		
 		var title = $('input[name=title]');
+		var original = $('input[name=original]:checked');
+		var category = $('select[name=category]');
 		var content = $('textarea[name=content]');
 				
 		// Validate
@@ -710,7 +712,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 		if(result==false) return false;
 				
 		// Data
-		var data = 'title=' + title.val() + '&content=' + encodeURIComponent(editor.getContent())+'&pureText='+editor.getContentTxt();
+		var data = 'title=' + title.val() + '&original='+ original.val()+  '&category='+ category.val()+ '&content=' + encodeURIComponent(editor.getContent())+'&pureText='+editor.getContentTxt();
 		// Disable fields
 		$('.text').attr('disabled','true');
 		

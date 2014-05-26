@@ -68,7 +68,12 @@
                		<div class="post-content" style="margin:0px;">
                			<div class="post-title" style="font-weight:bold;font-size:18px;">
             				<a href="$viewUtil.getContextPath()/designer/$!{designer.id}/blogs/$!{blog.id}">$blog.title</a>
-            			</div>
+							#if(!$blog.isReprinted())
+        						<span class="original-icon" title="原创博客">原</span>
+        					#else
+        						<span class="reprinted-icon" title="转载博客">转</span>
+        					#end
+						</div>
                			<div class="post-meta">
         					<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{blog.updateTime}")</span>
         					<span><i class="mini-ico-eye-open"></i>阅读（$blog.clickCount）</span>

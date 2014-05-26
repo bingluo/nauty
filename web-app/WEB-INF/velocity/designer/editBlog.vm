@@ -57,6 +57,25 @@
 					<input type="text" name="title" class="text"/ value="$!{blog.title}">
 				</div>
 				<div class="field">
+					<label>原创/转载: <span>*</span></label>
+					<input type="radio" name="original" class="text" value="1" style="width:20px;"#if(!$blog.isReprinted()) checked#end>原创</input>
+					<input type="radio" name="original" class="text" value="0" style="width:20px;"#if($blog.isReprinted()) checked#end>转载</input>
+				</div>
+				<div class="field">
+					<label>分类: <span>*</span></label>
+					<select name="category" class="text"/>
+						<option value="1" #if($blog.type==1)selected="selected"#end>网荐博文</option>
+						<option value="2" #if($blog.type==2)selected="selected"#end>产业要闻</option>
+						<option value="3" #if($blog.type==3)selected="selected"#end>品牌创建</option>
+						<option value="4" #if($blog.type==4)selected="selected"#end>科技创新</option>
+						<option value="5" #if($blog.type==5)selected="selected"#end>管理艺术</option>
+						<option value="6" #if($blog.type==6)selected="selected"#end>潮流趋势</option>
+						<option value="7" #if($blog.type==7)selected="selected"#end>设计营销</option>
+						<option value="8" #if($blog.type==8)selected="selected"#end>作品赏析</option>
+						<option value="9" #if($blog.type==9)selected="selected"#end>设计学堂</option>
+					</select>
+				</div>
+				<div class="field">
 					<label>博文内容: <span>*</span></label>
 					<script type="text/plain" id="container" name="content">$!{blog.content}</script>
 				</div>
@@ -66,7 +85,6 @@
 				</div>
 			</form>
 		</div>
-
 	</div>
 </div>
 <!-- 960 Container / End -->

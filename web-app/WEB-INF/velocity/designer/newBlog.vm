@@ -57,6 +57,25 @@
 					<input type="text" name="title" class="text"/>
 				</div>
 				<div class="field">
+					<label>原创/转载: <span>*</span></label>
+					<input type="radio" name="original" class="text" value="1" style="width:20px;" checked>原创</input>
+					<input type="radio" name="original" class="text" value="0" style="width:20px;">转载</input>
+				</div>
+				<div class="field">
+					<label>分类: <span>*</span></label>
+					<select name="category" class="text"/>
+						<option value="1">网荐博文</option>
+						<option value="2">产业要闻</option>
+						<option value="3">品牌创建</option>
+						<option value="4">科技创新</option>
+						<option value="5">管理艺术</option>
+						<option value="6">潮流趋势</option>
+						<option value="7">设计营销</option>
+						<option value="8">作品赏析</option>
+						<option value="9">设计学堂</option>
+					</select>
+				</div>
+				<div class="field">
 					<label>博文内容: <span>*</span></label>
 					<script type="text/plain" id="container" name="content"></script>
 					<!--<textarea id="container" name="content" class="text textarea"></textarea>-->

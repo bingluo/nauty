@@ -14,6 +14,8 @@
 		<result property="updateTime" column="UPDATE_TIME"/>
 		<result property="clickCount" column="CLICK_COUNT"/>
 		<result property="archived" column="ARCHIVED"/>
+		<result property="type" column="TYPE"/>
+		<result property="reprinted" column="REPRINTED"/>
 	</resultMap>
 
 	<select id="rankDesignerWithBlogCount" resultClass="int" parameterClass="int">
@@ -50,6 +52,14 @@
 		]]>
 	</select>
 
+	<select id="selectBlogCountByType" resultClass="int" parameterClass="int">
+		<![CDATA[
+        	SELECT count(*)
+        	FROM blog
+			WHERE type = #value# AND archived = 0;
+		]]>
+	</select>
+
 	<select id="selectBlogCountByDesignerId" resultClass="int" parameterClass="int">
 		<![CDATA[
         	SELECT count(*)
@@ -63,6 +73,17 @@
         	SELECT *
         	FROM blog
 			WHERE id = #value# AND archived = 0
+		]]>
+	</select>
+
+	<select id="selectBlogByTypeAndBaseAndRange" resultMap="BlogResultMap" parameterClass="java.util.Map">		
+		<![CDATA[
+    		SELECT * FROM
+            	(SELECT *
+            	FROM blog
+    			WHERE type = #type# AND archived = 0
+    			ORDER BY update_time DESC) a
+    		LIMIT #base#,#range#
 		]]>
 	</select>
 
@@ -80,8 +101,8 @@
 	<insert id="insertBlog" parameterClass="blog">		
 		<![CDATA[
         	INSERT INTO blog
-			(title,pure_content,content,designer_id,update_time)
-    		VALUES (#title#,#pureContent#,#content#,#designerId#,current_timestamp())
+			(title,pure_content,content,designer_id,update_time,type,reprinted)
+    		VALUES (#title#,#pureContent#,#content#,#designerId#,current_timestamp(),#type#,#reprinted#)
 		]]>
 	</insert>
 	
@@ -99,7 +120,9 @@
 			SET title = #title#,
 			pure_content = #pureContent#,
 			content = #content#,
-			update_time = current_timestamp()
+			update_time = current_timestamp(),
+			type = #type#,
+			reprinted = #reprinted#
 			WHERE id = #id#
 		]]>
 	</update>

@@ -23,6 +23,14 @@
 		]]>
 	</select>
 	
+	<select id="selectPublicationsByType" resultMap="PublicationResultMap" parameterClass="int">
+		<![CDATA[
+			SELECT * FROM publication
+			WHERE type = #value#
+			ORDER BY post_time DESC
+		]]>
+	</select>
+	
 	<select id="selectPublicationById" resultMap="PublicationResultMap" parameterClass="int">
 		<![CDATA[
 			SELECT a.id,a.title,a.intro,a.images,a.link_url, a.type, a.click_counts,a.post_time

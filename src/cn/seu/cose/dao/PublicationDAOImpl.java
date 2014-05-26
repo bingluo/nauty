@@ -27,6 +27,12 @@ public class PublicationDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
+	public List<PublicationPojo> getAllPublicationsByType(int type) {
+		return getSqlMapClientTemplate().queryForList(
+				"PUBLICATION.selectPublicationsByType", type);
+	}
+
+	@Override
 	public PublicationPojo getPublicationById(int id) {
 		return (PublicationPojo) getSqlMapClientTemplate().queryForObject(
 				"PUBLICATION.selectPublicationById", id);
@@ -72,6 +78,7 @@ public class PublicationDAOImpl extends SqlMapClientDaoSupport implements
 
 	@Override
 	public int getpubCount() {
-		return (Integer)getSqlMapClientTemplate().queryForObject("PUBLICATION.selectPubCount");
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"PUBLICATION.selectPubCount");
 	}
 }

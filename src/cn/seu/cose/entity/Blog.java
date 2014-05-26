@@ -11,9 +11,12 @@ public class Blog {
 	private Date updateTime;
 	private int clickCount = 0;
 	private boolean archived = false;
+	private int type;
+	private boolean reprinted = false;
 
 	private String designerAvatar;
 	private String intro;
+	private String designerName;
 
 	public int getId() {
 		return id;
@@ -93,5 +96,29 @@ public class Blog {
 
 	public void setIntro(String intro) {
 		this.intro = intro;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public boolean isReprinted() {
+		return reprinted;
+	}
+
+	public void setReprinted(boolean reprinted) {
+		this.reprinted = reprinted;
+	}
+
+	public String getDesignerName() {
+		return designerName;
+	}
+
+	public void setDesignerName(String designerName) {
+		this.designerName = designerName;
 	}
 }

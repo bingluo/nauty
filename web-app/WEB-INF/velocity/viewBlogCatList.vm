@@ -55,35 +55,23 @@
 </div>
 <div class="eight columns">
 	<div class="post post-page" style="min-height:700px;">
-	#if($curCat.type==1)
-    	#if($exclusive)
-    	<!-- Post -->
-    	<div class="post-content" style="margin:0px;">
-    		#if($exclusiveArticle)
-    		<div class="post-title" style="text-align: center;"><h2>$!exclusiveArticle.title</h2>
-    		<h3>$!exclusiveArticle.subhead</h3></div>
-    		<div class="post-meta" style="text-align: center;"><span><i class="mini-ico-calendar"></i>$!viewUtil.fTime("$!exclusiveArticle.postTime")</span> <span><i class="mini-ico-user"></i>来自  $!exclusiveArticle.from</span> </div>
-    		<div class="post-description">
-    				$!exclusiveArticle.content
-    		</div>
-    		#end
-    	</div>
-    	#else
         	<!-- Post -->
-        	#foreach($article in $articles)
+        	#foreach($blog in $blogs)
            	<div class="post" style="padding:0px;margin: 0px 0 20px 0;">
            		<div class="post-content"  style="margin:0px;">
            			<div class="post-title" style="font-weight:bold;font-size:15px;">
-        				<a href="$!{viewUtil.getContextPath()}$article.uri">$article.title</a>
-        			</div>
+        				<a href="$!{viewUtil.getContextPath()}/designer/$!{blog.designerId}/blogs/$!{blog.id}">$blog.title</a>
+						#if(!$blog.isReprinted())
+							<span class="original-icon" title="原创博客">原</span>
+						#else
+							<span class="reprinted-icon" title="转载博客">转</span>
+						#end
+					</div>
            			<div class="post-meta">
-    					<span><i class="mini-ico-calendar"></i>$!viewUtil.fTime("$article.postTime")</span>
-    					<span><i class="mini-ico-user"></i>来自 $!{article.from}</span>
+    					<span><i class="mini-ico-calendar"></i>$!viewUtil.fTime("$blog.updateTime")</span>
+    					<span><i class="mini-ico-user"></i>来自<a href="$!{viewUtil.getContextPath()}/designer/$!{blog.designerId}"> $!{blog.designerName}</a></span>
     				</div>
-        			<div class="post-description">
-        				<p>$!{article.pureText}</p>
-        			</div>
-        			<a class="post-entry" href="$!{viewUtil.getContextPath()}$article.uri">详细内容</a>
+        			<a class="post-entry" href="$!{viewUtil.getContextPath()}/designer/$!{blog.designerId}/blogs/$!{blog.id}">详细内容</a>
            		</div>
            	</div>
         	#end
@@ -117,9 +105,8 @@
         		#end
            	</ul>
     		#end
-    		<div style="padding-top: 20px;">共 ${pageCount} 页 ${articleCount} 条</div>
-		#end
-	#end
+    		<div style="padding-top: 20px;">共 ${pageCount} 页 ${blogCount} 条</div>
+
 	</div>
 	<div class="clear"></div>
 </div>

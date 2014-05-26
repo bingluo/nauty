@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import cn.seu.cose.dao.BlogDAO;
 import cn.seu.cose.dao.DesignerDAO;
 import cn.seu.cose.entity.Blog;
+import cn.seu.cose.entity.Designer;
 
 @Service
 public class BlogService {
@@ -20,8 +21,24 @@ public class BlogService {
 		return blogDAOImpl.getBlogsCountByDesignerId(designerId);
 	}
 
+	public int getBlogCountByType(int type) {
+		return blogDAOImpl.getBlogsCountByType(type);
+	}
+
 	public Blog getBlogById(int id) {
 		return blogDAOImpl.getBlogById(id);
+	}
+
+	public List<Blog> getBlogsByTypeAndPnAndPageSize(int type, int pn,
+			int pageSize) {
+		List<Blog> blogs = blogDAOImpl.getBlogByTypeAndBaseAndRange(type,
+				(pn - 1) * pageSize, pageSize);
+		for (Blog blog : blogs) {
+			Designer designer = designerDAOImpl.getDesignerById(blog
+					.getDesignerId());
+			blog.setDesignerName(designer.getUserName());
+		}
+		return blogs;
 	}
 
 	public List<Blog> getBlogsByDesignerIdAndPnAndPageSize(int designerId,
@@ -30,10 +47,12 @@ public class BlogService {
 				(pn - 1) * pageSize, pageSize);
 	}
 
-	public void newBlog(String title, String pureContent, String content,
-			int designerId) {
+	public void newBlog(String title, boolean reprinted, int type,
+			String pureContent, String content, int designerId) {
 		Blog blog = new Blog();
 		blog.setTitle(title);
+		blog.setReprinted(reprinted);
+		blog.setType(type);
 		blog.setPureContent(pureContent);
 		blog.setContent(content);
 		blog.setDesignerId(designerId);
@@ -44,10 +63,12 @@ public class BlogService {
 		blogDAOImpl.archiveBlog(id);
 	}
 
-	public void updateBlog(String title, String pureContent, String content,
-			int id) {
+	public void updateBlog(String title, boolean reprinted, int type,
+			String pureContent, String content, int id) {
 		Blog blog = blogDAOImpl.getBlogById(id);
 		blog.setTitle(title);
+		blog.setReprinted(reprinted);
+		blog.setType(type);
 		blog.setPureContent(pureContent);
 		blog.setContent(content);
 		blogDAOImpl.updateBlog(blog);

@@ -12,7 +12,8 @@
 		<result property="catLevel" column="CAT_LEVEL"/>
 		<result property="parentCatId" column="PARENT_CAT_ID"/>
 		<result property="exclusiveArticle" column="EXCLUSIVE_ARTICLE"/>
-		<result property="uriName" column="URI_NAME"></result>
+		<result property="uriName" column="URI_NAME"/>
+		<result property="type" column="TYPE"/>
 	</resultMap>
 
 	<select id="selectCategoryByParentCatId" resultMap="CategoryResultMap" parameterClass="int">
