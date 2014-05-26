@@ -65,6 +65,7 @@ public class DesignerCenterController extends AbstractController {
 		model.addAttribute("hardWorkingDesigners", hardWorkingDesigners);
 		model.addAttribute("recentWorks", recentWorks);
 		model.addAttribute("hotWorks", hotWorks);
+		model.addAttribute("titleName", "设计师之家");
 		return "designer/index";
 	}
 
@@ -103,6 +104,7 @@ public class DesignerCenterController extends AbstractController {
 		sb.append(ViewUtil.getContextPath()).append("/designer/")
 				.append(designerId);
 		model.addAttribute("uri", sb.toString());
+		model.addAttribute("titleName", designer.getUserName() + " - 设计师");
 
 		return "designer/designerCenterIndex";
 	}
@@ -136,6 +138,7 @@ public class DesignerCenterController extends AbstractController {
 
 		model.addAttribute("designer", designer);
 		model.addAttribute("works", works);
+		model.addAttribute("titleName", "设计作品 - " + designer.getUserName());
 
 		return "designer/works";
 	}
@@ -181,6 +184,8 @@ public class DesignerCenterController extends AbstractController {
 					.append(designerId).append("/works/").append(workId)
 					.append(".html");
 			model.addAttribute("uri", sb.toString());
+			model.addAttribute("titleName", work.getWorkName() + " - "
+					+ designer.getUserName());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -195,6 +200,7 @@ public class DesignerCenterController extends AbstractController {
 			return "index";
 		} else {
 			basicIssue(model);
+			model.addAttribute("titleName", "登录");
 			return "signIn";
 		}
 	}
@@ -225,6 +231,7 @@ public class DesignerCenterController extends AbstractController {
 			return "index";
 		} else {
 			basicIssue(model);
+			model.addAttribute("titleName", "注册");
 			return "register";
 		}
 	}
@@ -242,6 +249,7 @@ public class DesignerCenterController extends AbstractController {
 			return "index";
 		} else {
 			basicIssue(model);
+			model.addAttribute("titleName", "请前往邮箱激活账号");
 			return "goToActive";
 		}
 	}
@@ -349,6 +357,7 @@ public class DesignerCenterController extends AbstractController {
 			return "index";
 		}
 		model.addAttribute("designer", curUser);
+		model.addAttribute("titleName", "修改个人资料");
 		return "designer/editProfile";
 	}
 
@@ -367,6 +376,7 @@ public class DesignerCenterController extends AbstractController {
 			return "index";
 		}
 		model.addAttribute("designer", curUser);
+		model.addAttribute("titleName", "个人资料修改完成");
 		return "designer/profileFinish";
 	}
 
@@ -406,10 +416,17 @@ public class DesignerCenterController extends AbstractController {
 		Designer designer = designerService.getDesignerById(designerId);
 		model.addAttribute("designer", designer);
 		if (designerService.isTheSignInOne(designerId)) {
+			model.addAttribute("titleName", "修改密码");
 			return "designer/changePswd";
 		} else {
-			return "designer/designerCenterIndex";
+			try {
+				response.sendRedirect(ViewUtil.getContextPath()
+						+ "/designer/designerCenterIndex");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		return null;
 	}
 
 	/**
@@ -447,10 +464,17 @@ public class DesignerCenterController extends AbstractController {
 		Designer designer = designerService.getDesignerById(designerId);
 		model.addAttribute("designer", designer);
 		if (designerService.isTheSignInOne(designerId)) {
+			model.addAttribute("titleName", "上传作品");
 			return "designer/newWork";
 		} else {
-			return "designer/designerCenterIndex";
+			try {
+				response.sendRedirect(ViewUtil.getContextPath()
+						+ "/designer/designerCenterIndex");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		return null;
 
 	}
 
@@ -461,11 +485,17 @@ public class DesignerCenterController extends AbstractController {
 		Designer designer = designerService.getDesignerById(designerId);
 		model.addAttribute("designer", designer);
 		if (designerService.isTheSignInOne(designerId)) {
+			model.addAttribute("titleName", "编辑头像");
 			return "designer/editAvatar";
 		} else {
-			return "designer/designerCenterIndex";
+			try {
+				response.sendRedirect(ViewUtil.getContextPath()
+						+ "/designer/designerCenterIndex");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-
+		return null;
 	}
 
 	@RequestMapping(value = "/designer/{designerId}/admin/edit-avatar", method = RequestMethod.POST)
@@ -593,6 +623,7 @@ public class DesignerCenterController extends AbstractController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("titleName", "发表博文");
 		return "designer/newBlog";
 	}
 
@@ -655,6 +686,8 @@ public class DesignerCenterController extends AbstractController {
 				sb.append(ViewUtil.getContextPath()).append("/designer/")
 						.append(designerId).append("/blogs/").append(blogId);
 				model.addAttribute("uri", sb.toString());
+				model.addAttribute("titleName", blog.getTitle() + " - "
+						+ designer.getUserName());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -714,6 +747,7 @@ public class DesignerCenterController extends AbstractController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("titleName", "编辑博文");
 		return "designer/editBlog";
 	}
 
@@ -772,6 +806,8 @@ public class DesignerCenterController extends AbstractController {
 				sb.append(ViewUtil.getContextPath()).append("/designer/")
 						.append(designerId).append("/blogs");
 				model.addAttribute("uri", sb.toString());
+				model.addAttribute("titleName",
+						"博文列表 - " + designer.getUserName());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -821,6 +857,7 @@ public class DesignerCenterController extends AbstractController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("titleName", "找回密码");
 		return "forgetPswd";
 	}
 

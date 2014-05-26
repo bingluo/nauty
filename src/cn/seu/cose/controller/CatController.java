@@ -205,6 +205,7 @@ public class CatController extends AbstractController {
 					1, 6);
 			categoryChild.setBlogs(blogs);
 		}
+		model.addAttribute("titleName", categoryPojo.getCatName());
 		return "viewSpecialBlogCat";
 	}
 
@@ -248,7 +249,7 @@ public class CatController extends AbstractController {
 		model.addAttribute("pageCount",
 				(int) Math.ceil((double) blogCount / 10));
 		model.addAttribute("blogCount", blogCount);
-
+		model.addAttribute("titleName", categoryPojo.getCatName());
 		return "viewBlogCatList";
 	}
 
@@ -278,6 +279,7 @@ public class CatController extends AbstractController {
 		int index = pageIndexResolve(pageIndex);
 		List<Upload> uploads = uploadService.getUploadsByIndexAndPagesize(
 				index, 20);
+		model.addAttribute("titleName", "下载中心");
 		model.addAttribute("pageCount", (int) Math.ceil((double) sumCount / 20));
 		model.addAttribute("uploads", uploads);
 		model.addAttribute("sumCount", sumCount);
@@ -288,6 +290,7 @@ public class CatController extends AbstractController {
 	private String view(Model model, int catId, int pageIndex) {
 		basicIssue(model);
 		CategoryPojo categoryPojo = CategoryCache.get(catId);
+		model.addAttribute("titleName", categoryPojo.getCatName());
 		model.addAttribute("curCat", categoryPojo);
 
 		List<CategoryPojo> cats = null;

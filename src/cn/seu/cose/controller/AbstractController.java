@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 
 import cn.seu.cose.core.CategoryCache;
 import cn.seu.cose.entity.CategoryPojo;
+import cn.seu.cose.entity.Link;
 import cn.seu.cose.entity.Parameter;
 import cn.seu.cose.entity.PublicationPojo;
 import cn.seu.cose.service.DesignerService;
+import cn.seu.cose.service.LinkService;
 import cn.seu.cose.service.ParameterService;
 import cn.seu.cose.service.PublicationService;
 import cn.seu.cose.util.Constant;
@@ -22,6 +24,8 @@ public class AbstractController {
 	private PublicationService publicationService;
 	@Autowired
 	private DesignerService designerService;
+	@Autowired
+	private LinkService linkService;
 
 	protected void basicIssue(Model model) {
 		List<CategoryPojo> cats = CategoryCache.getRootsWithChildren();
@@ -49,6 +53,8 @@ public class AbstractController {
 		List<PublicationPojo> recentPublications = publicationService
 				.getRecentPublications();
 
+		List<Link> links = linkService.getAllLinks();
+
 		model.addAttribute("location", location);
 		model.addAttribute("socials", socialParameters);
 		model.addAttribute("email", emailParameter.getParameterValue());
@@ -57,6 +63,7 @@ public class AbstractController {
 		model.addAttribute("cats", cats);
 		model.addAttribute("contactIntro", contactIntro);
 		model.addAttribute("recentPublications", recentPublications);
+		model.addAttribute("links", links);
 
 		if (designerService.isSignIn()) {
 			model.addAttribute("curUser", designerService.getCurrentUser());

@@ -32,6 +32,7 @@ public class SearchController extends AbstractController {
 		}
 		model.addAttribute("searchResults", articles);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("titleName", keyword + " - 搜索文章");
 		return "search_results";
 	}
 }

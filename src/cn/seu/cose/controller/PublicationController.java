@@ -27,6 +27,7 @@ public class PublicationController extends AbstractController {
 		model.addAttribute("years", years);
 		model.addAttribute("publicationTypeUrl", "publication");
 		model.addAttribute("publicationTypeName", "协会刊物");
+		model.addAttribute("titleName", "协会刊物");
 		return "publication_list";
 	}
 
@@ -40,6 +41,7 @@ public class PublicationController extends AbstractController {
 		model.addAttribute("years", years);
 		model.addAttribute("publicationTypeUrl", "publication-com");
 		model.addAttribute("publicationTypeName", "企业内刊");
+		model.addAttribute("titleName", "企业内刊");
 
 		return "publication_list";
 	}
@@ -54,6 +56,7 @@ public class PublicationController extends AbstractController {
 		model.addAttribute("years", years);
 		model.addAttribute("publicationTypeUrl", "publication-url");
 		model.addAttribute("publicationTypeName", "文化交流");
+		model.addAttribute("titleName", "文化交流");
 
 		return "publication_list";
 	}
@@ -69,6 +72,7 @@ public class PublicationController extends AbstractController {
 		model.addAttribute("publication", publication);
 		model.addAttribute("publicationTypeUrl", "publication");
 		model.addAttribute("publicationTypeName", "协会刊物");
+		model.addAttribute("titleName", publication.getTitle());
 		return "publication";
 	}
 
@@ -83,6 +87,7 @@ public class PublicationController extends AbstractController {
 		model.addAttribute("publication", publication);
 		model.addAttribute("publicationTypeUrl", "publication-com");
 		model.addAttribute("publicationTypeName", "企业内刊");
+		model.addAttribute("titleName", publication.getTitle());
 		return "publication";
 	}
 
@@ -97,6 +102,7 @@ public class PublicationController extends AbstractController {
 		model.addAttribute("publication", publication);
 		model.addAttribute("publicationTypeUrl", "publication-url");
 		model.addAttribute("publicationTypeName", "文化交流");
+		model.addAttribute("titleName", publication.getTitle());
 		return "publication";
 	}
 }

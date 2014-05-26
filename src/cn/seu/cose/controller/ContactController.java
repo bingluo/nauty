@@ -50,6 +50,7 @@ public class ContactController extends AbstractController {
 	@RequestMapping(value = "/contact.html")
 	public String contact(Model model) {
 		basicIssue(model);
+		model.addAttribute("titleName", "联系我们");
 		return "contact";
 	}
 }

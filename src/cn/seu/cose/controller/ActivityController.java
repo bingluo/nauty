@@ -57,6 +57,7 @@ public class ActivityController extends AbstractController {
 		model.addAttribute("hotWorks", hotWorks);
 		model.addAttribute("latestNews", latestNews);
 		model.addAttribute("activities", activities);
+		model.addAttribute("titleName", "活动赛事中心");
 		return "activity/index";
 	}
 
@@ -107,6 +108,7 @@ public class ActivityController extends AbstractController {
 				"<span> / <a href='"
 						+ ViewUtil.getContextPath()
 						+ "/activity/current' style='color:#aaa'>正在进行</a></span>");
+		model.addAttribute("titleName", "正在进行的赛事");
 		return "activity/index";
 	}
 
@@ -124,6 +126,7 @@ public class ActivityController extends AbstractController {
 				"<span> / <a href='"
 						+ ViewUtil.getContextPath()
 						+ "/activity/advance' style='color:#aaa'>即将开始</a></span>");
+		model.addAttribute("titleName", "即将开始的赛事");
 		return "activity/index";
 	}
 
@@ -141,6 +144,7 @@ public class ActivityController extends AbstractController {
 				"<span> / <a href='"
 						+ ViewUtil.getContextPath()
 						+ "/activity/review' style='color:#aaa'>往期回顾</a></span>");
+		model.addAttribute("titleName", "往期赛事回顾");
 		return "activity/index";
 	}
 
@@ -159,6 +163,7 @@ public class ActivityController extends AbstractController {
 					.getRecentActivityPhotoByActivityId(activityId);
 			model.addAttribute("recentWorks", recentWorks);
 			model.addAttribute("recentPhotos", recentActivityPhotos);
+			model.addAttribute("titleName", activity.getTitle());
 			return "activity/viewActivity";
 		}
 	}
@@ -187,6 +192,7 @@ public class ActivityController extends AbstractController {
 			sb.append(ViewUtil.getContextPath()).append("/activity/")
 					.append(activityId).append("/works");
 			model.addAttribute("uri", sb.toString());
+			model.addAttribute("titleName", "参赛作品 - " + activity.getTitle());
 			return "activity/activityWorks";
 		}
 	}
@@ -278,6 +284,8 @@ public class ActivityController extends AbstractController {
 				sb.append(ViewUtil.getContextPath()).append("/activity/")
 						.append(activityId).append("/works/").append(workId);
 				model.addAttribute("uri", sb.toString());
+				model.addAttribute("titleName", work.getWorkName() + " - "
+						+ activity.getTitle());
 				return "activity/viewActivityWork";
 			}
 		}
@@ -339,6 +347,7 @@ public class ActivityController extends AbstractController {
 				}
 				basicIssue(model);
 				activityBasicIssue(model, activity);
+				model.addAttribute("titleName", "上传作品 - " + activity.getTitle());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -430,6 +439,7 @@ public class ActivityController extends AbstractController {
 			sb.append(ViewUtil.getContextPath()).append("/activity/")
 					.append(activityId).append("/photos");
 			model.addAttribute("uri", sb.toString());
+			model.addAttribute("titleName", "活动现场 - " + activity.getTitle());
 			return "activity/activityPhotos";
 		}
 	}
@@ -468,6 +478,7 @@ public class ActivityController extends AbstractController {
 				sb.append(ViewUtil.getContextPath()).append("/activity/")
 						.append(activityId).append("/photos/").append(photoId);
 				model.addAttribute("uri", sb.toString());
+				model.addAttribute("titleName", "活动现场 - " + activity.getTitle());
 			}
 
 		} catch (IOException e) {
@@ -536,6 +547,7 @@ public class ActivityController extends AbstractController {
 				sb.append(ViewUtil.getContextPath()).append("/activity/")
 						.append(activityId).append("/news");
 				model.addAttribute("uri", sb.toString());
+				model.addAttribute("titleName", "活动新闻 - " + activity.getTitle());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -578,6 +590,8 @@ public class ActivityController extends AbstractController {
 				sb.append(ViewUtil.getContextPath()).append("/activity/")
 						.append(activityId).append("/news/").append(newsId);
 				model.addAttribute("uri", sb.toString());
+				model.addAttribute("titleName", activityNews.getTitle()
+						+ " - 活动新闻 - " + activity.getTitle());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

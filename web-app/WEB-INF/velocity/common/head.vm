@@ -2,7 +2,7 @@
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8" />
-<title>嘉兴市工业设计协会</title>
+<title>#if($titleName)$!{titleName} - #end长三角（嘉兴）工业设计</title>
 <!-- Mobile Specific
 ================================================== -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />

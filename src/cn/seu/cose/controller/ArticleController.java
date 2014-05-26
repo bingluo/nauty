@@ -37,6 +37,7 @@ public class ArticleController extends AbstractController {
 		// relates
 		List<ArticlePojo> relates = articleService.getRelates(catId);
 		model.addAttribute("relates", relates);
+		model.addAttribute("titleName", article.getTitle());
 		return "article";
 	}
 }
