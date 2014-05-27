@@ -25,7 +25,7 @@
 		]]>
 	</delete>
 	
-	<insert id="insertLink" parameterClass="java.util.Map">
+	<insert id="insertLink" parameterClass="link">
 		<![CDATA[
 		insert into LINK(name,url) values(#name#, #url#)
 		]]>
