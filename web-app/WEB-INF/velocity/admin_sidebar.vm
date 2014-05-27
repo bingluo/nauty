@@ -13,7 +13,7 @@
 		<li id="sidebar_li_10"><a href="$!{viewUtil.getContextPath()}/admin/contribute_list_waiting_${viewUtil.weekBefore()}_${viewUtil.today()}"><i class="icon icon-envelope"></i><span>稿件管理</span></a></li>
 		
 		<li id="sidebar_li_5"><a href="$!{viewUtil.getContextPath()}/admin/account"><i class="icon icon-user"></i><span>账户管理</span></a></li>
-		<li id="sidebar_li_11"><a href="$!{viewUtil.getContextPath()}/admin/links_list"><i class="icon icon-user"></i><span>友情链接管理</span></a></li>
+		<li id="sidebar_li_11"><a href="$!{viewUtil.getContextPath()}/admin/links_list"><i class="icon icon-heart"></i><span>友情链接管理</span></a></li>
 		<li id="sidebar_li_6"><a href="$!{viewUtil.getContextPath()}/admin/info"><i class="icon icon-globe"></i><span>其他信息管理</span></a></li>
 	</ul>
 		
