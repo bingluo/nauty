@@ -146,7 +146,13 @@ public class CatController extends AbstractController {
 	// publication
 	@RequestMapping("/publication-navi")
 	public String viewPublicationCatIndex(Model model,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpServletResponse response) {
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/publication");
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("url", request.getServletPath());
 		String pageIndex = (String) request.getParameter("pn");
 		int index = pageIndexResolve(pageIndex);
