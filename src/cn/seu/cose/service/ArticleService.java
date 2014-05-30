@@ -27,6 +27,17 @@ public class ArticleService {
 		return news;
 	}
 
+	@Cacheable(value = "articleCache", key = "'getArticleByCatIdAndPnAndPsBrief:'+ #catId +','+ #pn +','+ #pageSize ")
+	public List<ArticlePojo> getArticleByCatIdAndPnAndPsBrief(int catId,
+			int pn, int pageSize) {
+		List<ArticlePojo> news = articleDAOImpl.getArticlesByCatAndRangeBrief(
+				catId, pageSize * (pn - 1), pageSize);
+		for (ArticlePojo articlePojo : news) {
+			articlePojo.setUri(LinkTool.article(articlePojo));
+		}
+		return news;
+	}
+
 	@Cacheable(value = "articleCache", key = "'getArticleByCatIdAndPageIndex:'+ #catId +','+ #index ")
 	public List<ArticlePojo> getArticleByCatIdAndPageIndex(int catId, int index) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
@@ -47,7 +58,7 @@ public class ArticleService {
 		}
 		return articles;
 	}
-	
+
 	public List<ArticlePojo> getAdminArticleByCatIdAndPageIndexAndPageSize(
 			int catId, int index, int pageSize) {
 		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
@@ -173,61 +184,63 @@ public class ArticleService {
 		}
 		return articles;
 	}
-	
-//**************************通讯员相关文章操作**************************//
+
+	// **************************通讯员相关文章操作**************************//
 	public List<ArticlePojo> getContributedArticlesOfReporter(int reporterId) {
 		return articleDAOImpl.getContributeArticlesList(reporterId);
 	}
-	
+
 	public List<ArticlePojo> getWaitArticlesOfReporter(int reporterId) {
 		return articleDAOImpl.getWaitArticlesOfReporter(reporterId);
 	}
-	
+
 	public List<ArticlePojo> getAcceptArticlesOfReporter(int reporterId) {
 		return articleDAOImpl.getAcceptArticlesList(reporterId);
 	}
-	
+
 	public List<ArticlePojo> getRejectArticlesOfReporter(int reporterId) {
 		return articleDAOImpl.getRejectArticlesList(reporterId);
 	}
-	
+
 	public void contributeArticle(ArticlePojo article) {
 		articleDAOImpl.contributeArticle(article);
 	}
-	
+
 	public void updateContributedArticle(ArticlePojo article) {
-		articleDAOImpl.updateContributeArticle(article.getContributedFrom(), article);
+		articleDAOImpl.updateContributeArticle(article.getContributedFrom(),
+				article);
 	}
-	
-	public List<ArticlePojo> searchArticleOfReporter(int reporterId, String searchInput) {
+
+	public List<ArticlePojo> searchArticleOfReporter(int reporterId,
+			String searchInput) {
 		return articleDAOImpl.searchArticleOfReporter(reporterId, searchInput);
 	}
-	
-//************************管理员对提交的文章的相应操作********************//
+
+	// ************************管理员对提交的文章的相应操作********************//
 	public List<ArticlePojo> getContributedArticles(Date s, Date e) {
 		return articleDAOImpl.getContributedArticlesList(s, e);
 	}
-	
+
 	public List<ArticlePojo> getWaitingArticles(Date s, Date e) {
 		return articleDAOImpl.getWaitingArticlesList(s, e);
 	}
-	
+
 	public List<ArticlePojo> getAcceptArticles(Date s, Date e) {
 		return articleDAOImpl.getAcceptArticlesList(s, e);
 	}
-	
+
 	public List<ArticlePojo> getRejectArticles(Date s, Date e) {
 		return articleDAOImpl.getRejectArticlesList(s, e);
 	}
-	
+
 	public void acceptArticle(ArticlePojo article) {
 		articleDAOImpl.acceptArticle(article);
-	} 
-	
+	}
+
 	public void rejectArticle(int id) {
 		articleDAOImpl.rejectArticle(id);
 	}
-	
+
 	public List<ArticlePojo> searchContribute(int type, String searchInput) {
 		return articleDAOImpl.searchContribute(type, searchInput);
 	}
