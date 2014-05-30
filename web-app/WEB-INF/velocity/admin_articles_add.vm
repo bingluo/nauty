@@ -45,7 +45,9 @@
 									&nbsp;
 									<select id="sub_cats_add">
 										#foreach($init_sub in $init_sub_cat_list)
-											<option value="$init_sub.id" >$init_sub.catName</option>
+											#if($init_sub.type != 2)
+												<option value="$init_sub.id" >$init_sub.catName</option>
+											#end
 										#end
 									</select>
 								</div>
@@ -95,7 +97,9 @@
 				$("#sub_cats_add").find('option').remove() ;
 				var cat_array =eval(data);
 				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
-					$("#sub_cats_add").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
+					if(cat_array[i_cat].type != 2) {
+						$("#sub_cats_add").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
+					}
 				}
 			},
 			error:function(){

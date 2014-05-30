@@ -90,7 +90,7 @@
 						<h5></h5>
 					</div>
 					<div class="widget-content padding">
-						<ul class="recent-posts">
+						<!--<ul class="recent-posts">
 							<li>
 								<div class="article-post">
 									<span class="user-info"> By: neytiri on 2 Aug 2012, 09:27 AM, IP: 186.56.45.7 </span>
@@ -107,7 +107,7 @@
 									</p>
 								</div>
 							</li>
-						</ul>
+						</ul>-->
 					</div>
 				</div>
 			</div>
