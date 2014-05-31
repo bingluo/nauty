@@ -51,8 +51,8 @@
 				<i class="ico-group" style="margin-left: -10px;"></i>
 				<h3>会员风采</h3>
 				<p>这里有最优秀的工业设计基地、企业、中心，有最优秀设计师；这里集结智慧，展示品牌，分享创意。在这里，您可以找到绝佳的设计作品。在这里，“伯乐识马”一直在发生。<br/>
-					<a class="post-entry" href="$!{viewUtil.getContextPath()}/members" style="font-size: 16px;">会员风采</a><br/>
-					<a class="post-entry" href="$!{viewUtil.getContextPath()}/designer" style="font-size: 16px;">设计师之家</a>
+					<a class="post-entry" href="$!{viewUtil.getContextPath()}/members" style="font-size: 14px;margin: 0;">会员风采</a><br/>
+					<a class="post-entry" href="$!{viewUtil.getContextPath()}/designer" style="font-size: 14px;margin: 0;">设计师之家</a>
 				</p>
 			</div>
 		</div>
@@ -78,7 +78,7 @@
 </div>
 <!-- 960 Container / End -->
 <!-- 960 Container -->
-<div class="container" style="margin-bottom:10px;">
+<div class="container">
 	<!-- Icon Boxes -->
 	<div class="activity-index" style="margin-top:20px;">
 		<!-- Icon Box Start -->
@@ -87,8 +87,8 @@
 				<i class="ico-cup" style="margin-left: -10px;"></i>
 				<h3>赛展招商</h3>
 				<p>品牌企业招商舞台，会展赛事信息之窗，精英赛展在线报名，现场照片视频速递，设计作品投票评选……<br/>
-					<a class="post-entry" href="$!{viewUtil.getContextPath()}/events" style="font-size: 16px;">赛展招商</a><br/>
-					<a class="post-entry" href="$!{viewUtil.getContextPath()}/activity" style="font-size: 16px;">活动赛事中心</a>
+					<a class="post-entry" href="$!{viewUtil.getContextPath()}/events" style="font-size: 14px;margin: 0;">赛展招商</a><br/>
+					<a class="post-entry" href="$!{viewUtil.getContextPath()}/activity" style="font-size: 14px;margin: 0;">活动赛事中心</a>
 				</p>
 			</div>
 		</div>
@@ -118,7 +118,7 @@
 </div>
 <!-- 960 Container / End -->
 <!-- 960 Container -->
-<div class="container" style="margin-top:20px">
+<div class="container">
 	<div class="sixteen columns" style="height: 45px;">
 		<!-- Headline -->
 		<div class="no-margin icon-box tooltips"><i class="ico-book-open" style="margin-left: -10px;margin-top:-7px;"></i>
