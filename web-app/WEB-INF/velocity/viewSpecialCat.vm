@@ -34,7 +34,7 @@
 <!-- Widget
 ================================================== -->
 #foreach($cat in $childrenCats)
-    #if(!$cat.isExclusiveArticle())
+    #if(!$cat.isExclusiveArticle()&&$cat.type!=2)
 	<div class="special-list-box #if($velocityCount>3)notTop#end">
 		<!-- Categories -->
         <div class="widget first">

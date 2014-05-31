@@ -98,6 +98,17 @@ public class CatController extends AbstractController {
 		return view(model, 4, index);
 	}
 
+	@RequestMapping("/members/cat-57")
+	public String viewMembersCenter(Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			response.sendRedirect(ViewUtil.getContextPath() + "/designer");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	@RequestMapping("/members/cat-{catId}")
 	public String viewMembersCat(Model model, @PathVariable("catId") int catId,
 			HttpServletRequest request) {
@@ -239,6 +250,14 @@ public class CatController extends AbstractController {
 		// concerns
 		List<ArticlePojo> concerns = articleService.getConcerns();
 		model.addAttribute("concerns", concerns);
+		// workshops
+		List<ArticlePojo> workshopsSider = articleService
+				.getArticleByCatIdAndPnAndPsBrief(3, 1, 5);
+		model.addAttribute("workshopsSider", workshopsSider);
+		// memberStyle
+		List<ArticlePojo> memberStyle = articleService
+				.getArticleByCatIdAndPnAndPsBrief(4, 1, 5);
+		model.addAttribute("memberStyle", memberStyle);
 		// events
 		List<ArticlePojo> events = articleService.getEvents();
 		model.addAttribute("events", events);
@@ -320,6 +339,14 @@ public class CatController extends AbstractController {
 		// concerns
 		List<ArticlePojo> concerns = articleService.getConcerns();
 		model.addAttribute("concerns", concerns);
+		// workshops
+		List<ArticlePojo> workshopsSider = articleService
+				.getArticleByCatIdAndPnAndPsBrief(3, 1, 5);
+		model.addAttribute("workshopsSider", workshopsSider);
+		// memberStyle
+		List<ArticlePojo> memberStyle = articleService
+				.getArticleByCatIdAndPnAndPsBrief(4, 1, 5);
+		model.addAttribute("memberStyle", memberStyle);
 		// events
 		List<ArticlePojo> events = articleService.getEvents();
 		model.addAttribute("events", events);

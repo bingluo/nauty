@@ -123,6 +123,7 @@
 	</div>
 	<div class="clear"></div>
 </div>
+<div>
    	<div class="five columns widget first" style="margin: -5px 0 30px 20px;">
        	<div class="headline no-margin"><h3>文章搜索</h3></div>
 		<div class="search no-margin icon-box tooltips">
@@ -132,8 +133,8 @@
 	<!-- 特别关注 -->
 	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget first tooltips">
-        	<i class="ico-parents" style="margin:-6px 0 0 0px"></i>
-			<a href="$!{viewUtil.getContextPath()}/new/cat-15" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+        	<i class="ico-eye-open" style="margin:-6px 0 0 0px"></i>
+			<a href="$!{viewUtil.getContextPath()}/news/cat-15" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
         	<h4 style="margin-top: 0px;">特别关注</h4>
 			<ul class="circle_list" style="margin-top: 15px;">
 				#foreach($concern in $concerns)
@@ -146,12 +147,46 @@
 			</ul>
         </div>
 	</div>
+	<!-- 创意商城 -->
+	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
+        <div class="icon-box widget tooltips">
+        	<i class="ico-lightbulb" style="margin:-6px 0 0 0px"></i>
+			<a href="$!{viewUtil.getContextPath()}/workshop" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+        	<h4 style="margin-top: 0px;">创意商城</h4>
+			<ul class="circle_list" style="margin-top: 15px;">
+				#foreach($workshopsSiderItem in $workshopsSider)
+				<li>
+					<div class="latest-post-blog" style="margin-bottom:8px;">
+                       	<a href="$!{viewUtil.getContextPath()}$workshopsSiderItem.uri">$!{workshopsSiderItem.title}</a>
+					</div>
+            	</li>
+				#end
+			</ul>
+        </div>
+	</div>
+	<!-- 会员风采 -->
+	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
+        <div class="icon-box widget tooltips">
+        	<i class="ico-group" style="margin:-6px 0 0 0px"></i>
+			<a href="$!{viewUtil.getContextPath()}/members" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+        	<h4 style="margin-top: 0px;">会员风采</h4>
+			<ul class="circle_list" style="margin-top: 15px;">
+				#foreach($memberStyleItem in $memberStyle)
+				<li>
+					<div class="latest-post-blog" style="margin-bottom:8px;">
+                       	<a href="$!{viewUtil.getContextPath()}$memberStyleItem.uri">$!{memberStyleItem.title}</a>
+					</div>
+            	</li>
+				#end
+			</ul>
+        </div>
+	</div>
 	<!-- 评奖赛事 -->
 	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
         <div class="icon-box widget tooltips">
         	<i class="ico-cup" style="margin:-6px 0 0 0px"></i>
 			<a href="$!{viewUtil.getContextPath()}/events"  rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
-        	<h4 style="margin-top: 0px;">评奖赛事</h4>
+        	<h4 style="margin-top: 0px;">赛展招商</h4>
 			<ul class="circle_list" style="margin-top: 15px;">
 				#foreach($event in $events)
 				<li>
@@ -164,7 +199,7 @@
         </div>
 	</div>
 	<!-- 认证培训 -->
-	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;">
+	<div class="five columns" style="border-bottom:1px solid;color:#ddd;margin: 1px 0 0 20px;float:right;">
         <div class="icon-box widget tooltips">
         	<i class="ico-certificate" style="margin:-6px 0 0 0px"></i>
 			<a href="$!{viewUtil.getContextPath()}/train" rel="tooltip" data-original-title="查看更多" class="button color" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
@@ -180,7 +215,7 @@
 			</ul>
         </div>
 	</div>
-
+</div>
 
 </div>
 <!-- 960 Container / End -->
