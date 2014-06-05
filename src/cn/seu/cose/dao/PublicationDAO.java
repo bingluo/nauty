@@ -13,6 +13,8 @@ public interface PublicationDAO {
 
 	List<PublicationPojo> getRecentPublications();
 
+	List<PublicationPojo> getRecentPublicationsByType(int type);
+
 	List<PublicationPojo> getPublicationsByBaseAndRange(int base, int range);
 
 	void insertPublication(PublicationPojo publication);

@@ -142,7 +142,7 @@ public class ArticleService {
 
 	@Cacheable(value = "articleCache", key = "'getEvents'")
 	public List<ArticlePojo> getEvents() {
-		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(6,
+		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(5,
 				0, 5);
 		for (ArticlePojo articlePojo : articles) {
 			articlePojo.setUri(LinkTool.article(articlePojo));
@@ -152,8 +152,8 @@ public class ArticleService {
 
 	@Cacheable(value = "articleCache", key = "'getTrains'")
 	public List<ArticlePojo> getTrains() {
-		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(5,
-				0, 5);
+		List<ArticlePojo> articles = articleDAOImpl.getArticlesByCatAndRange(
+				61, 0, 5);
 		for (ArticlePojo articlePojo : articles) {
 			articlePojo.setUri(LinkTool.article(articlePojo));
 		}

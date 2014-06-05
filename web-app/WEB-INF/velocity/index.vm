@@ -26,11 +26,16 @@
 	#parse("common/flexslider.vm")
 	<!-- Flexslider / End -->
     <div class="one-third column" style="height:150px;padding:0px;display:block;background">
-		<div class="headline no-margin"><h3>文章搜索</h3></div>
+		<div class="headline no-margin">
+			<h3>文章搜索</h3>
+		</div>
     	<div class="search no-margin icon-box tooltips">
 		#parse("common/search_form.vm")
 		</div>
-    	<div class="headline" style="margin:5px 0 0px 0"><h3>新闻纵览</h3></div>
+    	<div class="headline  tooltips" style="margin:5px 0 0px 0">
+			<a href="/news" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<h3>新闻纵览</h3>
+		</div>
     	<div id="marquees" style="height:236px;width:290px;overflow:hidden">
     		<ul class="square_list">
        			#foreach($article in $news)
@@ -46,7 +51,7 @@
 	<!-- Icon Boxes -->
 	<div class="activity-index" style="margin-top:10px;">
 		<!-- Icon Box Start -->
-		<div class="four columns intro-block">
+		<div class="one-third column intro-block">
 			<div class="icon-box">
 				<i class="ico-group" style="margin-left: -10px;"></i>
 				<h3>会员风采</h3>
@@ -57,22 +62,15 @@
 			</div>
 		</div>
 		<!-- Icon Box End -->
-		#foreach($work in $works)
-		<div class="four columns column ">
-			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;overflow:hidden;">
-				<div class="latest-post-blog">
-        			<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}/works/$!{work.id}.html">
-						<img src="$!{viewUtil.getContextPath()}/static/works/$!{work.workPics.get(0)}" alt="">
-					</a>
-        			<p>
-						<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}/works/$!{work.id}.html" style="font-weight:bold;color:#5ca20d">$!{work.workName}</a>
-						<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}">设计师：$!{work.userName}</a>
-						<span>$viewUtil.fTime("$!{work.updateTime}")</span>
-					</p>
-        		</div>
+		<div class="one-third column activity-block" style="width:610px;height:154px;">
+			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;width:600px;">
+				<ul class="links-list-alt activity-list">
+					#foreach($memberStyleItem in $memberStyleList)
+					<li style="float:left;"><a href="$!{viewUtil.getContextPath()}$!{memberStyleItem.uri}" style="color:#5ca20d;width:280px;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;" title="$!{memberStyleItem.title}">$!{memberStyleItem.title}</a></li>
+					#end
+				</ul>
 			</div>
 		</div>
-		#end
 	</div>
 	<!-- Icon Boxes / End -->
 </div>
@@ -224,7 +222,7 @@
 	</div>
 	<div class="eight columns" >
 		<!-- Headline -->
-		<div class="no-margin icon-box tooltips"><i class="ico-vcard" style="margin-left: -10px;margin-top:-7px;"></i>
+		<div class="no-margin icon-box tooltips"><i class="ico-certificate" style="margin-left: -10px;margin-top:-7px;"></i>
 			<a href="$viewUtil.getContextPath()/train" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
 			<h3>认证培训</h3>
 		</div>

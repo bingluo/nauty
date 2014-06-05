@@ -2,6 +2,9 @@ package cn.seu.cose.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,23 @@ public class PublicationController extends AbstractController {
 
 	@Autowired
 	PublicationService publicationService;
+
+	// publication-navi
+	@RequestMapping("/publication-navi")
+	public String viewPublicationCatIndex(Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+		basicIssue(model);
+		List<PublicationPojo> publicationsList = publicationService
+				.getRecentPublicationsByType(1);
+		List<PublicationPojo> companyPublicationsList = publicationService
+				.getRecentPublicationsByType(2);
+		List<PublicationPojo> culturePublicationsList = publicationService
+				.getRecentPublicationsByType(3);
+		model.addAttribute("publicationsList", publicationsList);
+		model.addAttribute("companyPublicationsList", companyPublicationsList);
+		model.addAttribute("culturePublicationsList", culturePublicationsList);
+		return "publication_navi";
+	}
 
 	@RequestMapping("/publication")
 	public String publicationList(Model model) {

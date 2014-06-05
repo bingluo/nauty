@@ -154,22 +154,6 @@ public class CatController extends AbstractController {
 		return view(model, catId, index);
 	}
 
-	// publication
-	@RequestMapping("/publication-navi")
-	public String viewPublicationCatIndex(Model model,
-			HttpServletRequest request, HttpServletResponse response) {
-		try {
-			response.sendRedirect(ViewUtil.getContextPath() + "/publication");
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		model.addAttribute("url", request.getServletPath());
-		String pageIndex = (String) request.getParameter("pn");
-		int index = pageIndexResolve(pageIndex);
-		return view(model, 7, index);
-	}
-
 	@RequestMapping("/publication-navi/cat-{catId}")
 	public String viewPublicationCat(Model model,
 			@PathVariable("catId") int catId, HttpServletRequest request,
@@ -248,7 +232,7 @@ public class CatController extends AbstractController {
 		model.addAttribute("childrenCats", cats);
 
 		// concerns
-		List<ArticlePojo> concerns = articleService.getConcerns();
+		List<ArticlePojo> concerns = articleService.getConcerns();// 15
 		model.addAttribute("concerns", concerns);
 		// workshops
 		List<ArticlePojo> workshopsSider = articleService
@@ -259,10 +243,10 @@ public class CatController extends AbstractController {
 				.getArticleByCatIdAndPnAndPsBrief(4, 1, 5);
 		model.addAttribute("memberStyle", memberStyle);
 		// events
-		List<ArticlePojo> events = articleService.getEvents();
+		List<ArticlePojo> events = articleService.getEvents();// 5
 		model.addAttribute("events", events);
 		// trains
-		List<ArticlePojo> trains = articleService.getTrains();
+		List<ArticlePojo> trains = articleService.getTrains();// 61
 		model.addAttribute("trains", trains);
 
 		int type = catId <= 45 ? catId - 40 : catId - 62;
@@ -347,6 +331,10 @@ public class CatController extends AbstractController {
 		List<ArticlePojo> memberStyle = articleService
 				.getArticleByCatIdAndPnAndPsBrief(4, 1, 5);
 		model.addAttribute("memberStyle", memberStyle);
+		// policys
+		List<ArticlePojo> policys = articleService
+				.getArticleByCatIdAndPnAndPsBrief(6, 1, 5);
+		model.addAttribute("policys", policys);
 		// events
 		List<ArticlePojo> events = articleService.getEvents();
 		model.addAttribute("events", events);

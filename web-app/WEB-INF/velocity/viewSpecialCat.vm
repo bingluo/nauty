@@ -43,7 +43,7 @@
         		#foreach($subArticle in $cat.articles)
 				<li>
 					<div class="special-list-item" >
-						<a href="$!{subArticle.uri}" style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">$!{subArticle.title}</a>
+						<a href="$!{viewUtil.getContextPath()}$!{subArticle.uri}" style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">$!{subArticle.title}</a>
 					</div>
 				</li>
         		#end

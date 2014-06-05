@@ -61,6 +61,17 @@ public class PublicationService {
 		return publications;
 	}
 
+	@Cacheable(value = "publicationCache", key = "'getRecentPublicationsByType:'+#type")
+	public List<PublicationPojo> getRecentPublicationsByType(int type) {
+		List<PublicationPojo> publications = publicationDAOImpl
+				.getRecentPublicationsByType(type);
+		for (PublicationPojo publication : publications) {
+			resolveImgs(publication);
+			setBrief(publication);
+		}
+		return publications;
+	}
+
 	@Cacheable(value = "publicationCache", key = "'getPublicationByIndexAndPageSize:' + #index + ',' + #pageSize")
 	public List<PublicationPojo> getPublicationByIndexAndPageSize(int index,
 			int pageSize) {
