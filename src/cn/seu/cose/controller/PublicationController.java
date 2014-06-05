@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.PublicationPojo;
+import cn.seu.cose.service.ArticleService;
 import cn.seu.cose.service.PublicationService;
 
 @Controller
@@ -19,6 +21,8 @@ public class PublicationController extends AbstractController {
 
 	@Autowired
 	PublicationService publicationService;
+	@Autowired
+	ArticleService articleService;
 
 	// publication-navi
 	@RequestMapping("/publication-navi")
@@ -29,11 +33,11 @@ public class PublicationController extends AbstractController {
 				.getRecentPublicationsByType(1);
 		List<PublicationPojo> companyPublicationsList = publicationService
 				.getRecentPublicationsByType(2);
-		List<PublicationPojo> culturePublicationsList = publicationService
-				.getRecentPublicationsByType(3);
+		List<ArticlePojo> bookIntroList = articleService
+				.getArticleByCatIdAndPnAndPsBrief(40, 1, 10);
 		model.addAttribute("publicationsList", publicationsList);
 		model.addAttribute("companyPublicationsList", companyPublicationsList);
-		model.addAttribute("culturePublicationsList", culturePublicationsList);
+		model.addAttribute("bookIntroList", bookIntroList);
 		return "publication_navi";
 	}
 

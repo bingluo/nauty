@@ -34,7 +34,7 @@
 		</div>
     	<div class="headline  tooltips" style="margin:5px 0 0px 0">
 			<a href="/news" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
-			<h3>新闻纵览</h3>
+			<h3>新闻要论</h3>
 		</div>
     	<div id="marquees" style="height:236px;width:290px;overflow:hidden">
     		<ul class="square_list">

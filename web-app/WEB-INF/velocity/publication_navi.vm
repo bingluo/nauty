@@ -129,7 +129,7 @@
 	<div class="sixteen columns">
 		<!-- Page Title -->
 		<div id="page-title">
-			<h2><a href="$!{viewUtil.getContextPath()}/publication-cul" style='color:#333;font-weight:bold;'>文化交流</a></h2>
+			<h2><a href="$!{viewUtil.getContextPath()}/publication-navi/cat-40" style='color:#333;font-weight:bold;'>热销书介</a></h2>
 			<div class="clear"></div>
 			<div id="bolded-line"></div>
 		</div>
@@ -139,41 +139,34 @@
 <!-- 960 Container / End -->
 <!-- 960 Container -->
 <div class="container">
-	<!-- Portfolio Content -->
-	<div id="portfolio-wrapper">
-		<!-- 1/4 Column -->
-		#foreach($publication in $culturePublicationsList)
-		<div class="four columns portfolio-item">
-			<div class="picture">
-    			#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
-    			<a href="$!{publication.linkUrl}">
-    			#else
-    			<a href="$viewUtil.getContextPath()/publication-cul/$!{publication.id}.html">
-    			#end
-    				#if($!{publication.coverUrl}&&$!{publication.coverUrl}!="")
-    				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
-    				#else
-    				<img src="$viewUtil.getContextPath()/static/images/portfolio/portoflio-09.jpg" alt="$!{publication.title}" style="height:139px"/>
-    				#end
-					<div class="image-overlay-link"></div>
-				</a>
-			</div>
-			<div class="item-description alt">
-				<h5>
-        			#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
-        			<a href="$!{publication.linkUrl}">
-        			#else
-        			<a href="$viewUtil.getContextPath()/publication-cul/$!{publication.id}.html">
-        			#end
-						$!{publication.title}
-					</a>
-				</h5>
-				<p style="height:60px;">$!{publication.brief}</p>
-			</div>
-		</div>
-		#end
+	<div class="eight columns" style="margin-top:8px;font-size:15px;">
+		<ul class="arrow_list index-article-list">
+			#foreach($bookIntroItem in $bookIntroList)
+			#if($velocityCount%2==1)
+			<li>
+    			<div class="article-list-title">
+    				<a href="$!{viewUtil.getContextPath()}$!{bookIntroItem.uri}" title="$!{bookIntroItem.title}">$!{bookIntroItem.title}</a>
+    			</div>
+    			<div class="article-list-date">$!viewUtil.fArticlePostTime("$!{bookIntroItem.postTime}")</div>
+			</li>
+			#end
+			#end
+		</ul>
 	</div>
-	<!-- End Portfolio Content -->
+	<div class="eight columns" style="margin-top:8px;font-size:15px;">
+		<ul class="arrow_list index-article-list">
+			#foreach($bookIntroItem in $bookIntroList)
+			#if($velocityCount%2==0)
+			<li>
+    			<div class="article-list-title">
+    				<a href="$!{viewUtil.getContextPath()}$!{bookIntroItem.uri}" title="$!{bookIntroItem.title}">$!{bookIntroItem.title}</a>
+    			</div>
+    			<div class="article-list-date">$!viewUtil.fArticlePostTime("$!{bookIntroItem.postTime}")</div>
+			</li>
+			#end
+			#end
+		</ul>
+	</div>
 </div>
 <!-- End 960 Container -->
 </div>
