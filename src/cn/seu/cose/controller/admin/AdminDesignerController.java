@@ -1,7 +1,6 @@
 package cn.seu.cose.controller.admin;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +35,7 @@ public class AdminDesignerController extends AbstractController{
 	@RequestMapping(value="/admin/designer_list", method=RequestMethod.GET)
 	public void getDesignersDefault(Model model, HttpServletResponse response) {
 		try {
-			response.sendRedirect("/admin/designer_list/p1");		} catch (Exception e) {
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/designer_list/p1");		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -85,7 +84,7 @@ public class AdminDesignerController extends AbstractController{
 	@RequestMapping(value="/admin/designer_list_certificated", method=RequestMethod.GET)
 	public void getCertificatedDesignersDefault(Model model, HttpServletResponse response) {
 		try {
-			response.sendRedirect("/admin/designer_list_certificated/p1");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/designer_list_certificated/p1");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -110,7 +109,7 @@ public class AdminDesignerController extends AbstractController{
 	@RequestMapping(value="/admin/designer_list_uncertificated", method=RequestMethod.GET)
 	public void getUnCertificatedDesignersDefault(Model model, HttpServletResponse response) {
 		try {
-			response.sendRedirect("/admin/designer_list_uncertificated/p1");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/designer_list_uncertificated/p1");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -180,7 +179,7 @@ public class AdminDesignerController extends AbstractController{
 		putAdmin(model, response);
 		blogService.archiveBlog(blogId);
 		try {
-			response.sendRedirect("/admin/designer/"+ designerId +"/blog_list/p1");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/designer/"+ designerId +"/blog_list/p1");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

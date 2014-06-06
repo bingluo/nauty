@@ -45,7 +45,7 @@ public class AdminActivityController extends AbstractController {
 	@RequestMapping(value="/admin/activity_list", method=RequestMethod.GET)
 	public void getActyListDefault(Model model, HttpServletResponse response) {
 		try {
-			response.sendRedirect("/admin/activity_list/p1");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/activity_list/p1");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -174,7 +174,7 @@ public class AdminActivityController extends AbstractController {
 	public void getActyNewsByActyIdDefault(@PathVariable("id") int id, 
 			Model model, HttpServletResponse response) {
 		try {
-			response.sendRedirect("/admin/acty-" + id + "news_list/p1");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/acty-" + id + "news_list/p1");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -276,7 +276,7 @@ public class AdminActivityController extends AbstractController {
 	@RequestMapping(value="/admin/acty-{id}photos_list", method=RequestMethod.GET)
 	public void getActyPhotosByActyIdDefault(@PathVariable("id") int id, Model model, HttpServletResponse response) {
 		try {
-			response.sendRedirect("/admin/acty-" + id + "photos_list/p1");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/acty-" + id + "photos_list/p1");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

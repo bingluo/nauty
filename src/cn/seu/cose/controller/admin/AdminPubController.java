@@ -29,7 +29,7 @@ public class AdminPubController extends AbstractController{
 	@RequestMapping(value="/admin/pub_list", method=RequestMethod.GET)
 	public void pubListDefault(Model model, HttpServletResponse response) {
 		try {
-			response.sendRedirect("/admin/pub_list/p1");
+			response.sendRedirect(ViewUtil.getContextPath() + "/admin/pub_list/p1");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
