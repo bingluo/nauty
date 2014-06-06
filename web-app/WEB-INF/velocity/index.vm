@@ -26,11 +26,16 @@
 	#parse("common/flexslider.vm")
 	<!-- Flexslider / End -->
     <div class="one-third column" style="height:150px;padding:0px;display:block;background">
-		<div class="headline no-margin"><h3>文章搜索</h3></div>
+		<div class="headline no-margin">
+			<h3>文章搜索</h3>
+		</div>
     	<div class="search no-margin icon-box tooltips">
 		#parse("common/search_form.vm")
 		</div>
-    	<div class="headline" style="margin:5px 0 0px 0"><h3>新闻中心</h3></div>
+    	<div class="headline  tooltips" style="margin:5px 0 0px 0">
+			<a href="$!{viewUtil.getContextPath()}/news" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<h3>新闻要论</h3>
+		</div>
     	<div id="marquees" style="height:236px;width:290px;overflow:hidden">
     		<ul class="square_list">
        			#foreach($article in $news)
@@ -42,15 +47,47 @@
 </div>
 <!-- 960 Container / End -->
 <!-- 960 Container -->
-<div class="container" style="margin-bottom:10px;">
+<div class="container" style="border-bottom:1px solid #ddd;">
+	<!-- Icon Boxes -->
+	<div class="activity-index" style="margin-top:10px;">
+		<!-- Icon Box Start -->
+		<div class="one-third column intro-block">
+			<div class="icon-box">
+				<i class="ico-group" style="margin-left: -10px;"></i>
+				<h3>会员风采</h3>
+				<p>这里有最优秀的工业设计基地、企业、中心，有最优秀设计师；这里集结智慧，展示品牌，分享创意。在这里，您可以找到绝佳的设计作品。在这里，“伯乐识马”一直在发生。<br/>
+					<a class="post-entry" href="$!{viewUtil.getContextPath()}/members" style="font-size: 14px;margin: 0;">会员风采</a><br/>
+					<a class="post-entry" href="$!{viewUtil.getContextPath()}/designer" style="font-size: 14px;margin: 0;">设计师之家</a>
+				</p>
+			</div>
+		</div>
+		<!-- Icon Box End -->
+		<div class="one-third column activity-block" style="width:610px;height:154px;">
+			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;width:600px;">
+				<ul class="links-list-alt activity-list">
+					#foreach($memberStyleItem in $memberStyleList)
+					<li style="float:left;"><a href="$!{viewUtil.getContextPath()}$!{memberStyleItem.uri}" style="color:#5ca20d;width:280px;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;" title="$!{memberStyleItem.title}">$!{memberStyleItem.title}</a></li>
+					#end
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Icon Boxes / End -->
+</div>
+<!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container">
 	<!-- Icon Boxes -->
 	<div class="activity-index" style="margin-top:20px;">
 		<!-- Icon Box Start -->
 		<div class="one-third column intro-block">
 			<div class="icon-box">
 				<i class="ico-cup" style="margin-left: -10px;"></i>
-				<h3>活动赛事</h3>
-				<p>最新活动赛事新闻，活动在线报名参与，现场照片视频速递，设计作品投票评选……<br/><a class="post-entry" href="$!{viewUtil.getContextPath()}/activity" style="font-size: 18px;">进入活动赛事中心</a></p>
+				<h3>赛展招商</h3>
+				<p>品牌企业招商舞台，会展赛事信息之窗，精英赛展在线报名，现场照片视频速递，设计作品投票评选……<br/>
+					<a class="post-entry" href="$!{viewUtil.getContextPath()}/events" style="font-size: 14px;margin: 0;">赛展招商</a><br/>
+					<a class="post-entry" href="$!{viewUtil.getContextPath()}/activity" style="font-size: 14px;margin: 0;">活动赛事中心</a>
+				</p>
 			</div>
 		</div>
 		<!-- Icon Box End -->
@@ -80,39 +117,6 @@
 <!-- 960 Container / End -->
 <!-- 960 Container -->
 <div class="container">
-	<!-- Icon Boxes -->
-	<div class="activity-index" style="padding-top:10px;border-top:1px solid #ddd;">
-		<!-- Icon Box Start -->
-		<div class="four columns intro-block">
-			<div class="icon-box">
-				<i class="ico-group" style="margin-left: -10px;"></i>
-				<h3>设计师之家</h3>
-				<p>这里有最优秀设计师，我们集结智慧，分享创意，在这里可以找到绝佳的设计作品。在这里，“伯乐识马”一直在发生。<br/><a class="post-entry" href="$!{viewUtil.getContextPath()}/designer" style="font-size: 18px;">进入设计师之家</a></p>
-			</div>
-		</div>
-		<!-- Icon Box End -->
-		#foreach($work in $works)
-		<div class="four columns column ">
-			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;overflow:hidden;">
-				<div class="latest-post-blog">
-        			<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}/works/$!{work.id}.html">
-						<img src="$!{viewUtil.getContextPath()}/static/works/$!{work.workPics.get(0)}" alt="">
-					</a>
-        			<p>
-						<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}/works/$!{work.id}.html" style="font-weight:bold;color:#5ca20d">$!{work.workName}</a>
-						<a href="$!{viewUtil.getContextPath()}/designer/$!{work.userId}">设计师：$!{work.userName}</a>
-						<span>$viewUtil.fTime("$!{work.updateTime}")</span>
-					</p>
-        		</div>
-			</div>
-		</div>
-		#end
-	</div>
-	<!-- Icon Boxes / End -->
-</div>
-<!-- 960 Container / End -->
-<!-- 960 Container -->
-<div class="container" style="margin-top:20px">
 	<div class="sixteen columns" style="height: 45px;">
 		<!-- Headline -->
 		<div class="no-margin icon-box tooltips"><i class="ico-book-open" style="margin-left: -10px;margin-top:-7px;"></i>
@@ -151,6 +155,90 @@
 		</div>
 	</div>
 	#end
+</div>
+<!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container">
+	<div class="eight columns" >
+		<!-- Headline -->
+		<div class="no-margin icon-box tooltips"><i class="ico-lightbulb" style="margin-left: -10px;margin-top:-7px;"></i>
+			<a href="$viewUtil.getContextPath()/workshop" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<h3>创意商城</h3>
+		</div>
+		<div style="margin-top:8px;font-size:15px;">
+			<ul class="arrow_list index-article-list">
+				#foreach($workshopArticle in $workshops)
+				<li>
+    				<div class="article-list-title">
+    					<a href="$viewUtil.getContextPath()$!{workshopArticle.uri}" title="$!{workshopArticle.title}">$!{workshopArticle.title}</a>
+    				</div>
+    				<div class="article-list-date">$!viewUtil.fArticlePostTime("$!{workshopArticle.postTime}")</div>
+				</li>
+				#end
+			</ul>
+		</div>
+	</div>
+	<div class="eight columns" >
+		<!-- Headline -->
+		<div class="no-margin icon-box tooltips"><i class="ico-attach" style="margin-left: -10px;margin-top:-7px;"></i>
+			<a href="$viewUtil.getContextPath()/policy" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<h3>政策法规</h3>
+		</div>
+		<div style="margin-top:8px;font-size:15px;">
+			<ul class="arrow_list index-article-list">
+				#foreach($policiesArticle in $policies)
+				<li>
+    				<div class="article-list-title">
+    					<a href="$viewUtil.getContextPath()$!{policiesArticle.uri}" title="$!{policiesArticle.title}">$!{policiesArticle.title}</a>
+    				</div>
+    				<div class="article-list-date">$!viewUtil.fArticlePostTime("$!{policiesArticle.postTime}")</div>
+				</li>
+				#end
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container" style="margin-top:20px;">
+	<div class="eight columns">
+		<!-- Headline -->
+		<div class="no-margin icon-box tooltips"><i class="ico-blog" style="margin-left: -10px;margin-top:-7px;"></i>
+			<a href="$viewUtil.getContextPath()/blogzone" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<h3>博文天下</h3>
+		</div>
+		<div style="margin-top:8px;font-size:15px;">
+			<ul class="arrow_list index-article-list">
+				#foreach($indexBlogsItem in $indexBlogs)
+				<li>
+    				<div class="article-list-title">
+    					<a href="$viewUtil.getContextPath()/designer/$!{indexBlogsItem.designerId}/blogs/$!{indexBlogsItem.id}" title="$!{indexBlogsItem.title}">$!{indexBlogsItem.title}</a>
+    				</div>
+    				<div class="article-list-date">$!viewUtil.fArticlePostTime("$!{indexBlogsItem.updateTime}")</div>
+				</li>
+				#end
+			</ul>
+		</div>
+	</div>
+	<div class="eight columns" >
+		<!-- Headline -->
+		<div class="no-margin icon-box tooltips"><i class="ico-certificate" style="margin-left: -10px;margin-top:-7px;"></i>
+			<a href="$viewUtil.getContextPath()/train" class="button color" rel="tooltip" data-original-title="查看更多" style="margin:6px 5px 0 0px;padding:2px 5px;float:right">more</a>
+			<h3>认证培训</h3>
+		</div>
+		<div style="margin-top:8px;font-size:15px;">
+			<ul class="arrow_list index-article-list">
+				#foreach($trainsArticle in $trains)
+				<li>
+    				<div class="article-list-title">
+    					<a href="$viewUtil.getContextPath()$!{trainsArticle.uri}" title="$!{trainsArticle.title}">$!{trainsArticle.title}</a>
+    				</div>
+    				<div class="article-list-date">$!viewUtil.fArticlePostTime("$!{trainsArticle.postTime}")</div>
+				</li>
+				#end
+			</ul>
+		</div>
+	</div>
 </div>
 <!-- 960 Container / End -->
 </div>

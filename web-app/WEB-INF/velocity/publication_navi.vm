@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+#parse("common/head.vm")
+<body>
+<!-- Content
+================================================== -->
+<!-- Wrapper Start -->
+<div id="wrapper">
+<!-- Header
+================================================== -->
+<!-- 960 Container -->
+<div class="container ie-dropdown-fix">
+	<!-- Header -->
+	#parse("common/header.vm")
+	<!-- Header / End -->
+	<!-- Navigation -->
+	#parse("common/navi.vm")
+	<!-- Navigation / End -->
+</div>
+<!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container">
+	<div class="sixteen columns">
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2><a href="$!{viewUtil.getContextPath()}/publication" style='color:#333;font-weight:bold;'>协会刊物</a></h2>
+			<div class="clear"></div>
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+	</div>
+</div>
+<!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container">
+	<!-- Portfolio Content -->
+	<div id="portfolio-wrapper">
+		<!-- 1/4 Column -->
+		#foreach($publication in $publicationsList)
+		<div class="four columns portfolio-item">
+			<div class="picture">
+    			#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
+    			<a href="$!{publication.linkUrl}">
+    			#else
+    			<a href="$viewUtil.getContextPath()/publication/$!{publication.id}.html">
+    			#end
+    				#if($!{publication.coverUrl}&&$!{publication.coverUrl}!="")
+    				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+    				#else
+    				<img src="$viewUtil.getContextPath()/static/images/portfolio/portoflio-09.jpg" alt="$!{publication.title}" style="height:139px"/>
+    				#end
+					<div class="image-overlay-link"></div>
+				</a>
+			</div>
+			<div class="item-description alt">
+				<h5>
+        			#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
+        			<a href="$!{publication.linkUrl}">
+        			#else
+        			<a href="$viewUtil.getContextPath()/publication/$!{publication.id}.html">
+        			#end
+						$!{publication.title}
+					</a>
+				</h5>
+				<p style="height:60px;">$!{publication.brief}</p>
+			</div>
+		</div>
+		#end
+	</div>
+	<!-- End Portfolio Content -->
+</div>
+<!-- End 960 Container -->
+<!-- 960 Container -->
+<div class="container">
+	<div class="sixteen columns">
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2><a href="$!{viewUtil.getContextPath()}/publication-com" style='color:#333;font-weight:bold;'>企业内刊</a></h2>
+			<div class="clear"></div>
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+	</div>
+</div>
+<!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container">
+	<!-- Portfolio Content -->
+	<div id="portfolio-wrapper">
+		<!-- 1/4 Column -->
+		#foreach($publication in $companyPublicationsList)
+		<div class="four columns portfolio-item">
+			<div class="picture">
+    			#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
+    			<a href="$!{publication.linkUrl}">
+    			#else
+    			<a href="$viewUtil.getContextPath()/publication-com/$!{publication.id}.html">
+    			#end
+    				#if($!{publication.coverUrl}&&$!{publication.coverUrl}!="")
+    				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+    				#else
+    				<img src="$viewUtil.getContextPath()/static/images/portfolio/portoflio-09.jpg" alt="$!{publication.title}" style="height:139px"/>
+    				#end
+					<div class="image-overlay-link"></div>
+				</a>
+			</div>
+			<div class="item-description alt">
+				<h5>
+        			#if($!{publication.linkUrl}&&$!{publication.linkUrl}!="")
+        			<a href="$!{publication.linkUrl}">
+        			#else
+        			<a href="$viewUtil.getContextPath()/publication-com/$!{publication.id}.html">
+        			#end
+						$!{publication.title}
+					</a>
+				</h5>
+				<p style="height:60px;">$!{publication.brief}</p>
+			</div>
+		</div>
+		#end
+	</div>
+	<!-- End Portfolio Content -->
+</div>
+<!-- End 960 Container -->
+<!-- 960 Container -->
+<div class="container">
+	<div class="sixteen columns">
+		<!-- Page Title -->
+		<div id="page-title">
+			<h2><a href="$!{viewUtil.getContextPath()}/publication-navi/cat-40" style='color:#333;font-weight:bold;'>热销书介</a></h2>
+			<div class="clear"></div>
+			<div id="bolded-line"></div>
+		</div>
+		<!-- Page Title / End -->
+	</div>
+</div>
+<!-- 960 Container / End -->
+<!-- 960 Container -->
+<div class="container">
+	<div class="eight columns" style="margin-top:8px;font-size:15px;">
+		<ul class="arrow_list index-article-list">
+			#foreach($bookIntroItem in $bookIntroList)
+			#if($velocityCount%2==1)
+			<li>
+    			<div class="article-list-title">
+    				<a href="$!{viewUtil.getContextPath()}$!{bookIntroItem.uri}" title="$!{bookIntroItem.title}">$!{bookIntroItem.title}</a>
+    			</div>
+    			<div class="article-list-date">$!viewUtil.fArticlePostTime("$!{bookIntroItem.postTime}")</div>
+			</li>
+			#end
+			#end
+		</ul>
+	</div>
+	<div class="eight columns" style="margin-top:8px;font-size:15px;">
+		<ul class="arrow_list index-article-list">
+			#foreach($bookIntroItem in $bookIntroList)
+			#if($velocityCount%2==0)
+			<li>
+    			<div class="article-list-title">
+    				<a href="$!{viewUtil.getContextPath()}$!{bookIntroItem.uri}" title="$!{bookIntroItem.title}">$!{bookIntroItem.title}</a>
+    			</div>
+    			<div class="article-list-date">$!viewUtil.fArticlePostTime("$!{bookIntroItem.postTime}")</div>
+			</li>
+			#end
+			#end
+		</ul>
+	</div>
+</div>
+<!-- End 960 Container -->
+</div>
+<!-- Wrapper / End -->
+<!-- Footer Start -->
+#parse("common/footer.vm")
+<!-- Footer / End -->
+</body>
+</html>

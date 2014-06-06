@@ -58,7 +58,23 @@
 #contact-details a {color: #666;}
 #contact-details a:hover {color: #888;}
 
+.index-article-list li{
+	height:19px;
+}
+.article-list-title:hover{
+	font-weight:bold;
+}
 
+.article-list-title{
+	float:left;
+	width:330px;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space: nowrap;
+}
+.article-list-date{
+	float:right;
+}
 /* Activity
 ====================================*/
 .title-pic img{
@@ -358,8 +374,8 @@ html[xmlns] .slides {display: block;}
 ====================================*/
 .slide-caption {
 	width: 30%;
-	padding: 22px;
-	margin: 0 0 20px 20px;
+	padding: 15px;
+	margin: 0 0 10px 10px;
 	position: absolute;
 	display: block;
 	left: 0;
@@ -372,8 +388,7 @@ html[xmlns] .slides {display: block;}
 	
 .slide-caption h3 {
 	color: #fff;
-	font-size: 16px;
-	padding-bottom: 10px;
+	font-size: 14px;
 	margin:0;
 	line-height: 22px;
 }
@@ -395,7 +410,7 @@ html[xmlns] .slides {display: block;}
 
 .icon-box i {
 	float: left;
-	margin: -2px 0 50px 0;
+	margin: -2px 0 0 0;
 }
 
 /* =================================================================== */

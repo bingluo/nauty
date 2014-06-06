@@ -56,6 +56,17 @@
 		]]>
 	</select>	
 	
+	<select id="selectRecentPublicationsByType" resultMap="PublicationResultMap">
+		<![CDATA[
+		SELECT * FROM 
+			(SELECT a.id,a.title,a.intro,a.images,a.link_url,a.type, a.click_counts,a.post_time
+    		FROM publication a
+			WHERE type = #value#
+    		ORDER BY a.post_time DESC) b
+		limit 0,4
+		]]>
+	</select>	
+	
 	<select id="selectPublicationsByBaseAndRange" resultMap="PublicationResultMap" parameterClass="java.util.Map">
 		<![CDATA[
 		SELECT * FROM 

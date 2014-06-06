@@ -45,6 +45,12 @@ public class PublicationDAOImpl extends SqlMapClientDaoSupport implements
 	}
 
 	@Override
+	public List<PublicationPojo> getRecentPublicationsByType(int type) {
+		return getSqlMapClientTemplate().queryForList(
+				"PUBLICATION.selectRecentPublicationsByType", type);
+	}
+
+	@Override
 	public List<PublicationPojo> getPublicationsByBaseAndRange(int base,
 			int range) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
