@@ -41,10 +41,11 @@
 								#foreach($pub in $pub_list)
 									<tr>
 										<td>$pub.id</td>
-										#if ($pub.linkUrl == "")
-											<td width="15%" title="$pub.title">$pub.title</td>
-										#else
+										
+										#if($!{pub.linkUrl} && $!{pub.linkUrl}!="")
 											<td width="15%" title="${pub.title}(外链)"><a target="_blank" href="$pub.linkUrl">${pub.title}(外链)</a></td>
+										#else
+											<td width="15%" title="$pub.title">$pub.title</td>
 										#end
 										
 										#if ($pub.intro.length() < 30) 
