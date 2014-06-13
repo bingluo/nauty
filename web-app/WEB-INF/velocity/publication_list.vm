@@ -58,9 +58,9 @@
     			<a href="$viewUtil.getContextPath()/$!{publicationTypeUrl}/$!{publication.id}.html">
     			#end
     				#if($!{publication.coverUrl}&&$!{publication.coverUrl}!="")
-    				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:139px"/>
+    				<img src="$!{publication.coverUrl}" alt="$!{publication.title}" style="height:250px"/>
     				#else
-    				<img src="$viewUtil.getContextPath()/static/images/portfolio/portoflio-09.jpg" alt="$!{publication.title}" style="height:139px"/>
+    				<img src="$viewUtil.getContextPath()/static/images/portfolio/portoflio-09.jpg" alt="$!{publication.title}" style="height:250px"/>
     				#end
 					<div class="image-overlay-link"></div>
 				</a>
