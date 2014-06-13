@@ -91,6 +91,7 @@
 			</div>
 		</div>
 		<!-- Icon Box End -->
+		<!--
 		#foreach($activity in $activities)
 		<div class="one-third column activity-block" style="width:290px;">
 			<div class="post-meta" style="display:inline;float:left;margin-left:10px;max-width:90px;">
@@ -111,6 +112,17 @@
 			</div>
 		</div>
 		#end
+		-->
+		<!-- Icon Box End -->
+		<div class="one-third column activity-block" style="width:610px;height:154px;">
+			<div style="display:inline;float:left;padding-top:10px;margin-left:10px;width:600px;">
+				<ul class="links-list-alt activity-list">
+					#foreach($activityArticleItem in $activityArticleList)
+					<li style="float:left;"><a href="$!{viewUtil.getContextPath()}$!{activityArticleItem.uri}" style="color:#5ca20d;width:280px;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;" title="$!{activityArticleItem.title}">$!{activityArticleItem.title}</a></li>
+					#end
+				</ul>
+			</div>
+		</div>
 	</div>
 	<!-- Icon Boxes / End -->
 </div>

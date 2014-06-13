@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.seu.cose.entity.ActivityPojo;
 import cn.seu.cose.entity.ArticlePojo;
 import cn.seu.cose.entity.Blog;
 import cn.seu.cose.entity.SlidePojo;
@@ -40,9 +39,11 @@ public class IndexController extends AbstractController {
 	public String index(Model model) {
 		List<SlidePojo> slides = slideService.getSlides();
 		List<ArticlePojo> news = articleService.newCenterInIndex();
-		List<ActivityPojo> activities = activityService.getIndexActivities();
+		// List<ActivityPojo> activities = activityService.getIndexActivities();
 		List<ArticlePojo> memberStyleList = articleService
 				.getArticleByCatIdAndPnAndPsBrief(4, 1, 12);
+		List<ArticlePojo> activityArticleList = articleService
+				.getArticleByCatIdAndPnAndPsBrief(5, 1, 12);
 		List<ArticlePojo> workshops = articleService
 				.getArticleByCatIdAndPnAndPsBrief(3, 1, 10);
 		List<ArticlePojo> policies = articleService
@@ -53,8 +54,9 @@ public class IndexController extends AbstractController {
 				.getRecentBlogsByPnAndPageSize(1, 10);
 		model.addAttribute("slides", slides);
 		model.addAttribute("news", news);
-		model.addAttribute("activities", activities);
+		// model.addAttribute("activities", activities);
 		model.addAttribute("memberStyleList", memberStyleList);
+		model.addAttribute("activityArticleList", activityArticleList);
 		model.addAttribute("workshops", workshops);
 		model.addAttribute("policies", policies);
 		model.addAttribute("trains", trains);
