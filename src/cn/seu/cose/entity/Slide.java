@@ -8,8 +8,9 @@ public class Slide {
 	private String title;
 
 	private String brief;
-
-	private int articleId;
+	
+	// update 2014.7.14 remove link to only article, use articleUri in SlidePojo
+	//private int articleId;
 
 	private String picName;
 
@@ -39,13 +40,13 @@ public class Slide {
 		this.brief = brief;
 	}
 
-	public int getArticleId() {
+	/*public int getArticleId() {
 		return articleId;
 	}
 
 	public void setArticleId(int articleId) {
 		this.articleId = articleId;
-	}
+	}*/
 
 	public String getPicName() {
 		return picName;

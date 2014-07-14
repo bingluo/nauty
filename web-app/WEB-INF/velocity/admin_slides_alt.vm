@@ -35,42 +35,11 @@
 									<input type="text" id="brief" name="brief" value="$slide.brief">
 								</div>
 							</div>
-							
 							<div class="control-group">
-								<label class="control-label">选择类别</label>
-								<div class="controls" style="padding-left:20px;">
-									<select id="top_cats_add" onchange="_topAddCatChanged()">
-										#foreach($topCat in $top_cat_list)
-											#if ($topCat.id == $topCatId)
-												<option value="$topCat.id" selected>$topCat.catName</option>
-											#else
-												<option value="$topCat.id">$topCat.catName</option>
-											#end
-										#end
-									</select>
-									&nbsp;
-									<select id="sub_cats_add" onchange="_subAddCatChanged()">
-										#foreach($init_sub in $init_sub_cat_list)
-											#if ($init_sub.id == $subCatId)
-												<option value="$init_sub.id" selected>$init_sub.catName</option>
-											#else
-												<option value="$init_sub.id" >$init_sub.catName</option>
-											#end
-										#end
-									</select>
-								</div>
-								<label class="control-label">选择文章</label>
-								<div class="controls" style="padding-left:20px;">
-									<select id="articles" style="width:500px;">
-										#foreach($article in $init_article_list)
-											#if ($article.id == $slide.articleId)
-												<option value="$article.id" selected>$article.id. $article.title</option>
-											#else
-												<option value="$article.id">$article.id. $article.title</option>
-											#end
-										#end
-									</select>
-								</div>
+								<label class="control-label">图片链接</label>
+								<div class="controls">
+									<input type="text" id="articleUri" name="articleUri" value="$slide.articleUri"/>
+							    </div>
 							</div>
 							<div class="control-group" >
 								<label class="control-label">滚动图片</label>
@@ -96,56 +65,19 @@
 	$("#sidebar_li_2").addClass('active');
 	var context_path = $("#context_path").val();
 	
-	function _topAddCatChanged() {
-		var sel_top_cat = $("#top_cats_add option:selected").val();
-		$.ajax({
-			url: context_path + "/admin/sub_cat_list",
-			type: "post",
-			data: {parentId:sel_top_cat},
-			dataType: "html",
-			success:function(data){
-				$("#sub_cats_add").find('option').remove() ;
-				var cat_array =eval(data);
-				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
-					$("#sub_cats_add").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
-				}
-			},
-			error:function(){
-			}
-		});
-	}
-	function _subAddCatChanged() {
-		var sel_sub_cat = $("#sub_cats_add option:selected").val();
-		$.ajax({
-			url: context_path + "/admin/fetch_articles",
-			type: "post",
-			data: {subCatId:sel_sub_cat},
-			dataType: "html",
-			success:function(data){
-				$("#articles").find('option').remove() ;
-				var article_array =eval(data);
-				for(var i_article=0; i_article<article_array.length; i_article++) {
-					$("#articles").append('<option value="'+ article_array[i_article].id +'">' + article_array[i_article].id + '. ' + article_array[i_article].title +'</option>');
-				}
-			},
-			error:function(){
-			}
-		});
-		
-	}
-
-
 	$(document).ready(function(){
 		$("#yes_add").click(function(check) {
 			$("#title").parent().parent().removeClass("error");
 			$("#picName").parent().parent().removeClass("error");
+			$("#articleUri").parent().parent().removeClass("error");
 			$("#req_title").remove();
 			$("#req_pic").remove();
-		
+			$("#req_articleUri").remove();
+			
 			var _id = $("#slide_id").val();
 			var _title = $("#title").val();
 			var _brief = $("#brief").val();
-			var _articleId = $("#articles option:selected").val();
+			var _articleUri = $("#articleUri").val();
 			var _picName = $("#picName").val();
 			
 			if(_title == "") {
@@ -154,11 +86,14 @@
 			} else if(_picName == "") { 
 				$("#picName").parent().parent().addClass("error");
 				$("#picName").parent().append('<span id="req_pic" for="required" generated="true" class="help-inline">请选择图片</span>');
+			} else if(_articleUri == "") { 
+				$("#articleUri").parent().parent().addClass("error");
+				$("#articleUri").parent().append('<span id="req_articleUri" for="required" generated="true" class="help-inline">请填写链接</span>');
 			} else {
 				$.ajax({
 					url: context_path + "/admin/alt_slide",
 					type: "post",
-					data: {id:_id, title:_title, brief:_brief, articleId:_articleId, picName:_picName},
+					data: {id:_id, title:_title, brief:_brief, articleUri:_articleUri, picName:_picName},
 					dataType: "html",
 					success: function(data) {
 						window.location.href = context_path + "/admin/slide_list";

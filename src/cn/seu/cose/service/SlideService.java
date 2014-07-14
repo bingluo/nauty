@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import cn.seu.cose.dao.SlideDAO;
 import cn.seu.cose.entity.SlidePojo;
-import cn.seu.cose.util.LinkTool;
 
 @Service
 public class SlideService {
@@ -17,9 +16,9 @@ public class SlideService {
 
 	public List<SlidePojo> getSlides() {
 		List<SlidePojo> slides = slideDAOImpl.getSlides();
-		for (SlidePojo slidePojo : slides) {
-			slidePojo.setArticleUri(LinkTool.article(slidePojo.getArticleId()));
-		}
+//		for (SlidePojo slidePojo : slides) {
+//			slidePojo.setArticleUri(LinkTool.article(slidePojo.getArticleId()));
+//		}
 		return slides;
 	}
 

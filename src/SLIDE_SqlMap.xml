@@ -9,7 +9,7 @@
 		<result property="id" column="ID"/>
 		<result property="title" column="TITLE"/>
 		<result property="brief" column="BRIEF"/>
-		<result property="articleId" column="ARTICLE_ID"/>
+		<result property="articleUri" column="ARTICLE_URI"/>
 		<result property="picName" column="PIC_NAME"/>
 		<result property="updateTime" column="UPDATE_TIME"/>
 	</resultMap>
@@ -28,8 +28,8 @@
 	<insert id="insertSlide" parameterClass="slide">
 		<![CDATA[
 		INSERT INTO SLIDE
-		(title,brief,article_id,pic_name,update_time)
-		VALUES (#title#,#brief#,#articleId#,#picName#,current_timestamp())
+		(title,brief,article_uri,pic_name,update_time)
+		VALUES (#title#,#brief#,#articleUri#,#picName#,current_timestamp())
 		]]>
 	</insert>
 
@@ -38,7 +38,7 @@
 		UPDATE SLIDE
 		SET	title = #title#,
 			brief = #brief#,
-			article_id = #articleId#,
+			article_uri = #articleUri#,
 			pic_name = #picName#,
 			update_time = current_timestamp()
 		WHERE id = #id#

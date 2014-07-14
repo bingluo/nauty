@@ -31,7 +31,7 @@
 									<th style="width:3%">ID</th>
 									<th>标题</th>
 									<th>简介</th>
-									<th style="width:8%">文章</th>
+									<th style="width:8%">链接</th>
 									<th style="width:8%">图片</th>
 									<th>发布时间</th>
 									<th>操作</th>
@@ -43,7 +43,7 @@
 										<td>$slide.id</td>
 										<td title="$slide.title">$slide.title</td>
 										<td title="$slide.brief">$slide.brief</td>
-										<td title="$slide.articleId"><a target="_blank" href="$!{viewUtil.getContextPath()}/admin/alt_article-$slide.articleId">$slide.articleId</a></td>
+										<td title="$slide.articleUri"><a target="_blank" href="$slide.articleUri">$slide.articleUri</a></td>
 										<td><a target="_blank" href="$!slide.picName" /><img src="$!slide.picName"/></td>
 										<td title='$viewUtil.fTime("$slide.updateTime")'>$viewUtil.fTime("$slide.updateTime")</td>
 										<td>
@@ -78,27 +78,6 @@
 	$("#sidebar_li_2").addClass('active');
 	var context_path = $("#context_path").val();
 	
-	function _topCatChanged() {
-		var sel_top_cat = $("#top_cats option:selected").val();
-		$.ajax({
-			url: context_path + "/admin/sub_cat_list",
-			type: "post",
-			data: {parentId:sel_top_cat},
-			dataType: "html",
-			success:function(data){
-				$("#sub_cats").find('option').remove() ;
-				var cat_array =eval(data);
-				$("#sub_cats").append('<option value="0">全选</option>');
-				for(var i_cat=0; i_cat<cat_array.length; i_cat++) {
-					$("#sub_cats").append('<option value="'+ cat_array[i_cat].id +'">'+ cat_array[i_cat].catName +'</option>');
-				}
-			},
-			error:function(){
-			}
-		});
-	}
-	
-
 	$(document).ready(function(){
 		// global
 		var slideId = -1; 

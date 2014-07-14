@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,12 +57,12 @@ public class AdminSlideController extends AbstractController{
 	
 	@RequestMapping(value="/admin/add_slide", method=RequestMethod.POST)
 	public void postAdd(@RequestParam("title")String title, @RequestParam("brief")String brief, 
-			@RequestParam("articleId") String articleId, @RequestParam("picName") String picName, 
+			@RequestParam("articleUri") String articleUri, @RequestParam("picName") String picName, 
 			HttpServletResponse response) {
 		SlidePojo slide = new SlidePojo();
 		slide.setTitle(title);
 		slide.setBrief(brief);
-		slide.setArticleId(Integer.parseInt(articleId));
+		slide.setArticleUri(articleUri);
 		slide.setPicName(picName);
 		slide.setUpdateTime(new Date());
 		slideService.addSlide(slide);
@@ -92,7 +91,7 @@ public class AdminSlideController extends AbstractController{
 		int id = Integer.parseInt(idStr);
 		SlidePojo slide = slideService.getSlideById(id);
 		model.addAttribute("slide", slide);
-		int articleId = slide.getArticleId();
+		/*int articleId = slide.getArticleId();
 		int topCatId = 2;
 		int subCatId = 15;
 		if (articleId >=0 ) {
@@ -101,7 +100,7 @@ public class AdminSlideController extends AbstractController{
 			subCatId = article.getCatId();
 		}
 		
-		/* get cats */
+		 get cats 
 		List<CategoryPojo> categories = catService.getRootCategories();
 		model.addAttribute("top_cat_list", categories);
 		categories = catService.getCategoriesByParentId(topCatId);
@@ -109,26 +108,26 @@ public class AdminSlideController extends AbstractController{
 		model.addAttribute("topCatId", topCatId); // init 新闻-特别关注
 		model.addAttribute("subCatId", subCatId);
 		List<ArticlePojo> list = articleService.getArticlesByCatId(subCatId);
-		model.addAttribute("init_article_list", list);
+		model.addAttribute("init_article_list", list);*/
 		
 		return "admin_slides_alt";
 	}
 	
 	@RequestMapping(value="/admin/alt_slide", method=RequestMethod.POST)
 	public void postAlt(@RequestParam("id") String idStr, @RequestParam("title")String title, @RequestParam("brief")String brief, 
-			@RequestParam("articleId") String articleId, @RequestParam("picName") String picName, 
+			@RequestParam("articleUri") String articleUri, @RequestParam("picName") String picName, 
 			HttpServletResponse response) {
 		SlidePojo slide = new SlidePojo();
 		slide.setId(Integer.parseInt(idStr));
 		slide.setTitle(title);
 		slide.setBrief(brief);
-		slide.setArticleId(Integer.parseInt(articleId));
+		slide.setArticleUri(articleUri);
 		slide.setPicName(picName);
 		slide.setUpdateTime(new Date());
 		slideService.updateSlide(slide);
 	}
 	
-	@RequestMapping(value="/admin/fetch_articles", method=RequestMethod.POST)
+	/*@RequestMapping(value="/admin/fetch_articles", method=RequestMethod.POST)
 	public void fetchArticles(@RequestParam("subCatId")String subCatIdStr, HttpServletResponse response) {
 		int subCatId = Integer.parseInt(subCatIdStr);
 		
@@ -146,6 +145,6 @@ public class AdminSlideController extends AbstractController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }
