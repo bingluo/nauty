@@ -19,16 +19,16 @@
 	<select id="selectWorkById" resultMap="WorkResultMap" parameterClass="int">
 		<![CDATA[
     		SELECT * 
-    		FROM WORK
-    		WHERE id=#value#
+    		FROM work
+    		WHERE ID=#value#
 		]]>
 	</select>
 	
 	<select id="selectWorksByUserId" resultMap="WorkResultMap" parameterClass="int">
 		<![CDATA[
     		SELECT * 
-    		FROM WORK
-    		WHERE user_id=#value#
+    		FROM work
+    		WHERE USER_ID=#value#
 		]]>
 	</select>
 	
@@ -36,9 +36,9 @@
 		<![CDATA[
 		SELECT * FROM
 			(SELECT * 
-			FROM WORK
-			WHERE user_id = #userId#
-			ORDER BY update_time DESC) a
+			FROM work
+			WHERE USER_ID = #userId#
+			ORDER BY UPDATE_TIME DESC) a
 		LIMIT #base#,#range#
 		]]>
 	</select>
@@ -47,9 +47,9 @@
 		<![CDATA[
 			SELECT * FROM
         		(SELECT * 
-        		FROM WORK
-        		WHERE activity_id=#value#
-				ORDER BY vote_count DESC) a
+        		FROM work
+        		WHERE ACTIVITY_ID=#value#
+				ORDER BY VOTE_COUNT DESC) a
 			LIMIT 3
 		]]>
 	</select>
@@ -58,9 +58,9 @@
 		<![CDATA[
 		SELECT * FROM
 			(SELECT * 
-			FROM WORK
-			WHERE activity_id > 0
-			ORDER BY vote_count DESC) a
+			FROM work
+			WHERE ACTIVITY_ID > 0
+			ORDER BY VOTE_COUNT DESC) a
 		LIMIT #value#
 		]]>
 	</select>
@@ -69,8 +69,8 @@
 		<![CDATA[
 		SELECT * FROM
 			(SELECT * 
-			FROM WORK
-			ORDER BY update_time DESC) a
+			FROM work
+			ORDER BY UPDATE_TIME DESC) a
 		LIMIT #value#
 		]]>
 	</select>
@@ -79,60 +79,60 @@
 		<![CDATA[
 		SELECT * FROM
 			(SELECT * 
-			FROM WORK
-			WHERE activity_id = #activityId#
-			ORDER BY update_time DESC) a
+			FROM work
+			WHERE ACTIVITY_ID = #activityId#
+			ORDER BY UPDATE_TIME DESC) a
 		LIMIT #base#,#range#
 		]]>
 	</select>
 		
 	<select id="selectWorksCountByActivityId" resultClass="int" parameterClass="int">
 		<![CDATA[
-			SELECT count(id) 
-			FROM WORK
-			WHERE activity_id = #value#
+			SELECT count(ID) 
+			FROM work
+			WHERE ACTIVITY_ID = #value#
 		]]>
 	</select>
 		
 	<select id="selectWorksCountByDesignerId" resultClass="int" parameterClass="int">
 		<![CDATA[
-			SELECT count(id) 
-			FROM WORK
-			WHERE user_id = #value#
+			SELECT count(ID) 
+			FROM work
+			WHERE USER_ID = #value#
 		]]>
 	</select>
 	
 	<insert id="insertWork" parameterClass="work">
 		<![CDATA[
-    		INSERT INTO WORK
-    		(work_name,user_id,work_pics,activity_id,intro,vote_count,update_time)
+    		INSERT INTO work
+    		(WORK_NAME,USER_ID,WORK_PICS,ACTIVITY_ID,INTRO,VOTE_COUNT,UPDATE_TIME)
     		VALUES (#workName#,#userId#,#workPics#,#activityId#,#intro#,#voteCount#,current_timestamp())
     	]]>
 	</insert>
 
 	<update id="updateWork" parameterClass="work">
 		<![CDATA[
-		UPDATE WORK
-		SET	work_name = #workName#,
-			work_pics= #workPics#,
-			activity_id = #activityId#,
-			intro = #intro#,
-			update_time = current_timestamp()
-		WHERE id = #id#
+		UPDATE work
+		SET	WORK_NAME = #workName#,
+			WORK_PICS= #workPics#,
+			ACTIVITY_ID = #activityId#,
+			INTRO = #intro#,
+			UPDATE_TIME = current_timestamp()
+		WHERE ID = #id#
 		]]>
 	</update>
 	
 	<update id="updateVote" parameterClass="int">
 		<![CDATA[
-		UPDATE WORK
-		SET	vote_count = vote_count + 1
-		WHERE id = #value#
+		UPDATE work
+		SET	VOTE_COUNT = VOTE_COUNT + 1
+		WHERE ID = #value#
 		]]>
 	</update>
 	
 	<delete id="deleteWork" parameterClass="int">
 		<![CDATA[
-		DELETE FROM WORK WHERE id = #value#
+		DELETE FROM work WHERE ID = #value#
 		]]>
 	</delete>
 	

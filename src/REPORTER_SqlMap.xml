@@ -6,30 +6,30 @@
 	<typeAlias alias="reporter" type="cn.seu.cose.entity.Reporter" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="ReporterResultMap" class="reporter">
-		<result property="id" column="ID"/>
-		<result property="username" column="USERNAME"/>
-		<result property="password" column="PASSWORD"/>
-		<result property="name" column="NAME"/>
-		<result property="email" column="EMAIL"/>
-		<result property="phone" column="PHONE"/>
-		<result property="contributeCount" column="CONTRIBUTE_COUNT"/>
-		<result property="acceptCount" column="ACCEPT_COUNT"/>
-		<result property="registerTime" column="REGISTER_TIME"/>
-		<result property="certificated" column="CERTIFICATED"/>
-		<result property="certificateTime" column="CERTIFICATE_TIME"/>
+		<result property="id" column="id"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="phone" column="phone"/>
+		<result property="contributeCount" column="contribute_count"/>
+		<result property="acceptCount" column="accept_count"/>
+		<result property="registerTime" column="register_time"/>
+		<result property="certificated" column="certificated"/>
+		<result property="certificateTime" column="certificate_time"/>
 	</resultMap>
 
 	<select id="selectAllReportersList" resultMap="ReporterResultMap">
 		<![CDATA[
     		SELECT * 
-    		FROM REPORTER
+    		FROM reporter
 		]]>
 	</select>
 	
 	<select id="selectCertificatedReportersList" resultMap="ReporterResultMap">
 		<![CDATA[
     		SELECT * 
-    		FROM REPORTER
+    		FROM reporter
     		WHERE certificated=1
 		]]>
 	</select>
@@ -37,7 +37,7 @@
 	<select id="selectUncertificatedReportersList" resultMap="ReporterResultMap">
 		<![CDATA[
     		SELECT * 
-    		FROM REPORTER
+    		FROM reporter
     		WHERE certificated=0
 		]]>
 	</select>
@@ -45,7 +45,7 @@
 	<select id="selectTopKReportersByContribution" resultMap="ReporterResultMap" parameterClass="int">
 		<![CDATA[
     		SELECT * 
-    		FROM REPORTER
+    		FROM reporter
     		ORDER BY contribute_count DESC LIMIT #value# 
 		]]>
 	</select>
@@ -53,7 +53,7 @@
 	<select id="selectTopKReportersByAccept" resultMap="ReporterResultMap" parameterClass="int">
 		<![CDATA[
     		SELECT * 
-    		FROM REPORTER
+    		FROM reporter
     		ORDER BY accept_count DESC LIMIT  #value# 
 		]]>
 	</select>
@@ -61,7 +61,7 @@
 	<select id="selectReporterById" resultMap="ReporterResultMap" parameterClass="int">
 		<![CDATA[
     		SELECT * 
-    		FROM REPORTER
+    		FROM reporter
     		WHERE id=#value#
 		]]>
 	</select>
@@ -69,7 +69,7 @@
 	<select id="selectReporter" resultMap="ReporterResultMap" parameterClass="java.util.Map">
 		<![CDATA[
     		SELECT * 
-    		FROM REPORTER
+    		FROM reporter
     		WHERE username=#username# AND password=#password# LIMIT 1
 		]]>
 	</select>
@@ -77,7 +77,7 @@
 	<select id="selectReporterByUsername" resultMap="ReporterResultMap" parameterClass="string">
 		<![CDATA[
     		SELECT * 
-    		FROM REPORTER
+    		FROM reporter
     		WHERE username=#value# LIMIT 1
 		]]>
 	</select>
@@ -85,14 +85,14 @@
 	<select id="searchReporter" resultMap="ReporterResultMap" parameterClass="string">
 		<![CDATA[
     		SELECT * 
-    		FROM REPORTER
+    		FROM reporter
     		WHERE (username LIKE binary concat("%", #value#, "%")) OR (name LIKE binary concat("%", #value#, "%"))
 		]]>
 	</select>
 	
 	<update id="certificate" parameterClass="int">
 		<![CDATA[
-		UPDATE REPORTER
+		UPDATE reporter
 		SET	certificated = 1, certificate_time = current_timestamp()
 		WHERE id = #value#
 		]]>
@@ -100,7 +100,7 @@
 	
 	<update id="uncertificate" parameterClass="int">
 		<![CDATA[
-		UPDATE REPORTER
+		UPDATE reporter
 		SET	certificated = 0, certificate_time = null
 		WHERE id = #value#
 		]]>
@@ -108,7 +108,7 @@
 	
 	<insert id="insertReporter" parameterClass="reporter">
 		<![CDATA[
-		INSERT INTO REPORTER
+		INSERT INTO reporter
 		(username, password, name, email, phone, register_time)
 		VALUES (#username#, #password#, #name#, #email#, #phone#, current_timestamp())
 		]]>
@@ -116,7 +116,7 @@
 	
 	<update id="updateReporter" parameterClass="reporter">
 		<![CDATA[
-		UPDATE REPORTER
+		UPDATE reporter
 		SET username = #username#,
 			password = #password#,
 			email = #email#,
@@ -127,13 +127,13 @@
 	
 	<delete id="deleteReporter" parameterClass="int">
 		<![CDATA[
-		DELETE FROM REPORTER WHERE id = #value#
+		DELETE FROM reporter WHERE id = #value#
 		]]>
 	</delete>
 	
 	<update id="increaseAccept" parameterClass="int">
 		<![CDATA[
-		UPDATE REPORTER 
+		UPDATE reporter 
 		SET accept_count = accept_count + 1 
 		WHERE id= #value#
 		]]>
@@ -141,7 +141,7 @@
 	
 	<update id="increaseContribute" parameterClass="int">
 		<![CDATA[
-		UPDATE REPORTER 
+		UPDATE reporter 
 		SET contribute_count = contribute_count + 1
 		WHERE id= #value#
 		]]>

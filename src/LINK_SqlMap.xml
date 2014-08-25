@@ -6,28 +6,28 @@
 	<typeAlias alias="link" type="cn.seu.cose.entity.Link" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="LinkResultMap" class="link">
-		<result property="id" column="ID"/>
-		<result property="name" column="NAME"/>
-		<result property="url" column="URL"/>
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="url" column="url"/>
 		<result property="type" column="type"/>
 	</resultMap>
 
 	<select id="selectAllLinks" resultMap="LinkResultMap">		
 		<![CDATA[
     		SELECT * 
-    		FROM LINK
+    		FROM link
 		]]>
 	</select>
 
 	<delete id="deleteLink" parameterClass="int">
 		<![CDATA[
-		delete from LINK where ID = #value#
+		delete from link where id = #value#
 		]]>
 	</delete>
 	
 	<insert id="insertLink" parameterClass="link">
 		<![CDATA[
-		insert into LINK(name,url) values(#name#, #url#)
+		insert into link(name,url) values(#name#, #url#)
 		]]>
 	</insert>
 	

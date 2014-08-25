@@ -6,7 +6,7 @@
 	<typeAlias alias="baseActivityVideo" type="cn.seu.cose.entity.ActivityVideo" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="ActivityVideoResultMap" class="baseActivityVideo">
-		<result property="id" column="ID"/>
+		<result property="id" column="id"/>
 		<result property="activityId" column="activity_id"/>
 		<result property="videoUri" column="video_uri"/>
 		<result property="videoTitle" column="video_title"/>

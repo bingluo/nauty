@@ -6,17 +6,17 @@
 	<typeAlias alias="upload" type="cn.seu.cose.entity.Upload" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="UploadResultMap" class="upload">
-		<result property="id" column="ID"/>
-		<result property="initialName" column="INITIAL_NAME"/>
-		<result property="uploadName" column="UPLOAD_NAME"/>
-		<result property="uploadTime" column="UPLOAD_TIME"/>
-		<result property="uploadSize" column="UPLOAD_SIZE"/>
+		<result property="id" column="id"/>
+		<result property="initialName" column="initial_name"/>
+		<result property="uploadName" column="upload_name"/>
+		<result property="uploadTime" column="upload_time"/>
+		<result property="uploadSize" column="upload_size"/>
 	</resultMap>
 
 	<select id="selectUpload" resultMap="UploadResultMap">
 		<![CDATA[
 		SELECT * 
-		FROM UPLOAD
+		FROM upload
 		ORDER BY upload_time desc
 		]]>
 	</select>
@@ -24,7 +24,7 @@
 	<select id="selectUploadCount" resultClass="int" >
 		<![CDATA[
 		SELECT count(id)
-		FROM UPLOAD
+		FROM upload
 		]]>
 	</select>
 	
@@ -32,7 +32,7 @@
 		<![CDATA[
 		SELECT * FROM
 			(SELECT *
-			FROM UPLOAD
+			FROM upload
 			ORDER BY upload_time desc) a
 		limit #base#,#range#
 		]]>
@@ -41,7 +41,7 @@
 	<select id="selectUploadById" resultMap="UploadResultMap" parameterClass="int">
 		<![CDATA[
 		SELECT * 
-		FROM UPLOAD
+		FROM upload
 		WHERE id=#value#
 		ORDER BY upload_time desc
 		]]>
@@ -49,7 +49,7 @@
 	
 	<insert id="insertUpload" parameterClass="upload">
 		<![CDATA[
-		INSERT INTO UPLOAD
+		INSERT INTO upload
 		(initial_name,upload_name,upload_time)
 		VALUES (#initialName#,#uploadName#,current_timestamp())
 		]]>
@@ -57,13 +57,13 @@
 
 	<delete id="deletUploadById" parameterClass="int">
 		<![CDATA[
-		delete from Upload where ID = #value#
+		delete from upload where id = #value#
 		]]>
 	</delete>
 	
 	<insert id="updateUpload" parameterClass="upload">
 		<![CDATA[
-		UPDATE UPLOAD
+		UPDATE upload
 			SET upload_name = #uploadName#,
 				initial_name = #initialName#,
 				upload_time = current_timestamp()

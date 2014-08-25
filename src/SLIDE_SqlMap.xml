@@ -6,28 +6,28 @@
 	<typeAlias alias="slide" type="cn.seu.cose.entity.SlidePojo" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="SlideResultMap" class="slide">
-		<result property="id" column="ID"/>
-		<result property="title" column="TITLE"/>
-		<result property="brief" column="BRIEF"/>
-		<result property="articleUri" column="ARTICLE_URI"/>
-		<result property="picName" column="PIC_NAME"/>
-		<result property="updateTime" column="UPDATE_TIME"/>
+		<result property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="brief" column="brief"/>
+		<result property="articleUri" column="article_uri"/>
+		<result property="picName" column="pic_name"/>
+		<result property="updateTime" column="update_time"/>
 	</resultMap>
 
 	<select id="selectSlide" resultMap="SlideResultMap">
 		<![CDATA[
-			SELECT * FROM SLIDE ORDER BY update_time DESC
+			SELECT * FROM slide ORDER BY update_time DESC
 		]]>
 	</select>
 	<select id="selectSlideById" resultMap="SlideResultMap" parameterClass="int">
 		<![CDATA[
-			SELECT * FROM SLIDE WHERE id = #value# 
+			SELECT * FROM slide WHERE id = #value# 
 		]]>
 	</select>
 
 	<insert id="insertSlide" parameterClass="slide">
 		<![CDATA[
-		INSERT INTO SLIDE
+		INSERT INTO slide
 		(title,brief,article_uri,pic_name,update_time)
 		VALUES (#title#,#brief#,#articleUri#,#picName#,current_timestamp())
 		]]>
@@ -35,7 +35,7 @@
 
 	<update id="updateSlide" parameterClass="slide">
 		<![CDATA[
-		UPDATE SLIDE
+		UPDATE slide
 		SET	title = #title#,
 			brief = #brief#,
 			article_uri = #articleUri#,
@@ -47,7 +47,7 @@
 	
 	<delete id="deleteSlideById" parameterClass="int">
 		<![CDATA[
-		delete from Slide where ID = #value#
+		delete from slide where id = #value#
 		]]>
 	</delete>
 </sqlMap>

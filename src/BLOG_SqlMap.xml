@@ -6,16 +6,16 @@
 	<typeAlias alias="blog" type="cn.seu.cose.entity.Blog" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="BlogResultMap" class="blog">
-		<result property="id" column="ID"/>
-		<result property="title" column="TITLE"/>
-		<result property="pureContent" column="PURE_CONTENT"/>
-		<result property="content" column="CONTENT"/>
-		<result property="designerId" column="DESIGNER_ID"/>
-		<result property="updateTime" column="UPDATE_TIME"/>
-		<result property="clickCount" column="CLICK_COUNT"/>
-		<result property="archived" column="ARCHIVED"/>
-		<result property="type" column="TYPE"/>
-		<result property="reprinted" column="REPRINTED"/>
+		<result property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="pureContent" column="pure_content"/>
+		<result property="content" column="content"/>
+		<result property="designerId" column="designer_id"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="clickCount" column="click_count"/>
+		<result property="archived" column="archived"/>
+		<result property="type" column="type"/>
+		<result property="reprinted" column="reprinted"/>
 	</resultMap>
 
 	<select id="rankDesignerWithBlogCount" resultClass="int" parameterClass="int">

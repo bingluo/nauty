@@ -19,7 +19,7 @@
 		SELECT * FROM
         	(SELECT *
         	FROM activity_news
-    		ORDER BY update_time desc) a
+    		ORDER BY UPDATE_TIME desc) a
 		LIMIT 5
 		]]>
 	</select>
@@ -29,8 +29,8 @@
 		SELECT * FROM
         	(SELECT *
         	FROM activity_news
-			WHERE activity_id = #value#
-    		ORDER BY update_time desc) a
+			WHERE ACTIVITY_ID = #value#
+    		ORDER BY UPDATE_TIME desc) a
 		LIMIT 5
 		]]>
 	</select>
@@ -40,8 +40,8 @@
 		SELECT * FROM
         	(SELECT *
         	FROM activity_news
-			WHERE activity_id = #activityId#
-    		ORDER BY update_time desc) a
+			WHERE ACTIVITY_ID = #activityId#
+    		ORDER BY UPDATE_TIME desc) a
 		LIMIT #base#,#range#
 		]]>
 	</select>
@@ -50,7 +50,7 @@
 		<![CDATA[
         	SELECT count(id)
         	FROM activity_news
-			WHERE activity_id = #value#
+			WHERE ACTIVITY_ID = #value#
 		]]>
 	</select>
 	
@@ -58,8 +58,8 @@
 		<![CDATA[
         	SELECT *
         	FROM activity_news
-			WHERE activity_id = #value#
-    		ORDER BY update_time desc
+			WHERE ACTIVITY_ID = #value#
+    		ORDER BY UPDATE_TIME desc
 		]]>
 	</select>
 	
@@ -67,8 +67,8 @@
 		<![CDATA[
         	SELECT *
         	FROM activity_news
-			WHERE id = #value#
-    		ORDER BY update_time desc
+			WHERE ID = #value#
+    		ORDER BY UPDATE_TIME desc
 		]]>
 	</select>
 	
@@ -76,34 +76,34 @@
 		<![CDATA[
         	SELECT *
         	FROM activity_news
-			WHERE title LIKE concat("%", #value#, "%")
-    		ORDER BY update_time desc
+			WHERE TITLE LIKE concat("%", #value#, "%")
+    		ORDER BY UPDATE_TIME desc
 		]]>
 	</select>
 	
 	<insert id="insertActivityNews" parameterClass="baseActivityNews">		
 		<![CDATA[
         	INSERT INTO activity_news
-			(title,content,activity_id,update_time,post_user)
+			(TITLE,CONTENT,ACTIVITY_ID,UPDATE_TIME,POST_USER)
     		VALUES (#title#,#content#,#activityId#,current_timestamp(),#postUser#)
 		]]>
 	</insert>
 	
 	<delete id="deleteActivityNews" parameterClass="int">
 		<![CDATA[
-			delete from activity_news where id = #id#
+			delete from activity_news where ID = #id#
 		]]>
 	</delete>
 	
 	<update id="updateActivityNews" parameterClass="baseActivityNews">
 		<![CDATA[
 			UPDATE activity_news
-			SET title = #title#,
-			content = #content#,
-			activity_id = #activityId#,
-			update_time = current_timestamp(),
-			post_user = #postUser#
-			WHERE id = #id#
+			SET TITLE = #title#,
+			CONTENT = #content#,
+			ACTIVITY_ID = #activityId#,
+			UPDATE_TIME = current_timestamp(),
+			POST_USER = #postUser#
+			WHERE ID = #id#
 		]]>
 	</update>
 </sqlMap>

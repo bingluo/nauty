@@ -16,8 +16,8 @@
 		<![CDATA[
         	SELECT * 
         	FROM activity_application
-			WHERE activity_id = #value#
-    		ORDER BY apply_time asc
+			WHERE ACTIVITY_ID = #value#
+    		ORDER BY APPLY_TIME asc
 		]]>
 	</select>
 	
@@ -25,7 +25,7 @@
 		<![CDATA[
         	SELECT count(id) 
         	FROM activity_application
-			WHERE activity_id = #value#
+			WHERE ACTIVITY_ID = #value#
 		]]>
 	</select>
 	
@@ -33,21 +33,21 @@
 		<![CDATA[
         	SELECT * 
         	FROM activity_application
-			WHERE activity_id = #activityId# and user_id = #userId#
+			WHERE ACTIVITY_ID = #activityId# and USER_ID = #userId#
 		]]>
 	</select>
 	
 	<insert id="insertActivityApplication" parameterClass="java.util.Map">		
 		<![CDATA[
         	INSERT INTO activity_application
-			(user_id,activity_id,apply_time)
+			(USER_ID,ACTIVITY_ID,APPLY_TIME)
     		VALUES (#userId#,#activityId#,current_timestamp())
 		]]>
 	</insert>
 	
 	<delete id="deleteActivityApplication" parameterClass="java.util.Map">
 		<![CDATA[
-			delete from activity_application where user_id = #userId# and activity_id = #activityId#
+			delete from activity_application where USER_ID = #userId# and ACTIVITY_ID = #activityId#
 		]]>
 	</delete>
 </sqlMap>

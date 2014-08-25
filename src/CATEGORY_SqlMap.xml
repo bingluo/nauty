@@ -7,42 +7,42 @@
 	<typeAlias alias="category" type="cn.seu.cose.entity.CategoryPojo" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="CategoryResultMap" class="category">
-		<result property="id" column="ID"/>
-		<result property="catName" column="CAT_NAME"/>
-		<result property="catLevel" column="CAT_LEVEL"/>
-		<result property="parentCatId" column="PARENT_CAT_ID"/>
-		<result property="exclusiveArticle" column="EXCLUSIVE_ARTICLE"/>
-		<result property="uriName" column="URI_NAME"/>
-		<result property="type" column="TYPE"/>
+		<result property="id" column="id"/>
+		<result property="catName" column="cat_name"/>
+		<result property="catLevel" column="cat_level"/>
+		<result property="parentCatId" column="parent_cat_id"/>
+		<result property="exclusiveArticle" column="exclusive_article"/>
+		<result property="uriName" column="uri_name"/>
+		<result property="type" column="type"/>
 	</resultMap>
 
 	<select id="selectCategoryByParentCatId" resultMap="CategoryResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT * FROM CATEGORY WHERE parent_cat_id=#value#
+		SELECT * FROM category WHERE parent_cat_id=#value#
 		]]>
 	</select>
 	
 	<select id="selectCategoryById" resultMap="CategoryResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT * FROM CATEGORY WHERE id=#value# LIMIT 1;
+		SELECT * FROM category WHERE id=#value# LIMIT 1;
 		]]>
 	</select>
 	
 	<select id="selectCategoryByLevel" resultMap="CategoryResultMap" parameterClass="int">
 		<![CDATA[
-		SELECT * FROM CATEGORY WHERE cat_level=#value#
+		SELECT * FROM category WHERE cat_level=#value#
 		]]>
 	</select>
 	
 	<select id="selectRootCategories" resultMap="CategoryResultMap">
 		<![CDATA[
-		SELECT * FROM CATEGORY WHERE cat_level=1 ORDER BY id ASC
+		SELECT * FROM category WHERE cat_level=1 ORDER BY id ASC
 		]]>
 	</select>
 	
 	<select id="selectAllCats" resultMap="CategoryResultMap">
 		<![CDATA[
-		SELECT * FROM CATEGORY ORDER BY id ASC
+		SELECT * FROM category ORDER BY id ASC
 		]]>
 	</select>
 </sqlMap>

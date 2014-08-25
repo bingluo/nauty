@@ -17,8 +17,8 @@
 		<![CDATA[
         	SELECT *
         	FROM activity_photo
-			WHERE activity_id = #value#
-    		ORDER BY post_time desc
+			WHERE ACTIVITY_ID = #value#
+    		ORDER BY POST_TIME desc
 		]]>
 	</select>
 	
@@ -27,8 +27,8 @@
 		SELECT * FROM
         	(SELECT *
         	FROM activity_photo
-			WHERE activity_id = #value#
-    		ORDER BY post_time desc) a
+			WHERE ACTIVITY_ID = #value#
+    		ORDER BY POST_TIME desc) a
 		LIMIT 3
 		]]>
 	</select>
@@ -38,8 +38,8 @@
 		SELECT * FROM
         	(SELECT *
         	FROM activity_photo
-			WHERE activity_id = #activityId#
-    		ORDER BY post_time desc) a
+			WHERE ACTIVITY_ID = #activityId#
+    		ORDER BY POST_TIME desc) a
 		LIMIT #base#,#range#
 		]]>
 	</select>
@@ -48,7 +48,7 @@
 		<![CDATA[
         	SELECT count(id)
         	FROM activity_photo
-			WHERE activity_id = #activityId#
+			WHERE ACTIVITY_ID = #activityId#
 		]]>
 	</select>
 	
@@ -56,32 +56,32 @@
 		<![CDATA[
         	SELECT *
         	FROM activity_photo
-			WHERE id = #value#
+			WHERE ID = #value#
 		]]>
 	</select>
 	
 	<insert id="insertActivityPhoto" parameterClass="baseActivityPhoto">		
 		<![CDATA[
         	INSERT INTO activity_photo
-			(pic_uri,activity_id,intro,post_time)
+			(PIC_URI,ACTIVITY_ID,INTRO,POST_TIME)
     		VALUES (#picUri#,#activityId#,#intro#,current_timestamp())
 		]]>
 	</insert>
 	
 	<delete id="deleteActivityPhoto" parameterClass="int">
 		<![CDATA[
-			delete from activity_photo where id = #id#
+			delete from activity_photo where ID = #id#
 		]]>
 	</delete>
 	
 	<update id="updateActivityPhoto" parameterClass="baseActivityPhoto">
 		<![CDATA[
 			UPDATE activity_photo
-			SET pic_uri = #picUri#,
-			activity_id = #activityId#,
-			intro = #intro#,
-			post_time = current_timestamp()
-			WHERE id = #id#
+			SET PIC_URI = #picUri#,
+			ACTIVITY_ID = #activityId#,
+			INTRO = #intro#,
+			POST_TIME = current_timestamp()
+			WHERE ID = #id#
 		]]>
 	</update>
 </sqlMap>

@@ -6,14 +6,14 @@
 	<typeAlias alias="publication" type="cn.seu.cose.entity.PublicationPojo" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="PublicationResultMap" class="publication">
-		<result property="id" column="ID"/>
-		<result property="title" column="TITLE"/>
-		<result property="intro" column="INTRO" nullValue=""/>
-		<result property="images" column="IMAGES" nullValue=""/>
-		<result property="linkUrl" column="LINK_URL"/>
-		<result property="type" column="TYPE"/>
-		<result property="clickCounts" column="CLICK_COUNTS" />
-		<result property="postTime" column="POST_TIME" nullValue=""/>
+		<result property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="intro" column="intro" nullValue=""/>
+		<result property="images" column="images" nullValue=""/>
+		<result property="linkUrl" column="link_url"/>
+		<result property="type" column="type"/>
+		<result property="clickCounts" column="click_counts" />
+		<result property="postTime" column="post_time" nullValue=""/>
 	</resultMap>
 	
 	<select id="selectAllPublications" resultMap="PublicationResultMap">
@@ -108,7 +108,7 @@
 	
 	<delete id="deletePublication" parameterClass="int">
 		<![CDATA[
-		delete from PUBLICATION where ID = #value#
+		delete from publication where id = #value#
 		]]>
 	</delete>
 </sqlMap>

@@ -23,7 +23,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-			WHERE email != ''
+			WHERE EMAIL != ''
 		]]>
 	</select>	
 	
@@ -32,7 +32,7 @@
     		SELECT * FROM 
     			(SELECT * 
     			 FROM designer a
-    			 ORDER BY a.certificate_time DESC
+    			 ORDER BY CERTIFICATE_TIME DESC
     			) b
 			LIMIT #base#, #range#
 		]]>
@@ -51,8 +51,8 @@
     		SELECT * FROM 
     			(SELECT * 
     			 FROM designer a
-    			 WHERE a.certificated = #type#
-    			 ORDER BY a.certificate_time DESC
+    			 WHERE a.CERTIFICATED = #type#
+    			 ORDER BY a.CERTIFICATE_TIME DESC
     			) b
 			LIMIT #base#, #range#
 		]]>
@@ -62,7 +62,7 @@
 		<![CDATA[
     		SELECT COUNT(*)
     		FROM designer a
-    		WHERE a.certificated = #value#
+    		WHERE a.CERTIFICATED = #value#
 		]]>
 	</select>
 	
@@ -72,7 +72,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-			WHERE v_code = #value# AND v_email != ''; 
+			WHERE V_CODE = #value# AND V_EMAIL != ''; 
 		]]>
 	</select>	
 	
@@ -80,7 +80,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-			WHERE certificated = 1 AND email != ''
+			WHERE CERTIFICATED = 1 AND EMAIL != ''
 		]]>
 	</select>
 	
@@ -88,14 +88,14 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-			WHERE certificated = 0 AND email != ''
+			WHERE CERTIFICATED = 0 AND EMAIL != ''
 		]]>
 	</select>
 	<select id="selectDesignerById" resultMap="DesignerResultMap" parameterClass="int">
 		<![CDATA[
     		SELECT * 
     		FROM designer
-    		WHERE id = #value#
+    		WHERE ID = #value#
 		]]>
 	</select>
 	
@@ -103,7 +103,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-    		WHERE user_name = #value# AND email != ''
+    		WHERE USER_NAME = #value# AND EMAIL != ''
 		]]>
 	</select>
 	
@@ -111,7 +111,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-    		WHERE user_name = #userName# AND password = #password# AND email != ''
+    		WHERE USER_NAME = #userName# AND PASSWORD = #password# AND EMAIL != ''
 		]]>
 	</select>
 	
@@ -119,7 +119,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM designer
-    		WHERE user_name LIKE concat("%", #value#, "%") AND email != ''
+    		WHERE USER_NAME LIKE concat("%", #value#, "%") AND EMAIL != ''
 		]]>
 	</select>
 	
