@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="STATISTIC">
+	<!-- 为类型定义别名 -->
+	<typeAlias alias="statistic" type="cn.seu.cose.entity.Statistic" />
+	<!-- 定义resultMap,将query结果映射为bean -->
+	<resultMap id="StatisticResultMap" class="statistic">
+		<result property="name" column="name"/>
+		<result property="value" column="value"/>
+		<result property="description" column="description"/>
+	</resultMap>
+
+	<select id="selectAllStatistic" resultMap="StatisticResultMap">		
+		<![CDATA[
+    		SELECT * 
+    		FROM statistic
+		]]>
+	</select>
+	
+	<select id="selectStatisticByName" resultMap="StatisticResultMap" parameterClass="java.lang.String">
+		<![CDATA[
+    		SELECT * 
+    		FROM statistic
+    		WHERE name=#value#
+		]]>
+	</select>
+
+	<update id="updateStatistic" parameterClass="statistic">
+		<![CDATA[
+		UPDATE statistic
+		SET	value = #value#,
+			description = #description#
+		WHERE name = #name#
+		]]>
+	</update>
+
+	<update id="increaseByName" parameterClass="java.lang.String">
+		<![CDATA[
+		UPDATE statistic
+		SET	value = value+1
+		WHERE name = #name#
+		]]>
+	</update>
+</sqlMap>
