@@ -126,7 +126,7 @@
 
 	<update id="updateArticle" parameterClass="article">
 		<![CDATA[
-		UPDATE ARTICLE
+		UPDATE article
 		SET	title = #title#,
 			subhead = #subhead#,
 			content = #content#,
