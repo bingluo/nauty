@@ -3,6 +3,15 @@
 <!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
 #parse("common/head.vm")
+<style>
+	.flex-prev,.flex-next{
+		top:50%;
+	}
+	.flex-prev{
+		float:left;
+		left:20px;
+	}
+</style>
 <body>
 
 <!-- Content
