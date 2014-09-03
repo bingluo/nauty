@@ -46,6 +46,9 @@
 		<div class="post-meta" style="text-align:center;">
 			<span><i class="mini-ico-calendar"></i>$viewUtil.fTime("$!{work.updateTime}")</span>
 			<span><i class="mini-ico-comment"></i>评论 $!{totalCount}</span>
+			#if($curUser.id==$designer.id)
+				<span><i class="mini-ico-trash"></i><a href="#" class="deleteWorkBtn">删除</a></span>
+			#end
 		</div>
 		<div class="flexslider home">
 			<ul class="slides">
@@ -108,6 +111,19 @@
 <!-- Footer / End -->
 <script language="JavaScript">
 	$(document).ready(function(){
+		$(".deleteWorkBtn").click(function(){
+            var r=confirm("确定要删除作品吗？");
+            if (r==true){
+				$.ajax({
+					type: 'POST',
+					url: "$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works/$!{work.id}/dlt",
+					success: function( data ) {
+						location.href="$!{viewUtil.getContextPath()}/designer/$!{designer.id}/works";
+					}
+				});
+            }
+		});
+	
 		$("#signIn").click(function(){
 			location.href = "$!{viewUtil.getContextPath()}/sign-in";
 		});

@@ -73,6 +73,7 @@
 						<option value="7">设计营销</option>
 						<option value="8">作品赏析</option>
 						<option value="9">设计学堂</option>
+						<option value="10">创意论坛</option>
 					</select>
 				</div>
 				<div class="field">
