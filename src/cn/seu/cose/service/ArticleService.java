@@ -233,6 +233,7 @@ public class ArticleService {
 		return articleDAOImpl.getRejectArticlesList(s, e);
 	}
 
+	@CacheEvict(value = "articleCache", allEntries = true)
 	public void acceptArticle(ArticlePojo article) {
 		articleDAOImpl.acceptArticle(article);
 	}

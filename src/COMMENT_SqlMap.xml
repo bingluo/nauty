@@ -18,9 +18,9 @@
 		<![CDATA[
 		SELECT reference_id FROM
     		(SELECT reference_id, count(id) as ct
-    		FROM COMMENT
-    		WHERE comment_type=#type#
-			GROUP BY reference_id
+    		FROM comment
+    		WHERE COMMENT_TYPE=#type#
+			GROUP BY REFERENCE_ID
 			ORDER BY ct DESC) a
 		LIMIT #topN#;
 		]]>
@@ -28,25 +28,25 @@
 	<select id="selectCommentById" resultMap="CommentResultMap" parameterClass="int">
 		<![CDATA[
     		SELECT * 
-    		FROM COMMENT
-    		WHERE id=#value#
+    		FROM comment
+    		WHERE ID=#value#
 		]]>
 	</select>
 	
 	<select id="selectCommentByRefAndType" resultMap="CommentResultMap" parameterClass="java.util.Map">
 		<![CDATA[
     		SELECT * 
-    		FROM COMMENT
-    		WHERE reference_id=#referenceId# AND comment_type=#type#
-			ORDER BY comment_time DESC
+    		FROM comment
+    		WHERE REFERENCE_ID=#referenceId# AND COMMENT_TYPE=#type#
+			ORDER BY COMMENT_TIME DESC
 		]]>
 	</select>
 	
 	<select id="selectCommentCountViaRefAndType" resultClass="int" parameterClass="java.util.Map">
 		<![CDATA[
-    		SELECT count(id) 
-    		FROM COMMENT
-    		WHERE reference_id=#referenceId# AND comment_type=#type#
+    		SELECT count(ID) 
+    		FROM comment
+    		WHERE REFERENCE_ID=#referenceId# AND COMMENT_TYPE=#type#
 		]]>
 	</select>
 	
@@ -54,33 +54,33 @@
 		<![CDATA[
     		SELECT * FROM
         		(SELECT * 
-        		FROM COMMENT
-        		WHERE reference_id=#referenceId# AND comment_type=#type#
-    			ORDER BY comment_time DESC) a
+        		FROM comment
+        		WHERE REFERENCE_ID=#referenceId# AND COMMENT_TYPE=#type#
+    			ORDER BY COMMENT_TIME DESC) a
     		LIMIT #base#,#range#
 		]]>
 	</select>
 	
 	<insert id="insertComment" parameterClass="comment">
 		<![CDATA[
-    		INSERT INTO COMMENT
-    		(user_id,content,comment_time, reference_id,comment_type)
+    		INSERT INTO comment
+    		(USER_ID,CONTENT,COMMENT_TIME, REFERENCE_ID,COMMENT_TYPE)
     		VALUES (#userId#,#content#,current_timestamp(),#referenceId#,#commentType#)
     	]]>
 	</insert>
 
 	<update id="updateComment" parameterClass="comment">
 		<![CDATA[
-		UPDATE COMMENT
-		SET	content = #content#,
-			comment_time= current_timestamp()
-		WHERE id = #id#
+		UPDATE comment
+		SET	CONTENT = #content#,
+			COMMENT_TIME= current_timestamp()
+		WHERE ID = #id#
 		]]>
 	</update>
 	
 	<delete id="deleteComment" parameterClass="int">
 		<![CDATA[
-		DELETE FROM COMMENT WHERE id = #value#
+		DELETE FROM comment WHERE ID = #value#
 		]]>
 	</delete>
 	

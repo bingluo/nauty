@@ -192,6 +192,24 @@ public class DesignerCenterController extends AbstractController {
 		return "designer/viewWork";
 	}
 
+	@RequestMapping(value = "/designer/{designerId}/works/{workId}/dlt", method = RequestMethod.POST)
+	public void deleteWork(Model model,
+			@PathVariable("designerId") int designerId,
+			@PathVariable("workId") int workId, HttpServletResponse response) {
+		try {
+			WorkPojo work = workService.getWorkViaId(workId);
+			if (designerService.isTheSignInOne(designerId) && work != null
+					&& work.getUserId() == designerId) {
+				workService.deleteWork(workId);
+				response.getWriter().write("1");
+			} else {
+				response.getWriter().write("0");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@RequestMapping(value = "/sign-in", method = RequestMethod.GET)
 	public String signInPage(Model model, HttpServletResponse response)
 			throws IOException {

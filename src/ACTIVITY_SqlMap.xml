@@ -21,7 +21,7 @@
     		SELECT * FROM(
         		SELECT * 
         		FROM activity
-    			ORDER BY act_begin_time desc) a
+    			ORDER BY ACT_BEGIN_TIME desc) a
     		limit 5 
 		]]>
 	</select>
@@ -30,8 +30,8 @@
 		<![CDATA[
     		SELECT * 
     		FROM activity
-			WHERE current_timestamp() BETWEEN act_begin_time AND act_end_time
-			ORDER BY act_begin_time desc
+			WHERE current_timestamp() BETWEEN ACT_BEGIN_TIME AND ACT_END_TIME
+			ORDER BY ACT_BEGIN_TIME desc
 		]]>
 	</select>
 	
@@ -40,8 +40,8 @@
     		SELECT * FROM(
         		SELECT * 
         		FROM activity
-				WHERE act_begin_time<current_timestamp()
-    			ORDER BY act_begin_time desc) a
+				WHERE ACT_BEGIN_TIME<current_timestamp()
+    			ORDER BY ACT_BEGIN_TIME desc) a
     		limit 2 
 		]]>
 	</select>
@@ -50,8 +50,8 @@
 		<![CDATA[
     		SELECT *
     		FROM activity
-			WHERE current_timestamp() < act_begin_time
-			ORDER BY act_begin_time asc
+			WHERE current_timestamp() < ACT_BEGIN_TIME
+			ORDER BY ACT_BEGIN_TIME asc
 		]]>
 	</select>
 	
@@ -59,8 +59,8 @@
 		<![CDATA[
     		SELECT *
     		FROM activity
-			WHERE current_timestamp() > act_end_time
-			ORDER BY act_end_time desc
+			WHERE current_timestamp() > ACT_END_TIME
+			ORDER BY ACT_END_TIME desc
 		]]>
 	</select>
 	
@@ -68,13 +68,13 @@
 		<![CDATA[
     		SELECT * 
     		FROM activity
-			ORDER BY act_begin_time desc
+			ORDER BY ACT_BEGIN_TIME desc
 		]]>
 	</select>
 	
 	<select id="selectActivityCount" resultClass="int">	
 		<![CDATA[
-    		SELECT COUNT(id) 
+    		SELECT COUNT(ID) 
     		FROM activity
 		]]>
 	</select>
@@ -84,7 +84,7 @@
 		SELECT * FROM 
 			(SELECT *
     		FROM activity a
-    		ORDER BY a.act_begin_time DESC) b
+    		ORDER BY ACT_BEGIN_TIME DESC) b
 		limit #base#,#range#
 		]]>
 	</select>
@@ -93,7 +93,7 @@
 		<![CDATA[
     		SELECT * 
     		FROM activity
-			WHERE id = #value#
+			WHERE ID = #value#
 		]]>
 	</select>
 	
@@ -101,14 +101,14 @@
 		<![CDATA[
     		SELECT * 
     		FROM activity
-			WHERE title LIKE concat('%', #value#, '%')
+			WHERE TITLE LIKE concat('%', #value#, '%')
 		]]>
 	</select>
 	
 	<insert id="insertActivity" parameterClass="baseActivity">
 		<![CDATA[
     		INSERT INTO activity
-    			(title, intro, title_pic, app_begin_time, app_end_time, act_begin_time, act_end_time) 
+    			(TITLE, INTRO, TITLE_PIC, APP_BEGIN_TIME, APP_END_TIME, ACT_BEGIN_TIME, ACT_END_TIME) 
     		VALUES
     			(#title#,#intro#,#titlePic#,#appBeginTime#,#appEndTime#,#actBeginTime#,#actEndTime#)
 		]]>
@@ -117,20 +117,20 @@
 	<update id="updateActivity" parameterClass="baseActivity">
 		<![CDATA[
     		UPDATE activity
-    		SET	title = #title#,
-    			intro = #intro#,
-    			title_pic = #titlePic#,
-    			app_begin_time = #appBeginTime#,
-    			app_end_time = #appEndTime#,
-    			act_begin_time = #actBeginTime#,
-    			act_end_time = #actEndTime#
-    		WHERE id = #id#
+    		SET	TITLE = #title#,
+    			INTRO = #intro#,
+    			TITLE_PIC = #titlePic#,
+    			APP_BEGIN_TIME = #appBeginTime#,
+    			APP_END_TIME = #appEndTime#,
+    			ACT_BEGIN_TIME = #actBeginTime#,
+    			ACT_END_TIME = #actEndTime#
+    		WHERE ID = #id#
 		]]>
 	</update>
 	
 	<delete id="deleteActivityById" parameterClass="int">
 		<![CDATA[
-		delete from Activity where ID = #value#
+		delete from activity where ID = #value#
 		]]>
 	</delete>
 </sqlMap>

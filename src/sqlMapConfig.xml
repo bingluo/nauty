@@ -32,4 +32,6 @@
 	
 	<sqlMap resource="REPORTER_SqlMap.xml" />
 	<sqlMap resource="BLOG_SqlMap.xml" />
+	
+	<sqlMap resource="STATISTIC_SqlMap.xml" />
 </sqlMapConfig>

@@ -201,7 +201,7 @@ public class CatController extends AbstractController {
 
 		for (CategoryPojo categoryChild : cats) {
 			int type = categoryChild.getId() <= 45 ? categoryChild.getId() - 40
-					: categoryChild.getId() - 62;
+					: categoryChild.getId() - 57;
 			List<Blog> blogs = blogService.getBlogsByTypeAndPnAndPageSize(type,
 					1, 6);
 			categoryChild.setBlogs(blogs);
@@ -249,12 +249,12 @@ public class CatController extends AbstractController {
 		List<ArticlePojo> trains = articleService.getTrains();// 61
 		model.addAttribute("trains", trains);
 
-		int type = catId <= 45 ? catId - 40 : catId - 62;
+		int type = catId <= 45 ? catId - 40 : catId - 57;
 		List<Blog> blogs = blogService.getBlogsByTypeAndPnAndPageSize(type,
 				index, 10);
 		int blogCount = blogService.getBlogCountByType(type);
 		model.addAttribute("blogs", blogs);
-		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("pageIndex", index);
 		model.addAttribute("pageCount",
 				(int) Math.ceil((double) blogCount / 10));
 		model.addAttribute("blogCount", blogCount);

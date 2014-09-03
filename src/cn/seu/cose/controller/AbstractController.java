@@ -15,6 +15,7 @@ import cn.seu.cose.service.DesignerService;
 import cn.seu.cose.service.LinkService;
 import cn.seu.cose.service.ParameterService;
 import cn.seu.cose.service.PublicationService;
+import cn.seu.cose.service.StatisticService;
 import cn.seu.cose.util.Constant;
 
 public class AbstractController {
@@ -26,6 +27,8 @@ public class AbstractController {
 	private DesignerService designerService;
 	@Autowired
 	private LinkService linkService;
+	@Autowired
+	private StatisticService statisticService;
 
 	protected void basicIssue(Model model) {
 		List<CategoryPojo> cats = CategoryCache.getRootsWithChildren();
@@ -39,6 +42,13 @@ public class AbstractController {
 				Constant.PARAMETER_KEY_CONTACT).getParameterValue();
 		String gpslocation = parameterService.getParameterByKey(
 				Constant.PARAMETER_KEY_GPS_LOCATION).getParameterValue();
+
+		statisticService.IncreasePV();// page views increase here
+		long pageViews = statisticService.getPV();
+		long ips = statisticService.getIP();
+
+		model.addAttribute("pageViews", pageViews);
+		model.addAttribute("ips", ips);
 
 		List<Parameter> socialParameters = new ArrayList<Parameter>();
 		for (String socialName : Constant.PARAMETER_KEY_SOCIALS) {

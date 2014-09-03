@@ -6,30 +6,30 @@
 	<typeAlias alias="parameter" type="cn.seu.cose.entity.Parameter" />
 	<!-- 定义resultMap,将query结果映射为bean -->
 	<resultMap id="ParameterResultMap" class="parameter">
-		<result property="parameterKey" column="PARAMETER_KEY"/>
-		<result property="parameterName" column="PARAMETER_NAME"/>
-		<result property="parameterValue" column="PARAMETER_VALUE"/>
-		<result property="extra" column="EXTRA"/>
+		<result property="parameterKey" column="parameter_key"/>
+		<result property="parameterName" column="parameter_name"/>
+		<result property="parameterValue" column="parameter_value"/>
+		<result property="extra" column="extra"/>
 	</resultMap>
 
 	<select id="selectAllParameter" resultMap="ParameterResultMap">		
 		<![CDATA[
     		SELECT * 
-    		FROM PARAMETER
+    		FROM parameter
 		]]>
 	</select>
 	
 	<select id="selectParameterByKey" resultMap="ParameterResultMap" parameterClass="java.lang.String">
 		<![CDATA[
     		SELECT * 
-    		FROM PARAMETER
+    		FROM parameter
     		WHERE parameter_key=#value#
 		]]>
 	</select>
 
 	<update id="updateParameter" parameterClass="parameter">
 		<![CDATA[
-		UPDATE PARAMETER
+		UPDATE parameter
 		SET	parameter_value = #parameterValue#,
 			extra = #extra#
 		WHERE parameter_key = #parameterKey#

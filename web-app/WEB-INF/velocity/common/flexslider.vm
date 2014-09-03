@@ -1,6 +1,6 @@
 <div class="two-thirds column">
 	<section class="slider">
-		<div class="flexslider home" style="min-height:150px;border:1px solid #ddd;padding:4px">
+		<div class="flexslider home" style="min-height:343px;border:1px solid #ddd;padding:4px">
 			<ul class="slides" style="float:left;width:610px">
 				#foreach($slide in $slides)
 				<li>
